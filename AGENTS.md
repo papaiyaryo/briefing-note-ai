@@ -26,6 +26,10 @@ Do not mix facts, impressions, and web information.
 
 ## Development Phase
 
+Current Phase:
+
+* Phase 0: 設計・開発準備
+
 Follow GitHub Issues.
 
 Each Issue defines the current phase, scope, out of scope, and acceptance criteria.
@@ -55,8 +59,12 @@ Rules:
 * Do not push directly to `main`
 * Do not solve multiple Issues in one PR
 * Do not add MVP-out-of-scope features to MVP Issues
-* Before implementation, present a short plan and wait for approval
+* Before implementation, present a short plan
+* If the user explicitly says approval is not needed, proceed after presenting the plan
+* Otherwise, wait for approval before editing files
 * After implementation, run checks and self-review
+* PR title and body should be written in Japanese
+* Request GitHub Copilot review when creating a PR
 * Human decides final merge
 
 ---
@@ -84,7 +92,7 @@ Before editing files, report:
 * Risks / unclear points
 * Scope concerns
 
-Then stop and wait for approval.
+Then stop and wait for approval unless the user has explicitly said approval is not needed.
 
 ### 3. Implement after approval
 
@@ -128,6 +136,8 @@ Create a PR with:
 * Follow-up Tasks
 * Related Issue with `Closes #issue_number`
 
+Use Japanese for PR title and body.
+Request `@copilot` as a reviewer.
 Do not merge.
 
 ---
@@ -183,6 +193,7 @@ Do not create a separate Express backend unless an Issue explicitly requires it.
 * Do not commit `.env`
 * Commit `.env.example` only
 * Do not log uploaded images, OCR text, generated Markdown, or secrets unnecessarily
+* Do not use real OpenAI or Google Drive secrets in MVP Issues unless the selected Issue explicitly requires it
 
 ---
 
@@ -231,16 +242,18 @@ After PR creation:
 
 ## Documentation
 
-Main docs:
+Current docs:
 
 * `docs/product.md`
 * `docs/requirements.md`
 * `docs/user-flow.md`
-* `docs/output-format.md`
 * `docs/architecture.md`
-* `docs/roadmap.md`
-* `docs/ui-spec.md`
 * `docs/generated-issues/`
+
+Phase 0 docs being prepared:
+
+* `docs/output-format.md`
+* `docs/roadmap.md`
 
 Keep docs consistent with implementation.
 
