@@ -1,65 +1,65 @@
-# Output Format
+# Markdown 出力形式
 
-## Purpose
+## 目的
 
-This document defines the Markdown structure generated from company briefing notes.
-The output must stay editable by the user and useful for company research, entry sheet writing, interview preparation, and follow-up questions.
+このドキュメントは、企業説明会メモから生成する Markdown の構造を定義する。
+出力はユーザーが編集しやすく、企業研究、ES 作成、面接準備、追加質問の整理に再利用できる形にする。
 
-## Core Rule
+## 基本原則
 
-Generated Markdown must separate these categories:
+生成 Markdown では、次の情報を必ず分けて扱う。
 
-- Facts from the briefing
-- Personal impressions
-- Points emphasized by HR or employees
-- Questions to ask later
-- ES / interview usable points
-- Web-derived supplemental information
+- 説明会で得た事実
+- 自分の印象・感じたこと
+- HR・社員が強調していた点
+- 次に聞きたい質問
+- ES・面接で使えそうな材料
+- Web 由来の補足情報
 
-Do not mix facts, impressions, and web information in the same section.
-If a detail is not present in the note or OCR text, write `要確認` instead of inventing it.
+事実、印象、Web 情報を同じセクションに混ぜない。
+メモや OCR 結果から確認できない内容は断定せず、`要確認` または `不明` と書く。
 
-## Basic Template
+## 基本テンプレート
 
 ```markdown
-# {{companyName}}
+# {{企業名}}
 
 ## 説明会概要
-- 企業名: {{companyNameOrUnknown}}
-- イベント名: {{eventNameOrUnknown}}
-- 日時: {{dateOrUnknown}}
-- 登壇者: {{speakerOrUnknown}}
-- メモ元画像: {{imageFileName}}
+- 企業名: {{企業名または要確認}}
+- イベント名: {{イベント名または要確認}}
+- 日時: {{日時または要確認}}
+- 登壇者: {{登壇者または要確認}}
+- メモ元画像: {{画像ファイル名}}
 
 ## 説明会で得た事実
-- {{factFromBriefing}}
+- {{説明会メモから確認できる事実}}
 
 ## HR・社員が強調していた点
-- {{emphasizedPoint}}
+- {{HR または社員が強調していた内容}}
 
 ## 事業内容
-- {{businessContent}}
+- {{説明会メモに基づく事業内容}}
 
 ## 強み・特徴
-- {{strengthOrFeature}}
+- {{説明会メモに基づく強みや特徴}}
 
 ## 求める人物像
-- {{candidateProfile}}
+- {{説明会で言及された人物像}}
 
 ## 自分の印象・感じたこと
-- {{personalImpression}}
+- {{ユーザー個人の印象}}
 
 ## 気になった点・懸念
-- {{concernOrObservation}}
+- {{気になった点、違和感、確認したい懸念}}
 
 ## 次に聞きたい質問
-- {{followUpQuestion}}
+- {{説明会後や面接で聞きたい質問}}
 
 ## ES・面接で使えそうな材料
-- {{usablePointForApplication}}
+- {{志望理由、自己PR、逆質問などに使えそうな材料}}
 
 ## 次に調べること
-- {{researchTodo}}
+- {{追加で調べるべきこと}}
 
 ## Web 補足情報
 - MVP では未使用
@@ -67,89 +67,88 @@ If a detail is not present in the note or OCR text, write `要確認` instead of
 
 ## 元メモからの抜粋
 ```text
-{{ocrTextExcerpt}}
+{{OCR テキストの抜粋}}
 ```
 ```
 
-## Section Guidelines
+## セクション別ルール
 
 ### 説明会概要
 
-Brief metadata about the briefing or event.
-If the company name, event name, date, or speaker cannot be read from the note, use `要確認`.
+説明会やイベントに関する基本情報を書く。
+企業名、イベント名、日時、登壇者が読み取れない場合は `要確認` とする。
 
 ### 説明会で得た事実
 
-Only include information that appears in the briefing note or OCR result.
-Examples include business areas, hiring information, office locations, selection steps, and numeric facts.
+説明会メモまたは OCR 結果に書かれている情報だけを書く。
+事業領域、採用情報、勤務地、選考フロー、数値情報などを含める。
 
 ### HR・社員が強調していた点
 
-Use this section for messages that were explicitly emphasized by HR, recruiters, or employees.
-Do not rewrite personal interpretation as if it were an official statement.
+HR、採用担当、社員が明確に強調していた内容を書く。
+自分の解釈を公式発言のように書かない。
 
 ### 事業内容
 
-Summarize business content from the briefing note.
-Unknown business details should be marked as `要確認`.
+説明会メモから読み取れる事業内容を整理する。
+読み取れない事業内容は推測せず `要確認` とする。
 
 ### 強み・特徴
 
-List strengths or characteristics presented in the briefing.
-If the note only suggests a possible strength, phrase it cautiously and mark uncertainty.
+説明会で示された強みや特徴を書く。
+断定できない場合は、断定表現を避けて `要確認` を付ける。
 
 ### 求める人物像
 
-List candidate traits, skills, values, or behaviors mentioned in the briefing.
-Do not infer a desired profile only from the company's industry.
+説明会で言及された価値観、スキル、行動特性を書く。
+業界イメージだけで人物像を推測しない。
 
 ### 自分の印象・感じたこと
 
-Keep personal reactions separate from facts.
-This section may include interest, concern, motivation, or fit with the user's values.
+ユーザー個人の反応を書く。
+興味、懸念、共感、自分との相性などは事実セクションと分ける。
 
 ### 気になった点・懸念
 
-Use this section for unclear points, concerns, contradictions, or topics that need verification.
+曖昧な点、矛盾して見える点、追加確認したい点を書く。
 
 ### 次に聞きたい質問
 
-List questions for later company events, interviews, or follow-up research.
-Questions should be concrete enough to reuse.
+今後の説明会、面接、OB/OG 訪問などで聞きたい質問を書く。
+後からそのまま使える具体度にする。
 
 ### ES・面接で使えそうな材料
 
-Extract points that may help with entry sheets, motivation statements, self-PR, or interview answers.
-These should be based on facts, emphasized points, or personal impressions already separated above.
+志望理由、自己 PR、面接回答、逆質問に使えそうな材料を書く。
+このセクションの内容は、上の事実、強調点、印象に根拠を持たせる。
 
 ### 次に調べること
 
-List research tasks that can be done after the briefing.
-Examples include checking the official hiring page, reading business segment pages, or confirming selection details.
+説明会後に調べる作業を書く。
+公式採用ページ、事業紹介ページ、選考情報などの確認を想定する。
 
 ### Web 補足情報
 
-MVP does not generate web-derived supplemental information.
-When this feature is added after MVP, every item must include a source URL and retrieval date.
-Web information must not be merged into briefing facts.
+MVP では Web 補足情報を生成しない。
+Post-MVP で追加する場合は、出典 URL と取得日を必ず残し、説明会で得た事実とは分離する。
 
 ### 元メモからの抜粋
 
-Keep an excerpt of the OCR text so users can trace generated Markdown back to the original note.
-Do not include sensitive content in logs or unnecessary external outputs.
+生成結果の根拠を追えるように、OCR テキストの抜粋を残す。
+画像内容、OCR 全文、生成 Markdown、個人情報を不要にログへ出さない。
 
-## Handling Uncertainty
+## 不確実な情報の扱い
 
-Use these labels consistently:
+次の表記を使い分ける。
 
-- `要確認`: The note suggests the item, but it is not clear enough to state as fact.
-- `不明`: The item is not present in the note or OCR result.
-- `未使用`: The feature or section is intentionally unused in the current MVP flow.
+- `要確認`: メモから可能性は読み取れるが、断定できない
+- `不明`: メモや OCR 結果に情報がない
+- `未使用`: 現在の MVP フローでは使わない
 
-## MVP Output Requirements
+## MVP の出力要件
 
-- The Markdown must be plain text and editable by the user.
-- The file must be downloadable as `.md`.
-- The structure must support company research, ES writing, interview preparation, and follow-up questions.
-- The output must not invent company facts.
-- Web-derived information must remain empty or explicitly marked as unused in MVP.
+- Markdown はプレーンテキストで、ユーザーが編集できること
+- `.md` ファイルとしてダウンロードできること
+- 企業研究、ES 作成、面接準備、追加質問の整理に使える構造であること
+- 企業情報を捏造しないこと
+- Web 由来の情報は MVP では空、または未使用として明示すること
