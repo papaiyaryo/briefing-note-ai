@@ -1,0 +1,15 @@
+.next
+node_modules
+coverage
+dist
+out
+package-lock.json
+next-env.d.ts
+tsconfig.tsbuildinfo
+.github
+.vscode
+AGENTS.md
+docs
+.env
+.env.*
+!.env.example
