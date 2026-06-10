@@ -14,6 +14,7 @@
 - [ ] `npm run typecheck`
 - [ ] `npm test`
 - [ ] `npm run build`
+- [ ] `git diff --cached --check`
 
 ## スコープ外
 
