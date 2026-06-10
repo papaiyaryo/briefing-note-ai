@@ -74,6 +74,21 @@ http://localhost:3000/api/health
 }
 ```
 
+### Code Quality
+
+ローカルでは以下のコマンドで lint と整形ルールを確認します。
+
+```bash
+npm run lint
+npm run format:check
+```
+
+整形を適用する場合は以下を使います。
+
+```bash
+npm run format
+```
+
 ## CI
 
 GitHub Actions の最小 CI は、Pull Request 作成時と `main` ブランチへの push 時に実行されます。
@@ -85,6 +100,14 @@ npm run lint
 npm run typecheck
 npm test
 npm run build
+```
+
+## Testing
+
+単体テストは Vitest を使います。共通ロジックのテストは `tests/**/*.test.ts` に置き、CI と同じく以下で実行します。
+
+```bash
+npm test
 ```
 
 デプロイ、OpenAI API、Google Drive API、GitHub Secrets はまだ CI では扱いません。
