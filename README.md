@@ -73,3 +73,18 @@ http://localhost:3000/api/health
   "timestamp": "2026-06-10T00:00:00.000Z"
 }
 ```
+
+## CI
+
+GitHub Actions の最小 CI は、Pull Request 作成時と `main` ブランチへの push 時に実行されます。
+
+CI では lockfile から npm / pnpm / yarn を判定し、このリポジトリでは `package-lock.json` に合わせて `npm ci` を使います。その後、以下を順に確認します。
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+デプロイ、OpenAI API、Google Drive API、GitHub Secrets はまだ CI では扱いません。
