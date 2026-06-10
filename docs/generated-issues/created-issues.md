@@ -1,0 +1,52 @@
+# Created GitHub Issues
+
+- [[Phase 0] 設計ドキュメントの不足分を整備する](https://github.com/papaiyaryo/briefing-note-ai/issues/1) - 00-01-設計ドキュメントの不足分を整備する.md
+- [[Phase 0] AGENTS.md を現在の開発フェーズに合わせて更新する](https://github.com/papaiyaryo/briefing-note-ai/issues/2) - 00-02-agents-md-を現在の開発フェーズに合わせて更新する.md
+- [[Phase 0] 開発用 GitHub Issue 一覧を生成する](https://github.com/papaiyaryo/briefing-note-ai/issues/3) - 00-03-開発用-github-issue-一覧を生成する.md
+- [[Phase 0] PR テンプレートを作成する](https://github.com/papaiyaryo/briefing-note-ai/issues/4) - 00-04-pr-テンプレートを作成する.md
+- [[Phase 0] GitHub Actions / CI 方針を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/5) - 00-05-github-actions-ci-方針を整理する.md
+- [[Phase 1] Next.js + TypeScript の最小構成を整備する](https://github.com/papaiyaryo/briefing-note-ai/issues/6) - 01-01-next-js-typescript-の最小構成を整備する.md
+- [[Phase 1] Dockerfile と docker-compose.yml を整備する](https://github.com/papaiyaryo/briefing-note-ai/issues/7) - 01-02-dockerfile-と-docker-compose-yml-を整備する.md
+- [[Phase 1] ESLint / Prettier を設定する](https://github.com/papaiyaryo/briefing-note-ai/issues/8) - 01-03-eslint-prettier-を設定する.md
+- [[Phase 1] Tailwind CSS を設定する](https://github.com/papaiyaryo/briefing-note-ai/issues/9) - 01-04-tailwind-css-を設定する.md
+- [[Phase 1] Vitest のテスト基盤を整備する](https://github.com/papaiyaryo/briefing-note-ai/issues/10) - 01-05-vitest-のテスト基盤を整備する.md
+- [[Phase 1] README に Docker 起動手順を追加する](https://github.com/papaiyaryo/briefing-note-ai/issues/11) - 01-06-readme-に-docker-起動手順を追加する.md
+- [[Phase 2] Figma MCP セットアップ手順を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/12) - 02-01-figma-mcp-セットアップ手順を整理する.md
+- [[Phase 2] Figma で MVP UI デザインを作成する](https://github.com/papaiyaryo/briefing-note-ai/issues/13) - 02-02-figma-で-mvp-ui-デザインを作成する.md
+- [[Phase 2] Figma MCP から MVP UI 仕様を取得する](https://github.com/papaiyaryo/briefing-note-ai/issues/14) - 02-03-figma-mcp-から-mvp-ui-仕様を取得する.md
+- [[Phase 2] MVP デザインシステム方針を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/15) - 02-04-mvp-デザインシステム方針を整理する.md
+- [[Phase 3] MVP 画面レイアウトとステップ導線を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/16) - 03-01-mvp-画面レイアウトとステップ導線を実装する.md
+- [[Phase 3] 画像アップロード UI を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/17) - 03-02-画像アップロード-ui-を実装する.md
+- [[Phase 3] 企業名・イベント情報入力 UI を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/18) - 03-03-企業名-イベント情報入力-ui-を実装する.md
+- [[Phase 3] OCR 結果表示 UI を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/19) - 03-04-ocr-結果表示-ui-を実装する.md
+- [[Phase 3] Markdown 編集・プレビュー UI を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/20) - 03-05-markdown-編集-プレビュー-ui-を実装する.md
+- [[Phase 3] エラー・空状態・ローディング状態を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/21) - 03-06-エラー-空状態-ローディング状態を実装する.md
+- [[Phase 4] CompanyMemo 型定義とデータ境界を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/22) - 04-01-companymemo-型定義とデータ境界を実装する.md
+- [[Phase 4] Markdown 生成ロジックを UI から分離して実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/23) - 04-02-markdown-生成ロジックを-ui-から分離して実装する.md
+- [[Phase 4] ダミー OCR フローを実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/24) - 04-03-ダミー-ocr-フローを実装する.md
+- [[Phase 4] .md ダウンロード機能とファイル名生成を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/25) - 04-04-md-ダウンロード機能とファイル名生成を実装する.md
+- [[Phase 4] サンプルデータとデモ用入力を整備する](https://github.com/papaiyaryo/briefing-note-ai/issues/26) - 04-05-サンプルデータとデモ用入力を整備する.md
+- [[Phase 5] Markdown 生成ロジックの単体テストを追加する](https://github.com/papaiyaryo/briefing-note-ai/issues/27) - 05-01-markdown-生成ロジックの単体テストを追加する.md
+- [[Phase 5] UI コンポーネントの基本テストを追加する](https://github.com/papaiyaryo/briefing-note-ai/issues/28) - 05-02-ui-コンポーネントの基本テストを追加する.md
+- [[Phase 5] E2E テスト方針を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/29) - 05-03-e2e-テスト方針を整理する.md
+- [[Phase 5] セキュリティ・プライバシー確認を実施する](https://github.com/papaiyaryo/briefing-note-ai/issues/30) - 05-04-セキュリティ-プライバシー確認を実施する.md
+- [[Phase 5] MVP セルフレビューと README 更新を行う](https://github.com/papaiyaryo/briefing-note-ai/issues/31) - 05-05-mvp-セルフレビューと-readme-更新を行う.md
+- [[Phase 5] MVP デモ用スクリーンショットを追加する](https://github.com/papaiyaryo/briefing-note-ai/issues/32) - 05-06-mvp-デモ用スクリーンショットを追加する.md
+- [[Phase 6] OpenAI API 連携設計とサーバー側境界を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/33) - 06-01-openai-api-連携設計とサーバー側境界を整理する.md
+- [[Phase 6] OCR / Vision API 接続を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/34) - 06-02-ocr-vision-api-接続を実装する.md
+- [[Phase 6] Structured Outputs / JSON Schema を定義する](https://github.com/papaiyaryo/briefing-note-ai/issues/35) - 06-03-structured-outputs-json-schema-を定義する.md
+- [[Phase 6] OpenAI API のエラーハンドリング・コスト・ログ方針を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/36) - 06-04-openai-api-のエラーハンドリング-コスト-ログ方針を実装する.md
+- [[Phase 7] Google Cloud Project / OAuth 設定手順を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/37) - 07-01-google-cloud-project-oauth-設定手順を整理する.md
+- [[Phase 7] Google ログインと Drive API 境界を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/38) - 07-02-google-ログインと-drive-api-境界を実装する.md
+- [[Phase 7] 企業名フォルダ作成と Markdown 保存を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/39) - 07-03-企業名フォルダ作成と-markdown-保存を実装する.md
+- [[Phase 7] 元画像保存と Drive 保存エラーハンドリングを実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/40) - 07-04-元画像保存と-drive-保存エラーハンドリングを実装する.md
+- [[Phase 8] Web 補足機能の仕様と取得方針を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/41) - 08-01-web-補足機能の仕様と取得方針を整理する.md
+- [[Phase 8] 出典付き Web 補足情報の取得・生成を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/42) - 08-02-出典付き-web-補足情報の取得-生成を実装する.md
+- [[Phase 8] Web 補足の確認 UI と Markdown 統合を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/43) - 08-03-web-補足の確認-ui-と-markdown-統合を実装する.md
+- [[Phase 9] 企業比較用データ構造を設計する](https://github.com/papaiyaryo/briefing-note-ai/issues/44) - 09-01-企業比較用データ構造を設計する.md
+- [[Phase 9] 企業比較テーブルと志望度メモ機能を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/45) - 09-02-企業比較テーブルと志望度メモ機能を実装する.md
+- [[Phase 9] 面接前復習モードと ES 接続ポイント生成を実装する](https://github.com/papaiyaryo/briefing-note-ai/issues/46) - 09-03-面接前復習モードと-es-接続ポイント生成を実装する.md
+- [[Phase 10] README をポートフォリオ向けに整備する](https://github.com/papaiyaryo/briefing-note-ai/issues/47) - 10-01-readme-をポートフォリオ向けに整備する.md
+- [[Phase 10] 技術構成図と AI 駆動開発フローを記録する](https://github.com/papaiyaryo/briefing-note-ai/issues/48) - 10-02-技術構成図と-ai-駆動開発フローを記録する.md
+- [[Phase 10] Figma デザインリンクとデモ動画 / GIF を追加する](https://github.com/papaiyaryo/briefing-note-ai/issues/49) - 10-03-figma-デザインリンクとデモ動画-gif-を追加する.md
+- [[Phase 10] Copilot PR Review と Codex 開発ログ運用を整理する](https://github.com/papaiyaryo/briefing-note-ai/issues/50) - 10-04-copilot-pr-review-と-codex-開発ログ運用を整理する.md
