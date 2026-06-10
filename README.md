@@ -102,4 +102,12 @@ npm test
 npm run build
 ```
 
+## Testing
+
+単体テストは Vitest を使います。共通ロジックのテストは `tests/**/*.test.ts` に置き、CI と同じく以下で実行します。
+
+```bash
+npm test
+```
+
 デプロイ、OpenAI API、Google Drive API、GitHub Secrets はまだ CI では扱いません。
