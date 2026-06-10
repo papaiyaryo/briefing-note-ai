@@ -4,7 +4,7 @@
 
 ## Status
 
-現在は設計ドキュメント作成フェーズです。React 実装はまだ開始していません。
+現在は Docker 開発環境構築フェーズです。OCR、OpenAI API、Google Drive API、画像アップロード、Markdown 生成はまだ実装していません。
 
 ## MVP
 
@@ -28,3 +28,48 @@
 - [Requirements](docs/requirements.md)
 - [User Flow](docs/user-flow.md)
 - [Architecture](docs/architecture.md)
+
+## Development
+
+### Prerequisites
+
+- Docker
+- Docker Compose
+
+### Environment Variables
+
+開発用の環境変数は `.env.example` を参考にします。実際の API キーや認証情報は `.env` に置き、コミットしないでください。
+
+```bash
+cp .env.example .env
+```
+
+現時点では OpenAI API と Google Drive API には接続しないため、秘密情報の実値は不要です。
+
+### Start with Docker
+
+```bash
+docker compose up --build
+```
+
+アプリは以下で確認できます。
+
+```text
+http://localhost:3000
+```
+
+サーバー側 API Route のヘルスチェックは以下で確認できます。
+
+```text
+http://localhost:3000/api/health
+```
+
+期待するレスポンス例:
+
+```json
+{
+  "status": "ok",
+  "service": "briefing-note-ai",
+  "timestamp": "2026-06-10T00:00:00.000Z"
+}
+```
