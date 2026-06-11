@@ -18,6 +18,7 @@ export function BriefingNoteFlow() {
   const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
     null,
   );
+  const [ocrText, setOcrText] = useState("");
 
   const handleSelectImage = (image: SelectedImage) => {
     if (selectedImage && selectedImage.previewUrl !== image.previewUrl) {
@@ -54,7 +55,13 @@ export function BriefingNoteFlow() {
           />
         )}
         {currentStepId === "ocr" && (
-          <OcrReviewStep onBack={goBack} onNext={goNext} />
+          <OcrReviewStep
+            selectedImage={selectedImage}
+            ocrText={ocrText}
+            onChangeOcrText={setOcrText}
+            onBack={goBack}
+            onNext={goNext}
+          />
         )}
         {currentStepId === "markdown" && <MarkdownEditStep onBack={goBack} />}
       </div>
