@@ -41,7 +41,7 @@ Target nodes:
 - Markdown editor step: <node-id>
 ```
 
-Figma URL から取得できる `file-key` と `node-id` は、認証情報ではない。
+Figma URL から取得できる `file key` と `node-id` は、認証情報ではない。
 ただし、非公開プロジェクトの構成情報を含む可能性があるため、公開範囲には注意する。
 
 ## セットアップ手順
