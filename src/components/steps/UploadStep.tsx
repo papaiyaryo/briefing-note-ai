@@ -9,17 +9,25 @@ import {
   type SelectedImage,
   type UploadValidationError,
 } from "../../lib/upload";
+import { type CompanyEventInfo } from "../../lib/markdown";
 import { Button } from "../Button";
+
+const textInputClassName =
+  "w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700";
 
 interface UploadStepProps {
   selectedImage: SelectedImage | null;
   onSelectImage: (image: SelectedImage) => void;
+  companyEventInfo: CompanyEventInfo;
+  onChangeCompanyEventInfo: (info: CompanyEventInfo) => void;
   onNext: () => void;
 }
 
 export function UploadStep({
   selectedImage,
   onSelectImage,
+  companyEventInfo,
+  onChangeCompanyEventInfo,
   onNext,
 }: UploadStepProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -134,6 +142,77 @@ export function UploadStep({
           </Button>
         </div>
       )}
+      <fieldset className="space-y-4">
+        <legend className="text-sm font-medium text-slate-900">
+          企業・説明会情報(任意)
+        </legend>
+        <p className="text-sm text-slate-500">
+          Markdown
+          生成に使います。未入力の項目は「要確認」として出力され、未入力のままでも先に進めます。
+        </p>
+        <div className="space-y-1">
+          <label
+            htmlFor="company-name-input"
+            className="text-sm font-medium text-slate-900"
+          >
+            企業名
+          </label>
+          <input
+            id="company-name-input"
+            type="text"
+            value={companyEventInfo.companyName}
+            onChange={(event) =>
+              onChangeCompanyEventInfo({
+                ...companyEventInfo,
+                companyName: event.target.value,
+              })
+            }
+            placeholder="例: サンプル株式会社"
+            className={textInputClassName}
+          />
+        </div>
+        <div className="space-y-1">
+          <label
+            htmlFor="event-name-input"
+            className="text-sm font-medium text-slate-900"
+          >
+            イベント名
+          </label>
+          <input
+            id="event-name-input"
+            type="text"
+            value={companyEventInfo.eventName}
+            onChange={(event) =>
+              onChangeCompanyEventInfo({
+                ...companyEventInfo,
+                eventName: event.target.value,
+              })
+            }
+            placeholder="例: 夏季インターン説明会"
+            className={textInputClassName}
+          />
+        </div>
+        <div className="space-y-1">
+          <label
+            htmlFor="event-date-input"
+            className="text-sm font-medium text-slate-900"
+          >
+            説明会日
+          </label>
+          <input
+            id="event-date-input"
+            type="date"
+            value={companyEventInfo.eventDate}
+            onChange={(event) =>
+              onChangeCompanyEventInfo({
+                ...companyEventInfo,
+                eventDate: event.target.value,
+              })
+            }
+            className={textInputClassName}
+          />
+        </div>
+      </fieldset>
       <div className="flex justify-end">
         <Button onClick={onNext} disabled={!selectedImage}>
           OCR を実行する

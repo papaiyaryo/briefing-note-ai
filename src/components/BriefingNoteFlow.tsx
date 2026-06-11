@@ -7,7 +7,11 @@ import {
   getPreviousStepId,
   type StepId,
 } from "../lib/flow";
-import { buildMarkdownTemplate } from "../lib/markdown";
+import {
+  EMPTY_COMPANY_EVENT_INFO,
+  buildMarkdownTemplate,
+  type CompanyEventInfo,
+} from "../lib/markdown";
 import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
@@ -21,6 +25,9 @@ export function BriefingNoteFlow() {
   );
   const [ocrText, setOcrText] = useState("");
   const [markdownText, setMarkdownText] = useState("");
+  const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
+    EMPTY_COMPANY_EVENT_INFO,
+  );
 
   // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
   useEffect(() => {
@@ -43,6 +50,9 @@ export function BriefingNoteFlow() {
     if (markdownText.trim() === "") {
       setMarkdownText(
         buildMarkdownTemplate({
+          companyName: companyEventInfo.companyName,
+          eventName: companyEventInfo.eventName,
+          eventDate: companyEventInfo.eventDate,
           ocrText,
           imageFileName: selectedImage?.file.name,
         }),
@@ -70,6 +80,8 @@ export function BriefingNoteFlow() {
           <UploadStep
             selectedImage={selectedImage}
             onSelectImage={setSelectedImage}
+            companyEventInfo={companyEventInfo}
+            onChangeCompanyEventInfo={setCompanyEventInfo}
             onNext={goNext}
           />
         )}
