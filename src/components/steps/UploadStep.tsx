@@ -11,6 +11,7 @@ import {
 } from "../../lib/upload";
 import { type CompanyEventInfo } from "../../lib/markdown";
 import { Button } from "../Button";
+import { ErrorNotice } from "../ErrorNotice";
 
 const textInputClassName =
   "w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700";
@@ -20,6 +21,7 @@ interface UploadStepProps {
   onSelectImage: (image: SelectedImage) => void;
   companyEventInfo: CompanyEventInfo;
   onChangeCompanyEventInfo: (info: CompanyEventInfo) => void;
+  isOcrRunning: boolean;
   onNext: () => void;
 }
 
@@ -28,6 +30,7 @@ export function UploadStep({
   onSelectImage,
   companyEventInfo,
   onChangeCompanyEventInfo,
+  isOcrRunning,
   onNext,
 }: UploadStepProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -82,14 +85,7 @@ export function UploadStep({
           紙の企業説明会メモを撮影した画像を 1 枚選択します。
         </p>
       </div>
-      {error && (
-        <p
-          role="alert"
-          className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600"
-        >
-          {getUploadErrorMessage(error)}
-        </p>
-      )}
+      {error && <ErrorNotice>{getUploadErrorMessage(error)}</ErrorNotice>}
       <label htmlFor="memo-image-input" className="sr-only">
         メモ画像を選択
       </label>
@@ -214,8 +210,8 @@ export function UploadStep({
         </div>
       </fieldset>
       <div className="flex justify-end">
-        <Button onClick={onNext} disabled={!selectedImage}>
-          OCR を実行する
+        <Button onClick={onNext} disabled={!selectedImage || isOcrRunning}>
+          {isOcrRunning ? "OCR を実行しています…" : "OCR を実行する"}
         </Button>
       </div>
     </section>

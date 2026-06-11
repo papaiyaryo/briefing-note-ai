@@ -1,10 +1,13 @@
 import { type SelectedImage } from "../../lib/upload";
 import { Button } from "../Button";
+import { ErrorNotice } from "../ErrorNotice";
 
 interface OcrReviewStepProps {
   selectedImage: SelectedImage | null;
   ocrText: string;
   onChangeOcrText: (text: string) => void;
+  hasOcrError: boolean;
+  isGeneratingMarkdown: boolean;
   onBack: () => void;
   onNext: () => void;
 }
@@ -13,6 +16,8 @@ export function OcrReviewStep({
   selectedImage,
   ocrText,
   onChangeOcrText,
+  hasOcrError,
+  isGeneratingMarkdown,
   onBack,
   onNext,
 }: OcrReviewStepProps) {
@@ -29,6 +34,13 @@ export function OcrReviewStep({
           生成に進みます。
         </p>
       </div>
+      {hasOcrError && (
+        <ErrorNotice>
+          OCR
+          に失敗しました。画像が暗い、ぼやけている、文字が小さい可能性があります。OCR
+          を再実行するか、アップロードに戻って画像を選び直してください。
+        </ErrorNotice>
+      )}
       <div className="flex flex-col gap-6 md:flex-row">
         <div className="md:w-56 md:shrink-0">
           {selectedImage ? (
@@ -78,8 +90,13 @@ export function OcrReviewStep({
             OCR を再実行
           </Button>
         </div>
-        <Button onClick={onNext} disabled={isOcrTextEmpty}>
-          Markdown を生成する
+        <Button
+          onClick={onNext}
+          disabled={isOcrTextEmpty || isGeneratingMarkdown}
+        >
+          {isGeneratingMarkdown
+            ? "Markdown を生成しています…"
+            : "Markdown を生成する"}
         </Button>
       </div>
     </section>

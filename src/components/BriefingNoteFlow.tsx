@@ -28,6 +28,10 @@ export function BriefingNoteFlow() {
   const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
     EMPTY_COMPANY_EVENT_INFO,
   );
+  const [isOcrRunning, setIsOcrRunning] = useState(false);
+  const [isGeneratingMarkdown, setIsGeneratingMarkdown] = useState(false);
+  const [hasOcrError, setHasOcrError] = useState(false);
+  const [hasGenerationError, setHasGenerationError] = useState(false);
 
   // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
   useEffect(() => {
@@ -44,21 +48,44 @@ export function BriefingNoteFlow() {
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
+  // 実 OCR は Phase 4 で接続する。ここでは処理中表示と二重実行防止のため、
+  // 短い待機を挟んでから次のステップへ進む。失敗時は setHasOcrError(true) を呼ぶ。
+  const handleRunOcr = () => {
+    if (isOcrRunning) {
+      return;
+    }
+    setHasOcrError(false);
+    setIsOcrRunning(true);
+    window.setTimeout(() => {
+      setIsOcrRunning(false);
+      goNext();
+    }, 600);
+  };
+
   // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
   // ここでは出力形式のテンプレートを初期値として用意し、編集済みの内容は上書きしない。
+  // 失敗時は setHasGenerationError(true) を呼ぶ。
   const handleGenerateMarkdown = () => {
-    if (markdownText.trim() === "") {
-      setMarkdownText(
-        buildMarkdownTemplate({
-          companyName: companyEventInfo.companyName,
-          eventName: companyEventInfo.eventName,
-          eventDate: companyEventInfo.eventDate,
-          ocrText,
-          imageFileName: selectedImage?.file.name,
-        }),
-      );
+    if (isGeneratingMarkdown) {
+      return;
     }
-    goNext();
+    setHasGenerationError(false);
+    setIsGeneratingMarkdown(true);
+    window.setTimeout(() => {
+      setMarkdownText((current) =>
+        current.trim() === ""
+          ? buildMarkdownTemplate({
+              companyName: companyEventInfo.companyName,
+              eventName: companyEventInfo.eventName,
+              eventDate: companyEventInfo.eventDate,
+              ocrText,
+              imageFileName: selectedImage?.file.name,
+            })
+          : current,
+      );
+      setIsGeneratingMarkdown(false);
+      goNext();
+    }, 600);
   };
 
   const cardMaxWidth =
@@ -82,7 +109,8 @@ export function BriefingNoteFlow() {
             onSelectImage={setSelectedImage}
             companyEventInfo={companyEventInfo}
             onChangeCompanyEventInfo={setCompanyEventInfo}
-            onNext={goNext}
+            isOcrRunning={isOcrRunning}
+            onNext={handleRunOcr}
           />
         )}
         {currentStepId === "ocr" && (
@@ -90,6 +118,8 @@ export function BriefingNoteFlow() {
             selectedImage={selectedImage}
             ocrText={ocrText}
             onChangeOcrText={setOcrText}
+            hasOcrError={hasOcrError}
+            isGeneratingMarkdown={isGeneratingMarkdown}
             onBack={goBack}
             onNext={handleGenerateMarkdown}
           />
@@ -98,6 +128,7 @@ export function BriefingNoteFlow() {
           <MarkdownEditStep
             markdownText={markdownText}
             onChangeMarkdownText={setMarkdownText}
+            hasGenerationError={hasGenerationError}
             onBack={goBack}
           />
         )}
