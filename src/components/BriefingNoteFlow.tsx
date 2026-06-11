@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   getNextStepId,
@@ -20,12 +20,15 @@ export function BriefingNoteFlow() {
   );
   const [ocrText, setOcrText] = useState("");
 
-  const handleSelectImage = (image: SelectedImage) => {
-    if (selectedImage && selectedImage.previewUrl !== image.previewUrl) {
-      URL.revokeObjectURL(selectedImage.previewUrl);
-    }
-    setSelectedImage(image);
-  };
+  // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
+  useEffect(() => {
+    const previewUrl = selectedImage?.previewUrl;
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [selectedImage]);
 
   const goNext = () =>
     setCurrentStepId((stepId) => getNextStepId(stepId) ?? stepId);
@@ -50,7 +53,7 @@ export function BriefingNoteFlow() {
         {currentStepId === "upload" && (
           <UploadStep
             selectedImage={selectedImage}
-            onSelectImage={handleSelectImage}
+            onSelectImage={setSelectedImage}
             onNext={goNext}
           />
         )}

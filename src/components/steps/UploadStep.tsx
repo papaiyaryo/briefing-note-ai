@@ -47,7 +47,13 @@ export function UploadStep({
     setIsDragging(true);
   };
 
-  const handleDragLeave = () => setIsDragging(false);
+  const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
+    // 子要素間の移動で leave が発火してハイライトがチラつくのを防ぐ
+    if (event.currentTarget.contains(event.relatedTarget as Node | null)) {
+      return;
+    }
+    setIsDragging(false);
+  };
 
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
