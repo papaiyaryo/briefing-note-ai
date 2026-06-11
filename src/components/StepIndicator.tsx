@@ -29,7 +29,7 @@ export function StepIndicator({ currentStepId }: StepIndicatorProps) {
                 className={`flex size-6 items-center justify-center rounded-full text-xs ${
                   isCurrent
                     ? "bg-teal-700 font-bold text-white"
-                    : "border border-slate-300 text-slate-400"
+                    : "border border-slate-300 bg-white text-slate-400"
                 }`}
               >
                 {step.number}
