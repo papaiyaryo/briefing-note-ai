@@ -7,6 +7,7 @@ import {
   getPreviousStepId,
   type StepId,
 } from "../lib/flow";
+import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
 import { OcrReviewStep } from "./steps/OcrReviewStep";
@@ -14,6 +15,16 @@ import { UploadStep } from "./steps/UploadStep";
 
 export function BriefingNoteFlow() {
   const [currentStepId, setCurrentStepId] = useState<StepId>("upload");
+  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
+    null,
+  );
+
+  const handleSelectImage = (image: SelectedImage) => {
+    if (selectedImage && selectedImage.previewUrl !== image.previewUrl) {
+      URL.revokeObjectURL(selectedImage.previewUrl);
+    }
+    setSelectedImage(image);
+  };
 
   const goNext = () =>
     setCurrentStepId((stepId) => getNextStepId(stepId) ?? stepId);
@@ -35,7 +46,13 @@ export function BriefingNoteFlow() {
       <div
         className={`w-full rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8 ${cardMaxWidth}`}
       >
-        {currentStepId === "upload" && <UploadStep onNext={goNext} />}
+        {currentStepId === "upload" && (
+          <UploadStep
+            selectedImage={selectedImage}
+            onSelectImage={handleSelectImage}
+            onNext={goNext}
+          />
+        )}
         {currentStepId === "ocr" && (
           <OcrReviewStep onBack={goBack} onNext={goNext} />
         )}
