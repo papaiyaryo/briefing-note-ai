@@ -24,7 +24,7 @@ export function MarkdownEditStep({ onBack }: MarkdownEditStepProps) {
             Markdown エディタは準備中です。
           </p>
         </div>
-        <div className="hidden min-h-40 flex-1 items-center justify-center rounded-lg border border-slate-200 bg-white p-4 md:flex">
+        <div className="flex min-h-40 flex-1 items-center justify-center rounded-lg border border-slate-200 bg-white p-4">
           <p className="text-sm text-slate-500">プレビューは準備中です。</p>
         </div>
       </div>
