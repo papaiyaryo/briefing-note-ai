@@ -7,6 +7,7 @@ import {
   getPreviousStepId,
   type StepId,
 } from "../lib/flow";
+import { buildMarkdownTemplate } from "../lib/markdown";
 import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
@@ -19,6 +20,7 @@ export function BriefingNoteFlow() {
     null,
   );
   const [ocrText, setOcrText] = useState("");
+  const [markdownText, setMarkdownText] = useState("");
 
   const handleSelectImage = (image: SelectedImage) => {
     if (selectedImage && selectedImage.previewUrl !== image.previewUrl) {
@@ -31,6 +33,20 @@ export function BriefingNoteFlow() {
     setCurrentStepId((stepId) => getNextStepId(stepId) ?? stepId);
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
+
+  // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
+  // ここでは出力形式のテンプレートを初期値として用意し、編集済みの内容は上書きしない。
+  const handleGenerateMarkdown = () => {
+    if (markdownText.trim() === "") {
+      setMarkdownText(
+        buildMarkdownTemplate({
+          ocrText,
+          imageFileName: selectedImage?.file.name,
+        }),
+      );
+    }
+    goNext();
+  };
 
   const cardMaxWidth =
     currentStepId === "markdown" ? "max-w-5xl" : "max-w-3xl";
@@ -60,10 +76,16 @@ export function BriefingNoteFlow() {
             ocrText={ocrText}
             onChangeOcrText={setOcrText}
             onBack={goBack}
-            onNext={goNext}
+            onNext={handleGenerateMarkdown}
           />
         )}
-        {currentStepId === "markdown" && <MarkdownEditStep onBack={goBack} />}
+        {currentStepId === "markdown" && (
+          <MarkdownEditStep
+            markdownText={markdownText}
+            onChangeMarkdownText={setMarkdownText}
+            onBack={goBack}
+          />
+        )}
       </div>
     </div>
   );
