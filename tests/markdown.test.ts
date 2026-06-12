@@ -1,6 +1,17 @@
 import { describe, expect, it } from "vitest";
 
-import { buildMarkdownTemplate, parseMarkdownBlocks } from "../src/lib/markdown";
+import {
+  buildMarkdownTemplate,
+  parseMarkdownBlocks,
+  type MarkdownBlock,
+} from "../src/lib/markdown";
+
+function codeBlocksOf(markdown: string) {
+  return parseMarkdownBlocks(markdown).filter(
+    (block): block is Extract<MarkdownBlock, { type: "code" }> =>
+      block.type === "code",
+  );
+}
 
 describe("buildMarkdownTemplate", () => {
   it("uses 要確認 defaults when no input is given", () => {
@@ -31,6 +42,17 @@ describe("buildMarkdownTemplate", () => {
   it("treats whitespace-only input as missing", () => {
     const markdown = buildMarkdownTemplate({ companyName: "  " });
     expect(markdown).toContain("# 要確認");
+  });
+
+  it("uses a longer fence when the OCR text contains backtick fences", () => {
+    const markdown = buildMarkdownTemplate({
+      ocrText: "before\n```\ninside\n```\nafter",
+    });
+    expect(markdown).toContain("````text");
+    const codeBlocks = codeBlocksOf(markdown);
+    expect(codeBlocks).toHaveLength(1);
+    expect(codeBlocks[0].text).toContain("inside");
+    expect(codeBlocks[0].text).toContain("after");
   });
 
   it("contains the sections defined in docs/output-format.md", () => {
@@ -79,6 +101,12 @@ describe("parseMarkdownBlocks", () => {
   it("keeps an unclosed code block instead of dropping it", () => {
     expect(parseMarkdownBlocks("```\nline1")).toEqual([
       { type: "code", text: "line1" },
+    ]);
+  });
+
+  it("closes a code block only with a fence at least as long as the opener", () => {
+    expect(parseMarkdownBlocks("````text\n```\ncode\n````")).toEqual([
+      { type: "code", text: "```\ncode" },
     ]);
   });
 

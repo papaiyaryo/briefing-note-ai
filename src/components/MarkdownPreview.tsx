@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { parseMarkdownBlocks } from "../lib/markdown";
 
 interface MarkdownPreviewProps {
@@ -7,7 +9,7 @@ interface MarkdownPreviewProps {
 // 簡易プレビュー。ページ内の見出し階層を乱さないよう、見出しタグではなく
 // スタイル付きテキストとして描画する。
 export function MarkdownPreview({ markdown }: MarkdownPreviewProps) {
-  const blocks = parseMarkdownBlocks(markdown);
+  const blocks = useMemo(() => parseMarkdownBlocks(markdown), [markdown]);
 
   if (blocks.length === 0) {
     return <p className="text-sm text-slate-500">プレビューする内容がありません。</p>;

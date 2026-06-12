@@ -23,6 +23,16 @@ function orPending(value: string | undefined): string {
   return trimmed === "" ? "要確認" : trimmed;
 }
 
+// 本文に ``` が含まれてもコードフェンスが途中で閉じないよう、
+// 本文中の最長のバッククォート連続より長いフェンスを選ぶ
+function fenceFor(text: string): string {
+  let longestRun = 0;
+  for (const run of text.match(/`+/g) ?? []) {
+    longestRun = Math.max(longestRun, run.length);
+  }
+  return "`".repeat(Math.max(3, longestRun + 1));
+}
+
 // docs/output-format.md の基本テンプレートに沿った初期 Markdown を組み立てる。
 // 実際の LLM 生成は Phase 4 で接続し、ここでは編集の土台になる構造だけを返す。
 export function buildMarkdownTemplate(
@@ -31,6 +41,7 @@ export function buildMarkdownTemplate(
   const companyName = orPending(input.companyName);
   const imageFileName = input.imageFileName?.trim() || "不明";
   const ocrExcerpt = input.ocrText?.trim() || "(OCR 結果なし)";
+  const fence = fenceFor(ocrExcerpt);
 
   return `# ${companyName}
 
@@ -75,9 +86,9 @@ export function buildMarkdownTemplate(
 - MVP では未使用
 
 ## 元メモからの抜粋
-\`\`\`text
+${fence}text
 ${ocrExcerpt}
-\`\`\`
+${fence}
 `;
 }
 
@@ -93,6 +104,7 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
   let listItems: string[] | null = null;
   let paragraphLines: string[] | null = null;
   let codeLines: string[] | null = null;
+  let codeFenceLength = 0;
 
   const flushList = () => {
     if (listItems) {
@@ -109,7 +121,10 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
 
   for (const line of markdown.split("\n")) {
     if (codeLines) {
-      if (line.trim().startsWith("```")) {
+      // 開始フェンスと同じ長さ以上のフェンスだけを終了とみなす
+      // (コードブロック内に短い ``` が含まれても閉じない)
+      const closeMatch = /^(`{3,})\s*$/.exec(line.trim());
+      if (closeMatch && closeMatch[1].length >= codeFenceLength) {
         blocks.push({ type: "code", text: codeLines.join("\n") });
         codeLines = null;
       } else {
@@ -119,10 +134,12 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
     }
 
     const trimmed = line.trim();
-    if (trimmed.startsWith("```")) {
+    const fenceMatch = /^(`{3,})/.exec(trimmed);
+    if (fenceMatch) {
       flushList();
       flushParagraph();
       codeLines = [];
+      codeFenceLength = fenceMatch[1].length;
       continue;
     }
 

@@ -25,6 +25,7 @@ export function BriefingNoteFlow() {
   );
   const [ocrText, setOcrText] = useState("");
   const [markdownText, setMarkdownText] = useState("");
+  const [isMarkdownDirty, setIsMarkdownDirty] = useState(false);
   const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
     EMPTY_COMPANY_EVENT_INFO,
   );
@@ -44,18 +45,27 @@ export function BriefingNoteFlow() {
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
-  // 画像を差し替えたら、前の画像に対する OCR 結果は無効になるためクリアする
+  // 画像を差し替えたら、前の画像に対する OCR 結果と生成 Markdown は無効になるためクリアする
   const handleSelectImage = (image: SelectedImage) => {
     if (selectedImage) {
       setOcrText("");
+      setMarkdownText("");
+      setIsMarkdownDirty(false);
     }
     setSelectedImage(image);
   };
 
+  // ユーザーが手で編集した Markdown は、テンプレート再生成で上書きしない
+  const handleChangeMarkdownText = (text: string) => {
+    setIsMarkdownDirty(true);
+    setMarkdownText(text);
+  };
+
   // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
-  // ここでは出力形式のテンプレートを初期値として用意し、編集済みの内容は上書きしない。
+  // ここでは出力形式のテンプレートを初期値として用意する。
+  // 未編集なら最新の入力(OCR 結果など)で再生成し、編集済みなら保持する。
   const handleGenerateMarkdown = () => {
-    if (markdownText.trim() === "") {
+    if (!isMarkdownDirty) {
       setMarkdownText(
         buildMarkdownTemplate({
           companyName: companyEventInfo.companyName,
@@ -105,7 +115,7 @@ export function BriefingNoteFlow() {
         {currentStepId === "markdown" && (
           <MarkdownEditStep
             markdownText={markdownText}
-            onChangeMarkdownText={setMarkdownText}
+            onChangeMarkdownText={handleChangeMarkdownText}
             onBack={goBack}
           />
         )}
