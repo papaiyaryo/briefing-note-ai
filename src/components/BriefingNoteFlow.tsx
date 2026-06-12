@@ -35,6 +35,14 @@ export function BriefingNoteFlow() {
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
+  // 画像を差し替えたら、前の画像に対する OCR 結果は無効になるためクリアする
+  const handleSelectImage = (image: SelectedImage) => {
+    if (selectedImage) {
+      setOcrText("");
+    }
+    setSelectedImage(image);
+  };
+
   const cardMaxWidth =
     currentStepId === "markdown" ? "max-w-5xl" : "max-w-3xl";
 
@@ -53,7 +61,7 @@ export function BriefingNoteFlow() {
         {currentStepId === "upload" && (
           <UploadStep
             selectedImage={selectedImage}
-            onSelectImage={setSelectedImage}
+            onSelectImage={handleSelectImage}
             onNext={goNext}
           />
         )}
