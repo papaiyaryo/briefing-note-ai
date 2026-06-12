@@ -44,6 +44,14 @@ export function BriefingNoteFlow() {
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
+  // 画像を差し替えたら、前の画像に対する OCR 結果は無効になるためクリアする
+  const handleSelectImage = (image: SelectedImage) => {
+    if (selectedImage) {
+      setOcrText("");
+    }
+    setSelectedImage(image);
+  };
+
   // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
   // ここでは出力形式のテンプレートを初期値として用意し、編集済みの内容は上書きしない。
   const handleGenerateMarkdown = () => {
@@ -79,7 +87,7 @@ export function BriefingNoteFlow() {
         {currentStepId === "upload" && (
           <UploadStep
             selectedImage={selectedImage}
-            onSelectImage={setSelectedImage}
+            onSelectImage={handleSelectImage}
             companyEventInfo={companyEventInfo}
             onChangeCompanyEventInfo={setCompanyEventInfo}
             onNext={goNext}
