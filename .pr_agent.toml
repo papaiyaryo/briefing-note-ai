@@ -11,3 +11,8 @@ pr_commands = [
   "/agentic_describe",
   "/agentic_review",
 ]
+# push のたびにコードレビューを再実行する(サマリーの再生成はしない)
+handle_push_trigger = true
+push_commands = [
+  "/agentic_review",
+]
