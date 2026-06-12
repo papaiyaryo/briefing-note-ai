@@ -48,6 +48,14 @@ export function BriefingNoteFlow() {
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
+  // 画像を差し替えたら、前の画像に対する OCR 結果は無効になるためクリアする
+  const handleSelectImage = (image: SelectedImage) => {
+    if (selectedImage) {
+      setOcrText("");
+    }
+    setSelectedImage(image);
+  };
+
   // 実 OCR は Phase 4 で接続する。ここでは処理中表示と二重実行防止のため、
   // 短い待機を挟んでから次のステップへ進む。失敗時は setHasOcrError(true) を呼ぶ。
   const handleRunOcr = () => {
@@ -106,7 +114,7 @@ export function BriefingNoteFlow() {
         {currentStepId === "upload" && (
           <UploadStep
             selectedImage={selectedImage}
-            onSelectImage={setSelectedImage}
+            onSelectImage={handleSelectImage}
             companyEventInfo={companyEventInfo}
             onChangeCompanyEventInfo={setCompanyEventInfo}
             isOcrRunning={isOcrRunning}
