@@ -40,6 +40,10 @@ export function UploadStep({
   const openFilePicker = () => inputRef.current?.click();
 
   const handleFiles = (files: FileList | null) => {
+    // OCR 実行中の差し替えは、実行中の処理との不整合を生むため受け付けない
+    if (isOcrRunning) {
+      return;
+    }
     const file = files?.[0];
     if (!file) {
       return;
@@ -113,7 +117,11 @@ export function UploadStep({
             <p className="text-sm break-all text-slate-600">
               {selectedImage.file.name}
             </p>
-            <Button variant="secondary" onClick={openFilePicker}>
+            <Button
+              variant="secondary"
+              onClick={openFilePicker}
+              disabled={isOcrRunning}
+            >
               別の画像を選択
             </Button>
           </div>
@@ -133,7 +141,11 @@ export function UploadStep({
           <p className="text-sm text-slate-500">
             対応形式: {ACCEPTED_FORMATS_LABEL}(最大 {MAX_IMAGE_SIZE_MB}MB)
           </p>
-          <Button variant="secondary" onClick={openFilePicker}>
+          <Button
+            variant="secondary"
+            onClick={openFilePicker}
+            disabled={isOcrRunning}
+          >
             ファイルを選択
           </Button>
         </div>

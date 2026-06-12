@@ -1,12 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import {
-  getNextStepId,
-  getPreviousStepId,
-  type StepId,
-} from "../lib/flow";
+import { getPreviousStepId, type StepId } from "../lib/flow";
 import {
   EMPTY_COMPANY_EVENT_INFO,
   buildMarkdownTemplate,
@@ -25,6 +21,7 @@ export function BriefingNoteFlow() {
   );
   const [ocrText, setOcrText] = useState("");
   const [markdownText, setMarkdownText] = useState("");
+  const [isMarkdownDirty, setIsMarkdownDirty] = useState(false);
   const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
     EMPTY_COMPANY_EVENT_INFO,
   );
@@ -32,6 +29,17 @@ export function BriefingNoteFlow() {
   const [isGeneratingMarkdown, setIsGeneratingMarkdown] = useState(false);
   const [hasOcrError, setHasOcrError] = useState(false);
   const [hasGenerationError, setHasGenerationError] = useState(false);
+
+  const pendingTimerRef = useRef<number | null>(null);
+
+  // アンマウント時に未発火のタイマーを解除し、破棄後の state 更新を防ぐ
+  useEffect(() => {
+    return () => {
+      if (pendingTimerRef.current !== null) {
+        window.clearTimeout(pendingTimerRef.current);
+      }
+    };
+  }, []);
 
   // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
   useEffect(() => {
@@ -43,35 +51,43 @@ export function BriefingNoteFlow() {
     };
   }, [selectedImage]);
 
-  const goNext = () =>
-    setCurrentStepId((stepId) => getNextStepId(stepId) ?? stepId);
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
-  // 画像を差し替えたら、前の画像に対する OCR 結果は無効になるためクリアする
+  // 画像を差し替えたら、前の画像に対する OCR 結果と生成 Markdown は無効になるためクリアする
   const handleSelectImage = (image: SelectedImage) => {
     if (selectedImage) {
       setOcrText("");
+      setMarkdownText("");
+      setIsMarkdownDirty(false);
     }
     setSelectedImage(image);
   };
 
+  // ユーザーが手で編集した Markdown は、テンプレート再生成で上書きしない
+  const handleChangeMarkdownText = (text: string) => {
+    setIsMarkdownDirty(true);
+    setMarkdownText(text);
+  };
+
   // 実 OCR は Phase 4 で接続する。ここでは処理中表示と二重実行防止のため、
   // 短い待機を挟んでから次のステップへ進む。失敗時は setHasOcrError(true) を呼ぶ。
+  // 完了時の遷移は、待機中の操作に影響されないよう絶対遷移にする。
   const handleRunOcr = () => {
     if (isOcrRunning) {
       return;
     }
     setHasOcrError(false);
     setIsOcrRunning(true);
-    window.setTimeout(() => {
+    pendingTimerRef.current = window.setTimeout(() => {
+      pendingTimerRef.current = null;
       setIsOcrRunning(false);
-      goNext();
+      setCurrentStepId("ocr");
     }, 600);
   };
 
   // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
-  // ここでは出力形式のテンプレートを初期値として用意し、編集済みの内容は上書きしない。
+  // 未編集なら最新の入力(企業情報・OCR 結果)でテンプレートを再生成し、編集済みなら保持する。
   // 失敗時は setHasGenerationError(true) を呼ぶ。
   const handleGenerateMarkdown = () => {
     if (isGeneratingMarkdown) {
@@ -79,20 +95,21 @@ export function BriefingNoteFlow() {
     }
     setHasGenerationError(false);
     setIsGeneratingMarkdown(true);
-    window.setTimeout(() => {
-      setMarkdownText((current) =>
-        current.trim() === ""
-          ? buildMarkdownTemplate({
-              companyName: companyEventInfo.companyName,
-              eventName: companyEventInfo.eventName,
-              eventDate: companyEventInfo.eventDate,
-              ocrText,
-              imageFileName: selectedImage?.file.name,
-            })
-          : current,
-      );
+    pendingTimerRef.current = window.setTimeout(() => {
+      pendingTimerRef.current = null;
+      if (!isMarkdownDirty) {
+        setMarkdownText(
+          buildMarkdownTemplate({
+            companyName: companyEventInfo.companyName,
+            eventName: companyEventInfo.eventName,
+            eventDate: companyEventInfo.eventDate,
+            ocrText,
+            imageFileName: selectedImage?.file.name,
+          }),
+        );
+      }
       setIsGeneratingMarkdown(false);
-      goNext();
+      setCurrentStepId("markdown");
     }, 600);
   };
 
@@ -135,7 +152,7 @@ export function BriefingNoteFlow() {
         {currentStepId === "markdown" && (
           <MarkdownEditStep
             markdownText={markdownText}
-            onChangeMarkdownText={setMarkdownText}
+            onChangeMarkdownText={handleChangeMarkdownText}
             hasGenerationError={hasGenerationError}
             onBack={goBack}
           />

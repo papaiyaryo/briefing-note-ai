@@ -70,6 +70,7 @@ export function OcrReviewStep({
             id="ocr-result-text"
             value={ocrText}
             onChange={(event) => onChangeOcrText(event.target.value)}
+            disabled={isGeneratingMarkdown}
             placeholder="OCR 結果がここに表示されます"
             className="h-72 w-full resize-y rounded-lg border border-slate-200 bg-white p-3 font-mono text-sm leading-relaxed text-slate-900 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700 md:h-96"
           />
@@ -83,7 +84,11 @@ export function OcrReviewStep({
       </div>
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Button variant="secondary" onClick={onBack}>
+          <Button
+            variant="secondary"
+            onClick={onBack}
+            disabled={isGeneratingMarkdown}
+          >
             アップロードに戻る
           </Button>
           <Button variant="secondary" disabled>
