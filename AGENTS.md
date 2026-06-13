@@ -59,8 +59,10 @@ Rules:
 
 * Claude Code designs one Phase at a time before Codex implementation begins
 * Claude Code writes Codex-facing implementation instructions under `docs/codex/phase-{number}/`
+* Claude Code outputs one design file per Issue as `docs/codex/phase-{number}/issue-{issue-number}.md`
 * Human approves the Phase design and Phase implementation start
 * Codex reads the approved Phase instructions before implementing Issues in that Phase
+* Codex reads the Phase design and the target Issue design file before implementation
 * Codex implements Issues in the Phase order, starting from foundation Issues
 * 1 Issue = 1 Branch = 1 PR
 * Do not push directly to `main`
@@ -88,22 +90,34 @@ Claude Code designs one Phase at a time and writes Codex-facing implementation i
 docs/codex/phase-{number}/
 ```
 
-For example:
+Claude Code should output both a Phase-level design file and one Issue-level design file per target Issue:
 
 ```txt
 docs/codex/phase-1/implementation-plan.md
+docs/codex/phase-1/issue-11.md
+docs/codex/phase-1/issue-12.md
 ```
 
-Each Phase design should include:
+The Phase-level design file should include:
 
 * Phase objective
 * Target Issue list
 * Implementation order
 * Dependencies between Issues
 * Shared design decisions
-* Codex instructions for each Issue
 * Phase-wide verification policy
 * Out of scope items
+
+Each Issue-level design file should include:
+
+* Issue summary
+* Scope
+* Out of scope items
+* Implementation steps
+* Files likely to change
+* Acceptance Criteria mapping
+* Verification commands
+* Risks / unclear points
 
 Claude Code should not require Codex to make large design decisions during implementation.
 
@@ -132,7 +146,8 @@ Before implementing an Issue, Codex must read:
 * `AGENTS.md`
 * `docs/`
 * The target GitHub Issue
-* The related `docs/codex/phase-{number}/` instructions, when they exist
+* The related Phase-level design file, such as `docs/codex/phase-{number}/implementation-plan.md`, when it exists
+* The related Issue-level design file, such as `docs/codex/phase-{number}/issue-{issue-number}.md`, when it exists
 
 Codex must implement from the foundation Issues in the approved order.
 
@@ -157,7 +172,8 @@ Read:
 * `AGENTS.md`
 * `docs/`
 * Target GitHub Issue
-* Related `docs/codex/phase-{number}/` instructions, when working from an approved Phase design
+* Related Phase-level design file, such as `docs/codex/phase-{number}/implementation-plan.md`, when working from an approved Phase design
+* Related Issue-level design file, such as `docs/codex/phase-{number}/issue-{issue-number}.md`, when working from an approved Phase design
 
 ### 2. Plan first
 
