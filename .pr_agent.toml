@@ -1,0 +1,18 @@
+# Qodo (PR-Agent) の設定
+# https://docs.qodo.ai/code-review/get-started/configuration-overview/configuration-file
+
+[config]
+# レビュー・サマリーの出力言語を日本語にする
+response_language = "ja-JP"
+
+[github_app]
+# PR 作成時に PR サマリーとコードレビューを自動実行する
+pr_commands = [
+  "/agentic_describe",
+  "/agentic_review",
+]
+# push のたびにコードレビューを再実行する(サマリーの再生成はしない)
+handle_push_trigger = true
+push_commands = [
+  "/agentic_review",
+]
