@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { Button } from "../Button";
+import { ErrorNotice } from "../ErrorNotice";
 import { MarkdownPreview } from "../MarkdownPreview";
 
 type EditorTab = "edit" | "preview";
@@ -8,12 +9,14 @@ type EditorTab = "edit" | "preview";
 interface MarkdownEditStepProps {
   markdownText: string;
   onChangeMarkdownText: (text: string) => void;
+  hasGenerationError: boolean;
   onBack: () => void;
 }
 
 export function MarkdownEditStep({
   markdownText,
   onChangeMarkdownText,
+  hasGenerationError,
   onBack,
 }: MarkdownEditStepProps) {
   const [activeTab, setActiveTab] = useState<EditorTab>("edit");
@@ -39,6 +42,13 @@ export function MarkdownEditStep({
           生成された企業メモを自分用に整え、.md としてダウンロードします。
         </p>
       </div>
+      {hasGenerationError && (
+        <ErrorNotice>
+          Markdown の生成に失敗しました。OCR
+          結果が空または短すぎる可能性があります。OCR
+          確認に戻って内容を確認し、もう一度生成してください。
+        </ErrorNotice>
+      )}
       {/* タブは狭い画面用。md 以上では編集とプレビューを同時に表示する */}
       <div className="flex gap-4 border-b border-slate-200 md:hidden">
         <button

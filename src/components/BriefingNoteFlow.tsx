@@ -1,12 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import {
-  getNextStepId,
-  getPreviousStepId,
-  type StepId,
-} from "../lib/flow";
+import { getPreviousStepId, type StepId } from "../lib/flow";
 import {
   EMPTY_COMPANY_EVENT_INFO,
   buildMarkdownTemplate,
@@ -29,6 +25,21 @@ export function BriefingNoteFlow() {
   const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
     EMPTY_COMPANY_EVENT_INFO,
   );
+  const [isOcrRunning, setIsOcrRunning] = useState(false);
+  const [isGeneratingMarkdown, setIsGeneratingMarkdown] = useState(false);
+  const [hasOcrError, setHasOcrError] = useState(false);
+  const [hasGenerationError, setHasGenerationError] = useState(false);
+
+  const pendingTimerRef = useRef<number | null>(null);
+
+  // アンマウント時に未発火のタイマーを解除し、破棄後の state 更新を防ぐ
+  useEffect(() => {
+    return () => {
+      if (pendingTimerRef.current !== null) {
+        window.clearTimeout(pendingTimerRef.current);
+      }
+    };
+  }, []);
 
   // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
   useEffect(() => {
@@ -40,8 +51,6 @@ export function BriefingNoteFlow() {
     };
   }, [selectedImage]);
 
-  const goNext = () =>
-    setCurrentStepId((stepId) => getNextStepId(stepId) ?? stepId);
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
@@ -61,22 +70,47 @@ export function BriefingNoteFlow() {
     setMarkdownText(text);
   };
 
-  // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
-  // ここでは出力形式のテンプレートを初期値として用意する。
-  // 未編集なら最新の入力(OCR 結果など)で再生成し、編集済みなら保持する。
-  const handleGenerateMarkdown = () => {
-    if (!isMarkdownDirty) {
-      setMarkdownText(
-        buildMarkdownTemplate({
-          companyName: companyEventInfo.companyName,
-          eventName: companyEventInfo.eventName,
-          eventDate: companyEventInfo.eventDate,
-          ocrText,
-          imageFileName: selectedImage?.file.name,
-        }),
-      );
+  // 実 OCR は Phase 4 で接続する。ここでは処理中表示と二重実行防止のため、
+  // 短い待機を挟んでから次のステップへ進む。失敗時は setHasOcrError(true) を呼ぶ。
+  // 完了時の遷移は、待機中の操作に影響されないよう絶対遷移にする。
+  const handleRunOcr = () => {
+    if (isOcrRunning) {
+      return;
     }
-    goNext();
+    setHasOcrError(false);
+    setIsOcrRunning(true);
+    pendingTimerRef.current = window.setTimeout(() => {
+      pendingTimerRef.current = null;
+      setIsOcrRunning(false);
+      setCurrentStepId("ocr");
+    }, 600);
+  };
+
+  // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
+  // 未編集なら最新の入力(企業情報・OCR 結果)でテンプレートを再生成し、編集済みなら保持する。
+  // 失敗時は setHasGenerationError(true) を呼ぶ。
+  const handleGenerateMarkdown = () => {
+    if (isGeneratingMarkdown) {
+      return;
+    }
+    setHasGenerationError(false);
+    setIsGeneratingMarkdown(true);
+    pendingTimerRef.current = window.setTimeout(() => {
+      pendingTimerRef.current = null;
+      if (!isMarkdownDirty) {
+        setMarkdownText(
+          buildMarkdownTemplate({
+            companyName: companyEventInfo.companyName,
+            eventName: companyEventInfo.eventName,
+            eventDate: companyEventInfo.eventDate,
+            ocrText,
+            imageFileName: selectedImage?.file.name,
+          }),
+        );
+      }
+      setIsGeneratingMarkdown(false);
+      setCurrentStepId("markdown");
+    }, 600);
   };
 
   const cardMaxWidth =
@@ -100,7 +134,8 @@ export function BriefingNoteFlow() {
             onSelectImage={handleSelectImage}
             companyEventInfo={companyEventInfo}
             onChangeCompanyEventInfo={setCompanyEventInfo}
-            onNext={goNext}
+            isOcrRunning={isOcrRunning}
+            onNext={handleRunOcr}
           />
         )}
         {currentStepId === "ocr" && (
@@ -108,6 +143,8 @@ export function BriefingNoteFlow() {
             selectedImage={selectedImage}
             ocrText={ocrText}
             onChangeOcrText={setOcrText}
+            hasOcrError={hasOcrError}
+            isGeneratingMarkdown={isGeneratingMarkdown}
             onBack={goBack}
             onNext={handleGenerateMarkdown}
           />
@@ -116,6 +153,7 @@ export function BriefingNoteFlow() {
           <MarkdownEditStep
             markdownText={markdownText}
             onChangeMarkdownText={handleChangeMarkdownText}
+            hasGenerationError={hasGenerationError}
             onBack={goBack}
           />
         )}
