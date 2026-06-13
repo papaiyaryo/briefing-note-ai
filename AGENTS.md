@@ -42,7 +42,9 @@ Do not implement work outside the selected Issue.
 Development follows:
 
 ```txt
-Issue
+Phase Design by Claude Code
+→ Phase Approval by Human
+→ Issue
 → Branch
 → Implementation
 → Self Review
@@ -55,6 +57,11 @@ Issue
 
 Rules:
 
+* Claude Code designs one Phase at a time before Codex implementation begins
+* Claude Code writes Codex-facing implementation instructions under `docs/codex/phase-{number}/`
+* Human approves the Phase design and Phase implementation start
+* Codex reads the approved Phase instructions before implementing Issues in that Phase
+* Codex implements Issues in the Phase order, starting from foundation Issues
 * 1 Issue = 1 Branch = 1 PR
 * Do not push directly to `main`
 * Do not solve multiple Issues in one PR
@@ -69,6 +76,76 @@ Rules:
 
 ---
 
+## Phase-Based Claude / Codex Workflow
+
+From implementation phases onward, development is coordinated at the Phase level.
+
+### Claude Code responsibility
+
+Claude Code designs one Phase at a time and writes Codex-facing implementation instructions under:
+
+```txt
+docs/codex/phase-{number}/
+```
+
+For example:
+
+```txt
+docs/codex/phase-1/implementation-plan.md
+```
+
+Each Phase design should include:
+
+* Phase objective
+* Target Issue list
+* Implementation order
+* Dependencies between Issues
+* Shared design decisions
+* Codex instructions for each Issue
+* Phase-wide verification policy
+* Out of scope items
+
+Claude Code should not require Codex to make large design decisions during implementation.
+
+### Human approval
+
+Human approval is required before Codex starts implementing a Phase.
+
+Approval covers:
+
+* The Phase design
+* The Issue implementation order
+* Starting implementation for that Phase
+
+Even when Phase implementation is approved, the repository still follows:
+
+* 1 Issue = 1 Branch = 1 PR
+* PRs are created per Issue
+* Human decides final merge
+
+### Codex responsibility
+
+Codex implements approved Phase designs Issue by Issue.
+
+Before implementing an Issue, Codex must read:
+
+* `AGENTS.md`
+* `docs/`
+* The target GitHub Issue
+* The related `docs/codex/phase-{number}/` instructions, when they exist
+
+Codex must implement from the foundation Issues in the approved order.
+
+Codex must not implement outside:
+
+* The approved Phase design
+* The selected Issue scope
+* The Issue acceptance criteria
+
+If the Phase instructions and GitHub Issue conflict, Codex must stop and ask the human how to proceed.
+
+---
+
 ## Standard Codex Behavior
 
 When asked to work on an Issue, do the following.
@@ -80,6 +157,7 @@ Read:
 * `AGENTS.md`
 * `docs/`
 * Target GitHub Issue
+* Related `docs/codex/phase-{number}/` instructions, when working from an approved Phase design
 
 ### 2. Plan first
 
@@ -93,6 +171,7 @@ Before editing files, report:
 * Scope concerns
 
 Then stop and wait for approval unless the user has explicitly said approval is not needed.
+If the human has already approved the Phase design and Phase implementation start, Codex may proceed through the approved Issues in order while still keeping each Issue to its own branch and PR.
 
 ### 3. Implement after approval
 
@@ -249,6 +328,7 @@ Current docs:
 * `docs/user-flow.md`
 * `docs/architecture.md`
 * `docs/generated-issues/`
+* `docs/codex/`
 
 Phase 0 docs being prepared:
 
