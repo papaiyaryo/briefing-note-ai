@@ -7,6 +7,11 @@ import {
   getPreviousStepId,
   type StepId,
 } from "../lib/flow";
+import {
+  EMPTY_COMPANY_EVENT_INFO,
+  buildMarkdownTemplate,
+  type CompanyEventInfo,
+} from "../lib/markdown";
 import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
@@ -17,6 +22,12 @@ export function BriefingNoteFlow() {
   const [currentStepId, setCurrentStepId] = useState<StepId>("upload");
   const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
     null,
+  );
+  const [ocrText, setOcrText] = useState("");
+  const [markdownText, setMarkdownText] = useState("");
+  const [isMarkdownDirty, setIsMarkdownDirty] = useState(false);
+  const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
+    EMPTY_COMPANY_EVENT_INFO,
   );
 
   // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
@@ -33,6 +44,40 @@ export function BriefingNoteFlow() {
     setCurrentStepId((stepId) => getNextStepId(stepId) ?? stepId);
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
+
+  // 画像を差し替えたら、前の画像に対する OCR 結果と生成 Markdown は無効になるためクリアする
+  const handleSelectImage = (image: SelectedImage) => {
+    if (selectedImage) {
+      setOcrText("");
+      setMarkdownText("");
+      setIsMarkdownDirty(false);
+    }
+    setSelectedImage(image);
+  };
+
+  // ユーザーが手で編集した Markdown は、テンプレート再生成で上書きしない
+  const handleChangeMarkdownText = (text: string) => {
+    setIsMarkdownDirty(true);
+    setMarkdownText(text);
+  };
+
+  // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
+  // ここでは出力形式のテンプレートを初期値として用意する。
+  // 未編集なら最新の入力(OCR 結果など)で再生成し、編集済みなら保持する。
+  const handleGenerateMarkdown = () => {
+    if (!isMarkdownDirty) {
+      setMarkdownText(
+        buildMarkdownTemplate({
+          companyName: companyEventInfo.companyName,
+          eventName: companyEventInfo.eventName,
+          eventDate: companyEventInfo.eventDate,
+          ocrText,
+          imageFileName: selectedImage?.file.name,
+        }),
+      );
+    }
+    goNext();
+  };
 
   const cardMaxWidth =
     currentStepId === "markdown" ? "max-w-5xl" : "max-w-3xl";
@@ -52,14 +97,28 @@ export function BriefingNoteFlow() {
         {currentStepId === "upload" && (
           <UploadStep
             selectedImage={selectedImage}
-            onSelectImage={setSelectedImage}
+            onSelectImage={handleSelectImage}
+            companyEventInfo={companyEventInfo}
+            onChangeCompanyEventInfo={setCompanyEventInfo}
             onNext={goNext}
           />
         )}
         {currentStepId === "ocr" && (
-          <OcrReviewStep onBack={goBack} onNext={goNext} />
+          <OcrReviewStep
+            selectedImage={selectedImage}
+            ocrText={ocrText}
+            onChangeOcrText={setOcrText}
+            onBack={goBack}
+            onNext={handleGenerateMarkdown}
+          />
         )}
-        {currentStepId === "markdown" && <MarkdownEditStep onBack={goBack} />}
+        {currentStepId === "markdown" && (
+          <MarkdownEditStep
+            markdownText={markdownText}
+            onChangeMarkdownText={handleChangeMarkdownText}
+            onBack={goBack}
+          />
+        )}
       </div>
     </div>
   );
