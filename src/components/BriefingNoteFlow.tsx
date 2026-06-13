@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   getNextStepId,
   getPreviousStepId,
   type StepId,
 } from "../lib/flow";
+import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
 import { OcrReviewStep } from "./steps/OcrReviewStep";
@@ -14,6 +15,19 @@ import { UploadStep } from "./steps/UploadStep";
 
 export function BriefingNoteFlow() {
   const [currentStepId, setCurrentStepId] = useState<StepId>("upload");
+  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
+    null,
+  );
+
+  // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
+  useEffect(() => {
+    const previewUrl = selectedImage?.previewUrl;
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [selectedImage]);
 
   const goNext = () =>
     setCurrentStepId((stepId) => getNextStepId(stepId) ?? stepId);
@@ -35,7 +49,13 @@ export function BriefingNoteFlow() {
       <div
         className={`w-full rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8 ${cardMaxWidth}`}
       >
-        {currentStepId === "upload" && <UploadStep onNext={goNext} />}
+        {currentStepId === "upload" && (
+          <UploadStep
+            selectedImage={selectedImage}
+            onSelectImage={setSelectedImage}
+            onNext={goNext}
+          />
+        )}
         {currentStepId === "ocr" && (
           <OcrReviewStep onBack={goBack} onNext={goNext} />
         )}
