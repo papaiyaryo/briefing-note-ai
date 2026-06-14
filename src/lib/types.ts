@@ -14,15 +14,12 @@ export interface OcrResult {
   text: string;
 }
 
-// MVP flow aggregate. Persistence-oriented fields stay optional until storage is introduced.
+// MVP flow aggregate. Persistence identifiers and timestamps belong to later storage phases.
 export interface BriefingNote {
-  id?: string;
   imageFileName?: string;
   companyEventInfo: CompanyEventInfo;
   ocrText: string;
   markdown: string;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export type ProcessingState =
