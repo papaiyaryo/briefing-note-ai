@@ -1,14 +1,7 @@
-export interface CompanyEventInfo {
-  companyName: string;
-  eventName: string;
-  eventDate: string;
-}
-
-export const EMPTY_COMPANY_EVENT_INFO: CompanyEventInfo = {
-  companyName: "",
-  eventName: "",
-  eventDate: "",
-};
+export {
+  EMPTY_COMPANY_EVENT_INFO,
+  type CompanyEventInfo,
+} from "./types";
 
 export interface MarkdownTemplateInput {
   companyName?: string;
