@@ -1,3 +1,5 @@
+import type { BriefingNote } from "./types";
+
 export {
   EMPTY_COMPANY_EVENT_INFO,
   type CompanyEventInfo,
@@ -10,6 +12,11 @@ export interface MarkdownTemplateInput {
   imageFileName?: string;
   ocrText?: string;
 }
+
+export type MarkdownTemplateBriefingNoteInput = Pick<
+  BriefingNote,
+  "companyEventInfo" | "ocrText" | "imageFileName"
+>;
 
 function orPending(value: string | undefined): string {
   const trimmed = value?.trim() ?? "";
@@ -27,7 +34,7 @@ function fenceFor(text: string): string {
 }
 
 // docs/output-format.md の基本テンプレートに沿った初期 Markdown を組み立てる。
-// 実際の LLM 生成は Phase 4 で接続し、ここでは編集の土台になる構造だけを返す。
+// LLM 相当の内容生成は行わず、未読取セクションはユーザー編集用の雛形として残す。
 export function buildMarkdownTemplate(
   input: MarkdownTemplateInput = {},
 ): string {
@@ -77,12 +84,25 @@ export function buildMarkdownTemplate(
 
 ## Web 補足情報
 - MVP では未使用
+- Post-MVP で追加する場合は、出典 URL と取得日を必ず残す
 
 ## 元メモからの抜粋
 ${fence}text
 ${ocrExcerpt}
 ${fence}
 `;
+}
+
+export function buildMarkdownTemplateFromBriefingNote(
+  note: MarkdownTemplateBriefingNoteInput,
+): string {
+  return buildMarkdownTemplate({
+    companyName: note.companyEventInfo.companyName,
+    eventName: note.companyEventInfo.eventName,
+    eventDate: note.companyEventInfo.eventDate,
+    imageFileName: note.imageFileName,
+    ocrText: note.ocrText,
+  });
 }
 
 export type MarkdownBlock =

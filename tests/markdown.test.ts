@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  buildMarkdownTemplateFromBriefingNote,
   buildMarkdownTemplate,
   parseMarkdownBlocks,
   type MarkdownBlock,
 } from "../src/lib/markdown";
+import type { BriefingNote } from "../src/lib/types";
 
 function codeBlocksOf(markdown: string) {
   return parseMarkdownBlocks(markdown).filter(
@@ -74,6 +76,36 @@ describe("buildMarkdownTemplate", () => {
     ]) {
       expect(markdown).toContain(`\n${section}\n`);
     }
+  });
+
+  it("includes the MVP web supplement placeholder from docs/output-format.md", () => {
+    const markdown = buildMarkdownTemplate();
+    expect(markdown).toContain("- MVP では未使用");
+    expect(markdown).toContain(
+      "- Post-MVP で追加する場合は、出典 URL と取得日を必ず残す",
+    );
+  });
+
+  it("builds from the BriefingNote aggregate subset", () => {
+    const note: BriefingNote = {
+      companyEventInfo: {
+        companyName: "架空テック株式会社",
+        eventName: "会社説明会",
+        eventDate: "2026-06-14",
+      },
+      imageFileName: "briefing-note.webp",
+      ocrText: "HR強調: 顧客課題から考える",
+      markdown: "ignored existing markdown",
+    };
+
+    const markdown = buildMarkdownTemplateFromBriefingNote(note);
+
+    expect(markdown).toContain("# 架空テック株式会社");
+    expect(markdown).toContain("- イベント名: 会社説明会");
+    expect(markdown).toContain("- 日時: 2026-06-14");
+    expect(markdown).toContain("- メモ元画像: briefing-note.webp");
+    expect(markdown).toContain("HR強調: 顧客課題から考える");
+    expect(markdown).not.toContain("ignored existing markdown");
   });
 });
 
