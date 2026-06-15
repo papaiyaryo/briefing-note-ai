@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { getPreviousStepId, type StepId } from "../lib/flow";
 import {
   EMPTY_COMPANY_EVENT_INFO,
-  buildMarkdownTemplate,
+  buildMarkdownTemplateFromBriefingNote,
   type CompanyEventInfo,
 } from "../lib/markdown";
 import { type SelectedImage } from "../lib/upload";
@@ -99,12 +99,10 @@ export function BriefingNoteFlow() {
       pendingTimerRef.current = null;
       if (!isMarkdownDirty) {
         setMarkdownText(
-          buildMarkdownTemplate({
-            companyName: companyEventInfo.companyName,
-            eventName: companyEventInfo.eventName,
-            eventDate: companyEventInfo.eventDate,
-            ocrText,
+          buildMarkdownTemplateFromBriefingNote({
+            companyEventInfo,
             imageFileName: selectedImage?.file.name,
+            ocrText,
           }),
         );
       }
