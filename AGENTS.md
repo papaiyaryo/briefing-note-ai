@@ -50,7 +50,7 @@ Phase Design by Claude Code
 → Self Review
 → Pull Request
 → GitHub Actions
-→ Copilot Review
+→ Claude Code Review
 → Fix if needed
 → Human Merge
 ```
@@ -73,7 +73,8 @@ Rules:
 * Otherwise, wait for approval before editing files
 * After implementation, run checks and self-review
 * PR title and body should be written in Japanese
-* Request GitHub Copilot review when creating a PR
+* Claude Review runs automatically when a PR is opened or marked ready for review
+* If re-review is needed, comment `@claude review` on the PR
 * Human decides final merge
 
 ---
@@ -230,7 +231,8 @@ Create a PR with:
 * Related Issue with `Closes #issue_number`
 
 Use Japanese for PR title and body.
-Request `@copilot` as a reviewer.
+Claude Review runs automatically when the PR is opened or marked ready for review.
+If re-review is needed, comment `@claude review`.
 Do not merge.
 
 ---
@@ -322,12 +324,27 @@ Rules:
 
 ---
 
+## AI Automation Triggers
+
+AI-assisted development is driven by GitHub mentions and PR events:
+
+* `@claude ...` on an Issue or PR starts the Claude workflow for design, questions, or interactive review
+* Opening a non-draft PR or marking it ready for review starts Claude Review automatically
+* `@claude review` on a PR requests a manual re-review when needed
+* `@codex ...` on an Issue or PR, or assignment from Codex Cloud, starts Codex implementation work
+
+Claude Code handles Phase / Issue design and PR review through GitHub Actions.
+Codex handles implementation and PR creation through Codex Cloud.
+Do not add `ANTHROPIC_API_KEY`; use `CLAUDE_CODE_OAUTH_TOKEN` from GitHub Repository Secrets for Claude Actions.
+
+---
+
 ## PR Review Rules
 
 After PR creation:
 
-* Use Copilot mainly for review, summary, and small fixes
-* Do not let Copilot make large design decisions
+* Use Claude Code mainly for review, summary, and small fixes
+* Do not let Claude Code make large design decisions
 * Scope-related decisions belong to the human and Codex
 * Fix only review comments that are within the current Issue scope
 
