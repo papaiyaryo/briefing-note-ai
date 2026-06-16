@@ -23,6 +23,7 @@ interface UploadStepProps {
   onChangeCompanyEventInfo: (info: CompanyEventInfo) => void;
   isOcrRunning: boolean;
   onNext: () => void;
+  onSimulateOcrFailure: () => void;
 }
 
 export function UploadStep({
@@ -32,6 +33,7 @@ export function UploadStep({
   onChangeCompanyEventInfo,
   isOcrRunning,
   onNext,
+  onSimulateOcrFailure,
 }: UploadStepProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<UploadValidationError | null>(null);
@@ -221,7 +223,14 @@ export function UploadStep({
           />
         </div>
       </fieldset>
-      <div className="flex justify-end">
+      <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+        <Button
+          variant="secondary"
+          onClick={onSimulateOcrFailure}
+          disabled={!selectedImage || isOcrRunning}
+        >
+          失敗状態を確認
+        </Button>
         <Button onClick={onNext} disabled={!selectedImage || isOcrRunning}>
           {isOcrRunning ? "OCR を実行しています…" : "OCR を実行する"}
         </Button>
