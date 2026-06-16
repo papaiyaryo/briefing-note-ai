@@ -171,6 +171,7 @@ export function BriefingNoteFlow() {
         {currentStepId === "markdown" && (
           <MarkdownEditStep
             markdownText={markdownText}
+            companyName={companyEventInfo.companyName}
             onChangeMarkdownText={handleChangeMarkdownText}
             hasGenerationError={hasGenerationError}
             onBack={goBack}
