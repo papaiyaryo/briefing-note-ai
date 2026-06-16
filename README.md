@@ -29,6 +29,7 @@
 - [User Flow](docs/user-flow.md)
 - [Architecture](docs/architecture.md)
 - [Figma MCP Setup](docs/figma-mcp-setup.md)
+- [Sample Data](docs/sample-data.md)
 
 ## Development
 
