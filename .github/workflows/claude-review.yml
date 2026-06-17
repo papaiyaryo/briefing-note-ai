@@ -23,9 +23,12 @@ jobs:
           fetch-depth: 0
 
       - name: Review with Claude Code
+        id: claude-review
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: true
+          use_sticky_comment: true
           prompt: |
             この PR を AGENTS.md と docs/ のルールに従ってレビューしてください。
             観点:
@@ -35,5 +38,17 @@ jobs:
             - 秘密情報・APIキー・.env を含めていないか
             - 事実・所感・Web 情報を混在させていないか（Product Principle）
             - lint / typecheck / test / build が通る見込みか
-            指摘は日本語で、重要度を付けて PR コメントとして投稿してください。
+            必ず GitHub の PR コメントにレビュー結果を投稿してください。
+            指摘がある場合は、修正できるように以下を含めてください。
+            - 重要度
+            - 対象ファイル / 行
+            - 問題点
+            - 推奨修正
+            指摘がない場合でも「Claude Review: 指摘なし」として、確認した観点と理由を PR コメントに投稿してください。
             スコープ外の問題は「フォローアップ Issue 候補」として分けて記載してください。
+
+      - name: Fail when Claude review result is unavailable
+        if: ${{ steps.claude-review.outputs.execution_file == '' }}
+        run: |
+          echo "Claude review did not produce an execution file. Check the Claude Code Action logs and PR permissions." >&2
+          exit 1
