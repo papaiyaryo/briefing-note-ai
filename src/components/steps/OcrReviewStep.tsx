@@ -7,8 +7,11 @@ interface OcrReviewStepProps {
   ocrText: string;
   onChangeOcrText: (text: string) => void;
   hasOcrError: boolean;
+  ocrErrorMessage: string;
+  isOcrRunning: boolean;
   isGeneratingMarkdown: boolean;
   onBack: () => void;
+  onRetryOcr: () => void;
   onNext: () => void;
 }
 
@@ -17,11 +20,15 @@ export function OcrReviewStep({
   ocrText,
   onChangeOcrText,
   hasOcrError,
+  ocrErrorMessage,
+  isOcrRunning,
   isGeneratingMarkdown,
   onBack,
+  onRetryOcr,
   onNext,
 }: OcrReviewStepProps) {
   const isOcrTextEmpty = ocrText.trim() === "";
+  const isBusy = isOcrRunning || isGeneratingMarkdown;
 
   return (
     <section aria-labelledby="ocr-step-heading" className="space-y-6">
@@ -36,9 +43,8 @@ export function OcrReviewStep({
       </div>
       {hasOcrError && (
         <ErrorNotice>
-          OCR
-          に失敗しました。画像が暗い、ぼやけている、文字が小さい可能性があります。OCR
-          を再実行するか、アップロードに戻って画像を選び直してください。
+          {ocrErrorMessage ||
+            "OCR に失敗しました。画像が暗い、ぼやけている、文字が小さい可能性があります。OCR を再実行するか、アップロードに戻って画像を選び直してください。"}
         </ErrorNotice>
       )}
       <div className="flex flex-col gap-6 md:flex-row">
@@ -70,7 +76,7 @@ export function OcrReviewStep({
             id="ocr-result-text"
             value={ocrText}
             onChange={(event) => onChangeOcrText(event.target.value)}
-            disabled={isGeneratingMarkdown}
+            disabled={isBusy}
             placeholder="OCR 結果がここに表示されます"
             className="h-72 w-full resize-y rounded-lg border border-slate-200 bg-white p-3 font-mono text-sm leading-relaxed text-slate-900 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700 md:h-96"
           />
@@ -84,21 +90,14 @@ export function OcrReviewStep({
       </div>
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Button
-            variant="secondary"
-            onClick={onBack}
-            disabled={isGeneratingMarkdown}
-          >
+          <Button variant="secondary" onClick={onBack} disabled={isBusy}>
             アップロードに戻る
           </Button>
-          <Button variant="secondary" disabled>
-            OCR を再実行
+          <Button variant="secondary" onClick={onRetryOcr} disabled={isBusy}>
+            {isOcrRunning ? "OCR を再実行しています…" : "OCR を再実行"}
           </Button>
         </div>
-        <Button
-          onClick={onNext}
-          disabled={isOcrTextEmpty || isGeneratingMarkdown}
-        >
+        <Button onClick={onNext} disabled={isOcrTextEmpty || isBusy}>
           {isGeneratingMarkdown
             ? "Markdown を生成しています…"
             : "Markdown を生成する"}

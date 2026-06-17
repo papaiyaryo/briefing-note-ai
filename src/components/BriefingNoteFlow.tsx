@@ -8,6 +8,7 @@ import {
   buildMarkdownTemplateFromBriefingNote,
   type CompanyEventInfo,
 } from "../lib/markdown";
+import { runDummyOcr, type DummyOcrMode } from "../lib/dummyOcr";
 import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
@@ -28,6 +29,7 @@ export function BriefingNoteFlow() {
   const [isOcrRunning, setIsOcrRunning] = useState(false);
   const [isGeneratingMarkdown, setIsGeneratingMarkdown] = useState(false);
   const [hasOcrError, setHasOcrError] = useState(false);
+  const [ocrErrorMessage, setOcrErrorMessage] = useState("");
   const [hasGenerationError, setHasGenerationError] = useState(false);
 
   const pendingTimerRef = useRef<number | null>(null);
@@ -60,6 +62,9 @@ export function BriefingNoteFlow() {
       setOcrText("");
       setMarkdownText("");
       setIsMarkdownDirty(false);
+      setHasOcrError(false);
+      setOcrErrorMessage("");
+      setHasGenerationError(false);
     }
     setSelectedImage(image);
   };
@@ -70,21 +75,34 @@ export function BriefingNoteFlow() {
     setMarkdownText(text);
   };
 
-  // 実 OCR は Phase 4 で接続する。ここでは処理中表示と二重実行防止のため、
-  // 短い待機を挟んでから次のステップへ進む。失敗時は setHasOcrError(true) を呼ぶ。
+  // 実 OCR 連携前の MVP 確認用に、固定サンプルを返すダミー OCR を使う。
   // 完了時の遷移は、待機中の操作に影響されないよう絶対遷移にする。
-  const handleRunOcr = () => {
+  const startDummyOcr = (mode: DummyOcrMode = "success") => {
     if (isOcrRunning) {
       return;
     }
     setHasOcrError(false);
+    setOcrErrorMessage("");
     setIsOcrRunning(true);
     pendingTimerRef.current = window.setTimeout(() => {
       pendingTimerRef.current = null;
+      const result = runDummyOcr(mode);
+      if (result.status === "success") {
+        setOcrText(result.text);
+        setHasOcrError(false);
+        setOcrErrorMessage("");
+      } else {
+        setOcrText("");
+        setHasOcrError(true);
+        setOcrErrorMessage(result.errorMessage);
+      }
       setIsOcrRunning(false);
       setCurrentStepId("ocr");
     }, 600);
   };
+
+  const handleRunOcr = () => startDummyOcr("success");
+  const handleSimulateOcrFailure = () => startDummyOcr("failure");
 
   // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
   // 未編集なら最新の入力(企業情報・OCR 結果)でテンプレートを再生成し、編集済みなら保持する。
@@ -111,8 +129,7 @@ export function BriefingNoteFlow() {
     }, 600);
   };
 
-  const cardMaxWidth =
-    currentStepId === "markdown" ? "max-w-5xl" : "max-w-3xl";
+  const cardMaxWidth = currentStepId === "markdown" ? "max-w-5xl" : "max-w-3xl";
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -134,6 +151,7 @@ export function BriefingNoteFlow() {
             onChangeCompanyEventInfo={setCompanyEventInfo}
             isOcrRunning={isOcrRunning}
             onNext={handleRunOcr}
+            onSimulateOcrFailure={handleSimulateOcrFailure}
           />
         )}
         {currentStepId === "ocr" && (
@@ -142,14 +160,18 @@ export function BriefingNoteFlow() {
             ocrText={ocrText}
             onChangeOcrText={setOcrText}
             hasOcrError={hasOcrError}
+            ocrErrorMessage={ocrErrorMessage}
+            isOcrRunning={isOcrRunning}
             isGeneratingMarkdown={isGeneratingMarkdown}
             onBack={goBack}
+            onRetryOcr={handleRunOcr}
             onNext={handleGenerateMarkdown}
           />
         )}
         {currentStepId === "markdown" && (
           <MarkdownEditStep
             markdownText={markdownText}
+            companyName={companyEventInfo.companyName}
             onChangeMarkdownText={handleChangeMarkdownText}
             hasGenerationError={hasGenerationError}
             onBack={goBack}

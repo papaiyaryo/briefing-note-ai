@@ -3,11 +3,16 @@ import { useState } from "react";
 import { Button } from "../Button";
 import { ErrorNotice } from "../ErrorNotice";
 import { MarkdownPreview } from "../MarkdownPreview";
+import {
+  buildMarkdownDownloadFileName,
+  downloadMarkdownFile,
+} from "../../lib/download";
 
 type EditorTab = "edit" | "preview";
 
 interface MarkdownEditStepProps {
   markdownText: string;
+  companyName: string;
   onChangeMarkdownText: (text: string) => void;
   hasGenerationError: boolean;
   onBack: () => void;
@@ -15,12 +20,14 @@ interface MarkdownEditStepProps {
 
 export function MarkdownEditStep({
   markdownText,
+  companyName,
   onChangeMarkdownText,
   hasGenerationError,
   onBack,
 }: MarkdownEditStepProps) {
   const [activeTab, setActiveTab] = useState<EditorTab>("edit");
   const isMarkdownEmpty = markdownText.trim() === "";
+  const downloadFileName = buildMarkdownDownloadFileName({ companyName });
 
   const tabClassName = (tab: EditorTab) =>
     `px-1 pb-2 text-sm focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2 ${
@@ -106,8 +113,12 @@ export function MarkdownEditStep({
         <Button variant="secondary" onClick={onBack}>
           OCR 確認に戻る
         </Button>
-        {/* ダウンロード処理は Phase 4 で接続するため、配置のみ用意して disabled にする */}
-        <Button disabled>.md をダウンロード</Button>
+        <Button
+          disabled={isMarkdownEmpty}
+          onClick={() => downloadMarkdownFile(markdownText, downloadFileName)}
+        >
+          .md をダウンロード
+        </Button>
       </div>
     </section>
   );
