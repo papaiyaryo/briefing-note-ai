@@ -48,9 +48,10 @@ Phase Design by Claude Code
 → Branch
 → Implementation
 → Self Review
+→ Verification
 → Pull Request
 → GitHub Actions
-→ Copilot Review
+→ Claude Review
 → Fix if needed
 → Human Merge
 ```
@@ -65,15 +66,18 @@ Rules:
 * Codex reads the Phase design and the target Issue design file before implementation
 * Codex implements Issues in the Phase order, starting from foundation Issues
 * 1 Issue = 1 Branch = 1 PR
+* Branch names must follow `issue-{number}-{short-description}`
+* Branch names may use only lowercase letters, numbers, hyphens, and slashes
+* Do not include brackets, spaces, or special Git characters such as `~`, `^`, `:`, `?`, `*`, `[`, `]`, or `\` in branch names
 * Do not push directly to `main`
 * Do not solve multiple Issues in one PR
 * Do not add MVP-out-of-scope features to MVP Issues
 * Before implementation, present a short plan
 * If the user explicitly says approval is not needed, proceed after presenting the plan
 * Otherwise, wait for approval before editing files
-* After implementation, run checks and self-review
+* After implementation, run self-review and checks
 * PR title and body should be written in Japanese
-* Request GitHub Copilot review when creating a PR
+* Request Claude review when creating a PR
 * Human decides final merge
 
 ---
@@ -192,22 +196,14 @@ If the human has already approved the Phase design and Phase implementation star
 After approval:
 
 * Create a branch named `issue-{number}-{short-description}`
+* Use only lowercase letters, numbers, hyphens, and slashes in branch names
+* Do not include brackets, spaces, or special Git characters such as `~`, `^`, `:`, `?`, `*`, `[`, `]`, or `\` in branch names
 * Implement only the Issue scope
 * Add or update tests if needed
 * Update README/docs if needed
 * Do not commit secrets or `.env`
 
-### 4. Verify
-
-Run relevant checks:
-
-* lint
-* typecheck
-* test
-* build
-* Docker check if the Issue involves Docker
-
-### 5. Self review
+### 4. Self review
 
 Check:
 
@@ -217,6 +213,16 @@ Check:
 * No secrets or API keys
 * README/docs are consistent
 * CI is expected to pass
+
+### 5. Verify
+
+Run relevant checks:
+
+* lint
+* typecheck
+* test
+* build
+* Docker check if the Issue involves Docker
 
 ### 6. PR
 
@@ -230,7 +236,7 @@ Create a PR with:
 * Related Issue with `Closes #issue_number`
 
 Use Japanese for PR title and body.
-Request `@copilot` as a reviewer.
+Request `@claude` as a reviewer.
 Do not merge.
 
 ---
@@ -326,8 +332,8 @@ Rules:
 
 After PR creation:
 
-* Use Copilot mainly for review, summary, and small fixes
-* Do not let Copilot make large design decisions
+* Use Claude mainly for review, summary, and small fixes
+* Do not let Claude make large design decisions
 * Scope-related decisions belong to the human and Codex
 * Fix only review comments that are within the current Issue scope
 
@@ -368,5 +374,5 @@ Read AGENTS.md, docs/, and Issue #X.
 Plan first.
 Do not edit files until approval.
 After approval, implement using 1 Issue = 1 Branch = 1 PR.
-Run checks, self-review, create PR, and stop before merge.
+Run self-review and checks, create PR, and stop before merge.
 ```
