@@ -15,6 +15,30 @@ function codeBlocksOf(markdown: string) {
   );
 }
 
+const outputFormatSections = [
+  "## 説明会概要",
+  "## 説明会で得た事実",
+  "## HR・社員が強調していた点",
+  "## 事業内容",
+  "## 強み・特徴",
+  "## 求める人物像",
+  "## 自分の印象・感じたこと",
+  "## 気になった点",
+  "## 次に聞きたい質問",
+  "## ES・面接で使えそうな材料",
+  "## 次に調べること",
+  "## Web 補足情報",
+  "## 元メモからの抜粋",
+] as const;
+
+const overviewLabels = [
+  "- 企業名:",
+  "- イベント名:",
+  "- 日時:",
+  "- 登壇者:",
+  "- メモ元画像:",
+] as const;
+
 describe("buildMarkdownTemplate", () => {
   it("uses 要確認 defaults when no input is given", () => {
     const markdown = buildMarkdownTemplate();
@@ -42,8 +66,33 @@ describe("buildMarkdownTemplate", () => {
   });
 
   it("treats whitespace-only input as missing", () => {
-    const markdown = buildMarkdownTemplate({ companyName: "  " });
+    const markdown = buildMarkdownTemplate({
+      companyName: "  ",
+      eventName: "\n\t",
+      eventDate: " ",
+      imageFileName: "   ",
+      ocrText: "\n  ",
+    });
     expect(markdown).toContain("# 要確認");
+    expect(markdown).toContain("- 企業名: 要確認");
+    expect(markdown).toContain("- イベント名: 要確認");
+    expect(markdown).toContain("- 日時: 要確認");
+    expect(markdown).toContain("- メモ元画像: 不明");
+    expect(markdown).toContain("(OCR 結果なし)");
+  });
+
+  it("does not infer unknown company facts from partial OCR text", () => {
+    const markdown = buildMarkdownTemplate({
+      companyName: "メモ株式会社",
+      ocrText: "クラウド\n社員の雰囲気がよい\n挑戦",
+    });
+
+    expect(markdown).toContain("- 登壇者: 要確認");
+    expect(markdown).toContain("- (説明会メモに基づく事業内容を書く)");
+    expect(markdown).toContain("- (説明会で言及された人物像を書く)");
+    expect(markdown).toContain("クラウド\n社員の雰囲気がよい\n挑戦");
+    expect(markdown).not.toContain("クラウド事業");
+    expect(markdown).not.toContain("挑戦できる人材");
   });
 
   it("uses a longer fence when the OCR text contains backtick fences", () => {
@@ -59,23 +108,36 @@ describe("buildMarkdownTemplate", () => {
 
   it("contains the sections defined in docs/output-format.md", () => {
     const markdown = buildMarkdownTemplate();
-    for (const section of [
-      "## 説明会概要",
-      "## 説明会で得た事実",
-      "## HR・社員が強調していた点",
-      "## 事業内容",
-      "## 強み・特徴",
-      "## 求める人物像",
-      "## 自分の印象・感じたこと",
-      "## 気になった点",
-      "## 次に聞きたい質問",
-      "## ES・面接で使えそうな材料",
-      "## 次に調べること",
-      "## Web 補足情報",
-      "## 元メモからの抜粋",
-    ]) {
+    for (const section of outputFormatSections) {
       expect(markdown).toContain(`\n${section}\n`);
     }
+  });
+
+  it("keeps output-format sections in the documented order", () => {
+    const markdown = buildMarkdownTemplate();
+
+    const sectionPositions = outputFormatSections.map((section) =>
+      markdown.indexOf(section),
+    );
+
+    expect(sectionPositions).not.toContain(-1);
+    expect(sectionPositions).toEqual([...sectionPositions].sort((a, b) => a - b));
+  });
+
+  it("keeps overview labels aligned with docs/output-format.md", () => {
+    const markdown = buildMarkdownTemplate();
+    const overview = markdown.slice(
+      markdown.indexOf("## 説明会概要"),
+      markdown.indexOf("## 説明会で得た事実"),
+    );
+
+    for (const label of overviewLabels) {
+      expect(overview).toContain(label);
+    }
+
+    const labelPositions = overviewLabels.map((label) => overview.indexOf(label));
+    expect(labelPositions).not.toContain(-1);
+    expect(labelPositions).toEqual([...labelPositions].sort((a, b) => a - b));
   });
 
   it("includes the MVP web supplement placeholder from docs/output-format.md", () => {
