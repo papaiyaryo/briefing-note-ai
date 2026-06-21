@@ -21,6 +21,17 @@ MVP では、画像アップロード、ダミー OCR、Markdown 生成、編集
 就活メモには個人情報や企業研究の内容が含まれるため、アプリケーションコードでは画像内容、OCR 全文、生成 Markdown、秘密情報を不要にログ出力しない方針です。実際の API キーや OAuth シークレットは `.env` に置き、リポジトリには `.env.example` の空プレースホルダーのみをコミットします。
 
 詳細な確認結果と再確認タイミングは [Security and Privacy Notes for MVP](docs/security-privacy.md) を参照してください。
+## Screenshots
+
+MVP の主な流れを、架空企業「青葉フューチャーリンク株式会社」のサンプルデータで示します。画像には個人情報や実在の選考情報は含めていません。
+
+### アップロード画面
+
+![Briefing Note AI のアップロード画面](docs/images/upload-step.svg)
+
+### Markdown 編集画面
+
+![Briefing Note AI の Markdown 編集画面](docs/images/markdown-edit-step.svg)
 
 ## Future Ideas
 
