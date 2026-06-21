@@ -55,6 +55,7 @@ Issue 作成 (Human)
 - `opened` / `ready_for_review` の初回レビューは、通常モデルで PR 全体を厳密に確認する。
 - `synchronize` の push 後レビューは、軽量モデルに落として簡易レビューを行う。主な確認対象は、修正の正当性・妥当性、修正後に新しい問題が出ていないか、明らかな CI / 構文 / 権限 / セキュリティ上の退行がないかに限定する。
 - push 後レビューでは PR 全体の詳細レビューを毎回やり直さず、重大な新規問題がある場合のみ指摘する。
+- `synchronize` トリガー自体を追加・復旧する PR では、そのトリガーを含む commit の push 自体では review run が作られない場合がある。検証時は、`synchronize` を含む状態を head にしたうえで、追加の小さな commit を push して run 発生を確認する。
 - `concurrency` で同一 PR / Issue の多重起動を防ぐ。
 - Draft PR ではレビューを起動しない。
 
