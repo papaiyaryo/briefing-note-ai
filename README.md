@@ -14,6 +14,18 @@
 - Markdown 編集
 - `.md` ダウンロード
 
+## Screenshots
+
+MVP の主な流れを、架空企業「青葉フューチャーリンク株式会社」のサンプルデータで示します。画像には個人情報や実在の選考情報は含めていません。
+
+### アップロード画面
+
+![Briefing Note AI のアップロード画面](docs/images/upload-step.svg)
+
+### Markdown 編集画面
+
+![Briefing Note AI の Markdown 編集画面](docs/images/markdown-edit-step.svg)
+
 ## Future Ideas
 
 - OpenAI Vision API

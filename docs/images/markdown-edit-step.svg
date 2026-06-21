@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="820" viewBox="0 0 1280 820" role="img" aria-labelledby="title desc">
+  <title id="title">Briefing Note AI markdown edit step demo screenshot</title>
+  <desc id="desc">Fictional demo data for Aoba Future Link markdown editing screen.</desc>
+  <rect width="1280" height="820" fill="#f8fafc"/>
+  <g transform="translate(80 44)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Briefing Note AI</text>
+    <text x="0" y="36" font-family="Arial, sans-serif" font-size="18" fill="#475569">企業説明会の紙メモを、就活で使える Markdown に変換します。</text>
+    <g transform="translate(0 86)" font-family="Arial, sans-serif" font-size="15">
+      <circle cx="20" cy="18" r="18" fill="#0f766e"/><text x="15" y="24" fill="white" font-weight="700">1</text><text x="48" y="23" fill="#0f172a">アップロード</text>
+      <line x1="162" y1="18" x2="310" y2="18" stroke="#0f766e" stroke-width="2"/>
+      <circle cx="340" cy="18" r="18" fill="#0f766e"/><text x="335" y="24" fill="white" font-weight="700">2</text><text x="368" y="23" fill="#0f172a">OCR確認</text>
+      <line x1="472" y1="18" x2="620" y2="18" stroke="#0f766e" stroke-width="2"/>
+      <circle cx="650" cy="18" r="18" fill="#0f766e"/><text x="645" y="24" fill="white" font-weight="700">3</text><text x="678" y="23" fill="#0f172a" font-weight="700">Markdown編集</text>
+    </g>
+    <rect x="0" y="152" width="1120" height="610" rx="14" fill="white" stroke="#e2e8f0"/>
+    <g transform="translate(40 196)" font-family="Arial, sans-serif">
+      <text x="0" y="0" font-size="24" font-weight="700" fill="#0f172a">Markdown を編集してダウンロード</text>
+      <text x="0" y="30" font-size="15" fill="#64748b">生成された企業メモを自分用に整え、.md としてダウンロードします。</text>
+      <text x="0" y="78" font-size="14" font-weight="700" fill="#0f172a">Markdown</text>
+      <rect x="0" y="94" width="510" height="400" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="18" y="124" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace"># 青葉フューチャーリンク株式会社 企業メモ</text>
+      <text x="18" y="154" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">## 1. ブリーフィングの事実</text>
+      <text x="18" y="184" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">- イベント: 26卒向け オンライン会社説明会</text>
+      <text x="18" y="214" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">- 事業: 業務支援クラウドを開発</text>
+      <text x="18" y="254" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">## 2. HR・社員が強調した点</text>
+      <text x="18" y="284" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">- 顧客の現場観察から課題を決める</text>
+      <text x="18" y="324" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">## 3. 自分の印象</text>
+      <text x="18" y="354" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">- 研究でのヒアリング経験とつなげやすい</text>
+      <text x="18" y="394" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">## 4. 後で質問したいこと</text>
+      <text x="18" y="424" font-size="14" fill="#0f172a" font-family="Menlo, Consolas, monospace">- 配属後の研修期間はどれくらいか</text>
+      <text x="560" y="78" font-size="14" font-weight="700" fill="#0f172a">プレビュー</text>
+      <rect x="560" y="94" width="510" height="400" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="584" y="132" font-size="22" font-weight="700" fill="#0f172a">青葉フューチャーリンク株式会社 企業メモ</text>
+      <text x="584" y="178" font-size="18" font-weight="700" fill="#0f172a">1. ブリーフィングの事実</text>
+      <text x="604" y="210" font-size="15" fill="#334155">• イベント: 26卒向け オンライン会社説明会</text>
+      <text x="604" y="238" font-size="15" fill="#334155">• 事業: 業務支援クラウドを開発</text>
+      <text x="584" y="292" font-size="18" font-weight="700" fill="#0f172a">2. HR・社員が強調した点</text>
+      <text x="604" y="324" font-size="15" fill="#334155">• 顧客の現場観察から課題を決める</text>
+      <text x="584" y="378" font-size="18" font-weight="700" fill="#0f172a">3. 自分の印象</text>
+      <text x="604" y="410" font-size="15" fill="#334155">• 研究でのヒアリング経験とつなげやすい</text>
+      <rect x="0" y="540" width="126" height="42" rx="8" fill="white" stroke="#0f766e"/><text x="18" y="567" font-size="15" font-weight="700" fill="#0f766e">OCR 確認に戻る</text>
+      <rect x="910" y="540" width="160" height="42" rx="8" fill="#0f766e"/><text x="932" y="567" font-size="15" font-weight="700" fill="white">.md をダウンロード</text>
+    </g>
+  </g>
+</svg>
