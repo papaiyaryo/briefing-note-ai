@@ -31,8 +31,11 @@ jobs:
           # Explicitly use the workflow token for GitHub API calls so PRs that update
           # this workflow do not fail Claude Code Action's GitHub App workflow validation.
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Wrap the JSON in single quotes so the action's shell-style argument
+          # splitting preserves the inner double quotes (otherwise the schema is
+          # stripped to invalid JSON and the claude CLI exits with code 1).
           claude_args: >-
-            --json-schema {"type":"object","additionalProperties":false,"properties":{"review_comment":{"type":"string","description":"Markdown PR review comment body in Japanese"}},"required":["review_comment"]}
+            --json-schema '{"type":"object","additionalProperties":false,"properties":{"review_comment":{"type":"string","description":"Markdown PR review comment body in Japanese"}},"required":["review_comment"]}'
           settings: |
             {
               "permissions": {
