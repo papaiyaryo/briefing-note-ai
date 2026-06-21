@@ -44,14 +44,17 @@ Issue 作成 (Human)
 |---|---|---|
 | Issue / PR コメントに `@claude ...` | `claude.yml` | 指示内容を実行（設計ファイル生成、質問応答、対話レビュー） |
 | Issue を `@claude` 付きで作成 | `claude.yml` | 同上 |
-| PR が `opened` / `ready_for_review` | `claude-review.yml` | 自動でレビューコメントを投稿 |
+| PR が `opened` / `ready_for_review` | `claude-review.yml` | 厳密な自動レビューコメントを投稿 |
+| PR に追加 push があり `synchronize` されたとき | `claude-review.yml` | 軽量モデルで修正の正当性・新規問題の有無を簡易レビュー |
 | `@codex ...`（Issue/PR コメント・アサイン） | Codex Cloud（App 側） | 実装・PR 作成 |
 
 ### レート節約方針
 
-サブスクの週次リミットを食いつぶさないため、自動起動は最小限にする。
+サブスクの週次リミットを抑えつつ修正コミットの安全性を確認するため、初回レビューと push 後レビューの重さを分ける。
 
-- レビューは `pull_request` の `opened` と `ready_for_review` のみ。push ごとには走らせない（再レビューが要るときは `@claude review` を手動で打つ）。
+- `opened` / `ready_for_review` の初回レビューは、通常モデルで PR 全体を厳密に確認する。
+- `synchronize` の push 後レビューは、軽量モデルに落として簡易レビューを行う。主な確認対象は、修正の正当性・妥当性、修正後に新しい問題が出ていないか、明らかな CI / 構文 / 権限 / セキュリティ上の退行がないかに限定する。
+- push 後レビューでは PR 全体の詳細レビューを毎回やり直さず、重大な新規問題がある場合のみ指摘する。
 - `concurrency` で同一 PR / Issue の多重起動を防ぐ。
 - Draft PR ではレビューを起動しない。
 

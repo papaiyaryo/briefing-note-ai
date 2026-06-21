@@ -2,7 +2,7 @@ name: Claude Review
 
 on:
   pull_request:
-    types: [opened, ready_for_review]
+    types: [opened, ready_for_review, synchronize]
 
 concurrency:
   group: claude-review-${{ github.event.pull_request.number }}
@@ -35,11 +35,21 @@ jobs:
           # splitting preserves the inner double quotes (otherwise the schema is
           # stripped to invalid JSON and the claude CLI exits with code 1).
           claude_args: >-
+            --model ${{ github.event.action == 'synchronize' && 'claude-haiku-4-5' || 'claude-sonnet-4-6' }}
             --json-schema '{"type":"object","additionalProperties":false,"properties":{"review_comment":{"type":"string","description":"Markdown PR review comment body in Japanese"}},"required":["review_comment"]}'
           settings: |
             {
               "permissions": {
-                "allow": ["Read", "Grep", "Glob"],
+                "allow": [
+                  "Read",
+                  "Grep",
+                  "Glob",
+                  "Bash(git diff:*)",
+                  "Bash(git show:*)",
+                  "Bash(git status:*)",
+                  "Bash(git log:*)",
+                  "Bash(git merge-base:*)"
+                ],
                 "deny": [
                   "Edit",
                   "MultiEdit",
@@ -53,9 +63,15 @@ jobs:
             }
           prompt: |
             この PR を AGENTS.md と docs/ のルールに従ってレビューしてください。
+            GitHub event action: `${{ github.event.action }}`
 
             この workflow はレビュー専用です。リポジトリ内のファイル編集、commit、push、PR ブランチの変更、GitHub API によるコメント投稿は行わないでください。
             レビュー結果は structured output の `review_comment` に Markdown 文字列として返してください。workflow の後続ステップが、その内容を PR コメントとして投稿・検証します。
+
+            レビュー方針:
+            - `opened` / `ready_for_review` の初回レビューでは、PR 全体を厳密に確認してください。
+            - `synchronize` の push 後レビューでは、軽量モデルで簡単に確認し、主に「修正内容が直前の指摘・目的に対して正当か」「修正後に新しい問題が出ていないか」「明らかな CI / 構文 / 権限 / セキュリティ上の退行がないか」に絞ってください。
+            - `synchronize` では PR 全体の詳細レビューを最初からやり直さず、重大な新規問題が見つかった場合だけ指摘してください。
 
             観点:
             - 対象 Issue の Scope / Acceptance Criteria に収まっているか
