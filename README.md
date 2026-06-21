@@ -14,6 +14,13 @@
 - Markdown 編集
 - `.md` ダウンロード
 
+## Security and Privacy for MVP
+
+MVP では、画像アップロード、ダミー OCR、Markdown 生成、編集、プレビュー、`.md` ダウンロードの流れをブラウザ内で扱います。アップロード画像、OCR テキスト、生成 Markdown は OpenAI、Google Drive、その他の外部サービスへ送信せず、サーバー保存もしません。
+
+就活メモには個人情報や企業研究の内容が含まれるため、アプリケーションコードでは画像内容、OCR 全文、生成 Markdown、秘密情報を不要にログ出力しない方針です。実際の API キーや OAuth シークレットは `.env` に置き、リポジトリには `.env.example` の空プレースホルダーのみをコミットします。
+
+詳細な確認結果と再確認タイミングは [Security and Privacy Notes for MVP](docs/security-privacy.md) を参照してください。
 ## Screenshots
 
 MVP の主な流れを、架空企業「青葉フューチャーリンク株式会社」のサンプルデータで示します。画像には個人情報や実在の選考情報は含めていません。
