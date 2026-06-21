@@ -82,6 +82,10 @@ jobs:
           CLAUDE_REVIEW_MARKER: '<!-- claude-review-result -->'
           CLAUDE_REVIEW_RUN: 'Claude Review Run: ${{ github.run_id }}'
           CLAUDE_REVIEW_HEAD: 'Claude Review Head SHA: ${{ github.event.pull_request.head.sha }}'
+          # Only reuse a comment that this workflow itself posted (via GITHUB_TOKEN
+          # the author is github-actions[bot]). Otherwise the marker can match an
+          # unrelated bot's comment and we would overwrite/hijack it.
+          CLAUDE_REVIEW_AUTHOR: 'github-actions[bot]'
         run: |
           set -euo pipefail
 
@@ -111,7 +115,7 @@ jobs:
           PY
 
           existing_comment_id="$(gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" --paginate \
-            --jq '.[] | select(.body | contains(env.CLAUDE_REVIEW_MARKER)) | .id' \
+            --jq '.[] | select((.body | contains(env.CLAUDE_REVIEW_MARKER)) and (.user.login == env.CLAUDE_REVIEW_AUTHOR)) | .id' \
             | tail -n 1)"
 
           if [ -n "${existing_comment_id}" ]; then
@@ -136,11 +140,12 @@ jobs:
           CLAUDE_REVIEW_MARKER: '<!-- claude-review-result -->'
           CLAUDE_REVIEW_RUN: 'Claude Review Run: ${{ github.run_id }}'
           CLAUDE_REVIEW_HEAD: 'Claude Review Head SHA: ${{ github.event.pull_request.head.sha }}'
+          CLAUDE_REVIEW_AUTHOR: 'github-actions[bot]'
         run: |
           set -euo pipefail
 
           if gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" --paginate \
-            --jq '.[] | select(.body | contains(env.CLAUDE_REVIEW_MARKER) and contains(env.CLAUDE_REVIEW_RUN) and contains(env.CLAUDE_REVIEW_HEAD)) | .html_url' \
+            --jq '.[] | select((.user.login == env.CLAUDE_REVIEW_AUTHOR) and (.body | contains(env.CLAUDE_REVIEW_MARKER) and contains(env.CLAUDE_REVIEW_RUN) and contains(env.CLAUDE_REVIEW_HEAD))) | .html_url' \
             | tee /tmp/claude-review-comment-url \
             | grep -q .; then
             echo "Claude review comment found: $(tail -n 1 /tmp/claude-review-comment-url)"
