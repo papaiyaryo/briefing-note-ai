@@ -2,7 +2,7 @@ name: Claude Review
 
 on:
   pull_request:
-    types: [opened, ready_for_review]
+    types: [opened, ready_for_review, synchronize]
 
 concurrency:
   group: claude-review-${{ github.event.pull_request.number }}
@@ -15,6 +15,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      issues: write
       id-token: write
     steps:
       - name: Checkout
@@ -23,11 +24,55 @@ jobs:
           fetch-depth: 0
 
       - name: Review with Claude Code
+        id: claude-review
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Explicitly use the workflow token for GitHub API calls so PRs that update
+          # this workflow do not fail Claude Code Action's GitHub App workflow validation.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Wrap the JSON in single quotes so the action's shell-style argument
+          # splitting preserves the inner double quotes (otherwise the schema is
+          # stripped to invalid JSON and the claude CLI exits with code 1).
+          claude_args: >-
+            --model ${{ github.event.action == 'synchronize' && 'claude-haiku-4-5' || 'claude-sonnet-4-6' }}
+            --json-schema '{"type":"object","additionalProperties":false,"properties":{"review_comment":{"type":"string","description":"Markdown PR review comment body in Japanese"}},"required":["review_comment"]}'
+          settings: |
+            {
+              "permissions": {
+                "allow": [
+                  "Read",
+                  "Grep",
+                  "Glob",
+                  "Bash(git diff:*)",
+                  "Bash(git show:*)",
+                  "Bash(git status:*)",
+                  "Bash(git log:*)",
+                  "Bash(git merge-base:*)"
+                ],
+                "deny": [
+                  "Edit",
+                  "MultiEdit",
+                  "Write",
+                  "NotebookEdit",
+                  "Bash(git add:*)",
+                  "Bash(git commit:*)",
+                  "Bash(git push:*)"
+                ]
+              }
+            }
           prompt: |
             この PR を AGENTS.md と docs/ のルールに従ってレビューしてください。
+            GitHub event action: `${{ github.event.action }}`
+
+            この workflow はレビュー専用です。リポジトリ内のファイル編集、commit、push、PR ブランチの変更、GitHub API によるコメント投稿は行わないでください。
+            レビュー結果は structured output の `review_comment` に Markdown 文字列として返してください。workflow の後続ステップが、その内容を PR コメントとして投稿・検証します。
+
+            レビュー方針:
+            - `opened` / `ready_for_review` の初回レビューでは、PR 全体を厳密に確認してください。
+            - `synchronize` の push 後レビューでは、軽量モデルで簡単に確認し、主に「修正内容が直前の指摘・目的に対して正当か」「修正後に新しい問題が出ていないか」「明らかな CI / 構文 / 権限 / セキュリティ上の退行がないか」に絞ってください。
+            - `synchronize` では PR 全体の詳細レビューを最初からやり直さず、重大な新規問題が見つかった場合だけ指摘してください。
+
             観点:
             - 対象 Issue の Scope / Acceptance Criteria に収まっているか
             - 1 PR で複数 Issue を解決していないか
@@ -35,5 +80,97 @@ jobs:
             - 秘密情報・APIキー・.env を含めていないか
             - 事実・所感・Web 情報を混在させていないか（Product Principle）
             - lint / typecheck / test / build が通る見込みか
-            指摘は日本語で、重要度を付けて PR コメントとして投稿してください。
+            後続ステップで GitHub の PR コメントに投稿できるよう、review_comment にはレビュー結果本文だけを含めてください。
+            指摘がある場合は、修正できるように以下を含めてください。
+            - 重要度
+            - 対象ファイル / 行
+            - 問題点
+            - 推奨修正
+            指摘がない場合でも「Claude Review: 指摘なし」として、確認した観点と理由を PR コメントに投稿してください。
             スコープ外の問題は「フォローアップ Issue 候補」として分けて記載してください。
+
+      - name: Post Claude review comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          STRUCTURED_OUTPUT: ${{ steps.claude-review.outputs.structured_output }}
+          CLAUDE_REVIEW_MARKER: '<!-- claude-review-result -->'
+          CLAUDE_REVIEW_RUN: 'Claude Review Run: ${{ github.run_id }}'
+          CLAUDE_REVIEW_HEAD: 'Claude Review Head SHA: ${{ github.event.pull_request.head.sha }}'
+          # Only reuse a comment that this workflow itself posted (via GITHUB_TOKEN
+          # the author is github-actions[bot]). Otherwise the marker can match an
+          # unrelated bot's comment and we would overwrite/hijack it.
+          CLAUDE_REVIEW_AUTHOR: 'github-actions[bot]'
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          raw = os.environ.get("STRUCTURED_OUTPUT", "").strip()
+          if not raw:
+              raise SystemExit("Claude structured_output is empty; cannot post a verified PR review comment.")
+
+          data = json.loads(raw)
+          review_comment = data.get("review_comment", "").strip()
+          if not review_comment:
+              raise SystemExit("Claude structured_output.review_comment is empty; cannot post a verified PR review comment.")
+
+          body = "\n".join([
+              os.environ["CLAUDE_REVIEW_MARKER"],
+              os.environ["CLAUDE_REVIEW_RUN"],
+              os.environ["CLAUDE_REVIEW_HEAD"],
+              "",
+              review_comment,
+              "",
+          ])
+          Path("/tmp/claude-review-comment.md").write_text(body, encoding="utf-8")
+          PY
+
+          existing_comment_id="$(gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" --paginate \
+            --jq '.[] | select((.body | contains(env.CLAUDE_REVIEW_MARKER)) and (.user.login == env.CLAUDE_REVIEW_AUTHOR)) | .id' \
+            | tail -n 1)"
+
+          if [ -n "${existing_comment_id}" ]; then
+            gh api \
+              --method PATCH \
+              "repos/${REPO}/issues/comments/${existing_comment_id}" \
+              --field "body=@/tmp/claude-review-comment.md" \
+              --jq '.html_url' | tee /tmp/claude-review-comment-url
+          else
+            gh api \
+              --method POST \
+              "repos/${REPO}/issues/${PR_NUMBER}/comments" \
+              --field "body=@/tmp/claude-review-comment.md" \
+              --jq '.html_url' | tee /tmp/claude-review-comment-url
+          fi
+
+      - name: Verify Claude review comment was posted
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          CLAUDE_REVIEW_MARKER: '<!-- claude-review-result -->'
+          CLAUDE_REVIEW_RUN: 'Claude Review Run: ${{ github.run_id }}'
+          CLAUDE_REVIEW_HEAD: 'Claude Review Head SHA: ${{ github.event.pull_request.head.sha }}'
+          CLAUDE_REVIEW_AUTHOR: 'github-actions[bot]'
+        run: |
+          set -euo pipefail
+
+          if gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" --paginate \
+            --jq '.[] | select((.user.login == env.CLAUDE_REVIEW_AUTHOR) and (.body | contains(env.CLAUDE_REVIEW_MARKER) and contains(env.CLAUDE_REVIEW_RUN) and contains(env.CLAUDE_REVIEW_HEAD))) | .html_url' \
+            | tee /tmp/claude-review-comment-url \
+            | grep -q .; then
+            echo "Claude review comment found: $(tail -n 1 /tmp/claude-review-comment-url)"
+            exit 0
+          fi
+
+          echo "Claude review comment was not found on the PR." >&2
+          echo "Expected a PR issue comment containing all of:" >&2
+          echo "- ${CLAUDE_REVIEW_MARKER}" >&2
+          echo "- ${CLAUDE_REVIEW_RUN}" >&2
+          echo "- ${CLAUDE_REVIEW_HEAD}" >&2
+          exit 1
