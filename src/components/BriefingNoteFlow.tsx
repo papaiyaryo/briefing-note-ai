@@ -8,7 +8,8 @@ import {
   buildMarkdownTemplateFromBriefingNote,
   type CompanyEventInfo,
 } from "../lib/markdown";
-import { runDummyOcr, type DummyOcrMode } from "../lib/dummyOcr";
+import { runDummyOcr } from "../lib/dummyOcr";
+import { requestOcr } from "../lib/ocrClient";
 import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
@@ -33,13 +34,15 @@ export function BriefingNoteFlow() {
   const [hasGenerationError, setHasGenerationError] = useState(false);
 
   const pendingTimerRef = useRef<number | null>(null);
+  const ocrAbortControllerRef = useRef<AbortController | null>(null);
 
-  // アンマウント時に未発火のタイマーを解除し、破棄後の state 更新を防ぐ
+  // アンマウント時に未発火のタイマーと OCR リクエストを解除し、破棄後の state 更新を防ぐ
   useEffect(() => {
     return () => {
       if (pendingTimerRef.current !== null) {
         window.clearTimeout(pendingTimerRef.current);
       }
+      ocrAbortControllerRef.current?.abort();
     };
   }, []);
 
@@ -75,9 +78,51 @@ export function BriefingNoteFlow() {
     setMarkdownText(text);
   };
 
-  // 実 OCR 連携前の MVP 確認用に、固定サンプルを返すダミー OCR を使う。
-  // 完了時の遷移は、待機中の操作に影響されないよう絶対遷移にする。
-  const startDummyOcr = (mode: DummyOcrMode = "success") => {
+  // OCR はサーバー側 API ルートに画像を送り、OpenAI / dummy provider の切替はサーバー側に閉じ込める。
+  const handleRunOcr = async () => {
+    if (isOcrRunning || !selectedImage) {
+      return;
+    }
+
+    ocrAbortControllerRef.current?.abort();
+    const controller = new AbortController();
+    ocrAbortControllerRef.current = controller;
+
+    setHasOcrError(false);
+    setOcrErrorMessage("");
+    setIsOcrRunning(true);
+
+    try {
+      const result = await requestOcr(selectedImage.file, controller.signal);
+      if (controller.signal.aborted) {
+        return;
+      }
+      setOcrText(result.text);
+      setHasOcrError(false);
+      setOcrErrorMessage("");
+    } catch (error) {
+      if (controller.signal.aborted) {
+        return;
+      }
+      const message =
+        error instanceof Error
+          ? error.message
+          : "OCR 処理に失敗しました。時間をおいて再試行してください。";
+      setOcrText("");
+      setHasOcrError(true);
+      setOcrErrorMessage(message);
+    } finally {
+      if (!controller.signal.aborted) {
+        setIsOcrRunning(false);
+        setCurrentStepId("ocr");
+      }
+      if (ocrAbortControllerRef.current === controller) {
+        ocrAbortControllerRef.current = null;
+      }
+    }
+  };
+
+  const handleSimulateOcrFailure = () => {
     if (isOcrRunning) {
       return;
     }
@@ -86,23 +131,18 @@ export function BriefingNoteFlow() {
     setIsOcrRunning(true);
     pendingTimerRef.current = window.setTimeout(() => {
       pendingTimerRef.current = null;
-      const result = runDummyOcr(mode);
-      if (result.status === "success") {
-        setOcrText(result.text);
-        setHasOcrError(false);
-        setOcrErrorMessage("");
-      } else {
-        setOcrText("");
-        setHasOcrError(true);
-        setOcrErrorMessage(result.errorMessage);
-      }
+      const result = runDummyOcr("failure");
+      setOcrText("");
+      setHasOcrError(true);
+      setOcrErrorMessage(
+        result.status === "failure"
+          ? result.errorMessage
+          : "OCR 失敗の確認に失敗しました。",
+      );
       setIsOcrRunning(false);
       setCurrentStepId("ocr");
     }, 600);
   };
-
-  const handleRunOcr = () => startDummyOcr("success");
-  const handleSimulateOcrFailure = () => startDummyOcr("failure");
 
   // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
   // 未編集なら最新の入力(企業情報・OCR 結果)でテンプレートを再生成し、編集済みなら保持する。
