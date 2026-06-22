@@ -7,6 +7,21 @@ export interface OpenAiResponsesClient {
   createResponse(body: unknown): Promise<unknown>;
 }
 
+/**
+ * OpenAI へのリクエストが失敗したことを表すエラー。
+ * 呼び出し側で分類・ログできるよう HTTP ステータスのみを保持する。
+ * レスポンス本文は機微情報を含みうるため保持しない。
+ */
+export class OpenAiRequestError extends Error {
+  readonly status: number;
+
+  constructor(status: number) {
+    super(`OpenAI API request failed with ${status}`);
+    this.name = "OpenAiRequestError";
+    this.status = status;
+  }
+}
+
 export function createOpenAiClient(
   env: OpenAiClientEnv = process.env,
 ): OpenAiResponsesClient {
@@ -27,7 +42,7 @@ export function createOpenAiClient(
       });
 
       if (!response.ok) {
-        throw new Error(`OpenAI API request failed with ${response.status}`);
+        throw new OpenAiRequestError(response.status);
       }
 
       return response.json();

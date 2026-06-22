@@ -6,6 +6,8 @@ import type {
   OcrApiResponse,
 } from "../../../src/lib/openai/contracts";
 import { getOcrProvider } from "../../../src/lib/openai/provider";
+import { logServerEvent } from "../../../src/lib/server/log";
+import { OpenAiRequestError } from "../../../src/lib/server/openaiClient";
 import { runOcr } from "../../../src/lib/server/ocr";
 import { validateImageFile } from "../../../src/lib/upload";
 
@@ -64,6 +66,7 @@ export async function POST(request: Request) {
 
   const provider = getOcrProvider();
   if (provider === "openai" && !process.env.OPENAI_API_KEY) {
+    logServerEvent("warn", "ocr.not_configured", { provider });
     return errorResponse("not_configured", 500);
   }
 
@@ -72,7 +75,20 @@ export async function POST(request: Request) {
     const result = await runOcr({ bytes, mimeType: file.type });
     const body: OcrApiResponse = { text: result.text, provider };
     return NextResponse.json(body);
-  } catch {
-    return errorResponse("provider_error", 502);
+  } catch (error) {
+    const upstreamStatus =
+      error instanceof OpenAiRequestError ? error.status : undefined;
+    const code: ApiErrorCode =
+      upstreamStatus === 429 ? "rate_limited" : "provider_error";
+    const httpStatus = code === "rate_limited" ? 429 : 502;
+
+    // 画像・OCR 本文・例外メッセージは載せず、分類に必要なメタ情報のみ記録する。
+    logServerEvent("error", "ocr.provider_failure", {
+      provider,
+      upstreamStatus,
+      code,
+    });
+
+    return errorResponse(code, httpStatus);
   }
 }
