@@ -82,11 +82,22 @@ export async function POST(request: Request) {
       upstreamStatus === 429 ? "rate_limited" : "provider_error";
     const httpStatus = code === "rate_limited" ? 429 : 502;
 
+    // 失敗の出所を切り分けるための種別。
+    // http_error=OpenAIがエラー応答 / TypeError=fetch失敗(ネットワーク) /
+    // Error=2xxだが本文を取り出せない等。
+    const reason =
+      error instanceof OpenAiRequestError
+        ? "http_error"
+        : error instanceof Error
+          ? error.name
+          : "unknown";
+
     // 画像・OCR 本文・例外メッセージは載せず、分類に必要なメタ情報のみ記録する。
     logServerEvent("error", "ocr.provider_failure", {
       provider,
       upstreamStatus,
       code,
+      reason,
     });
 
     return errorResponse(code, httpStatus);

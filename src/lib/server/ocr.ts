@@ -36,16 +36,37 @@ function toDataUrl(input: OcrInput): string {
 }
 
 function extractOutputText(response: unknown): string {
-  if (
-    response &&
-    typeof response === "object" &&
-    "output_text" in response &&
-    typeof response.output_text === "string"
-  ) {
-    return response.output_text.trim();
+  if (!response || typeof response !== "object") {
+    return "";
   }
 
-  return "";
+  const record = response as Record<string, unknown>;
+
+  // SDK 互換: 直下に output_text があればそれを使う
+  if (typeof record.output_text === "string") {
+    return record.output_text.trim();
+  }
+
+  // 生の Responses API: output[].content[].text を連結する
+  if (!Array.isArray(record.output)) {
+    return "";
+  }
+
+  const parts: string[] = [];
+  for (const item of record.output) {
+    if (!item || typeof item !== "object") continue;
+    const content = (item as Record<string, unknown>).content;
+    if (!Array.isArray(content)) continue;
+    for (const block of content) {
+      if (!block || typeof block !== "object") continue;
+      const text = (block as Record<string, unknown>).text;
+      if (typeof text === "string") {
+        parts.push(text);
+      }
+    }
+  }
+
+  return parts.join("").trim();
 }
 
 async function runOpenAiOcr(

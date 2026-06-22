@@ -33,4 +33,27 @@ describe("runOcr", () => {
       "data:image/png;base64,AQID",
     );
   });
+
+  it("extracts text from the raw Responses API output array", async () => {
+    const result = await runOcr(
+      { bytes: new Uint8Array([1, 2, 3]), mimeType: "image/png" },
+      {
+        env: { OCR_PROVIDER: "openai", OPENAI_API_KEY: "test-key" },
+        client: {
+          async createResponse() {
+            return {
+              output: [
+                {
+                  type: "message",
+                  content: [{ type: "output_text", text: "配列形の結果" }],
+                },
+              ],
+            };
+          },
+        },
+      },
+    );
+
+    expect(result.text).toBe("配列形の結果");
+  });
 });
