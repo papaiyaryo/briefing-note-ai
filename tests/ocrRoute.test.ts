@@ -33,7 +33,7 @@ describe("POST /api/ocr", () => {
     );
     const body = await response.json();
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(413);
     expect(body.error.code).toBe("payload_too_large");
   });
 
