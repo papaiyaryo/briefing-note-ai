@@ -86,6 +86,6 @@ export function getUploadErrorMessage(error: UploadValidationError): string {
     case "file-too-large":
       return `ファイルサイズが上限(${MAX_IMAGE_SIZE_MB}MB)を超えています。小さい画像を選択し直してください。`;
     case "too-many-files":
-      return `一度に選択できる画像は最大 ${MAX_IMAGES} 枚です。枚数を減らして選択し直してください。`;
+      return `画像は最大 ${MAX_IMAGES} 枚まで選択できます。現在の枚数と合わせて ${MAX_IMAGES} 枚以内になるよう選択し直してください。`;
   }
 }

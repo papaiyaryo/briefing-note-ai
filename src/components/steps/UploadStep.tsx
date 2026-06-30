@@ -49,6 +49,7 @@ export function UploadStep({
   const [isDragging, setIsDragging] = useState(false);
 
   const hasSelectedImages = selectedImages.length > 0;
+  const hasReachedImageLimit = selectedImages.length >= MAX_IMAGES;
   const openFilePicker = () => inputRef.current?.click();
 
   const handleFiles = (files: FileList | null) => {
@@ -82,7 +83,9 @@ export function UploadStep({
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setIsDragging(true);
+    if (!isOcrRunning) {
+      setIsDragging(true);
+    }
   };
 
   const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
@@ -129,7 +132,14 @@ export function UploadStep({
         }}
       />
       {hasSelectedImages ? (
-        <div className="space-y-4 rounded-lg border border-slate-200 bg-white p-4">
+        <div
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          className={`space-y-4 rounded-lg border-2 border-dashed bg-white p-4 ${
+            isDragging ? "border-teal-700" : "border-slate-200"
+          }`}
+        >
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm font-medium text-slate-900">
               選択済み画像 {selectedImages.length} / {MAX_IMAGES} 枚
@@ -137,7 +147,7 @@ export function UploadStep({
             <Button
               variant="secondary"
               onClick={openFilePicker}
-              disabled={isOcrRunning}
+              disabled={isOcrRunning || hasReachedImageLimit}
             >
               画像を追加
             </Button>

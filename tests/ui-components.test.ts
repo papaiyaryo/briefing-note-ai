@@ -104,6 +104,17 @@ describe("UploadStep", () => {
     expect(html).toContain("OCR を実行する");
   });
 
+  it("上限枚数に達したら画像追加ボタンを無効化する", () => {
+    const html = renderUploadStep({
+      selectedImages: Array.from({ length: 20 }, (_, index) =>
+        createSelectedImage(index + 1),
+      ),
+    });
+
+    expect(html).toContain("選択済み画像 20 / 20 枚");
+    expect(html).toMatch(/<button[^>]*disabled=""[^>]*>画像を追加<\/button>/);
+  });
+
   it("OCR 実行中は進捗ラベルを表示する", () => {
     const html = renderUploadStep({
       selectedImages: [createSelectedImage()],
