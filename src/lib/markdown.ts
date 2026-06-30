@@ -25,7 +25,7 @@ function orPending(value: string | undefined): string {
 
 // 本文に ``` が含まれてもコードフェンスが途中で閉じないよう、
 // 本文中の最長のバッククォート連続より長いフェンスを選ぶ
-function fenceFor(text: string): string {
+export function fenceFor(text: string): string {
   let longestRun = 0;
   for (const run of text.match(/`+/g) ?? []) {
     longestRun = Math.max(longestRun, run.length);

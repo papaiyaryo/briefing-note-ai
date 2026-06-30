@@ -1,3 +1,4 @@
+import type { CompanyMemoStructured } from "../structure/schema";
 import type { CompanyEventInfo } from "../types";
 
 export type LlmProvider = "dummy" | "openai";
@@ -10,6 +11,11 @@ export interface OcrApiResponse {
 export interface StructureApiRequest {
   ocrText: string;
   companyEventInfo: CompanyEventInfo;
+}
+
+export interface StructureApiResponse {
+  memo: CompanyMemoStructured;
+  provider: LlmProvider;
 }
 
 export type ApiErrorCode =

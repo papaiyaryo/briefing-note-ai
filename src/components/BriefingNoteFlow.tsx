@@ -5,11 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { getPreviousStepId, type StepId } from "../lib/flow";
 import {
   EMPTY_COMPANY_EVENT_INFO,
-  buildMarkdownTemplateFromBriefingNote,
   type CompanyEventInfo,
 } from "../lib/markdown";
 import { runDummyOcr } from "../lib/dummyOcr";
 import { requestOcr } from "../lib/ocrClient";
+import { toMarkdown } from "../lib/structure/toMarkdown";
+import { requestStructure } from "../lib/structureClient";
 import { type SelectedImage } from "../lib/upload";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
@@ -144,29 +145,32 @@ export function BriefingNoteFlow() {
     }, 600);
   };
 
-  // 実際の Markdown 生成(LLM)は Phase 4 で接続する。
-  // 未編集なら最新の入力(企業情報・OCR 結果)でテンプレートを再生成し、編集済みなら保持する。
-  // 失敗時は setHasGenerationError(true) を呼ぶ。
-  const handleGenerateMarkdown = () => {
+  // OCR テキストを直接 Markdown 化せず、サーバー側で構造化 JSON を生成・検証してから、
+  // クライアント側の純粋関数で Markdown に変換する。編集済みなら上書きしない。
+  const handleGenerateMarkdown = async () => {
     if (isGeneratingMarkdown) {
       return;
     }
     setHasGenerationError(false);
     setIsGeneratingMarkdown(true);
-    pendingTimerRef.current = window.setTimeout(() => {
-      pendingTimerRef.current = null;
+
+    try {
+      const result = await requestStructure(ocrText, companyEventInfo);
       if (!isMarkdownDirty) {
         setMarkdownText(
-          buildMarkdownTemplateFromBriefingNote({
-            companyEventInfo,
+          toMarkdown(result.memo, {
             imageFileName: selectedImage?.file.name,
             ocrText,
           }),
         );
       }
-      setIsGeneratingMarkdown(false);
       setCurrentStepId("markdown");
-    }, 600);
+    } catch {
+      setHasGenerationError(true);
+      setCurrentStepId("markdown");
+    } finally {
+      setIsGeneratingMarkdown(false);
+    }
   };
 
   const cardMaxWidth = currentStepId === "markdown" ? "max-w-5xl" : "max-w-3xl";
