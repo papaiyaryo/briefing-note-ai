@@ -8,21 +8,24 @@ import { UploadStep } from "../src/components/steps/UploadStep";
 import { EMPTY_COMPANY_EVENT_INFO } from "../src/lib/markdown";
 import type { SelectedImage } from "../src/lib/upload";
 
-function createSelectedImage(): SelectedImage {
+function createSelectedImage(index = 1): SelectedImage {
   return {
-    file: new File(["dummy"], "memo.png", { type: "image/png" }),
-    previewUrl: "blob:http://localhost/memo-preview",
+    id: `image-${index}`,
+    file: new File(["dummy"], `memo-${index}.png`, { type: "image/png" }),
+    previewUrl: `blob:http://localhost/memo-${index}-preview`,
   };
 }
 
 function renderUploadStep(props: Partial<ComponentProps<typeof UploadStep>>) {
   return renderToStaticMarkup(
     createElement(UploadStep, {
-      selectedImage: null,
-      onSelectImage: vi.fn(),
+      selectedImages: [],
+      onAddImages: vi.fn(),
+      onRemoveImage: vi.fn(),
       companyEventInfo: EMPTY_COMPANY_EVENT_INFO,
       onChangeCompanyEventInfo: vi.fn(),
       isOcrRunning: false,
+      ocrProgressLabel: "",
       onNext: vi.fn(),
       onSimulateOcrFailure: vi.fn(),
       ...props,
@@ -35,7 +38,7 @@ function renderOcrReviewStep(
 ) {
   return renderToStaticMarkup(
     createElement(OcrReviewStep, {
-      selectedImage: null,
+      selectedImages: [],
       ocrText: "",
       onChangeOcrText: vi.fn(),
       hasOcrError: false,
@@ -72,6 +75,7 @@ describe("UploadStep", () => {
     expect(html).toContain("メモ画像をアップロード");
     expect(html).toContain("ここに画像をドラッグ&amp;ドロップ");
     expect(html).toContain("ファイルを選択");
+    expect(html).toContain("multiple");
     expect(html).toContain("企業名");
     expect(html).toContain("イベント名");
     expect(html).toContain("説明会日");
@@ -79,9 +83,9 @@ describe("UploadStep", () => {
     expect(html).toContain("disabled");
   });
 
-  it("画像選択済み時にプレビュー、ファイル名、OCR 実行ボタンを表示する", () => {
+  it("画像選択済み時に複数プレビュー、ページ番号、削除ボタン、OCR 実行ボタンを表示する", () => {
     const html = renderUploadStep({
-      selectedImage: createSelectedImage(),
+      selectedImages: [createSelectedImage(1), createSelectedImage(2)],
       companyEventInfo: {
         companyName: "サンプル株式会社",
         eventName: "夏季インターン説明会",
@@ -89,23 +93,51 @@ describe("UploadStep", () => {
       },
     });
 
-    expect(html).toContain("アップロードしたメモ画像");
-    expect(html).toContain("memo.png");
-    expect(html).toContain("別の画像を選択");
+    expect(html).toContain("選択済み画像 2 / 20 枚");
+    expect(html).toContain("ページ 1: memo-1.png");
+    expect(html).toContain("ページ 2: memo-2.png");
+    expect(html).toContain("memo-1.png");
+    expect(html).toContain("memo-2.png");
+    expect(html).toContain("ページ 1 を削除");
+    expect(html).toContain("画像を追加");
     expect(html).toContain("サンプル株式会社");
     expect(html).toContain("OCR を実行する");
+  });
+
+  it("上限枚数に達したら画像追加ボタンを無効化する", () => {
+    const html = renderUploadStep({
+      selectedImages: Array.from({ length: 20 }, (_, index) =>
+        createSelectedImage(index + 1),
+      ),
+    });
+
+    expect(html).toContain("選択済み画像 20 / 20 枚");
+    expect(html).toMatch(/<button[^>]*disabled=""[^>]*>画像を追加<\/button>/);
+  });
+
+  it("OCR 実行中は進捗ラベルを表示する", () => {
+    const html = renderUploadStep({
+      selectedImages: [createSelectedImage()],
+      isOcrRunning: true,
+      ocrProgressLabel: "OCR を実行しています… (1/2)",
+    });
+
+    expect(html).toContain("OCR を実行しています… (1/2)");
   });
 });
 
 describe("OcrReviewStep", () => {
   it("OCR 結果テキストエリアと主要操作ボタンを表示する", () => {
     const html = renderOcrReviewStep({
-      selectedImage: createSelectedImage(),
+      selectedImages: [createSelectedImage(1), createSelectedImage(2)],
       ocrText: "説明会メモのOCR結果",
     });
 
     expect(html).toContain("OCR 結果を確認");
-    expect(html).toContain("アップロードしたメモ画像");
+    expect(html).toContain("アップロードしたメモ画像 1");
+    expect(html).toContain("アップロードしたメモ画像 2");
+    expect(html).toContain("ページ 1");
+    expect(html).toContain("ページ 2");
     expect(html).toContain("OCR 結果");
     expect(html).toContain("説明会メモのOCR結果");
     expect(html).toContain("アップロードに戻る");

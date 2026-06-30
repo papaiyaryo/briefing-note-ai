@@ -16,7 +16,7 @@ export interface OcrResult {
 
 // MVP flow aggregate. Persistence identifiers and timestamps belong to later storage phases.
 export interface BriefingNote {
-  imageFileName?: string;
+  imageFileNames?: string[];
   companyEventInfo: CompanyEventInfo;
   ocrText: string;
   markdown: string;

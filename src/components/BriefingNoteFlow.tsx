@@ -19,10 +19,9 @@ import { UploadStep } from "./steps/UploadStep";
 
 export function BriefingNoteFlow() {
   const [currentStepId, setCurrentStepId] = useState<StepId>("upload");
-  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
-    null,
-  );
+  const [selectedImages, setSelectedImages] = useState<SelectedImage[]>([]);
   const [ocrText, setOcrText] = useState("");
+  const [ocrProgressLabel, setOcrProgressLabel] = useState("");
   const [markdownText, setMarkdownText] = useState("");
   const [isMarkdownDirty, setIsMarkdownDirty] = useState(false);
   const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
@@ -36,41 +35,56 @@ export function BriefingNoteFlow() {
 
   const pendingTimerRef = useRef<number | null>(null);
   const ocrAbortControllerRef = useRef<AbortController | null>(null);
+  const selectedImagesRef = useRef<SelectedImage[]>([]);
 
-  // アンマウント時に未発火のタイマーと OCR リクエストを解除し、破棄後の state 更新を防ぐ
+  useEffect(() => {
+    selectedImagesRef.current = selectedImages;
+  }, [selectedImages]);
+
+  // アンマウント時に未発火のタイマー、OCR リクエスト、プレビュー URL を解放する
   useEffect(() => {
     return () => {
       if (pendingTimerRef.current !== null) {
         window.clearTimeout(pendingTimerRef.current);
       }
       ocrAbortControllerRef.current?.abort();
+      selectedImagesRef.current.forEach((image) => {
+        URL.revokeObjectURL(image.previewUrl);
+      });
     };
   }, []);
 
-  // 画像の差し替え時とアンマウント時に、古いプレビュー URL を解放する
-  useEffect(() => {
-    const previewUrl = selectedImage?.previewUrl;
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [selectedImage]);
+  const resetGeneratedState = () => {
+    setOcrText("");
+    setOcrProgressLabel("");
+    setMarkdownText("");
+    setIsMarkdownDirty(false);
+    setHasOcrError(false);
+    setOcrErrorMessage("");
+    setHasGenerationError(false);
+  };
 
   const goBack = () =>
     setCurrentStepId((stepId) => getPreviousStepId(stepId) ?? stepId);
 
-  // 画像を差し替えたら、前の画像に対する OCR 結果と生成 Markdown は無効になるためクリアする
-  const handleSelectImage = (image: SelectedImage) => {
-    if (selectedImage) {
-      setOcrText("");
-      setMarkdownText("");
-      setIsMarkdownDirty(false);
-      setHasOcrError(false);
-      setOcrErrorMessage("");
-      setHasGenerationError(false);
+  // 画像が変わったら、前の画像に対する OCR 結果と生成 Markdown は無効になるためクリアする
+  const handleAddImages = (images: SelectedImage[]) => {
+    if (images.length === 0) {
+      return;
     }
-    setSelectedImage(image);
+    resetGeneratedState();
+    setSelectedImages((prev) => [...prev, ...images]);
+  };
+
+  const handleRemoveImage = (id: string) => {
+    resetGeneratedState();
+    setSelectedImages((prev) => {
+      const removed = prev.find((image) => image.id === id);
+      if (removed) {
+        URL.revokeObjectURL(removed.previewUrl);
+      }
+      return prev.filter((image) => image.id !== id);
+    });
   };
 
   // ユーザーが手で編集した Markdown は、テンプレート再生成で上書きしない
@@ -79,9 +93,9 @@ export function BriefingNoteFlow() {
     setMarkdownText(text);
   };
 
-  // OCR はサーバー側 API ルートに画像を送り、OpenAI / dummy provider の切替はサーバー側に閉じ込める。
+  // OCR API は単一画像のままにし、複数画像はクライアント側で順次処理して連結する。
   const handleRunOcr = async () => {
-    if (isOcrRunning || !selectedImage) {
+    if (isOcrRunning || selectedImages.length === 0) {
       return;
     }
 
@@ -94,11 +108,34 @@ export function BriefingNoteFlow() {
     setIsOcrRunning(true);
 
     try {
-      const result = await requestOcr(selectedImage.file, controller.signal);
+      const parts: string[] = [];
+      for (let index = 0; index < selectedImages.length; index += 1) {
+        if (controller.signal.aborted) {
+          return;
+        }
+        if (selectedImages.length > 1) {
+          setOcrProgressLabel(
+            `OCR を実行しています… (${index + 1}/${selectedImages.length})`,
+          );
+        } else {
+          setOcrProgressLabel("OCR を実行しています…");
+        }
+
+        const result = await requestOcr(
+          selectedImages[index].file,
+          controller.signal,
+        );
+        parts.push(
+          selectedImages.length > 1
+            ? `[ページ ${index + 1}]\n${result.text}`
+            : result.text,
+        );
+      }
+
       if (controller.signal.aborted) {
         return;
       }
-      setOcrText(result.text);
+      setOcrText(parts.join("\n\n"));
       setHasOcrError(false);
       setOcrErrorMessage("");
     } catch (error) {
@@ -114,6 +151,7 @@ export function BriefingNoteFlow() {
       setOcrErrorMessage(message);
     } finally {
       if (!controller.signal.aborted) {
+        setOcrProgressLabel("");
         setIsOcrRunning(false);
         setCurrentStepId("ocr");
       }
@@ -124,11 +162,12 @@ export function BriefingNoteFlow() {
   };
 
   const handleSimulateOcrFailure = () => {
-    if (isOcrRunning) {
+    if (isOcrRunning || selectedImages.length === 0) {
       return;
     }
     setHasOcrError(false);
     setOcrErrorMessage("");
+    setOcrProgressLabel("OCR を実行しています…");
     setIsOcrRunning(true);
     pendingTimerRef.current = window.setTimeout(() => {
       pendingTimerRef.current = null;
@@ -140,6 +179,7 @@ export function BriefingNoteFlow() {
           ? result.errorMessage
           : "OCR 失敗の確認に失敗しました。",
       );
+      setOcrProgressLabel("");
       setIsOcrRunning(false);
       setCurrentStepId("ocr");
     }, 600);
@@ -159,7 +199,7 @@ export function BriefingNoteFlow() {
       if (!isMarkdownDirty) {
         setMarkdownText(
           toMarkdown(result.memo, {
-            imageFileName: selectedImage?.file.name,
+            imageFileNames: selectedImages.map((image) => image.file.name),
             ocrText,
           }),
         );
@@ -189,18 +229,20 @@ export function BriefingNoteFlow() {
       >
         {currentStepId === "upload" && (
           <UploadStep
-            selectedImage={selectedImage}
-            onSelectImage={handleSelectImage}
+            selectedImages={selectedImages}
+            onAddImages={handleAddImages}
+            onRemoveImage={handleRemoveImage}
             companyEventInfo={companyEventInfo}
             onChangeCompanyEventInfo={setCompanyEventInfo}
             isOcrRunning={isOcrRunning}
+            ocrProgressLabel={ocrProgressLabel}
             onNext={handleRunOcr}
             onSimulateOcrFailure={handleSimulateOcrFailure}
           />
         )}
         {currentStepId === "ocr" && (
           <OcrReviewStep
-            selectedImage={selectedImage}
+            selectedImages={selectedImages}
             ocrText={ocrText}
             onChangeOcrText={setOcrText}
             hasOcrError={hasOcrError}

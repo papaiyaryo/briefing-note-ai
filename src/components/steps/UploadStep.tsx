@@ -3,9 +3,10 @@ import { useRef, useState, type DragEvent } from "react";
 import {
   ACCEPTED_FORMATS_LABEL,
   ACCEPTED_IMAGE_MIME_TYPES,
+  MAX_IMAGES,
   MAX_IMAGE_SIZE_MB,
   getUploadErrorMessage,
-  validateImageFile,
+  validateImageFiles,
   type SelectedImage,
   type UploadValidationError,
 } from "../../lib/upload";
@@ -17,21 +18,29 @@ const textInputClassName =
   "w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:border-teal-700 focus-visible:ring-2 focus-visible:ring-teal-700";
 
 interface UploadStepProps {
-  selectedImage: SelectedImage | null;
-  onSelectImage: (image: SelectedImage) => void;
+  selectedImages: SelectedImage[];
+  onAddImages: (images: SelectedImage[]) => void;
+  onRemoveImage: (id: string) => void;
   companyEventInfo: CompanyEventInfo;
   onChangeCompanyEventInfo: (info: CompanyEventInfo) => void;
   isOcrRunning: boolean;
+  ocrProgressLabel: string;
   onNext: () => void;
   onSimulateOcrFailure: () => void;
 }
 
+function createImageId(): string {
+  return crypto.randomUUID();
+}
+
 export function UploadStep({
-  selectedImage,
-  onSelectImage,
+  selectedImages,
+  onAddImages,
+  onRemoveImage,
   companyEventInfo,
   onChangeCompanyEventInfo,
   isOcrRunning,
+  ocrProgressLabel,
   onNext,
   onSimulateOcrFailure,
 }: UploadStepProps) {
@@ -39,29 +48,44 @@ export function UploadStep({
   const [error, setError] = useState<UploadValidationError | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
+  const hasSelectedImages = selectedImages.length > 0;
+  const hasReachedImageLimit = selectedImages.length >= MAX_IMAGES;
   const openFilePicker = () => inputRef.current?.click();
 
   const handleFiles = (files: FileList | null) => {
     // OCR 実行中の差し替えは、実行中の処理との不整合を生むため受け付けない
-    if (isOcrRunning) {
+    if (isOcrRunning || !files || files.length === 0) {
       return;
     }
-    const file = files?.[0];
-    if (!file) {
+
+    const incoming = Array.from(files);
+    const { results, tooMany } = validateImageFiles(
+      incoming,
+      selectedImages.length,
+    );
+    const firstError =
+      results.find((result) => result.error)?.error ??
+      (tooMany ? "too-many-files" : null);
+
+    setError(firstError);
+    if (firstError) {
       return;
     }
-    const validationError = validateImageFile(file);
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-    setError(null);
-    onSelectImage({ file, previewUrl: URL.createObjectURL(file) });
+
+    onAddImages(
+      incoming.map((file) => ({
+        id: createImageId(),
+        file,
+        previewUrl: URL.createObjectURL(file),
+      })),
+    );
   };
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setIsDragging(true);
+    if (!isOcrRunning) {
+      setIsDragging(true);
+    }
   };
 
   const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
@@ -88,7 +112,7 @@ export function UploadStep({
           メモ画像をアップロード
         </h2>
         <p className="text-sm text-slate-500">
-          紙の企業説明会メモを撮影した画像を 1 枚選択します。
+          紙の企業説明会メモを撮影した画像を複数枚選択できます。
         </p>
       </div>
       {error && <ErrorNotice>{getUploadErrorMessage(error)}</ErrorNotice>}
@@ -99,6 +123,7 @@ export function UploadStep({
         ref={inputRef}
         id="memo-image-input"
         type="file"
+        multiple
         accept={ACCEPTED_IMAGE_MIME_TYPES.join(",")}
         className="sr-only"
         onChange={(event) => {
@@ -106,27 +131,58 @@ export function UploadStep({
           event.target.value = "";
         }}
       />
-      {selectedImage ? (
-        <div className="space-y-4 rounded-lg border border-slate-200 bg-white p-4">
-          {/* プレビューは blob URL のため next/image の最適化対象外 */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={selectedImage.previewUrl}
-            alt="アップロードしたメモ画像"
-            className="mx-auto max-h-80 rounded-lg"
-          />
-          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm break-all text-slate-600">
-              {selectedImage.file.name}
+      {hasSelectedImages ? (
+        <div
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          className={`space-y-4 rounded-lg border-2 border-dashed bg-white p-4 ${
+            isDragging ? "border-teal-700" : "border-slate-200"
+          }`}
+        >
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm font-medium text-slate-900">
+              選択済み画像 {selectedImages.length} / {MAX_IMAGES} 枚
             </p>
             <Button
               variant="secondary"
               onClick={openFilePicker}
-              disabled={isOcrRunning}
+              disabled={isOcrRunning || hasReachedImageLimit}
             >
-              別の画像を選択
+              画像を追加
             </Button>
           </div>
+          <ul className="space-y-2">
+            {selectedImages.map((image, index) => (
+              <li
+                key={image.id}
+                className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3"
+              >
+                <span className="w-7 shrink-0 text-center text-sm font-semibold text-slate-500">
+                  {index + 1}
+                </span>
+                {/* プレビューは blob URL のため next/image の最適化対象外 */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image.previewUrl}
+                  alt={`ページ ${index + 1}: ${image.file.name}`}
+                  className="h-16 w-16 shrink-0 rounded border border-slate-200 bg-white object-contain"
+                />
+                <p className="min-w-0 flex-1 break-all text-sm text-slate-600">
+                  {image.file.name}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => onRemoveImage(image.id)}
+                  disabled={isOcrRunning}
+                  aria-label={`ページ ${index + 1} を削除`}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded text-lg leading-none text-slate-400 hover:text-red-600 focus-visible:ring-2 focus-visible:ring-red-600 disabled:opacity-40"
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       ) : (
         <div
@@ -141,7 +197,8 @@ export function UploadStep({
             ここに画像をドラッグ&ドロップ、またはファイルを選択してください。
           </p>
           <p className="text-sm text-slate-500">
-            対応形式: {ACCEPTED_FORMATS_LABEL}(最大 {MAX_IMAGE_SIZE_MB}MB)
+            対応形式: {ACCEPTED_FORMATS_LABEL}(最大 {MAX_IMAGE_SIZE_MB}MB、
+            {MAX_IMAGES} 枚まで)
           </p>
           <Button
             variant="secondary"
@@ -227,12 +284,14 @@ export function UploadStep({
         <Button
           variant="secondary"
           onClick={onSimulateOcrFailure}
-          disabled={!selectedImage || isOcrRunning}
+          disabled={!hasSelectedImages || isOcrRunning}
         >
           失敗状態を確認
         </Button>
-        <Button onClick={onNext} disabled={!selectedImage || isOcrRunning}>
-          {isOcrRunning ? "OCR を実行しています…" : "OCR を実行する"}
+        <Button onClick={onNext} disabled={!hasSelectedImages || isOcrRunning}>
+          {isOcrRunning
+            ? ocrProgressLabel || "OCR を実行しています…"
+            : "OCR を実行する"}
         </Button>
       </div>
     </section>

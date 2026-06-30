@@ -3,7 +3,7 @@ import type { CompanyMemoStructured } from "./schema";
 
 export interface ToMarkdownOptions {
   ocrText: string;
-  imageFileName?: string;
+  imageFileNames?: string[];
 }
 
 function valueOrPending(value: string): string {
@@ -22,7 +22,10 @@ export function toMarkdown(
   opts: ToMarkdownOptions,
 ): string {
   const companyName = valueOrPending(memo.overview.companyName);
-  const imageFileName = opts.imageFileName?.trim() || "不明";
+  const imageFileNames =
+    opts.imageFileNames?.map((name) => name.trim()).filter(Boolean) ?? [];
+  const imageFileName =
+    imageFileNames.length > 0 ? imageFileNames.join(", ") : "不明";
   const ocrExcerpt = opts.ocrText.trim() || "(OCR 結果なし)";
   const fence = fenceFor(ocrExcerpt);
 

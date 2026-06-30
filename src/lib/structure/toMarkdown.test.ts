@@ -24,14 +24,21 @@ const memo: CompanyMemoStructured = {
 
 describe("toMarkdown", () => {
   it("renders separated sections and 要確認 fallback deterministically", () => {
-    const first = toMarkdown(memo, { ocrText: "元メモ", imageFileName: "note.webp" });
-    const second = toMarkdown(memo, { ocrText: "元メモ", imageFileName: "note.webp" });
+    const first = toMarkdown(memo, {
+      ocrText: "元メモ",
+      imageFileNames: ["note.webp"],
+    });
+    const second = toMarkdown(memo, {
+      ocrText: "元メモ",
+      imageFileNames: ["note.webp"],
+    });
 
     expect(first).toBe(second);
     expect(first).toContain("## 説明会で得た事実\n- 説明会で得た事実");
     expect(first).toContain("## HR・社員が強調していた点\n- HR が強調した点");
     expect(first).toContain("## 自分の印象・感じたこと\n- 要確認");
     expect(first).toContain("## ES・面接で使えそうな材料\n- 要確認");
+    expect(first).toContain("- メモ元画像: note.webp");
     expect(first).toContain("```text\n元メモ\n```");
   });
 });
