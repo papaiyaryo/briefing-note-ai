@@ -4,7 +4,7 @@ interface OpenAiClientEnv {
 }
 
 export interface OpenAiResponsesClient {
-  createResponse(body: unknown): Promise<unknown>;
+  createResponse(body: unknown, signal?: AbortSignal): Promise<unknown>;
 }
 
 /**
@@ -22,6 +22,15 @@ export class OpenAiRequestError extends Error {
   }
 }
 
+export const DEFAULT_OPENAI_TIMEOUT_MS = 30_000;
+
+export function getOpenAiTimeoutMs(env: OpenAiClientEnv = process.env): number {
+  const value = Number(env.OPENAI_TIMEOUT_MS);
+  return Number.isFinite(value) && value > 0
+    ? value
+    : DEFAULT_OPENAI_TIMEOUT_MS;
+}
+
 export function createOpenAiClient(
   env: OpenAiClientEnv = process.env,
 ): OpenAiResponsesClient {
@@ -31,7 +40,7 @@ export function createOpenAiClient(
   }
 
   return {
-    async createResponse(body: unknown) {
+    async createResponse(body: unknown, signal?: AbortSignal) {
       const response = await fetch("https://api.openai.com/v1/responses", {
         method: "POST",
         headers: {
@@ -39,6 +48,7 @@ export function createOpenAiClient(
           "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
+        signal,
       });
 
       if (!response.ok) {

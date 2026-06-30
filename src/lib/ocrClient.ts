@@ -1,3 +1,4 @@
+import { getSafeErrorMessage } from "./errorMessages";
 import type {
   ApiErrorBody,
   ApiErrorCode,
@@ -5,20 +6,7 @@ import type {
 } from "./openai/contracts";
 
 const FALLBACK_ERROR_MESSAGE =
-  "OCR 処理に失敗しました。時間をおいて再試行してください。";
-
-const CLIENT_ERROR_MESSAGES: Record<ApiErrorCode, string> = {
-  invalid_input:
-    "画像形式を確認してください。PNG / JPG / JPEG / WebP に対応しています。",
-  payload_too_large:
-    "画像サイズが上限を超えています。10MB 以下の画像を選択してください。",
-  not_configured: "OCR サービスの設定が完了していません。",
-  rate_limited:
-    "OCR サービスが混み合っています。時間をおいて再試行してください。",
-  timeout: "OCR 処理がタイムアウトしました。時間をおいて再試行してください。",
-  provider_error: FALLBACK_ERROR_MESSAGE,
-  validation_failed: "OCR 結果の検証に失敗しました。",
-};
+  "AI サービスでエラーが発生しました。しばらくして再試行してください。";
 
 export class OcrRequestError extends Error {
   constructor(
@@ -36,7 +24,7 @@ async function toOcrError(response: Response): Promise<OcrRequestError> {
     const code = body.error?.code;
     if (code) {
       return new OcrRequestError(
-        CLIENT_ERROR_MESSAGES[code] ??
+        getSafeErrorMessage(code) ??
           body.error?.message ??
           FALLBACK_ERROR_MESSAGE,
         code,
