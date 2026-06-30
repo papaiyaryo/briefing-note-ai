@@ -17,6 +17,7 @@ const SAFE_ERROR_MESSAGES: Record<ApiErrorCode, string> = {
   payload_too_large: "入力サイズが上限を超えています。",
   not_configured: "構造化サービスの設定が完了していません。",
   rate_limited: "構造化サービスが混み合っています。時間をおいて再試行してください。",
+  // timeout: #36 でタイムアウト検知・エラー写像を追加予定。
   timeout: "構造化処理がタイムアウトしました。時間をおいて再試行してください。",
   provider_error: "構造化処理に失敗しました。時間をおいて再試行してください。",
   validation_failed: "構造化結果の検証に失敗しました。",
