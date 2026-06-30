@@ -50,6 +50,12 @@ describe("API error handling", () => {
     });
   });
 
+  it("keeps image format guidance for invalid input", () => {
+    expect(ERROR_MESSAGES.invalid_input).toBe(
+      "画像形式を確認してください。PNG / JPG / JPEG / WebP に対応しています。",
+    );
+  });
+
   it("defines safe client-facing messages for all codes", () => {
     for (const code of codes) {
       expect(ERROR_MESSAGES[code]).toBeTruthy();

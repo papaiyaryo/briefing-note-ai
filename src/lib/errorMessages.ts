@@ -1,7 +1,8 @@
 import type { ApiErrorCode } from "./openai/contracts";
 
 export const ERROR_MESSAGES: Record<ApiErrorCode, string> = {
-  invalid_input: "入力内容を確認してください。",
+  invalid_input:
+    "画像形式を確認してください。PNG / JPG / JPEG / WebP に対応しています。",
   payload_too_large:
     "画像サイズが大きすぎます。10MB 以下の画像を使用してください。",
   not_configured: "OpenAI が未設定です。ダミーモードで動作しています。",
