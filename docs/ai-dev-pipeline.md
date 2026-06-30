@@ -24,9 +24,11 @@
 ```txt
 Issue 作成 (Human)
   → @claude 設計依頼
-  → Claude が docs/codex/phase-N/issue-X.md を生成しコミット      [claude.yml]
+  → Claude が Issue コメントで設計を共有                          [claude.yml]
+    （+ 必要に応じて docs/codex/phase-N/issue-X.md を生成しコミット）
   → Phase 設計レビュー・承認 (Human gate)
   → @codex 実装依頼
+  → Codex が Issue 本文・Claude 設計コメント・設計ファイルを読んで実装
   → Codex が branch 作成・実装・PR 作成                          [Codex Cloud]
   → PR open で Claude が自動レビューコメント                      [claude-review.yml]
   → CI 実行 (lint/typecheck/test/build)                          [ci.yml]
@@ -35,6 +37,8 @@ Issue 作成 (Human)
 ```
 
 既存の `AGENTS.md` のワークフロー（1 Issue = 1 Branch = 1 PR、Phase 承認ゲート、Human Merge）はそのまま維持する。AI のレビュー担当だけが Copilot/Qodo から Claude Code に変わる。
+
+Claude の設計出力は Issue コメントと設計ファイルの両方、またはどちらか一方で行う。Codex は両方を設計入力として扱う。設計情報が矛盾する場合は、実装前に Human に確認する。
 
 ## トリガー設計
 

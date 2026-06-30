@@ -35,6 +35,22 @@ Follow GitHub Issues.
 Each Issue defines the current phase, scope, out of scope, and acceptance criteria.
 Do not implement work outside the selected Issue.
 
+### Phase 00: 修正・手戻りフェーズ
+
+Phase 00 は、実装済み内容の修正・手戻り・運用ルールの補正を扱う特別フェーズである。
+
+Phase 00 の用途:
+
+* 実装済み Issue / PR の不具合修正
+* 運用ルール（AGENTS.md 等）の補正
+* 設計と実装のずれの是正
+* CI / lint / typecheck の修正
+* ドキュメント不整合の修正
+
+Phase 00 は新規機能追加フェーズではない。
+新規機能は通常の Phase（Phase 1 以降）で扱う。
+Phase 00 の Issue も `1 Issue = 1 Branch = 1 PR` ルールを守る。
+
 ---
 
 ## Core Workflow
@@ -42,15 +58,16 @@ Do not implement work outside the selected Issue.
 Development follows:
 
 ```txt
-Phase Design by Claude Code
-→ Phase Approval by Human
-→ Issue
-→ Branch
-→ Implementation
+Issue 作成 (Human)
+→ @claude 設計依頼
+→ Claude が Issue コメントで設計を共有（+ 必要に応じて docs/codex/ に設計ファイルを生成）
+→ Phase 設計レビュー・承認 (Human gate)
+→ @codex 実装依頼
+→ Codex が Issue 本文・Claude 設計コメント・設計ファイルを読んで実装
+→ Branch 作成・実装・PR 作成 (Codex)
 → Self Review
-→ Verification
 → Pull Request
-→ GitHub Actions
+→ GitHub Actions (CI)
 → Claude Review
 → Fix if needed
 → Human Merge
@@ -59,11 +76,12 @@ Phase Design by Claude Code
 Rules:
 
 * Claude Code designs one Phase at a time before Codex implementation begins
-* Claude Code writes the Phase-level design file exactly at `docs/codex/phase-{number}/implementation-plan.md`
-* Claude Code outputs one design file per Issue as `docs/codex/phase-{number}/issue-{issue-number}.md`
+* Claude Code may share design as an Issue comment, as a committed file at `docs/codex/phase-{number}/implementation-plan.md`, or both
+* Claude Code may output one Issue-level design file as `docs/codex/phase-{number}/issue-{issue-number}.md`, but may also share Issue-level design as an Issue comment
+* Issue comments by Claude are treated as official design input, equivalent to committed design files
 * Human approves the Phase design and Phase implementation start
 * Codex reads the approved Phase instructions before implementing Issues in that Phase
-* Codex reads the Phase design and the target Issue design file before implementation
+* Codex reads the GitHub Issue body, Claude design comments on the Issue, and any design files before implementation
 * Codex implements Issues in the Phase order, starting from foundation Issues
 * 1 Issue = 1 Branch = 1 PR
 * Branch names must follow `issue-{number}-{short-description}`
@@ -89,19 +107,16 @@ From implementation phases onward, development is coordinated at the Phase level
 
 ### Claude Code responsibility
 
-Claude Code designs one Phase at a time and writes the Phase-level design file exactly at:
+Claude Code designs one Phase at a time.
 
-```txt
-docs/codex/phase-{number}/implementation-plan.md
-```
+Design output can take either or both of the following forms:
 
-Claude Code must also output one Issue-level design file per target Issue exactly at:
+1. **Issue comment**: Claude posts the design as a comment on the target GitHub Issue.
+2. **Committed file**: Claude writes the Phase-level design file at `docs/codex/phase-{number}/implementation-plan.md` and/or the Issue-level design file at `docs/codex/phase-{number}/issue-{issue-number}.md`.
 
-```txt
-docs/codex/phase-{number}/issue-{issue-number}.md
-```
+Both forms are treated as official design input. Codex must treat Claude's Issue comments as design information, whether or not a design file also exists.
 
-The Phase-level design file should include:
+The Phase-level design (comment or file) should include:
 
 * Phase objective
 * Target Issue list
@@ -111,7 +126,7 @@ The Phase-level design file should include:
 * Phase-wide verification policy
 * Out of scope items
 
-Each Issue-level design file should include:
+Each Issue-level design (comment or file) should include:
 
 * Issue summary
 * Scope
@@ -148,9 +163,10 @@ Before implementing an Issue, Codex must read:
 
 * `AGENTS.md`
 * `docs/`
-* The target GitHub Issue
-* The Phase-level design file at `docs/codex/phase-{number}/implementation-plan.md`, when working from an approved Phase design
-* The Issue-level design file at `docs/codex/phase-{number}/issue-{issue-number}.md`, when working from an approved Phase design
+* The target GitHub Issue body
+* All Claude design comments on the target GitHub Issue
+* The Phase-level design file at `docs/codex/phase-{number}/implementation-plan.md`, if it exists
+* The Issue-level design file at `docs/codex/phase-{number}/issue-{issue-number}.md`, if it exists
 
 Codex must implement from the foundation Issues in the approved order.
 
@@ -160,7 +176,15 @@ Codex must not implement outside:
 * The selected Issue scope
 * The Issue acceptance criteria
 
-If the Phase instructions and GitHub Issue conflict, Codex must stop and ask the human how to proceed.
+#### Conflict resolution
+
+If any of the following conflict with each other, Codex must stop and ask the human how to proceed before editing any files:
+
+* The GitHub Issue body
+* Claude design comments on the Issue
+* The Phase-level or Issue-level design file in `docs/codex/`
+
+Do not attempt to resolve design conflicts by choosing one source over another. Always defer to the human.
 
 ---
 
@@ -174,9 +198,12 @@ Read:
 
 * `AGENTS.md`
 * `docs/`
-* Target GitHub Issue
-* Phase-level design file at `docs/codex/phase-{number}/implementation-plan.md`, when working from an approved Phase design
-* Issue-level design file at `docs/codex/phase-{number}/issue-{issue-number}.md`, when working from an approved Phase design
+* Target GitHub Issue body
+* All Claude design comments on the target GitHub Issue
+* Phase-level design file at `docs/codex/phase-{number}/implementation-plan.md`, if it exists
+* Issue-level design file at `docs/codex/phase-{number}/issue-{issue-number}.md`, if it exists
+
+If design information from different sources (Issue comment vs. design file) conflict with each other, stop and ask the human before proceeding.
 
 ### 2. Plan first
 
@@ -388,9 +415,14 @@ Issue #X を進めて
 interpret it as:
 
 ```txt
-Read AGENTS.md, docs/, and Issue #X.
+Read AGENTS.md, docs/, and Issue #X (body and all Claude design comments).
+If design files exist at docs/codex/phase-{number}/, read them too.
+If any design sources conflict, stop and ask the human.
 Plan first.
 Do not edit files until approval.
 After approval, implement using 1 Issue = 1 Branch = 1 PR.
 Run self-review and checks, create PR, and stop before merge.
 ```
+
+If the Issue belongs to Phase 00, treat it as a fix or correction task.
+Do not add new features in Phase 00 Issues.
