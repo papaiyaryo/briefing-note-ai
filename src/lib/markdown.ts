@@ -1,21 +1,18 @@
 import type { BriefingNote } from "./types";
 
-export {
-  EMPTY_COMPANY_EVENT_INFO,
-  type CompanyEventInfo,
-} from "./types";
+export { EMPTY_COMPANY_EVENT_INFO, type CompanyEventInfo } from "./types";
 
 export interface MarkdownTemplateInput {
   companyName?: string;
   eventName?: string;
   eventDate?: string;
-  imageFileName?: string;
+  imageFileNames?: string[];
   ocrText?: string;
 }
 
 export type MarkdownTemplateBriefingNoteInput = Pick<
   BriefingNote,
-  "companyEventInfo" | "ocrText" | "imageFileName"
+  "companyEventInfo" | "ocrText" | "imageFileNames"
 >;
 
 function orPending(value: string | undefined): string {
@@ -39,7 +36,10 @@ export function buildMarkdownTemplate(
   input: MarkdownTemplateInput = {},
 ): string {
   const companyName = orPending(input.companyName);
-  const imageFileName = input.imageFileName?.trim() || "不明";
+  const imageFileNames =
+    input.imageFileNames?.map((name) => name.trim()).filter(Boolean) ?? [];
+  const imageFileName =
+    imageFileNames.length > 0 ? imageFileNames.join(", ") : "不明";
   const ocrExcerpt = input.ocrText?.trim() || "(OCR 結果なし)";
   const fence = fenceFor(ocrExcerpt);
 
@@ -100,7 +100,7 @@ export function buildMarkdownTemplateFromBriefingNote(
     companyName: note.companyEventInfo.companyName,
     eventName: note.companyEventInfo.eventName,
     eventDate: note.companyEventInfo.eventDate,
-    imageFileName: note.imageFileName,
+    imageFileNames: note.imageFileNames,
     ocrText: note.ocrText,
   });
 }

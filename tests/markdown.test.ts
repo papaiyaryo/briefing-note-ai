@@ -54,7 +54,7 @@ describe("buildMarkdownTemplate", () => {
       companyName: "サンプル株式会社",
       eventName: "夏季説明会",
       eventDate: "2026-06-01",
-      imageFileName: "memo.png",
+      imageFileNames: ["memo.png"],
       ocrText: "事業内容: ITサービス",
     });
     expect(markdown).toContain("# サンプル株式会社");
@@ -70,7 +70,7 @@ describe("buildMarkdownTemplate", () => {
       companyName: "  ",
       eventName: "\n\t",
       eventDate: " ",
-      imageFileName: "   ",
+      imageFileNames: ["   "],
       ocrText: "\n  ",
     });
     expect(markdown).toContain("# 要確認");
@@ -121,7 +121,9 @@ describe("buildMarkdownTemplate", () => {
     );
 
     expect(sectionPositions).not.toContain(-1);
-    expect(sectionPositions).toEqual([...sectionPositions].sort((a, b) => a - b));
+    expect(sectionPositions).toEqual(
+      [...sectionPositions].sort((a, b) => a - b),
+    );
   });
 
   it("keeps overview labels aligned with docs/output-format.md", () => {
@@ -135,7 +137,9 @@ describe("buildMarkdownTemplate", () => {
       expect(overview).toContain(label);
     }
 
-    const labelPositions = overviewLabels.map((label) => overview.indexOf(label));
+    const labelPositions = overviewLabels.map((label) =>
+      overview.indexOf(label),
+    );
     expect(labelPositions).not.toContain(-1);
     expect(labelPositions).toEqual([...labelPositions].sort((a, b) => a - b));
   });
@@ -155,7 +159,7 @@ describe("buildMarkdownTemplate", () => {
         eventName: "会社説明会",
         eventDate: "2026-06-14",
       },
-      imageFileName: "briefing-note.webp",
+      imageFileNames: ["briefing-note.webp"],
       ocrText: "HR強調: 顧客課題から考える",
       markdown: "ignored existing markdown",
     };

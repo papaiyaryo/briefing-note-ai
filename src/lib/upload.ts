@@ -15,8 +15,12 @@ export const ACCEPTED_FORMATS_LABEL = "PNG / JPG / JPEG / WebP";
 
 export const MAX_IMAGE_SIZE_MB = 10;
 export const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+export const MAX_IMAGES = 20;
 
-export type UploadValidationError = "unsupported-format" | "file-too-large";
+export type UploadValidationError =
+  | "unsupported-format"
+  | "file-too-large"
+  | "too-many-files";
 
 export interface UploadCandidate {
   name: string;
@@ -25,8 +29,14 @@ export interface UploadCandidate {
 }
 
 export interface SelectedImage {
+  id: string;
   file: File;
   previewUrl: string;
+}
+
+export interface FileValidationResult {
+  file: File;
+  error: UploadValidationError | null;
 }
 
 function hasAcceptedExtension(name: string): boolean {
@@ -56,11 +66,26 @@ export function validateImageFile(
   return null;
 }
 
+export function validateImageFiles(
+  incoming: File[],
+  currentCount: number,
+): { results: FileValidationResult[]; tooMany: boolean } {
+  const tooMany = currentCount + incoming.length > MAX_IMAGES;
+  const results = incoming.map((file) => ({
+    file,
+    error: validateImageFile(file),
+  }));
+
+  return { results, tooMany };
+}
+
 export function getUploadErrorMessage(error: UploadValidationError): string {
   switch (error) {
     case "unsupported-format":
       return `対応していないファイル形式です。${ACCEPTED_FORMATS_LABEL} の画像を選択し直してください。`;
     case "file-too-large":
       return `ファイルサイズが上限(${MAX_IMAGE_SIZE_MB}MB)を超えています。小さい画像を選択し直してください。`;
+    case "too-many-files":
+      return `一度に選択できる画像は最大 ${MAX_IMAGES} 枚です。枚数を減らして選択し直してください。`;
   }
 }

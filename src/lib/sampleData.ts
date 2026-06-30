@@ -30,7 +30,7 @@ HR 強調:
 - スピードだけでなく継続改善を重視するところに共感`;
 
 export const DEMO_BRIEFING_NOTE: BriefingNote = {
-  imageFileName: "demo-aoba-future-link-note.webp",
+  imageFileNames: ["demo-aoba-future-link-note.webp"],
   companyEventInfo: {
     companyName: "青葉フューチャーリンク株式会社",
     eventName: "26卒向け オンライン会社説明会",

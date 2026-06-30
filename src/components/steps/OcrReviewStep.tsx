@@ -3,7 +3,7 @@ import { Button } from "../Button";
 import { ErrorNotice } from "../ErrorNotice";
 
 interface OcrReviewStepProps {
-  selectedImage: SelectedImage | null;
+  selectedImages: SelectedImage[];
   ocrText: string;
   onChangeOcrText: (text: string) => void;
   hasOcrError: boolean;
@@ -16,7 +16,7 @@ interface OcrReviewStepProps {
 }
 
 export function OcrReviewStep({
-  selectedImage,
+  selectedImages,
   ocrText,
   onChangeOcrText,
   hasOcrError,
@@ -49,14 +49,25 @@ export function OcrReviewStep({
       )}
       <div className="flex flex-col gap-6 md:flex-row">
         <div className="md:w-56 md:shrink-0">
-          {selectedImage ? (
-            // プレビューは blob URL のため next/image の最適化対象外
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={selectedImage.previewUrl}
-              alt="アップロードしたメモ画像"
-              className="w-full rounded-lg border border-slate-200 object-contain md:max-h-96"
-            />
+          {selectedImages.length > 0 ? (
+            <ul className="flex gap-3 overflow-x-auto md:max-h-96 md:flex-col md:overflow-y-auto md:overflow-x-hidden">
+              {selectedImages.map((image, index) => (
+                <li key={image.id} className="flex min-w-40 flex-col gap-1">
+                  {selectedImages.length > 1 && (
+                    <span className="text-xs font-medium text-slate-500">
+                      ページ {index + 1}
+                    </span>
+                  )}
+                  {/* プレビューは blob URL のため next/image の最適化対象外 */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={image.previewUrl}
+                    alt={`アップロードしたメモ画像 ${index + 1}`}
+                    className="h-40 w-full rounded-lg border border-slate-200 object-contain md:h-auto md:max-h-72"
+                  />
+                </li>
+              ))}
+            </ul>
           ) : (
             <div className="flex h-40 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 md:h-80">
               <p className="px-3 text-center text-sm text-slate-500">
