@@ -1,9 +1,11 @@
 import { fenceFor } from "../markdown";
+import type { WebSupplementItem } from "../types";
 import type { CompanyMemoStructured } from "./schema";
 
 export interface ToMarkdownOptions {
   ocrText: string;
   imageFileNames?: string[];
+  webSupplements?: WebSupplementItem[];
 }
 
 function valueOrPending(value: string): string {
@@ -15,6 +17,39 @@ function bullets(items: string[]): string {
   const visible = items.map((item) => item.trim()).filter(Boolean);
   if (visible.length === 0) return "- 要確認";
   return visible.map((item) => `- ${item}`).join("\n");
+}
+
+function confidenceLabel(confidence: WebSupplementItem["confidence"]): string {
+  switch (confidence) {
+    case "high":
+      return "高";
+    case "medium":
+      return "中";
+    case "low":
+      return "低";
+    case "requires_check":
+      return "要確認";
+  }
+}
+
+function webSupplementSection(items: WebSupplementItem[] | undefined): string {
+  const adopted = items?.filter((item) => item.status === "adopted") ?? [];
+
+  if (adopted.length === 0) {
+    return "- 採用済みの Web 補足情報はありません";
+  }
+
+  return adopted
+    .map((item) =>
+      [
+        `### ${item.category.trim() || "Web 補足"}`,
+        `- 内容: ${item.content.trim() || "要確認"}`,
+        `- 出典 URL: ${item.sourceUrl.trim() || "要確認"}`,
+        `- 取得日: ${item.fetchedAt.trim() || "要確認"}`,
+        `- 信頼度: ${confidenceLabel(item.confidence)}`,
+      ].join("\n"),
+    )
+    .join("\n\n");
 }
 
 export function toMarkdown(
@@ -69,8 +104,7 @@ ${bullets(memo.esPoints)}
 ${bullets(memo.nextResearch)}
 
 ## Web 補足情報
-- MVP では未使用
-- Post-MVP で追加する場合は、出典 URL と取得日を必ず残す
+${webSupplementSection(opts.webSupplements)}
 
 ## 元メモからの抜粋
 ${fence}text
