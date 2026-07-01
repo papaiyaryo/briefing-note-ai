@@ -11,11 +11,14 @@ import { runDummyOcr } from "../lib/dummyOcr";
 import { requestOcr } from "../lib/ocrClient";
 import { toMarkdown } from "../lib/structure/toMarkdown";
 import { requestStructure } from "../lib/structureClient";
+import { type WebSupplementItem } from "../lib/types";
 import { type SelectedImage } from "../lib/upload";
+import { requestWebSupplements } from "../lib/webSupplementClient";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
 import { OcrReviewStep } from "./steps/OcrReviewStep";
 import { UploadStep } from "./steps/UploadStep";
+import { WebSupplementStep } from "./steps/WebSupplementStep";
 
 export function BriefingNoteFlow() {
   const [currentStepId, setCurrentStepId] = useState<StepId>("upload");
@@ -24,6 +27,8 @@ export function BriefingNoteFlow() {
   const [ocrProgressLabel, setOcrProgressLabel] = useState("");
   const [markdownText, setMarkdownText] = useState("");
   const [isMarkdownDirty, setIsMarkdownDirty] = useState(false);
+  const [webSupplements, setWebSupplements] = useState<WebSupplementItem[]>([]);
+  const [isLoadingWebSupplements, setIsLoadingWebSupplements] = useState(false);
   const [companyEventInfo, setCompanyEventInfo] = useState<CompanyEventInfo>(
     EMPTY_COMPANY_EVENT_INFO,
   );
@@ -36,10 +41,19 @@ export function BriefingNoteFlow() {
   const pendingTimerRef = useRef<number | null>(null);
   const ocrAbortControllerRef = useRef<AbortController | null>(null);
   const selectedImagesRef = useRef<SelectedImage[]>([]);
+  const currentStepIdRef = useRef<StepId>(currentStepId);
+  const webSupplementRequestIdRef = useRef(0);
+  const markdownGenerationRequestIdRef = useRef(0);
+  const isLoadingWebSupplementsRef = useRef(false);
+  const isGeneratingMarkdownRef = useRef(false);
 
   useEffect(() => {
     selectedImagesRef.current = selectedImages;
   }, [selectedImages]);
+
+  useEffect(() => {
+    currentStepIdRef.current = currentStepId;
+  }, [currentStepId]);
 
   // アンマウント時に未発火のタイマー、OCR リクエスト、プレビュー URL を解放する
   useEffect(() => {
@@ -48,6 +62,8 @@ export function BriefingNoteFlow() {
         window.clearTimeout(pendingTimerRef.current);
       }
       ocrAbortControllerRef.current?.abort();
+      webSupplementRequestIdRef.current += 1;
+      markdownGenerationRequestIdRef.current += 1;
       selectedImagesRef.current.forEach((image) => {
         URL.revokeObjectURL(image.previewUrl);
       });
@@ -59,6 +75,12 @@ export function BriefingNoteFlow() {
     setOcrProgressLabel("");
     setMarkdownText("");
     setIsMarkdownDirty(false);
+    webSupplementRequestIdRef.current += 1;
+    markdownGenerationRequestIdRef.current += 1;
+    isLoadingWebSupplementsRef.current = false;
+    isGeneratingMarkdownRef.current = false;
+    setWebSupplements([]);
+    setIsLoadingWebSupplements(false);
     setHasOcrError(false);
     setOcrErrorMessage("");
     setHasGenerationError(false);
@@ -185,35 +207,113 @@ export function BriefingNoteFlow() {
     }, 600);
   };
 
-  // OCR テキストを直接 Markdown 化せず、サーバー側で構造化 JSON を生成・検証してから、
-  // クライアント側の純粋関数で Markdown に変換する。編集済みなら上書きしない。
-  const handleGenerateMarkdown = async () => {
-    if (isGeneratingMarkdown) {
+  const handlePrepareWebSupplements = async () => {
+    if (isLoadingWebSupplementsRef.current) {
       return;
     }
+
+    const requestId = webSupplementRequestIdRef.current + 1;
+    webSupplementRequestIdRef.current = requestId;
+    const startStepId = currentStepIdRef.current;
+    isLoadingWebSupplementsRef.current = true;
+    setIsLoadingWebSupplements(true);
+
+    try {
+      const supplements = await requestWebSupplements(
+        ocrText,
+        companyEventInfo,
+      );
+      const isLatestRequest = webSupplementRequestIdRef.current === requestId;
+      const isStillOnExpectedStep =
+        currentStepIdRef.current === startStepId && startStepId === "ocr";
+
+      if (isLatestRequest && isStillOnExpectedStep) {
+        setWebSupplements(supplements);
+        setCurrentStepId("web-supplement");
+      }
+    } finally {
+      if (webSupplementRequestIdRef.current === requestId) {
+        isLoadingWebSupplementsRef.current = false;
+        setIsLoadingWebSupplements(false);
+      }
+    }
+  };
+
+  const handleSetWebSupplementStatus = (
+    id: string,
+    status: WebSupplementItem["status"],
+  ) => {
+    setWebSupplements((items) =>
+      items.map((item) => (item.id === id ? { ...item, status } : item)),
+    );
+  };
+
+  const handleSkipWebSupplements = () => {
+    setWebSupplements((items) =>
+      items.map((item) => ({ ...item, status: "rejected" })),
+    );
+    void handleGenerateMarkdown([]);
+  };
+
+  // OCR テキストを直接 Markdown 化せず、サーバー側で構造化 JSON を生成・検証してから、
+  // クライアント側の純粋関数で Markdown に変換する。編集済みなら上書きしない。
+  const handleGenerateMarkdown = async (supplements = webSupplements) => {
+    if (isGeneratingMarkdownRef.current) {
+      return;
+    }
+
+    const requestId = markdownGenerationRequestIdRef.current + 1;
+    markdownGenerationRequestIdRef.current = requestId;
+    const startStepId = currentStepIdRef.current;
+    isGeneratingMarkdownRef.current = true;
     setHasGenerationError(false);
     setIsGeneratingMarkdown(true);
 
     try {
       const result = await requestStructure(ocrText, companyEventInfo);
-      if (!isMarkdownDirty) {
-        setMarkdownText(
-          toMarkdown(result.memo, {
-            imageFileNames: selectedImages.map((image) => image.file.name),
-            ocrText,
-          }),
-        );
+      const isLatestRequest =
+        markdownGenerationRequestIdRef.current === requestId;
+      const isStillOnExpectedStep =
+        currentStepIdRef.current === startStepId &&
+        startStepId === "web-supplement";
+
+      if (isLatestRequest && isStillOnExpectedStep) {
+        if (!isMarkdownDirty) {
+          setMarkdownText(
+            toMarkdown(result.memo, {
+              imageFileNames: selectedImages.map((image) => image.file.name),
+              ocrText,
+              webSupplements: supplements.filter(
+                (item) => item.status === "adopted",
+              ),
+            }),
+          );
+        }
+        setCurrentStepId("markdown");
       }
-      setCurrentStepId("markdown");
     } catch {
-      setHasGenerationError(true);
-      setCurrentStepId("markdown");
+      const isLatestRequest =
+        markdownGenerationRequestIdRef.current === requestId;
+      const isStillOnExpectedStep =
+        currentStepIdRef.current === startStepId &&
+        startStepId === "web-supplement";
+
+      if (isLatestRequest && isStillOnExpectedStep) {
+        setHasGenerationError(true);
+        setCurrentStepId("markdown");
+      }
     } finally {
-      setIsGeneratingMarkdown(false);
+      if (markdownGenerationRequestIdRef.current === requestId) {
+        isGeneratingMarkdownRef.current = false;
+        setIsGeneratingMarkdown(false);
+      }
     }
   };
 
-  const cardMaxWidth = currentStepId === "markdown" ? "max-w-5xl" : "max-w-3xl";
+  const cardMaxWidth =
+    currentStepId === "markdown" || currentStepId === "web-supplement"
+      ? "max-w-5xl"
+      : "max-w-3xl";
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -249,9 +349,21 @@ export function BriefingNoteFlow() {
             ocrErrorMessage={ocrErrorMessage}
             isOcrRunning={isOcrRunning}
             isGeneratingMarkdown={isGeneratingMarkdown}
+            isPreparingWebSupplements={isLoadingWebSupplements}
             onBack={goBack}
             onRetryOcr={handleRunOcr}
-            onNext={handleGenerateMarkdown}
+            onNext={handlePrepareWebSupplements}
+          />
+        )}
+        {currentStepId === "web-supplement" && (
+          <WebSupplementStep
+            supplements={webSupplements}
+            isLoading={isLoadingWebSupplements}
+            isGeneratingMarkdown={isGeneratingMarkdown}
+            onSetStatus={handleSetWebSupplementStatus}
+            onBack={goBack}
+            onNext={() => void handleGenerateMarkdown()}
+            onSkip={handleSkipWebSupplements}
           />
         )}
         {currentStepId === "markdown" && (

@@ -10,6 +10,7 @@ interface OcrReviewStepProps {
   ocrErrorMessage: string;
   isOcrRunning: boolean;
   isGeneratingMarkdown: boolean;
+  isPreparingWebSupplements?: boolean;
   onBack: () => void;
   onRetryOcr: () => void;
   onNext: () => void;
@@ -23,12 +24,14 @@ export function OcrReviewStep({
   ocrErrorMessage,
   isOcrRunning,
   isGeneratingMarkdown,
+  isPreparingWebSupplements = false,
   onBack,
   onRetryOcr,
   onNext,
 }: OcrReviewStepProps) {
   const isOcrTextEmpty = ocrText.trim() === "";
-  const isBusy = isOcrRunning || isGeneratingMarkdown;
+  const isBusy =
+    isOcrRunning || isGeneratingMarkdown || isPreparingWebSupplements;
 
   return (
     <section aria-labelledby="ocr-step-heading" className="space-y-6">
@@ -109,9 +112,11 @@ export function OcrReviewStep({
           </Button>
         </div>
         <Button onClick={onNext} disabled={isOcrTextEmpty || isBusy}>
-          {isGeneratingMarkdown
-            ? "Markdown を生成しています…"
-            : "Markdown を生成する"}
+          {isPreparingWebSupplements
+            ? "Web 補足を準備しています…"
+            : isGeneratingMarkdown
+              ? "Markdown を生成しています…"
+              : "Markdown を生成する"}
         </Button>
       </div>
     </section>
