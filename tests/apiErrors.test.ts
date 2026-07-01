@@ -14,6 +14,7 @@ const codes: ApiErrorCode[] = [
   "timeout",
   "provider_error",
   "validation_failed",
+  "company_not_found",
 ];
 
 describe("API error handling", () => {

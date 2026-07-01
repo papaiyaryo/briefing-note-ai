@@ -4,6 +4,7 @@ type ProviderEnv = {
   OPENAI_API_KEY?: string;
   OCR_PROVIDER?: string;
   STRUCTURE_PROVIDER?: string;
+  WEB_SUPPLEMENT_PROVIDER?: string;
 };
 
 function resolveProvider(
@@ -26,4 +27,13 @@ export function getStructureProvider(
   env: ProviderEnv = process.env as ProviderEnv,
 ): LlmProvider {
   return resolveProvider(env.STRUCTURE_PROVIDER, Boolean(env.OPENAI_API_KEY));
+}
+
+export function getWebSupplementProvider(
+  env: ProviderEnv = process.env as ProviderEnv,
+): LlmProvider {
+  return resolveProvider(
+    env.WEB_SUPPLEMENT_PROVIDER,
+    Boolean(env.OPENAI_API_KEY),
+  );
 }
