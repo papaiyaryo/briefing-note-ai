@@ -9,6 +9,7 @@ import {
 } from "../../../src/lib/server/errors";
 import { logServerEvent } from "../../../src/lib/server/log";
 import {
+  isWebSupplementEnabled,
   runWebSupplement,
   WebSupplementError,
 } from "../../../src/lib/server/webSupplement";
@@ -35,6 +36,11 @@ export async function POST(request: Request) {
 
   if (!isWebSupplementRequest(body)) {
     return errorResponse(new ApiError("invalid_input"));
+  }
+
+  if (!isWebSupplementEnabled()) {
+    logServerEvent("warn", "web_supplement.disabled", { provider: "disabled" });
+    return errorResponse(new ApiError("not_configured"));
   }
 
   const provider = getWebSupplementProvider();

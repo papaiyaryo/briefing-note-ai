@@ -19,11 +19,34 @@ describe("POST /api/web-supplement", () => {
     expect(body.error.code).toBe("invalid_input");
   });
 
-  it("returns dummy web supplement result when no API key is configured", async () => {
+  it("keeps the endpoint disabled unless explicitly enabled", async () => {
+    const originalEnabled = process.env.WEB_SUPPLEMENT_ENABLED;
+    delete process.env.WEB_SUPPLEMENT_ENABLED;
+
+    try {
+      const response = await POST(
+        createRequest({ companyName: "青葉フューチャーリンク株式会社" }),
+      );
+      const body = await response.json();
+
+      expect(response.status).toBe(503);
+      expect(body.error.code).toBe("not_configured");
+    } finally {
+      if (originalEnabled === undefined) {
+        delete process.env.WEB_SUPPLEMENT_ENABLED;
+      } else {
+        process.env.WEB_SUPPLEMENT_ENABLED = originalEnabled;
+      }
+    }
+  });
+
+  it("returns dummy web supplement result when explicitly enabled and no API key is configured", async () => {
     const originalApiKey = process.env.OPENAI_API_KEY;
     const originalProvider = process.env.WEB_SUPPLEMENT_PROVIDER;
     delete process.env.OPENAI_API_KEY;
+    const originalEnabled = process.env.WEB_SUPPLEMENT_ENABLED;
     delete process.env.WEB_SUPPLEMENT_PROVIDER;
+    process.env.WEB_SUPPLEMENT_ENABLED = "true";
 
     try {
       const response = await POST(
@@ -46,6 +69,11 @@ describe("POST /api/web-supplement", () => {
         delete process.env.WEB_SUPPLEMENT_PROVIDER;
       } else {
         process.env.WEB_SUPPLEMENT_PROVIDER = originalProvider;
+      }
+      if (originalEnabled === undefined) {
+        delete process.env.WEB_SUPPLEMENT_ENABLED;
+      } else {
+        process.env.WEB_SUPPLEMENT_ENABLED = originalEnabled;
       }
     }
   });

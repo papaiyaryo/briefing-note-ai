@@ -52,7 +52,15 @@ async function toWebSupplementError(
 
 export async function requestWebSupplement(
   companyName: string,
+  options: { enabled?: boolean } = {},
 ): Promise<WebSupplementApiResponse> {
+  if (!options.enabled) {
+    throw new WebSupplementRequestError(
+      CLIENT_ERROR_MESSAGES.not_configured,
+      "not_configured",
+    );
+  }
+
   const response = await fetch("/api/web-supplement", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
