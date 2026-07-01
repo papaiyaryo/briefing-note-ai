@@ -41,10 +41,19 @@ export function BriefingNoteFlow() {
   const pendingTimerRef = useRef<number | null>(null);
   const ocrAbortControllerRef = useRef<AbortController | null>(null);
   const selectedImagesRef = useRef<SelectedImage[]>([]);
+  const currentStepIdRef = useRef<StepId>(currentStepId);
+  const webSupplementRequestIdRef = useRef(0);
+  const markdownGenerationRequestIdRef = useRef(0);
+  const isLoadingWebSupplementsRef = useRef(false);
+  const isGeneratingMarkdownRef = useRef(false);
 
   useEffect(() => {
     selectedImagesRef.current = selectedImages;
   }, [selectedImages]);
+
+  useEffect(() => {
+    currentStepIdRef.current = currentStepId;
+  }, [currentStepId]);
 
   // アンマウント時に未発火のタイマー、OCR リクエスト、プレビュー URL を解放する
   useEffect(() => {
@@ -53,6 +62,8 @@ export function BriefingNoteFlow() {
         window.clearTimeout(pendingTimerRef.current);
       }
       ocrAbortControllerRef.current?.abort();
+      webSupplementRequestIdRef.current += 1;
+      markdownGenerationRequestIdRef.current += 1;
       selectedImagesRef.current.forEach((image) => {
         URL.revokeObjectURL(image.previewUrl);
       });
@@ -64,6 +75,10 @@ export function BriefingNoteFlow() {
     setOcrProgressLabel("");
     setMarkdownText("");
     setIsMarkdownDirty(false);
+    webSupplementRequestIdRef.current += 1;
+    markdownGenerationRequestIdRef.current += 1;
+    isLoadingWebSupplementsRef.current = false;
+    isGeneratingMarkdownRef.current = false;
     setWebSupplements([]);
     setIsLoadingWebSupplements(false);
     setHasOcrError(false);
@@ -193,15 +208,34 @@ export function BriefingNoteFlow() {
   };
 
   const handlePrepareWebSupplements = async () => {
-    if (isLoadingWebSupplements) {
+    if (isLoadingWebSupplementsRef.current) {
       return;
     }
+
+    const requestId = webSupplementRequestIdRef.current + 1;
+    webSupplementRequestIdRef.current = requestId;
+    const startStepId = currentStepIdRef.current;
+    isLoadingWebSupplementsRef.current = true;
     setIsLoadingWebSupplements(true);
+
     try {
-      setWebSupplements(await requestWebSupplements(ocrText, companyEventInfo));
+      const supplements = await requestWebSupplements(
+        ocrText,
+        companyEventInfo,
+      );
+      const isLatestRequest = webSupplementRequestIdRef.current === requestId;
+      const isStillOnExpectedStep =
+        currentStepIdRef.current === startStepId && startStepId === "ocr";
+
+      if (isLatestRequest && isStillOnExpectedStep) {
+        setWebSupplements(supplements);
+        setCurrentStepId("web-supplement");
+      }
     } finally {
-      setIsLoadingWebSupplements(false);
-      setCurrentStepId("web-supplement");
+      if (webSupplementRequestIdRef.current === requestId) {
+        isLoadingWebSupplementsRef.current = false;
+        setIsLoadingWebSupplements(false);
+      }
     }
   };
 
@@ -216,9 +250,7 @@ export function BriefingNoteFlow() {
 
   const handleSkipWebSupplements = () => {
     setWebSupplements((items) =>
-      items.map((item) =>
-        item.status === "pending" ? { ...item, status: "rejected" } : item,
-      ),
+      items.map((item) => ({ ...item, status: "rejected" })),
     );
     void handleGenerateMarkdown([]);
   };
@@ -226,31 +258,55 @@ export function BriefingNoteFlow() {
   // OCR テキストを直接 Markdown 化せず、サーバー側で構造化 JSON を生成・検証してから、
   // クライアント側の純粋関数で Markdown に変換する。編集済みなら上書きしない。
   const handleGenerateMarkdown = async (supplements = webSupplements) => {
-    if (isGeneratingMarkdown) {
+    if (isGeneratingMarkdownRef.current) {
       return;
     }
+
+    const requestId = markdownGenerationRequestIdRef.current + 1;
+    markdownGenerationRequestIdRef.current = requestId;
+    const startStepId = currentStepIdRef.current;
+    isGeneratingMarkdownRef.current = true;
     setHasGenerationError(false);
     setIsGeneratingMarkdown(true);
 
     try {
       const result = await requestStructure(ocrText, companyEventInfo);
-      if (!isMarkdownDirty) {
-        setMarkdownText(
-          toMarkdown(result.memo, {
-            imageFileNames: selectedImages.map((image) => image.file.name),
-            ocrText,
-            webSupplements: supplements.filter(
-              (item) => item.status === "adopted",
-            ),
-          }),
-        );
+      const isLatestRequest =
+        markdownGenerationRequestIdRef.current === requestId;
+      const isStillOnExpectedStep =
+        currentStepIdRef.current === startStepId &&
+        startStepId === "web-supplement";
+
+      if (isLatestRequest && isStillOnExpectedStep) {
+        if (!isMarkdownDirty) {
+          setMarkdownText(
+            toMarkdown(result.memo, {
+              imageFileNames: selectedImages.map((image) => image.file.name),
+              ocrText,
+              webSupplements: supplements.filter(
+                (item) => item.status === "adopted",
+              ),
+            }),
+          );
+        }
+        setCurrentStepId("markdown");
       }
-      setCurrentStepId("markdown");
     } catch {
-      setHasGenerationError(true);
-      setCurrentStepId("markdown");
+      const isLatestRequest =
+        markdownGenerationRequestIdRef.current === requestId;
+      const isStillOnExpectedStep =
+        currentStepIdRef.current === startStepId &&
+        startStepId === "web-supplement";
+
+      if (isLatestRequest && isStillOnExpectedStep) {
+        setHasGenerationError(true);
+        setCurrentStepId("markdown");
+      }
     } finally {
-      setIsGeneratingMarkdown(false);
+      if (markdownGenerationRequestIdRef.current === requestId) {
+        isGeneratingMarkdownRef.current = false;
+        setIsGeneratingMarkdown(false);
+      }
     }
   };
 
@@ -293,6 +349,7 @@ export function BriefingNoteFlow() {
             ocrErrorMessage={ocrErrorMessage}
             isOcrRunning={isOcrRunning}
             isGeneratingMarkdown={isGeneratingMarkdown}
+            isPreparingWebSupplements={isLoadingWebSupplements}
             onBack={goBack}
             onRetryOcr={handleRunOcr}
             onNext={handlePrepareWebSupplements}
@@ -302,6 +359,7 @@ export function BriefingNoteFlow() {
           <WebSupplementStep
             supplements={webSupplements}
             isLoading={isLoadingWebSupplements}
+            isGeneratingMarkdown={isGeneratingMarkdown}
             onSetStatus={handleSetWebSupplementStatus}
             onBack={goBack}
             onNext={() => void handleGenerateMarkdown()}

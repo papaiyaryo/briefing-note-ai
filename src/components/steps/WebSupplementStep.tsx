@@ -4,6 +4,7 @@ import { Button } from "../Button";
 interface WebSupplementStepProps {
   supplements: WebSupplementItem[];
   isLoading: boolean;
+  isGeneratingMarkdown: boolean;
   onSetStatus: (id: string, status: WebSupplementItem["status"]) => void;
   onBack: () => void;
   onNext: () => void;
@@ -27,6 +28,7 @@ const confidenceClassNames: Record<WebSupplementItem["confidence"], string> = {
 export function WebSupplementStep({
   supplements,
   isLoading,
+  isGeneratingMarkdown,
   onSetStatus,
   onBack,
   onNext,
@@ -35,6 +37,7 @@ export function WebSupplementStep({
   const adoptedCount = supplements.filter(
     (item) => item.status === "adopted",
   ).length;
+  const isBusy = isLoading || isGeneratingMarkdown;
 
   return (
     <section className="space-y-6" aria-labelledby="web-supplement-heading">
@@ -116,6 +119,7 @@ export function WebSupplementStep({
                       item.status === "adopted" ? "primary" : "secondary"
                     }
                     onClick={() => onSetStatus(item.id, "adopted")}
+                    disabled={isBusy}
                   >
                     採用する
                   </Button>
@@ -124,6 +128,7 @@ export function WebSupplementStep({
                       item.status === "rejected" ? "primary" : "secondary"
                     }
                     onClick={() => onSetStatus(item.id, "rejected")}
+                    disabled={isBusy}
                   >
                     却下する
                   </Button>
@@ -135,15 +140,17 @@ export function WebSupplementStep({
       )}
 
       <div className="flex flex-col gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-between">
-        <Button variant="secondary" onClick={onBack}>
+        <Button variant="secondary" onClick={onBack} disabled={isBusy}>
           OCR 確認へ戻る
         </Button>
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Button variant="secondary" onClick={onSkip}>
+          <Button variant="secondary" onClick={onSkip} disabled={isBusy}>
             スキップ（補足なしで続ける）
           </Button>
-          <Button onClick={onNext}>
-            採用した {adoptedCount} 件で Markdown 生成へ
+          <Button onClick={onNext} disabled={isBusy}>
+            {isGeneratingMarkdown
+              ? "Markdown を生成しています…"
+              : `採用した ${adoptedCount} 件で Markdown 生成へ`}
           </Button>
         </div>
       </div>
