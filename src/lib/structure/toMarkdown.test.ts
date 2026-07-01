@@ -41,4 +41,57 @@ describe("toMarkdown", () => {
     expect(first).toContain("- メモ元画像: note.webp");
     expect(first).toContain("```text\n元メモ\n```");
   });
+
+  it("renders only adopted web supplements with source and fetched date", () => {
+    const markdown = toMarkdown(memo, {
+      ocrText: "元メモ",
+      webSupplements: [
+        {
+          id: "adopted",
+          category: "採用情報",
+          content: "選考フローを確認",
+          sourceUrl: "https://example.com/recruit",
+          fetchedAt: "2026-06-30",
+          confidence: "requires_check",
+          status: "adopted",
+        },
+        {
+          id: "rejected",
+          category: "却下情報",
+          content: "本文に混ぜない",
+          sourceUrl: "https://example.com/rejected",
+          fetchedAt: "2026-06-30",
+          confidence: "high",
+          status: "rejected",
+        },
+      ],
+    });
+
+    expect(markdown).toContain("### 採用情報");
+    expect(markdown).toContain("- 出典 URL: https://example.com/recruit");
+    expect(markdown).toContain("- 取得日: 2026-06-30");
+    expect(markdown).toContain("- 信頼度: 要確認");
+    expect(markdown).not.toContain("却下情報");
+    expect(markdown).not.toContain("本文に混ぜない");
+  });
+
+  it("does not mix web supplements into markdown without adoption", () => {
+    const markdown = toMarkdown(memo, {
+      ocrText: "元メモ",
+      webSupplements: [
+        {
+          id: "pending",
+          category: "未確認情報",
+          content: "ユーザー確認前",
+          sourceUrl: "https://example.com/pending",
+          fetchedAt: "2026-06-30",
+          confidence: "medium",
+          status: "pending",
+        },
+      ],
+    });
+
+    expect(markdown).toContain("- 採用済みの Web 補足情報はありません");
+    expect(markdown).not.toContain("ユーザー確認前");
+  });
 });

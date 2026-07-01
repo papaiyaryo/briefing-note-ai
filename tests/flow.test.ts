@@ -9,13 +9,14 @@ import {
 } from "../src/lib/flow";
 
 describe("flow steps", () => {
-  it("defines upload, ocr, markdown in this order", () => {
+  it("defines upload, ocr, web supplement, markdown in this order", () => {
     expect(STEPS.map((step) => step.id)).toEqual([
       "upload",
       "ocr",
+      "web-supplement",
       "markdown",
     ]);
-    expect(STEPS.map((step) => step.number)).toEqual([1, 2, 3]);
+    expect(STEPS.map((step) => step.number)).toEqual([1, 2, 3, 4]);
   });
 
   it("keeps STEP_IDS and STEPS consistent", () => {
@@ -30,7 +31,8 @@ describe("flow steps", () => {
 describe("getNextStepId", () => {
   it("moves forward through the flow", () => {
     expect(getNextStepId("upload")).toBe("ocr");
-    expect(getNextStepId("ocr")).toBe("markdown");
+    expect(getNextStepId("ocr")).toBe("web-supplement");
+    expect(getNextStepId("web-supplement")).toBe("markdown");
   });
 
   it("returns null at the last step", () => {
@@ -40,7 +42,8 @@ describe("getNextStepId", () => {
 
 describe("getPreviousStepId", () => {
   it("moves backward through the flow", () => {
-    expect(getPreviousStepId("markdown")).toBe("ocr");
+    expect(getPreviousStepId("markdown")).toBe("web-supplement");
+    expect(getPreviousStepId("web-supplement")).toBe("ocr");
     expect(getPreviousStepId("ocr")).toBe("upload");
   });
 
