@@ -11,6 +11,8 @@ export const ERROR_MESSAGES: Record<ApiErrorCode, string> = {
   provider_error:
     "AI サービスでエラーが発生しました。しばらくして再試行してください。",
   validation_failed: "生成結果を確認できませんでした。再試行してください。",
+  company_not_found:
+    "企業情報が見つかりませんでした。企業名を確認してください。",
 };
 
 export function getSafeErrorMessage(code: ApiErrorCode): string {

@@ -10,6 +10,7 @@ const HTTP_STATUS_BY_CODE: Record<ApiErrorCode, number> = {
   timeout: 504,
   provider_error: 502,
   validation_failed: 422,
+  company_not_found: 404,
 };
 
 export class ApiError extends Error {

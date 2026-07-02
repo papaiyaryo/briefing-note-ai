@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { getOcrProvider, getStructureProvider } from "./provider";
+import {
+  getOcrProvider,
+  getStructureProvider,
+  getWebSupplementProvider,
+} from "./provider";
 
 describe("getOcrProvider", () => {
   it("uses dummy when OPENAI_API_KEY is not set", () => {
@@ -54,5 +58,26 @@ describe("getStructureProvider", () => {
 
   it("falls back to dummy when explicit value is unknown and API key is missing", () => {
     expect(getStructureProvider({ STRUCTURE_PROVIDER: "other" })).toBe("dummy");
+  });
+});
+
+describe("getWebSupplementProvider", () => {
+  it("uses dummy when OPENAI_API_KEY is not set", () => {
+    expect(getWebSupplementProvider({})).toBe("dummy");
+  });
+
+  it("uses openai when OPENAI_API_KEY is set", () => {
+    expect(getWebSupplementProvider({ OPENAI_API_KEY: "test-key" })).toBe(
+      "openai",
+    );
+  });
+
+  it("prefers explicit dummy over OPENAI_API_KEY", () => {
+    expect(
+      getWebSupplementProvider({
+        OPENAI_API_KEY: "test-key",
+        WEB_SUPPLEMENT_PROVIDER: "dummy",
+      }),
+    ).toBe("dummy");
   });
 });

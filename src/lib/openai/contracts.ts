@@ -1,4 +1,5 @@
 import type { CompanyMemoStructured } from "../structure/schema";
+import type { WebSupplementResult } from "../webSupplement/schema";
 import type { CompanyEventInfo } from "../types";
 
 export type LlmProvider = "dummy" | "openai";
@@ -18,6 +19,15 @@ export interface StructureApiResponse {
   provider: LlmProvider;
 }
 
+export interface WebSupplementApiRequest {
+  companyName: string;
+}
+
+export interface WebSupplementApiResponse {
+  result: WebSupplementResult;
+  provider: LlmProvider;
+}
+
 export type ApiErrorCode =
   | "invalid_input"
   | "payload_too_large"
@@ -25,7 +35,8 @@ export type ApiErrorCode =
   | "rate_limited"
   | "timeout"
   | "provider_error"
-  | "validation_failed";
+  | "validation_failed"
+  | "company_not_found";
 
 export interface ApiErrorBody {
   error: {
