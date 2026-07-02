@@ -3,6 +3,11 @@ import type {
   ApiErrorCode,
   WebSupplementApiResponse,
 } from "./openai/contracts";
+import type { CompanyEventInfo, WebSupplementItem } from "./types";
+import type {
+  WebSupplementItem as WebSupplementResultItem,
+  WebSupplementResult,
+} from "./webSupplement/schema";
 
 const FALLBACK_ERROR_MESSAGE =
   "Web 補足情報の取得に失敗しました。時間をおいて再試行してください。";
@@ -68,4 +73,50 @@ export async function requestWebSupplement(
   });
   if (!response.ok) throw await toWebSupplementError(response);
   return response.json() as Promise<WebSupplementApiResponse>;
+}
+
+function confidenceForItem(
+  item: WebSupplementResultItem,
+): WebSupplementItem["confidence"] {
+  if (item.needsVerification || item.sourceType === "non_official") {
+    return "requires_check";
+  }
+  return item.confidence;
+}
+
+function toClientWebSupplementItems(
+  result: WebSupplementResult,
+): WebSupplementItem[] {
+  return result.items.map((item, index) => ({
+    id: `${index + 1}-${item.sourceUrl}`,
+    category: item.title,
+    content: item.summary,
+    sourceUrl: item.sourceUrl,
+    fetchedAt: item.retrievedAt,
+    confidence: confidenceForItem(item),
+    status: "pending",
+  }));
+}
+
+export async function requestWebSupplements(
+  _ocrText: string,
+  companyEventInfo: CompanyEventInfo,
+): Promise<WebSupplementItem[]> {
+  const companyName = companyEventInfo.companyName.trim();
+  if (!companyName) {
+    return [];
+  }
+
+  try {
+    const response = await requestWebSupplement(companyName, { enabled: true });
+    return toClientWebSupplementItems(response.result);
+  } catch (error) {
+    if (
+      error instanceof WebSupplementRequestError &&
+      (error.code === "not_configured" || error.code === "company_not_found")
+    ) {
+      return [];
+    }
+    throw error;
+  }
 }
