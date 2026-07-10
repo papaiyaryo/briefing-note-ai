@@ -10,6 +10,7 @@ import {
 import { runDummyOcr } from "../lib/dummyOcr";
 import { requestOcr } from "../lib/ocrClient";
 import { toMarkdown } from "../lib/structure/toMarkdown";
+import type { CompanyMemoStructured } from "../lib/structure/schema";
 import { requestStructure } from "../lib/structureClient";
 import { type WebSupplementItem } from "../lib/types";
 import { type SelectedImage } from "../lib/upload";
@@ -26,6 +27,8 @@ export function BriefingNoteFlow() {
   const [ocrText, setOcrText] = useState("");
   const [ocrProgressLabel, setOcrProgressLabel] = useState("");
   const [markdownText, setMarkdownText] = useState("");
+  const [structuredMemo, setStructuredMemo] =
+    useState<CompanyMemoStructured | null>(null);
   const [isMarkdownDirty, setIsMarkdownDirty] = useState(false);
   const [webSupplements, setWebSupplements] = useState<WebSupplementItem[]>([]);
   const [isLoadingWebSupplements, setIsLoadingWebSupplements] = useState(false);
@@ -74,6 +77,7 @@ export function BriefingNoteFlow() {
     setOcrText("");
     setOcrProgressLabel("");
     setMarkdownText("");
+    setStructuredMemo(null);
     setIsMarkdownDirty(false);
     webSupplementRequestIdRef.current += 1;
     markdownGenerationRequestIdRef.current += 1;
@@ -278,6 +282,7 @@ export function BriefingNoteFlow() {
         startStepId === "web-supplement";
 
       if (isLatestRequest && isStillOnExpectedStep) {
+        setStructuredMemo(result.memo);
         if (!isMarkdownDirty) {
           setMarkdownText(
             toMarkdown(result.memo, {
@@ -370,6 +375,7 @@ export function BriefingNoteFlow() {
           <MarkdownEditStep
             markdownText={markdownText}
             companyName={companyEventInfo.companyName}
+            structuredMemo={structuredMemo}
             onChangeMarkdownText={handleChangeMarkdownText}
             hasGenerationError={hasGenerationError}
             onBack={goBack}
