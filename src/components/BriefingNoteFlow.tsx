@@ -8,12 +8,16 @@ import {
   type CompanyEventInfo,
 } from "../lib/markdown";
 import { runDummyOcr } from "../lib/dummyOcr";
+import { requestInterviewReview } from "../lib/interviewReviewClient";
+import type { InterviewReviewStructured } from "../lib/interviewReview/schema";
 import { requestOcr } from "../lib/ocrClient";
+import type { CompanyMemoStructured } from "../lib/structure/schema";
 import { toMarkdown } from "../lib/structure/toMarkdown";
 import { requestStructure } from "../lib/structureClient";
 import { type WebSupplementItem } from "../lib/types";
 import { type SelectedImage } from "../lib/upload";
 import { requestWebSupplements } from "../lib/webSupplementClient";
+import { InterviewReviewView } from "./InterviewReviewView";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
 import { OcrReviewStep } from "./steps/OcrReviewStep";
@@ -26,6 +30,8 @@ export function BriefingNoteFlow() {
   const [ocrText, setOcrText] = useState("");
   const [ocrProgressLabel, setOcrProgressLabel] = useState("");
   const [markdownText, setMarkdownText] = useState("");
+  const [structuredMemo, setStructuredMemo] =
+    useState<CompanyMemoStructured | null>(null);
   const [isMarkdownDirty, setIsMarkdownDirty] = useState(false);
   const [webSupplements, setWebSupplements] = useState<WebSupplementItem[]>([]);
   const [isLoadingWebSupplements, setIsLoadingWebSupplements] = useState(false);
@@ -37,6 +43,11 @@ export function BriefingNoteFlow() {
   const [hasOcrError, setHasOcrError] = useState(false);
   const [ocrErrorMessage, setOcrErrorMessage] = useState("");
   const [hasGenerationError, setHasGenerationError] = useState(false);
+  const [interviewReview, setInterviewReview] =
+    useState<InterviewReviewStructured | null>(null);
+  const [isGeneratingInterviewReview, setIsGeneratingInterviewReview] =
+    useState(false);
+  const [hasInterviewReviewError, setHasInterviewReviewError] = useState(false);
 
   const pendingTimerRef = useRef<number | null>(null);
   const ocrAbortControllerRef = useRef<AbortController | null>(null);
@@ -74,6 +85,7 @@ export function BriefingNoteFlow() {
     setOcrText("");
     setOcrProgressLabel("");
     setMarkdownText("");
+    setStructuredMemo(null);
     setIsMarkdownDirty(false);
     webSupplementRequestIdRef.current += 1;
     markdownGenerationRequestIdRef.current += 1;
@@ -84,6 +96,9 @@ export function BriefingNoteFlow() {
     setHasOcrError(false);
     setOcrErrorMessage("");
     setHasGenerationError(false);
+    setInterviewReview(null);
+    setIsGeneratingInterviewReview(false);
+    setHasInterviewReviewError(false);
   };
 
   const goBack = () =>
@@ -278,6 +293,7 @@ export function BriefingNoteFlow() {
         startStepId === "web-supplement";
 
       if (isLatestRequest && isStillOnExpectedStep) {
+        setStructuredMemo(result.memo);
         if (!isMarkdownDirty) {
           setMarkdownText(
             toMarkdown(result.memo, {
@@ -307,6 +323,27 @@ export function BriefingNoteFlow() {
         isGeneratingMarkdownRef.current = false;
         setIsGeneratingMarkdown(false);
       }
+    }
+  };
+
+  const handleGenerateInterviewReview = async () => {
+    if (!structuredMemo || isGeneratingInterviewReview) {
+      return;
+    }
+
+    setHasInterviewReviewError(false);
+    setIsGeneratingInterviewReview(true);
+
+    try {
+      const response = await requestInterviewReview(
+        structuredMemo,
+        webSupplements.filter((item) => item.status === "adopted"),
+      );
+      setInterviewReview(response.review);
+    } catch {
+      setHasInterviewReviewError(true);
+    } finally {
+      setIsGeneratingInterviewReview(false);
     }
   };
 
@@ -366,13 +403,33 @@ export function BriefingNoteFlow() {
             onSkip={handleSkipWebSupplements}
           />
         )}
-        {currentStepId === "markdown" && (
-          <MarkdownEditStep
-            markdownText={markdownText}
+        {currentStepId === "markdown" && !interviewReview && (
+          <div className="space-y-6">
+            <MarkdownEditStep
+              markdownText={markdownText}
+              companyName={companyEventInfo.companyName}
+              onChangeMarkdownText={handleChangeMarkdownText}
+              hasGenerationError={hasGenerationError}
+              isGeneratingInterviewReview={isGeneratingInterviewReview}
+              onBack={goBack}
+              onGenerateInterviewReview={
+                structuredMemo
+                  ? () => void handleGenerateInterviewReview()
+                  : undefined
+              }
+            />
+            {hasInterviewReviewError && (
+              <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                面接前復習メモの生成に失敗しました。時間をおいて再試行してください。
+              </div>
+            )}
+          </div>
+        )}
+        {currentStepId === "markdown" && interviewReview && (
+          <InterviewReviewView
+            review={interviewReview}
             companyName={companyEventInfo.companyName}
-            onChangeMarkdownText={handleChangeMarkdownText}
-            hasGenerationError={hasGenerationError}
-            onBack={goBack}
+            onClose={() => setInterviewReview(null)}
           />
         )}
       </div>

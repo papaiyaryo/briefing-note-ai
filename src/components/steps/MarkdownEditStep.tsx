@@ -15,7 +15,9 @@ interface MarkdownEditStepProps {
   companyName: string;
   onChangeMarkdownText: (text: string) => void;
   hasGenerationError: boolean;
+  isGeneratingInterviewReview?: boolean;
   onBack: () => void;
+  onGenerateInterviewReview?: () => void;
 }
 
 export function MarkdownEditStep({
@@ -23,7 +25,9 @@ export function MarkdownEditStep({
   companyName,
   onChangeMarkdownText,
   hasGenerationError,
+  isGeneratingInterviewReview = false,
   onBack,
+  onGenerateInterviewReview,
 }: MarkdownEditStepProps) {
   const [activeTab, setActiveTab] = useState<EditorTab>("edit");
   const isMarkdownEmpty = markdownText.trim() === "";
@@ -113,12 +117,25 @@ export function MarkdownEditStep({
         <Button variant="secondary" onClick={onBack}>
           OCR 確認に戻る
         </Button>
-        <Button
-          disabled={isMarkdownEmpty}
-          onClick={() => downloadMarkdownFile(markdownText, downloadFileName)}
-        >
-          .md をダウンロード
-        </Button>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          {onGenerateInterviewReview && (
+            <Button
+              variant="secondary"
+              onClick={onGenerateInterviewReview}
+              disabled={isGeneratingInterviewReview}
+            >
+              {isGeneratingInterviewReview
+                ? "復習メモを生成しています…"
+                : "面接前復習メモを生成"}
+            </Button>
+          )}
+          <Button
+            disabled={isMarkdownEmpty}
+            onClick={() => downloadMarkdownFile(markdownText, downloadFileName)}
+          >
+            .md をダウンロード
+          </Button>
+        </div>
       </div>
     </section>
   );
