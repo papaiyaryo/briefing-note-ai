@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import { Button } from "../Button";
+import { saveCompanyMemoForComparison } from "../../lib/comparison";
+import type { CompanyMemoStructured } from "../../lib/structure/schema";
 import { ErrorNotice } from "../ErrorNotice";
 import { MarkdownPreview } from "../MarkdownPreview";
 import {
@@ -13,21 +15,28 @@ type EditorTab = "edit" | "preview";
 interface MarkdownEditStepProps {
   markdownText: string;
   companyName: string;
+  structuredMemo?: CompanyMemoStructured | null;
   onChangeMarkdownText: (text: string) => void;
   hasGenerationError: boolean;
+  isGeneratingInterviewReview?: boolean;
   onBack: () => void;
+  onGenerateInterviewReview?: () => void;
 }
 
 export function MarkdownEditStep({
   markdownText,
   companyName,
+  structuredMemo = null,
   onChangeMarkdownText,
   hasGenerationError,
+  isGeneratingInterviewReview = false,
   onBack,
+  onGenerateInterviewReview,
 }: MarkdownEditStepProps) {
   const [activeTab, setActiveTab] = useState<EditorTab>("edit");
   const isMarkdownEmpty = markdownText.trim() === "";
   const downloadFileName = buildMarkdownDownloadFileName({ companyName });
+  const [saveMessage, setSaveMessage] = useState("");
 
   const tabClassName = (tab: EditorTab) =>
     `px-1 pb-2 text-sm focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2 ${
@@ -104,6 +113,11 @@ export function MarkdownEditStep({
           </div>
         </div>
       </div>
+      {saveMessage && (
+        <p className="rounded-lg border border-teal-100 bg-teal-50 px-4 py-3 text-sm text-teal-700">
+          {saveMessage}
+        </p>
+      )}
       {isMarkdownEmpty && (
         <p className="text-sm text-slate-500">
           内容が空のためダウンロードできません。Markdown を入力してください。
@@ -113,12 +127,41 @@ export function MarkdownEditStep({
         <Button variant="secondary" onClick={onBack}>
           OCR 確認に戻る
         </Button>
-        <Button
-          disabled={isMarkdownEmpty}
-          onClick={() => downloadMarkdownFile(markdownText, downloadFileName)}
-        >
-          .md をダウンロード
-        </Button>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Button
+            variant="secondary"
+            disabled={isMarkdownEmpty || structuredMemo === null}
+            onClick={() => {
+              if (!structuredMemo) return;
+              saveCompanyMemoForComparison({
+                memo: structuredMemo,
+                markdown: markdownText,
+              });
+              setSaveMessage(
+                "比較用メモとして保存しました。/compare で比較できます。",
+              );
+            }}
+          >
+            比較用に保存
+          </Button>
+          {onGenerateInterviewReview && (
+            <Button
+              variant="secondary"
+              onClick={onGenerateInterviewReview}
+              disabled={isGeneratingInterviewReview}
+            >
+              {isGeneratingInterviewReview
+                ? "復習メモを生成しています…"
+                : "面接前復習メモを生成"}
+            </Button>
+          )}
+          <Button
+            disabled={isMarkdownEmpty}
+            onClick={() => downloadMarkdownFile(markdownText, downloadFileName)}
+          >
+            .md をダウンロード
+          </Button>
+        </div>
       </div>
     </section>
   );

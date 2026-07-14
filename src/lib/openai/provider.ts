@@ -5,6 +5,7 @@ type ProviderEnv = {
   OCR_PROVIDER?: string;
   STRUCTURE_PROVIDER?: string;
   WEB_SUPPLEMENT_PROVIDER?: string;
+  INTERVIEW_REVIEW_PROVIDER?: string;
 };
 
 function resolveProvider(
@@ -34,6 +35,15 @@ export function getWebSupplementProvider(
 ): LlmProvider {
   return resolveProvider(
     env.WEB_SUPPLEMENT_PROVIDER,
+    Boolean(env.OPENAI_API_KEY),
+  );
+}
+
+export function getInterviewReviewProvider(
+  env: ProviderEnv = process.env as ProviderEnv,
+): LlmProvider {
+  return resolveProvider(
+    env.INTERVIEW_REVIEW_PROVIDER,
     Boolean(env.OPENAI_API_KEY),
   );
 }

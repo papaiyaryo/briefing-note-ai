@@ -1,5 +1,6 @@
 import type { CompanyMemoStructured } from "../structure/schema";
 import type { WebSupplementResult } from "../webSupplement/schema";
+import type { InterviewReviewStructured } from "../interviewReview/schema";
 import type { CompanyEventInfo } from "../types";
 
 export type LlmProvider = "dummy" | "openai";
@@ -25,6 +26,17 @@ export interface WebSupplementApiRequest {
 
 export interface WebSupplementApiResponse {
   result: WebSupplementResult;
+  provider: LlmProvider;
+}
+
+export interface InterviewReviewApiRequest {
+  memo: CompanyMemoStructured;
+  webSupplements?: import("../types").WebSupplementItem[];
+  motivationMemo?: string;
+}
+
+export interface InterviewReviewApiResponse {
+  review: InterviewReviewStructured;
   provider: LlmProvider;
 }
 
