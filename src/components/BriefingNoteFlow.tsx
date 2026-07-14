@@ -8,6 +8,8 @@ import {
   type CompanyEventInfo,
 } from "../lib/markdown";
 import { runDummyOcr } from "../lib/dummyOcr";
+import { requestInterviewReview } from "../lib/interviewReviewClient";
+import type { InterviewReviewStructured } from "../lib/interviewReview/schema";
 import { requestOcr } from "../lib/ocrClient";
 import { toMarkdown } from "../lib/structure/toMarkdown";
 import type { CompanyMemoStructured } from "../lib/structure/schema";
@@ -15,6 +17,7 @@ import { requestStructure } from "../lib/structureClient";
 import { type WebSupplementItem } from "../lib/types";
 import { type SelectedImage } from "../lib/upload";
 import { requestWebSupplements } from "../lib/webSupplementClient";
+import { InterviewReviewView } from "./InterviewReviewView";
 import { StepIndicator } from "./StepIndicator";
 import { MarkdownEditStep } from "./steps/MarkdownEditStep";
 import { OcrReviewStep } from "./steps/OcrReviewStep";
@@ -40,6 +43,11 @@ export function BriefingNoteFlow() {
   const [hasOcrError, setHasOcrError] = useState(false);
   const [ocrErrorMessage, setOcrErrorMessage] = useState("");
   const [hasGenerationError, setHasGenerationError] = useState(false);
+  const [interviewReview, setInterviewReview] =
+    useState<InterviewReviewStructured | null>(null);
+  const [isGeneratingInterviewReview, setIsGeneratingInterviewReview] =
+    useState(false);
+  const [hasInterviewReviewError, setHasInterviewReviewError] = useState(false);
 
   const pendingTimerRef = useRef<number | null>(null);
   const ocrAbortControllerRef = useRef<AbortController | null>(null);
@@ -47,8 +55,13 @@ export function BriefingNoteFlow() {
   const currentStepIdRef = useRef<StepId>(currentStepId);
   const webSupplementRequestIdRef = useRef(0);
   const markdownGenerationRequestIdRef = useRef(0);
+  const interviewReviewRequestIdRef = useRef(0);
+  const interviewReviewAbortControllerRef = useRef<AbortController | null>(
+    null,
+  );
   const isLoadingWebSupplementsRef = useRef(false);
   const isGeneratingMarkdownRef = useRef(false);
+  const isGeneratingInterviewReviewRef = useRef(false);
 
   useEffect(() => {
     selectedImagesRef.current = selectedImages;
@@ -67,6 +80,8 @@ export function BriefingNoteFlow() {
       ocrAbortControllerRef.current?.abort();
       webSupplementRequestIdRef.current += 1;
       markdownGenerationRequestIdRef.current += 1;
+      interviewReviewRequestIdRef.current += 1;
+      interviewReviewAbortControllerRef.current?.abort();
       selectedImagesRef.current.forEach((image) => {
         URL.revokeObjectURL(image.previewUrl);
       });
@@ -81,13 +96,20 @@ export function BriefingNoteFlow() {
     setIsMarkdownDirty(false);
     webSupplementRequestIdRef.current += 1;
     markdownGenerationRequestIdRef.current += 1;
+    interviewReviewRequestIdRef.current += 1;
+    interviewReviewAbortControllerRef.current?.abort();
+    interviewReviewAbortControllerRef.current = null;
     isLoadingWebSupplementsRef.current = false;
     isGeneratingMarkdownRef.current = false;
+    isGeneratingInterviewReviewRef.current = false;
     setWebSupplements([]);
     setIsLoadingWebSupplements(false);
     setHasOcrError(false);
     setOcrErrorMessage("");
     setHasGenerationError(false);
+    setInterviewReview(null);
+    setIsGeneratingInterviewReview(false);
+    setHasInterviewReviewError(false);
   };
 
   const goBack = () =>
@@ -252,6 +274,17 @@ export function BriefingNoteFlow() {
     );
   };
 
+  const getAdoptedWebSupplements = (items = webSupplements) =>
+    items.filter((item) => item.status === "adopted");
+
+  const shouldApplyInterviewReviewResult = (
+    requestId: number,
+    startStepId: StepId,
+  ) =>
+    interviewReviewRequestIdRef.current === requestId &&
+    currentStepIdRef.current === startStepId &&
+    startStepId === "markdown";
+
   const handleSkipWebSupplements = () => {
     setWebSupplements((items) =>
       items.map((item) => ({ ...item, status: "rejected" })),
@@ -288,9 +321,7 @@ export function BriefingNoteFlow() {
             toMarkdown(result.memo, {
               imageFileNames: selectedImages.map((image) => image.file.name),
               ocrText,
-              webSupplements: supplements.filter(
-                (item) => item.status === "adopted",
-              ),
+              webSupplements: getAdoptedWebSupplements(supplements),
             }),
           );
         }
@@ -313,6 +344,47 @@ export function BriefingNoteFlow() {
         setIsGeneratingMarkdown(false);
       }
     }
+  };
+
+  const handleGenerateInterviewReview = () => {
+    if (!structuredMemo || isGeneratingInterviewReviewRef.current) {
+      return;
+    }
+
+    const requestId = interviewReviewRequestIdRef.current + 1;
+    interviewReviewRequestIdRef.current = requestId;
+    const startStepId = currentStepIdRef.current;
+    const controller = new AbortController();
+    interviewReviewAbortControllerRef.current?.abort();
+    interviewReviewAbortControllerRef.current = controller;
+    isGeneratingInterviewReviewRef.current = true;
+    setHasInterviewReviewError(false);
+    setIsGeneratingInterviewReview(true);
+
+    const adoptedWebSupplements = getAdoptedWebSupplements();
+    void requestInterviewReview(structuredMemo, adoptedWebSupplements)
+      .then((response) => {
+        if (shouldApplyInterviewReviewResult(requestId, startStepId)) {
+          setInterviewReview(response.review);
+        }
+      })
+      .catch((error: unknown) => {
+        if (
+          shouldApplyInterviewReviewResult(requestId, startStepId) &&
+          !(error instanceof DOMException && error.name === "AbortError")
+        ) {
+          setHasInterviewReviewError(true);
+        }
+      })
+      .finally(() => {
+        if (interviewReviewRequestIdRef.current === requestId) {
+          isGeneratingInterviewReviewRef.current = false;
+          setIsGeneratingInterviewReview(false);
+        }
+        if (interviewReviewAbortControllerRef.current === controller) {
+          interviewReviewAbortControllerRef.current = null;
+        }
+      });
   };
 
   const cardMaxWidth =
@@ -371,14 +443,35 @@ export function BriefingNoteFlow() {
             onSkip={handleSkipWebSupplements}
           />
         )}
-        {currentStepId === "markdown" && (
-          <MarkdownEditStep
-            markdownText={markdownText}
+        {currentStepId === "markdown" && !interviewReview && (
+          <div className="space-y-6">
+            <MarkdownEditStep
+              markdownText={markdownText}
+              companyName={companyEventInfo.companyName}
+              onChangeMarkdownText={handleChangeMarkdownText}
+              hasGenerationError={hasGenerationError}
+              isGeneratingInterviewReview={isGeneratingInterviewReview}
+              onBack={goBack}
+              onGenerateInterviewReview={
+                structuredMemo
+                  ? () => void handleGenerateInterviewReview()
+                  : undefined
+              }
+            />
+            {hasInterviewReviewError && (
+              <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                面接前復習メモの生成に失敗しました。時間をおいて再試行してください。
+              </div>
+            )}
+          </div>
+        )}
+        {currentStepId === "markdown" && interviewReview && (
+          <InterviewReviewView
+            review={interviewReview}
             companyName={companyEventInfo.companyName}
-            structuredMemo={structuredMemo}
-            onChangeMarkdownText={handleChangeMarkdownText}
-            hasGenerationError={hasGenerationError}
-            onBack={goBack}
+            memo={structuredMemo ?? undefined}
+            webSupplements={getAdoptedWebSupplements()}
+            onClose={() => setInterviewReview(null)}
           />
         )}
       </div>
