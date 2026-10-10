@@ -7,6 +7,7 @@
 - Windows 公式ネイティブ AI-DLC **2.11.0**（公式インストーラーの checksum 検証済み）。`.aidlc-version` で固定。
 - Codex CLI **0.162.1** に公式 updater で更新（要件 0.145.0 以上）。既存モデル / 認証を継承。
 - Codex harness と公式 workspace / skills / hooks を生成。Classic / swarm off、project memory の `Mode: strict` を設定。
+- ユーザーの追加指示により TDD を標準化。project memory に `Methodology: tdd` と `Ordering` を明記し、公式 resolver が `methodology: tdd` / `source: project` / Red → Green → Refactor の計画を返すことを確認。
 - リリース branch は `release/bolt-001-aidlc-adoption`。ルート `bolt-*` は公式内部 worktree 名前空間のため分離。
 - Issue / Claude 必須制を廃止。明示的な Claude 呼び出し用 workflow は保持し、自動 PR review workflow は削除。
 - 既存 Vercel 連携を維持。main へのマージ・本番デプロイはまだ行っていない。
@@ -19,6 +20,7 @@
 | `aidlc doctor` | 問題 0。framework integrity 12 checks passed。hook 未実行等の警告は残る |
 | config dry-run | conflict 0。生成済み runtime を維持 |
 | project flags | defaultScope classic / swarm false。bypass なし |
+| `aidlc engine testing-posture resolve` | 変更前は org の test-after。変更後は project の tdd を選択し、各対象レイヤーに Red / Green / Refactor steps を生成 |
 | strict の負例 | `intent create --guard-policy off` を memory strict により拒否。Intent / approval / audit は作成されない |
 | `npm run lint` | 成功 |
 | `npm run typecheck` | 成功 |
@@ -32,6 +34,8 @@
 `aidlc doctor` の hook 未実行警告は、生成済みと trusted session の実動確認を区別するため残している。現在のプロセスは更新前の PATH を保持し得るため、新しい PowerShell / Codex セッションで確認する。自動 update cache の未取得は固定版の実行失敗を意味しない。
 
 GitHub CI の結果は導入 PR に記録する。ローカル成功だけで CI 成功とみなさない。
+
+TDD の実装サイクルそのものは、今後の最初の承認済みアプリ Bolt で実施する。今回の変更は方針・記録・設定のみで、既存アプリや過去のテストを TDD で作り直したとは主張しない。native Intent が未作成の resolver は scope / project type を仮の feature / greenfield として返すため、この出力を現在の Classic／既存アプリ設定の証拠には使わない。
 
 ## 未実施: 人間による hook 信頼とセッション検証
 

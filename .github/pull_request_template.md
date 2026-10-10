@@ -17,6 +17,7 @@
 - [ ] Inception 計画を人間が承認済み
 - [ ] 公式の実装計画承認・checkpoint を解決済み
 - [ ] 承認済み Bolt の受入基準を確認済み
+- [ ] TDD の Red / Green / Refactor 実行結果を Unit 記録に保存（適用対象外は理由と代替検証を記載）
 - [ ] `npm run lint`
 - [ ] `npm run typecheck`
 - [ ] `npm test`

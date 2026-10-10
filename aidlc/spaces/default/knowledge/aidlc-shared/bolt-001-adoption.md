@@ -33,6 +33,10 @@
 
 新たなアプリ機能、外部 API の実リクエスト、Vercel プロジェクトの再作成、デプロイ workflow / secrets の追加、過去 Issue / 設計の削除、main への直接 push、AI による merge / hook 信頼 / 人間承認の代行。
 
+## 追加の運用方針: TDD
+
+2026-10-10 のユーザー会話「TDDで実装したいな」により、今後の本プロジェクトの新規・変更する振る舞いと不具合修正は TDD（Red → Green → Refactor）で実装する。公式 project memory の Testing Posture に Methodology / Ordering を記録し、コード計画・Unit 記録・PR に反映する。Inception／コード計画の人間承認は維持する。これは TDD 方針の採用指示であり、未開始のアプリ Intent の承認 receipt ではない。
+
 ## 検証と公開確認
 
 実施結果と残る確認手順: [導入検証記録](../../../../../docs/aidlc-adoption.md)。実際のアプリ Bolt の要件・設計・承認・検証は、その Intent の公式 record に保存する。

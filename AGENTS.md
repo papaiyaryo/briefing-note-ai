@@ -49,6 +49,7 @@ The approved current Intent is the execution source of truth. `docs/codex/` and 
 - Use `release/bolt-{number}-{short-description}`, e.g. `release/bolt-001-aidlc-adoption`. Use lowercase letters, numbers, hyphens, and the namespace slash. Record the next unused project Bolt number in the delivery plan. The official runtime reserves root `bolt-*` names for its own worktrees; release branches must use the separate namespace.
 - Do not push directly to `main`.
 - Implement only the approved Bolt, updating relevant tests and documentation.
+- Use **TDD** for new/changed behavior and bug fixes: write an acceptance-linked failing test and run it (Red), implement the minimum to pass (Green), then refactor while tests remain green. Verify the runner first; unrelated setup failures are not Red evidence. Record commands and Red/Green/Refactor results in the official Unit records. Do not weaken assertions just to pass. Explain genuinely non-testable documentation/configuration work in the approved plan and verify it with appropriate checks.
 - Verify acceptance criteria, fix failures, and self-review the final diff.
 - Run `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build`. Check Docker when Docker changes.
 - Create one release PR per Bolt, in Japanese, linking the Intent/Inception plan and stating changes, acceptance evidence, verification results, out-of-scope items, and deployment checks.

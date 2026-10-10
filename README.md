@@ -189,6 +189,8 @@ Inception → 人間が計画を承認 → 実装・検証・修正
 
 Bolt は利用者が試せるアプリの増分として設計します。Issue は任意の入力資料です。Claude 専用の設計・レビューは必須ではなく、`@claude` は任意の補助です。
 
+アプリの新規・変更する振る舞いと不具合修正は **TDD** で進めます。Inception／コード計画の承認後、受入基準に対応するテストを先に書いて失敗を確認（Red）→ 最小実装で通す（Green）→ テストを通したまま整理（Refactor）。公式 project memory に TDD 方針を記録し、実行結果を Unit 記録と PR に残します。
+
 Codex CLI **0.145.0 以上** と公式 runtime を用意し、リポジトリで `aidlc config --pin 2.11.0`、`aidlc config --harness codex`、`aidlc doctor` を実行します。新しい Codex セッションで `/hooks` により hooks を確認・信頼した後、`$aidlc --doctor`、`$aidlc classic <今回の改善>` を利用します。実装前の Inception と公式コード計画の承認を省略しません。
 
 手順と記録場所は [AI-DLC 開発パイプライン](docs/ai-dev-pipeline.md) を参照してください。過去の `docs/codex/` と生成済み Issue は履歴として保持します。
