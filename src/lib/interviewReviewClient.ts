@@ -55,11 +55,13 @@ async function toInterviewReviewError(
 export async function requestInterviewReview(
   memo: CompanyMemoStructured,
   webSupplements?: WebSupplementItem[],
+  signal?: AbortSignal,
 ): Promise<InterviewReviewApiResponse> {
   const response = await fetch("/api/interview-review", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ memo, webSupplements }),
+    signal,
   });
   if (!response.ok) throw await toInterviewReviewError(response);
   return response.json() as Promise<InterviewReviewApiResponse>;

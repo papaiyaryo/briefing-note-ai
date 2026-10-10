@@ -7,11 +7,16 @@ import type {
   InterviewReviewItem,
   InterviewReviewStructured,
 } from "../lib/interviewReview/schema";
+import type { CompanyMemoStructured } from "../lib/structure/schema";
+import type { WebSupplementItem } from "../lib/types";
 import { Button } from "./Button";
 
 interface InterviewReviewViewProps {
   review: InterviewReviewStructured;
   companyName?: string;
+  memo?: CompanyMemoStructured;
+  structuredMemo?: CompanyMemoStructured;
+  webSupplements?: WebSupplementItem[];
   onClose: () => void;
 }
 
@@ -62,11 +67,20 @@ function ConfidenceBadge({
 export function InterviewReviewView({
   review,
   companyName,
+  memo,
+  structuredMemo,
+  webSupplements,
   onClose,
 }: InterviewReviewViewProps) {
+  const sourceMemo = memo ?? structuredMemo;
+
   const handleDownload = () => {
     downloadMarkdownFile(
-      toInterviewReviewMarkdown(review, companyName),
+      toInterviewReviewMarkdown(review, {
+        companyName,
+        memo: sourceMemo,
+        webSupplements,
+      }),
       buildInterviewReviewFileName(companyName),
     );
   };

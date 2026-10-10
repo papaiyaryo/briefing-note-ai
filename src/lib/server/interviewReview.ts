@@ -65,7 +65,7 @@ async function runOpenAiInterviewReview(
           {
             role: "system",
             content:
-              "説明会メモを面接直前の復習用に4区分へ整理し、JSONのみ返す。紙メモ由来の事実、個人の印象、HR・社員の強調点、Web補足は混ぜない。企業情報を捏造せず、メモに明記されていない提案やWeb補足由来の項目は必ず confidence を requires_check にする。basis には根拠になった入力セクション名を入れる。",
+              "説明会メモを面接直前の復習用に4区分へ整理し、JSONのみ返す。紙メモ由来の事実、個人の印象、HR・社員の強調点を混ぜない。webSupplements は4区分の項目に混ぜ込まず、企業情報を捏造しない。メモに明記されていない提案は必ず confidence を requires_check にする。basis には根拠になった入力セクション名を入れる。",
           },
           {
             role: "user",

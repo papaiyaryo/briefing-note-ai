@@ -11,8 +11,8 @@ import { runDummyOcr } from "../lib/dummyOcr";
 import { requestInterviewReview } from "../lib/interviewReviewClient";
 import type { InterviewReviewStructured } from "../lib/interviewReview/schema";
 import { requestOcr } from "../lib/ocrClient";
-import type { CompanyMemoStructured } from "../lib/structure/schema";
 import { toMarkdown } from "../lib/structure/toMarkdown";
+import type { CompanyMemoStructured } from "../lib/structure/schema";
 import { requestStructure } from "../lib/structureClient";
 import { type WebSupplementItem } from "../lib/types";
 import { type SelectedImage } from "../lib/upload";
@@ -55,8 +55,13 @@ export function BriefingNoteFlow() {
   const currentStepIdRef = useRef<StepId>(currentStepId);
   const webSupplementRequestIdRef = useRef(0);
   const markdownGenerationRequestIdRef = useRef(0);
+  const interviewReviewRequestIdRef = useRef(0);
+  const interviewReviewAbortControllerRef = useRef<AbortController | null>(
+    null,
+  );
   const isLoadingWebSupplementsRef = useRef(false);
   const isGeneratingMarkdownRef = useRef(false);
+  const isGeneratingInterviewReviewRef = useRef(false);
 
   useEffect(() => {
     selectedImagesRef.current = selectedImages;
@@ -75,6 +80,8 @@ export function BriefingNoteFlow() {
       ocrAbortControllerRef.current?.abort();
       webSupplementRequestIdRef.current += 1;
       markdownGenerationRequestIdRef.current += 1;
+      interviewReviewRequestIdRef.current += 1;
+      interviewReviewAbortControllerRef.current?.abort();
       selectedImagesRef.current.forEach((image) => {
         URL.revokeObjectURL(image.previewUrl);
       });
@@ -89,8 +96,12 @@ export function BriefingNoteFlow() {
     setIsMarkdownDirty(false);
     webSupplementRequestIdRef.current += 1;
     markdownGenerationRequestIdRef.current += 1;
+    interviewReviewRequestIdRef.current += 1;
+    interviewReviewAbortControllerRef.current?.abort();
+    interviewReviewAbortControllerRef.current = null;
     isLoadingWebSupplementsRef.current = false;
     isGeneratingMarkdownRef.current = false;
+    isGeneratingInterviewReviewRef.current = false;
     setWebSupplements([]);
     setIsLoadingWebSupplements(false);
     setHasOcrError(false);
@@ -263,6 +274,17 @@ export function BriefingNoteFlow() {
     );
   };
 
+  const getAdoptedWebSupplements = (items = webSupplements) =>
+    items.filter((item) => item.status === "adopted");
+
+  const shouldApplyInterviewReviewResult = (
+    requestId: number,
+    startStepId: StepId,
+  ) =>
+    interviewReviewRequestIdRef.current === requestId &&
+    currentStepIdRef.current === startStepId &&
+    startStepId === "markdown";
+
   const handleSkipWebSupplements = () => {
     setWebSupplements((items) =>
       items.map((item) => ({ ...item, status: "rejected" })),
@@ -299,9 +321,7 @@ export function BriefingNoteFlow() {
             toMarkdown(result.memo, {
               imageFileNames: selectedImages.map((image) => image.file.name),
               ocrText,
-              webSupplements: supplements.filter(
-                (item) => item.status === "adopted",
-              ),
+              webSupplements: getAdoptedWebSupplements(supplements),
             }),
           );
         }
@@ -326,25 +346,45 @@ export function BriefingNoteFlow() {
     }
   };
 
-  const handleGenerateInterviewReview = async () => {
-    if (!structuredMemo || isGeneratingInterviewReview) {
+  const handleGenerateInterviewReview = () => {
+    if (!structuredMemo || isGeneratingInterviewReviewRef.current) {
       return;
     }
 
+    const requestId = interviewReviewRequestIdRef.current + 1;
+    interviewReviewRequestIdRef.current = requestId;
+    const startStepId = currentStepIdRef.current;
+    const controller = new AbortController();
+    interviewReviewAbortControllerRef.current?.abort();
+    interviewReviewAbortControllerRef.current = controller;
+    isGeneratingInterviewReviewRef.current = true;
     setHasInterviewReviewError(false);
     setIsGeneratingInterviewReview(true);
 
-    try {
-      const response = await requestInterviewReview(
-        structuredMemo,
-        webSupplements.filter((item) => item.status === "adopted"),
-      );
-      setInterviewReview(response.review);
-    } catch {
-      setHasInterviewReviewError(true);
-    } finally {
-      setIsGeneratingInterviewReview(false);
-    }
+    const adoptedWebSupplements = getAdoptedWebSupplements();
+    void requestInterviewReview(structuredMemo, adoptedWebSupplements)
+      .then((response) => {
+        if (shouldApplyInterviewReviewResult(requestId, startStepId)) {
+          setInterviewReview(response.review);
+        }
+      })
+      .catch((error: unknown) => {
+        if (
+          shouldApplyInterviewReviewResult(requestId, startStepId) &&
+          !(error instanceof DOMException && error.name === "AbortError")
+        ) {
+          setHasInterviewReviewError(true);
+        }
+      })
+      .finally(() => {
+        if (interviewReviewRequestIdRef.current === requestId) {
+          isGeneratingInterviewReviewRef.current = false;
+          setIsGeneratingInterviewReview(false);
+        }
+        if (interviewReviewAbortControllerRef.current === controller) {
+          interviewReviewAbortControllerRef.current = null;
+        }
+      });
   };
 
   const cardMaxWidth =
@@ -429,6 +469,8 @@ export function BriefingNoteFlow() {
           <InterviewReviewView
             review={interviewReview}
             companyName={companyEventInfo.companyName}
+            memo={structuredMemo ?? undefined}
+            webSupplements={getAdoptedWebSupplements()}
             onClose={() => setInterviewReview(null)}
           />
         )}

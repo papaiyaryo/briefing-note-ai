@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-
-import type { InterviewReviewApiRequest } from "../../../src/lib/openai/contracts";
+import { z } from "zod";
 import { getInterviewReviewProvider } from "../../../src/lib/openai/provider";
 import { companyMemoSchema } from "../../../src/lib/structure/schema";
 import {
@@ -16,13 +15,21 @@ import {
 
 export const runtime = "nodejs";
 
-function isInterviewReviewRequest(
-  value: unknown,
-): value is InterviewReviewApiRequest {
-  if (typeof value !== "object" || value === null) return false;
-  const record = value as Record<string, unknown>;
-  return companyMemoSchema.safeParse(record.memo).success;
-}
+const clientWebSupplementSchema = z.object({
+  id: z.string().min(1),
+  category: z.string().min(1),
+  content: z.string().min(1),
+  sourceUrl: z.string().url(),
+  fetchedAt: z.string().min(1),
+  confidence: z.enum(["high", "medium", "low", "requires_check"]),
+  status: z.enum(["pending", "adopted", "rejected"]),
+});
+
+const interviewReviewRequestSchema = z.object({
+  memo: companyMemoSchema,
+  webSupplements: z.array(clientWebSupplementSchema).optional(),
+  motivationMemo: z.string().optional(),
+});
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -32,7 +39,8 @@ export async function POST(request: Request) {
     return errorResponse(new ApiError("invalid_input"));
   }
 
-  if (!isInterviewReviewRequest(body)) {
+  const parsed = interviewReviewRequestSchema.safeParse(body);
+  if (!parsed.success) {
     return errorResponse(new ApiError("invalid_input"));
   }
 
@@ -42,11 +50,16 @@ export async function POST(request: Request) {
     return errorResponse(new ApiError("not_configured"));
   }
 
+  const { memo, motivationMemo } = parsed.data;
+  const adoptedWebSupplements = parsed.data.webSupplements?.filter(
+    (item) => item.status === "adopted",
+  );
+
   try {
     const review = await runInterviewReview(
-      body.memo,
-      body.webSupplements,
-      body.motivationMemo,
+      memo,
+      adoptedWebSupplements,
+      motivationMemo,
     );
     return NextResponse.json({ review, provider });
   } catch (error) {

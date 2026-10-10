@@ -10,20 +10,9 @@ function firstItems(items: string[], basis: string, limit = 3) {
     .map((content) => ({ content, basis, confidence: "confirmed" as const }));
 }
 
-function webItems(items: WebSupplementItem[] | undefined, limit = 2) {
-  return (items ?? [])
-    .filter((item) => item.status === "adopted")
-    .slice(0, limit)
-    .map((item) => ({
-      content: item.content,
-      basis: `Web 補足情報: ${item.category}`,
-      confidence: "requires_check" as const,
-    }));
-}
-
 export function buildDummyInterviewReview(
   memo: CompanyMemoStructured,
-  webSupplements?: WebSupplementItem[],
+  _webSupplements?: WebSupplementItem[],
   motivationMemo?: string,
 ) {
   const motivation = motivationMemo?.trim()
@@ -53,7 +42,6 @@ export function buildDummyInterviewReview(
     companyUnderstanding: [
       ...firstItems(memo.facts, "説明会で得た事実"),
       ...firstItems(memo.business, "事業内容", 2),
-      ...webItems(webSupplements),
     ],
     selfConnectionPoints: [
       ...firstItems(memo.strengths, "強み・特徴", 2),
