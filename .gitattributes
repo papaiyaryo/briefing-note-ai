@@ -1,0 +1,6 @@
+# Preserve the official runtime's LF content across Windows/Linux checkouts.
+.codex/** text eol=lf
+.agents/** text eol=lf
+aidlc/** text eol=lf
+.aidlc-version text eol=lf
+aidlc.settings.json text eol=lf

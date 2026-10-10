@@ -1,189 +1,94 @@
-# AI 駆動開発パイプライン設計
+# AI-DLC 開発パイプライン
 
-## 目的
+## 開発サイクル
 
-このドキュメントは、Issue 設計・実装・レビューを AI で自動化する開発パイプラインの設計を定義します。
-これまで PR レビューに使っていた Qodo を Claude Code に置き換え、各ステップを GitHub 上のトリガーで連携させます。
+公式 AI-DLC Codex harness を使い、**1 サイクル = 1 Intent = 1 リリース用 Bolt** でアプリを成長させる。
 
-実際の workflow 実装は `.github/workflows/` に置き、この文書では役割分担・トリガー・課金方針・セットアップ手順を定義します。
-
-## 役割分担
-
-| ステップ | 担当 | 実行基盤 | 認証 / 課金 |
-|---|---|---|---|
-| Phase / Issue 設計 | Claude Code | GitHub Actions (`claude-code-action`) | `CLAUDE_CODE_OAUTH_TOKEN`（Claude サブスク枠） |
-| 実装 + PR 作成 | Codex | Codex Cloud（OpenAI の GitHub App） | ChatGPT サブスク枠 |
-| PR レビュー | Claude Code | GitHub Actions (`claude-code-action`) | `CLAUDE_CODE_OAUTH_TOKEN`（Claude サブスク枠） |
-| CI（lint/type/test/build） | GitHub Actions | `ci.yml`（既存） | GitHub Actions 実行時間のみ |
-| Phase 承認・最終 Merge | Human | GitHub UI | - |
-
-**課金方針: API 従量課金は使わない。** Claude 側は `setup-token` で発行した OAuth トークンを使い、月額サブスクの利用枠（週次リミット）だけを消費する。Codex 側は Codex Cloud がサブスクに含まれる。追加で発生するのは GitHub Actions の実行時間のみ（public は無料、private は月 2000 分の無料枠内）。
-
-## 全体フロー
-
-```txt
-Issue 作成 (Human)
-  → @claude 設計依頼
-  → Claude が Issue コメントで設計を共有                          [claude.yml]
-    （+ 必要に応じて docs/codex/phase-N/issue-X.md を生成しコミット）
-  → Phase 設計レビュー・承認 (Human gate)
-  → @codex 実装依頼
-  → Codex が Issue 本文・Claude 設計コメント・設計ファイルを読んで実装
-  → Codex が branch 作成・実装・PR 作成                          [Codex Cloud]
-  → PR open で Claude が自動レビューコメント                      [claude-review.yml]
-  → CI 実行 (lint/typecheck/test/build)                          [ci.yml]
-  → 指摘修正 (Codex / Claude)
-  → CI green + Human が最終 Merge (Human gate)
+```text
+Inception（現状確認・要件・設計・Bolt 計画）
+→ 人間が計画を承認
+→ 実装 → 検証・結果確認 → 修正
+→ Bolt 単位の PR → 人間がマージ
+→ Vercel 自動デプロイ → 公開環境確認
+→ 次の Inception
 ```
 
-既存の `AGENTS.md` のワークフロー（1 Issue = 1 Branch = 1 PR、Phase 承認ゲート、Human Merge）はそのまま維持する。AI のレビュー担当だけが Copilot/Qodo から Claude Code に変わる。
+Bolt は UI / API / データ処理 / テストを含む、利用者が試せる増分。内部の Unit は依存 DAG に従って直列に進める。Bolt 計画はリリースのまとまりで、公式エンジンの実行順序を置き換えない。
 
-Claude の設計出力は Issue コメントと設計ファイルの両方、またはどちらか一方で行う。Codex は両方を設計入力として扱う。設計情報が矛盾する場合は、実装前に Human に確認する。
+Issue は任意の要望・不具合記録。Claude 固定の設計・必須レビューと Issue / Branch / PR の一対一対応は廃止する。明示的な `@claude` 呼び出しは補助として利用できる。
 
-## トリガー設計
+## インストールと更新
 
-制御は **メンション駆動** を基本とし、人間の承認ポイントを残す。レビューのみ PR open で自動起動する。
+AI-DLC **2.11.0** の公式 Windows ネイティブ版を利用する。Bun は不要。Codex CLI は **0.145.0 以上** が必要。
 
-| トリガー | 起動する workflow | 動作 |
-|---|---|---|
-| Issue / PR コメントに `@claude ...` | `claude.yml` | 指示内容を実行（設計ファイル生成、質問応答、対話レビュー） |
-| Issue を `@claude` 付きで作成 | `claude.yml` | 同上 |
-| PR が `opened` / `ready_for_review` | `claude-review.yml` | 厳密な自動レビューコメントを投稿 |
-| PR に追加 push があり `synchronize` されたとき | `claude-review.yml` | 軽量モデルで修正の正当性・新規問題の有無を簡易レビュー |
-| `@codex ...`（Issue/PR コメント・アサイン） | Codex Cloud（App 側） | 実装・PR 作成 |
+- [公式リリース](https://github.com/awslabs/aidlc-workflows/releases/tag/v2.11.0)
+- [Codex harness](https://github.com/awslabs/aidlc-workflows/blob/v2.11.0/docs/guide/harnesses/codex-cli.md)
+- [インストール・版管理](https://github.com/awslabs/aidlc-workflows/blob/v2.11.0/docs/guide/18-install-and-lifecycle.md)
+- [Codex hook の信頼](https://learn.chatgpt.com/docs/hooks)
 
-### レート節約方針
+PowerShell で公式インストーラーをダウンロードして内容を確認後、ユーザー領域にインストールする。
 
-サブスクの週次リミットを抑えつつ修正コミットの安全性を確認するため、初回レビューと push 後レビューの重さを分ける。
-
-- `opened` / `ready_for_review` の初回レビューは、通常モデルで PR 全体を厳密に確認する。
-- `synchronize` の push 後レビューは、軽量モデルに落として簡易レビューを行う。主な確認対象は、修正の正当性・妥当性、修正後に新しい問題が出ていないか、明らかな CI / 構文 / 権限 / セキュリティ上の退行がないかに限定する。
-- push 後レビューでは PR 全体の詳細レビューを毎回やり直さず、重大な新規問題がある場合のみ指摘する。
-- `synchronize` トリガー自体を追加・復旧する PR では、そのトリガーを含む commit の push 自体では review run が作られない場合がある。検証時は、`synchronize` を含む状態を head にしたうえで、追加の小さな commit を push して run 発生を確認する。
-- `concurrency` で同一 PR / Issue の多重起動を防ぐ。
-- Draft PR ではレビューを起動しない。
-
-## 追加する workflow
-
-### 1. `.github/workflows/claude.yml`（対話・設計用）
-
-`@claude` メンションに反応する汎用ワークフロー。設計ファイル生成や対話レビューを担う。
-
-```yaml
-name: Claude
-
-on:
-  issue_comment:
-    types: [created]
-  pull_request_review_comment:
-    types: [created]
-  issues:
-    types: [opened, assigned]
-  pull_request_review:
-    types: [submitted]
-
-concurrency:
-  group: claude-${{ github.event.issue.number || github.event.pull_request.number }}
-  cancel-in-progress: false
-
-jobs:
-  claude:
-    if: |
-      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
-      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+```powershell
+$aidlcInstaller = Join-Path $env:TEMP 'briefing-aidlc-2.11.0-install.ps1'
+Invoke-WebRequest -Uri 'https://github.com/awslabs/aidlc-workflows/releases/download/v2.11.0/install.ps1' -OutFile $aidlcInstaller
+& $aidlcInstaller -Version 2.11.0
 ```
 
-### 2. `.github/workflows/claude-review.yml`（自動レビュー用）
+新しい PowerShell を開き、リポジトリのルートで実行する。
 
-PR が開かれたら自動でレビューする。Qodo の置き換え本体。
-
-```yaml
-name: Claude Review
-
-on:
-  pull_request:
-    types: [opened, ready_for_review]
-
-concurrency:
-  group: claude-review-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
-
-jobs:
-  review:
-    if: github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          prompt: |
-            この PR を AGENTS.md と docs/ のルールに従ってレビューしてください。
-            観点:
-            - 対象 Issue の Scope / Acceptance Criteria に収まっているか
-            - 1 PR で複数 Issue を解決していないか
-            - MVP スコープ外の機能を先行実装していないか
-            - 秘密情報・APIキー・.env を含めていないか
-            - 事実・所感・Web 情報を混在させていないか（Product Principle）
-            - lint / typecheck / test / build が通る見込みか
-            指摘は日本語で、重要度を付けて PR コメントとして投稿してください。
-            スコープ外の問題は「フォローアップ Issue 候補」として分けて記載してください。
+```powershell
+codex --version
+aidlc version
+aidlc config --pin 2.11.0
+aidlc config --harness codex
+aidlc doctor
 ```
 
-> Codex は OpenAI の Codex Cloud（GitHub App）が処理するため、こちらで workflow は書かない。GitHub に Codex App を連携し、Issue / PR で `@codex` または Codex 側の UI からタスクを割り当てる。
+`.aidlc-version` が版を固定する。マシン runtime とプロジェクト設定の更新は別操作。更新は版を明示し、`aidlc config --dry-run` で差分を確認してから設定と pin を揃える。
 
-## 必要な Secrets / 連携
+config は `.codex/`、`.agents/`、workspace を生成し、AGENTS.md / .gitignore に公式ブロックを追加する。生成 runtime は改造せず、プロジェクト方針は memory の `project.md` に置く。モデル・認証は既存のユーザー設定を引き継ぐ。
 
-| 名前 | 取得方法 | 用途 |
-|---|---|---|
-| `CLAUDE_CODE_OAUTH_TOKEN` | ローカルで `claude setup-token` を実行（Claude Pro/Max 必須）→ 出力を GitHub の Repository Secrets に登録 | Claude Action をサブスク枠で実行 |
-| Codex Cloud 連携 | OpenAI の Codex GitHub App をリポジトリにインストールし、ChatGPT サブスクと連携 | Codex の実装・PR 作成（Secrets 不要、App 認証） |
+## 最初のセッション
 
-`ANTHROPIC_API_KEY` は **登録しない**（登録すると従量課金経路になるため）。
+1. 新しい Codex セッションをリポジトリで開く。
+2. プロジェクトと hooks を確認し、`/hooks` で人間が信頼する。変更後は再確認する。
+3. `$aidlc --doctor` で hook の動作と workspace を確認する。
+4. `$aidlc classic <今回のアプリ改善>` を起動する。
 
-## AGENTS.md の更新点
+信頼操作や人間の承認を代行したことにしない。現在のセッションで新規 skills / hooks のロードは保証できない。ファイル導入済みとセッション内の動作確認済みを区別する。
 
-レビュー担当が変わるため、以下を書き換える。
+## Inception と承認
 
-- `Core Workflow` の `→ Copilot Review` を `→ Claude Code Review` に変更（[AGENTS.md:54](../AGENTS.md)）。
-- `PR Review Rules` の "Use Copilot mainly for review..." を Claude Code 前提に書き換える。
-- `PR` 節の "Request `@copilot` as a reviewer." を「PR open 時に Claude Review が自動起動する。再レビューが必要なときは `@claude review` を打つ」に変更。
-- トリガー語（`@claude` / `@codex`）と各 workflow の役割を 1 節追加。
+標準は Classic / strict Guard Policy。公式 stage 承認、検証コマンド承認、Code Generation Plan Approval を利用する。Inception の承認前にアプリ実装を始めない。
 
-## ロールアウト順序
+Inception で、現状と利用者に起きる変化、要件・受入基準・対象外、設計・データ境界、1 リリース用 Bolt と Units / 依存順序、検証・公開後の確認・完了条件を確定する。承認済み計画を変更する場合は再承認する。
 
-1. ローカルで `claude setup-token` を実行し、`CLAUDE_CODE_OAUTH_TOKEN` を Secrets に登録。
-2. `claude-review.yml` を追加（まずレビュー自動化から。Qodo を停止）。
-3. テスト PR を 1 本作り、レビューが起動し枠内で動くことを確認。
-4. `claude.yml` を追加（設計・対話を自動化）。
-5. Codex Cloud をリポジトリに連携し、`@codex` 実装フローを確認。
-6. `AGENTS.md` を上記のとおり更新。
+公式の計画・状態・承認・監査は `aidlc/spaces/default/intents/` に保存する。machine-local state と trust receipts はコミットしない。過去の `docs/codex/` と `docs/generated-issues/` は履歴として残す。
 
-各ステップは独立して有効化できる。問題があれば該当 workflow を無効化すれば旧運用に戻せる。
+## 実装・PR・デプロイ
 
-## 注意点
+ブランチは `release/bolt-{連番}-{説明}`。公式 doctor はルートの `bolt-*` を内部 worktree 用として検査するため、リリース用は名前空間を分ける。連番はプロジェクトのリリース番号で、公式 Unit / worktree の識別子とは別。次の未使用番号を Bolt 計画に記録する。
 
-- **追加料金は出ないが、サブスクの利用上限（週次リミット）は消費する。** Qodo のレート制限を Claude/Codex サブスクの枠に置き換える形になる。重い使い方では枠に当たるため、自動起動はレビューの `opened` のみに絞る。
-- `CLAUDE_CODE_OAUTH_TOKEN` は長期トークン。Secrets 以外に出さない、ログに出さない。失効・更新時は `setup-token` を再実行して差し替える。
-- フォークからの PR では Secrets が渡らないため、外部コントリビューターの PR は自動レビューが動かない。本リポジトリは個人開発のため当面問題にならない。
+承認済み計画内で実装・検証・修正を繰り返す。全 Unit の検証、Bolt 全体の受入基準、CI を確認し、日本語の PR を作る。人間がマージする。
+
+既存 Vercel GitHub 連携が `main` を自動公開する。Vercel プロジェクト、デプロイ workflow、Secrets は新設しない。
+
+- 公開サイト: <https://briefing-note-ai.vercel.app>
+- health: <https://briefing-note-ai.vercel.app/api/health>
+
+マージ後は **その SHA** の Vercel 成功を確認し、ページ・health・受入フローを確認する。health は `status: ok` / `service: briefing-note-ai`。失敗した場合は現リリースの修正を優先する。
+
+Classic の公式 workflow 完了と本番確認は別。SHA・デプロイ URL / 結果・手動確認・フィードバックは次の Intent の Inception に引き継ぐ。次の Bolt 実装は公開確認と新たな計画承認の後に開始する。
+
+## 検証
+
+```powershell
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+runtime は `aidlc doctor` と信頼済み新規セッションの `$aidlc --doctor` を使う。最初の native Intent で、未承認時の停止、変更後の再承認、再開時の状態保持を確認する。未実行の人間操作を成功扱いにしない。
+
+アプリ CI は既存 install / lint / typecheck / test / build。runtime と記録はアプリコード検査から除外し、独立した doctor と承認ゲートで検証する。外部 API の実リクエストは追加しない。
