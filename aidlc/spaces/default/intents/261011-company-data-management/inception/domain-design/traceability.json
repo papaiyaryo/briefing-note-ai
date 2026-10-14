@@ -1,0 +1,24 @@
+{
+  "stage": "domain-design",
+  "upstream_ids": ["US1.1", "US1.2", "US2.1", "US2.2", "US3.1", "US3.2", "US4.1", "US5.1", "US5.2", "US6.1", "US6.2", "US6.3", "US6.4", "US6.5", "US7.1", "US8.1", "US9.1", "US9.2"],
+  "coverage": [
+    {"id": "US1.1", "status": "OK", "target": "AccessControl, ApplicationExperience"},
+    {"id": "US1.2", "status": "OK", "target": "AccessControl, CompanyWorkspace, ApplicationExperience"},
+    {"id": "US2.1", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US2.2", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US3.1", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US3.2", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US4.1", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US5.1", "status": "OK", "target": "MemoGeneration, CompanyWorkspace, ApplicationExperience"},
+    {"id": "US5.2", "status": "OK", "target": "MemoGeneration, CompanyWorkspace, ApplicationExperience"},
+    {"id": "US6.1", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US6.2", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US6.3", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US6.4", "status": "OK", "target": "CompanyWorkspace, CompanyComparison, ApplicationExperience"},
+    {"id": "US6.5", "status": "OK", "target": "CompanyWorkspace, CompanyComparison, ApplicationExperience"},
+    {"id": "US7.1", "status": "OK", "target": "CompanyWorkspace, ApplicationExperience"},
+    {"id": "US8.1", "status": "OK", "target": "CompanyComparison, CompanyWorkspace, ApplicationExperience"},
+    {"id": "US9.1", "status": "OK", "target": "ApplicationExperience, CompanyComparison, InterviewReview"},
+    {"id": "US9.2", "status": "OK", "target": "InterviewReview, ApplicationExperience"}
+  ]
+}

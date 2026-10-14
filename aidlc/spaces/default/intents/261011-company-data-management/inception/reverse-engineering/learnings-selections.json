@@ -1,0 +1,15 @@
+{
+  "stage_slug": "reverse-engineering",
+  "space": "default",
+  "intent": "261011-company-data-management",
+  "selections": [
+    {
+      "candidate_id": "c1",
+      "type": "learning",
+      "scope": "project",
+      "heading": "Corrections",
+      "text": "質問ファイルの回答から、現状調査の重点を企業ごとのメモ保存と選考状況・進行中企業数の可視化に向けたデータ構造へ置いた。既知の細かな不具合は調査結果に記録するが、今回のリリースへの修正採用は推定しない。DB・認証・画面の要件は後のInceptionで確認する。",
+      "source": "orchestrator"
+    }
+  ]
+}

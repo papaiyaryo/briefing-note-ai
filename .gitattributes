@@ -2,5 +2,9 @@
 .codex/** text eol=lf
 .agents/** text eol=lf
 aidlc/** text eol=lf
+aidlc/**/*.jpg -text
+aidlc/**/*.jpeg -text
+aidlc/**/*.png -text
+aidlc/**/*.webp -text
 .aidlc-version text eol=lf
 aidlc.settings.json text eol=lf
