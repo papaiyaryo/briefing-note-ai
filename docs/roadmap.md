@@ -3,11 +3,13 @@
 ## 目的
 
 このドキュメントは、briefing-note-ai の開発フェーズとスコープ境界を整理する。
-各作業は GitHub Issue 単位で進め、次の流れを守る。
+各作業は **1 サイクル = 1 Intent = 1 リリース用 Bolt** で進める。Inception で利用者が試せる増分を設計し、人間が計画を承認してから実装する。
 
 ```text
-Issue -> Branch -> Implementation -> Self Review -> Pull Request -> Human Merge
+Inception -> Human approval -> Bolt implementation -> Verify / Fix -> PR -> Human merge -> Vercel deployment / Check -> Next Inception
 ```
+
+Phase 0–10 はプロダクトのテーマ・過去の計画を表す。実装順序は現在のアプリと公開後のフィードバックをもとに Inception で決める。Issue は任意の入力資料、過去の設計と Issue 一覧は履歴として保存する。運用の詳細は [AI-DLC 開発パイプライン](ai-dev-pipeline.md) を参照する。
 
 ## MVP の範囲
 
@@ -48,7 +50,7 @@ MVP に含めないもの:
 
 - 新規機能追加（新規機能は Phase 1 以降で扱う）
 
-Phase 00 の Issue も `1 Issue = 1 Branch = 1 PR` ルールを守る。
+修正作業も承認済み Bolt にまとめて実装・検証する。Issue と Branch / PR の一対一対応は要求しない。
 
 ## Phase 0: 設計・開発準備
 
@@ -248,12 +250,12 @@ Web 由来の企業情報を、出典付きで説明会メモと分離して扱�
 - 技術構成図を追加する
 - AI 駆動開発フローを記録する
 - Figma デザインリンク、デモ動画、GIF を追加する
-- Copilot PR Review と Codex 開発ログ運用を整理する
+- AI-DLC の計画・承認・検証記録と公開後のフィードバックを整理する
 
 ## スコープ管理
 
-各 Issue は、その Phase と Acceptance Criteria の範囲に収める。
-便利そうな機能でも後続 Phase に属する場合は、先行実装せず Follow-up として記録する。
+各 Bolt は、承認した Inception の要件・設計・受入基準の範囲に収める。
+追加の機能や設計変更は再承認するか、次の Inception の候補として記録する。1 Bolt はアプリを成長させるデプロイ可能な増分にする。
 
 ## MVP 完了の定義
 

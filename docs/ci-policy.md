@@ -2,7 +2,7 @@
 
 ## 目的
 
-このドキュメントは、MVP 開発で最低限必要な GitHub Actions / CI の方針を定義します。
+このドキュメントは、Bolt 単位の AI-DLC 開発における GitHub Actions / CI の方針を定義します。
 実際の workflow 実装は `.github/workflows/ci.yml` に置き、この文書では何を確認し、何を CI に含めないかを明確にします。
 
 ## 実行タイミング
@@ -61,7 +61,7 @@ CI では次の順序でチェックします。
 
 ## CI で扱わないこと
 
-MVP 開発中の CI では、次の処理を行いません。
+アプリの品質確認 CI では、次の処理を行いません。
 
 - デプロイ
 - OpenAI API への実リクエスト
@@ -70,7 +70,13 @@ MVP 開発中の CI では、次の処理を行いません。
 - 本物の画像、OCR テキスト、生成 Markdown の保存やアップロード
 - GitHub Secrets を必要とする処理
 
-これらは、対応する Issue で設計と安全性を確認してから追加します。
+Vercel のデプロイは既存の GitHub 連携が `main` のマージ後に実行する。新たなデプロイ workflow は不要。対象のマージ SHA の成功と公開サイト / health / Bolt の受入フローを確認してから次の Bolt の実装に進む。その他の外部連携を品質確認 CI に追加する場合は、Inception で設計・承認する。
+
+## AI-DLC の検証境界
+
+公式 runtime の `.codex/` / `.agents/` / `aidlc/` はアプリの lint・typecheck・整形から除外する。アプリのコード検査範囲は維持する。runtime は `aidlc doctor` と信頼済み新規 Codex セッションの `$aidlc --doctor`、公式の承認・再開動作で検証する。アプリ CI で人間の承認や hook 信頼を捏造しない。
+
+Claude の PR 自動レビューは停止する。`@claude` の明示的な補助呼び出しは任意で、マージの必須条件ではない。
 
 ## 秘密情報とログ
 
@@ -81,17 +87,17 @@ CI では秘密情報を使わない方針を基本にします。
 - API キー、OAuth クライアントシークレット、アクセストークンをログに出さない
 - アップロード画像、OCR 全文、生成 Markdown、個人情報を CI artifact やログに保存しない
 
-将来 GitHub Secrets が必要になる場合は、用途、保存する値、ログに出ないことを Issue 内で確認してから追加します。
+将来 GitHub Secrets が必要になる場合は、用途、保存する値、ログに出ないことを Inception で確認・承認してから追加します。
 
 ## 失敗時の扱い
 
 CI が失敗した PR は merge しません。
-失敗したチェックを確認し、対象 Issue の Scope に収まる修正だけを行います。
-Scope 外の問題を見つけた場合は、別 Issue として記録します。
+失敗したチェックを確認し、承認済み Bolt の Scope に収まる修正だけを行います。
+Scope 外の問題は、次の Inception の入力として記録します。
 
 ## 現在の前提
 
 - Node.js は workflow 側で固定する
 - MVP では Next.js API Routes を使い、別 Express backend は作らない
-- OpenAI / Google Drive 連携は Post-MVP または専用 Issue で扱う
-- CI は品質確認のみを目的とし、デプロイや外部API連携は含めない
+- OpenAI / Google Drive の実リクエストは明示的に承認した検証を除いて品質確認 CI に含めない
+- CI は品質確認を担当し、Vercel の公開確認は Bolt のリリース完了条件として扱う

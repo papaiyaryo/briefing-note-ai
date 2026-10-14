@@ -138,7 +138,6 @@ MVP では次の機能を実装・接続しません。
 - マルチデバイス同期
 - カレンダー連携
 - フル機能の応募管理
-- デプロイや本番運用設定
 
 これらは Future Ideas または Post-MVP の対象として扱い、MVP の README・セルフレビューとは分けて管理します。
 
@@ -174,8 +173,29 @@ MVP の主な流れを、架空企業「青葉フューチャーリンク株式�
 - [Security and Privacy Notes for MVP](docs/security-privacy.md)
 - [Phase 5 MVP Self Review](docs/self-review-phase5.md)
 - [Figma MCP Setup](docs/figma-mcp-setup.md)
+- [AI-DLC 開発パイプライン](docs/ai-dev-pipeline.md)
+- [AI-DLC 導入記録](docs/aidlc-adoption.md)
 
 ## Development
+
+### AI-DLC / Bolt Workflow
+
+公式 AI-DLC **2.11.0** の Codex harness を使います。標準は Classic / strict Guard Policy、**1 サイクル = 1 Intent = 1 リリース用 Bolt** です。
+
+```text
+Inception → 人間が計画を承認 → 実装・検証・修正
+→ Bolt の PR → 人間がマージ → Vercel 自動公開・確認 → 次の Inception
+```
+
+Bolt は利用者が試せるアプリの増分として設計します。Issue は任意の入力資料です。Claude 専用の設計・レビューは必須ではなく、`@claude` は任意の補助です。
+
+アプリの新規・変更する振る舞いと不具合修正は **TDD** で進めます。Inception／コード計画の承認後、受入基準に対応するテストを先に書いて失敗を確認（Red）→ 最小実装で通す（Green）→ テストを通したまま整理（Refactor）。公式 project memory に TDD 方針を記録し、実行結果を Unit 記録と PR に残します。
+
+Codex CLI **0.145.0 以上** と公式 runtime を用意し、リポジトリで `aidlc config --pin 2.11.0`、`aidlc config --harness codex`、`aidlc doctor` を実行します。新しい Codex セッションで `/hooks` により hooks を確認・信頼した後、`$aidlc --doctor`、`$aidlc classic <今回の改善>` を利用します。実装前の Inception と公式コード計画の承認を省略しません。
+
+手順と記録場所は [AI-DLC 開発パイプライン](docs/ai-dev-pipeline.md) を参照してください。過去の `docs/codex/` と生成済み Issue は履歴として保持します。
+
+公開サイトは <https://briefing-note-ai.vercel.app> です。既存の Vercel GitHub 連携が `main` のマージを自動反映します。マージ後は対象 SHA のデプロイ成功、公開ページ、`/api/health`、Bolt の受入フローを確認し、結果を次の Inception に引き継ぎます。
 
 ### Prerequisites
 
@@ -247,11 +267,11 @@ npm test
 npm run build
 ```
 
-デプロイ、OpenAI API、Google Drive API、GitHub Secrets はまだ CI では扱いません。
+GitHub CI は品質確認を担当し、デプロイは既存の Vercel GitHub 連携が担当します。OpenAI / Google Drive への実リクエストと本物の秘密情報は品質確認 CI で扱いません。
 
 ## Future Ideas
 
-MVP 完了後の候補です。MVP の品質確認・README 更新とは分けて、別 Issue で設計・実装します。
+プロダクトの今後の候補です。現状と公開後のフィードバックから次の Inception で増分を選び、承認済み Bolt として設計・実装します。
 
 - OpenAI Vision API / OCR API 連携
 - サーバー側 API Routes 経由の LLM 連携
