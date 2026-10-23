@@ -64,8 +64,9 @@ $messageFile = Join-Path $queueDir "$id.json"
     ConvertTo-Json | Set-Content -Encoding utf8 -Path $messageFile
 
 $pwsh = (Get-Command pwsh -ErrorAction SilentlyContinue)?.Source ?? 'powershell.exe'
-$arguments = "-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$sender`" -MessageFile `"$messageFile`" -UnregisterTask `"$id`""
-$action = New-ScheduledTaskAction -Execute $pwsh -Argument $arguments
+$arguments = "--headless `"$pwsh`" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$sender`" -MessageFile `"$messageFile`" -UnregisterTask `"$id`""
+# conhost --headless keeps the console window from flashing.
+$action = New-ScheduledTaskAction -Execute 'conhost.exe' -Argument $arguments
 $trigger = New-ScheduledTaskTrigger -Once -At $runAt
 # Run even on battery and catch up if the PC was asleep at the scheduled time.
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -WakeToRun

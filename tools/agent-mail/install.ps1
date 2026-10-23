@@ -13,7 +13,11 @@
 param(
     [switch]$SkipGlobalInstructions,
     # .env holding GMAIL_ADDRESS / GMAIL_APP_PASSWORD / RECEIVER_ADDRESS; recorded in ~/.agent-mail/config.json.
-    [string]$EnvFile
+    [string]$EnvFile,
+    # Mail at a usage window's reset only when its usage reached this percentage.
+    [ValidateRange(1, 100)][int]$RateLimitThreshold,
+    # Do not register the rate-limit watcher task / Claude Code status line.
+    [switch]$SkipRateLimitWatcher
 )
 
 $ErrorActionPreference = 'Stop'
@@ -62,13 +66,47 @@ $end
 }
 
 $configPath = Join-Path $userHome '.agent-mail\config.json'
+$config = if (Test-Path $configPath) { Get-Content -Raw -Encoding utf8 -Path $configPath | ConvertFrom-Json -AsHashtable } else { @{} }
 if ($EnvFile) {
-    $resolved = (Resolve-Path $EnvFile).Path
     # Only the path is stored; the .env itself is read at send time.
-    [pscustomobject]@{ envFile = $resolved } | ConvertTo-Json | Set-Content -Encoding utf8 -Path $configPath
-    Write-Output "config -> $configPath (envFile: $resolved)"
+    $config.envFile = (Resolve-Path $EnvFile).Path
 }
-elseif (-not (Test-Path $configPath)) {
+if ($RateLimitThreshold) { $config.rateLimitThreshold = $RateLimitThreshold }
+if ($EnvFile -or $RateLimitThreshold) {
+    $config | ConvertTo-Json | Set-Content -Encoding utf8 -Path $configPath
+    Write-Output "config -> $configPath"
+}
+
+if (-not $SkipRateLimitWatcher) {
+    $pwsh = (Get-Command pwsh).Source
+    $watcher = Join-Path $binDir 'watch-rate-limits.ps1'
+    # conhost --headless keeps the console window from flashing every run.
+    $action = New-ScheduledTaskAction -Execute 'conhost.exe' `
+        -Argument "--headless `"$pwsh`" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$watcher`""
+    $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 10)
+    $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
+        -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Minutes 5)
+    Register-ScheduledTask -Force -TaskPath '\AgentMail\' -TaskName 'AgentMail-RateLimitWatcher' `
+        -Action $action -Trigger $trigger -Settings $settings `
+        -Description 'Schedule agent mails at Claude Code / Codex usage resets above the threshold' | Out-Null
+    Write-Output 'task   -> \AgentMail\AgentMail-RateLimitWatcher (every 10 min)'
+
+    # Claude Code exposes plan usage only to the status line; keep any status line the user already has.
+    $settingsPath = Join-Path $userHome '.claude\settings.json'
+    $claudeSettings = if (Test-Path $settingsPath) { Get-Content -Raw -Encoding utf8 -Path $settingsPath | ConvertFrom-Json -AsHashtable } else { @{} }
+    $statusCommand = "pwsh -NoProfile -File `"$(Join-Path $binDir 'claude-statusline.ps1')`""
+    if (-not $claudeSettings.statusLine -or $claudeSettings.statusLine.command -like '*claude-statusline.ps1*') {
+        $claudeSettings.statusLine = @{ type = 'command'; command = $statusCommand }
+        $claudeSettings | ConvertTo-Json -Depth 20 | Set-Content -Encoding utf8 -Path $settingsPath
+        Write-Output "status -> $settingsPath"
+    }
+    else {
+        Write-Output "WARN: $settingsPath already has a statusLine; Claude Code usage is not watched."
+        Write-Output "      Make it also run: $statusCommand"
+    }
+}
+
+if (-not $EnvFile -and -not $config.envFile -and -not (Test-Path (Join-Path $userHome '.agent-mail\smtp-password.dat'))) {
     Write-Output ''
     Write-Output "Next: run this yourself to set the mail account (asks for the SMTP password):"
     Write-Output "  pwsh -File `"$binDir\configure-agent-mail.ps1`""
