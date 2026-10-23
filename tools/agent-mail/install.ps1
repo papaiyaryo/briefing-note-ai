@@ -83,13 +83,13 @@ if (-not $SkipRateLimitWatcher) {
     # conhost --headless keeps the console window from flashing every run.
     $action = New-ScheduledTaskAction -Execute 'conhost.exe' `
         -Argument "--headless `"$pwsh`" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$watcher`""
-    $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 10)
+    $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Hours 1)
     $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
         -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Minutes 5)
     Register-ScheduledTask -Force -TaskPath '\AgentMail\' -TaskName 'AgentMail-RateLimitWatcher' `
         -Action $action -Trigger $trigger -Settings $settings `
         -Description 'Schedule agent mails at Claude Code / Codex usage resets above the threshold' | Out-Null
-    Write-Output 'task   -> \AgentMail\AgentMail-RateLimitWatcher (every 10 min)'
+    Write-Output 'task   -> \AgentMail\AgentMail-RateLimitWatcher (every hour)'
 
     # Claude Code exposes plan usage only to the status line; keep any status line the user already has.
     $settingsPath = Join-Path $userHome '.claude\settings.json'

@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
   Schedule a mail at the reset time of each Claude Code / Codex usage window
-  whose usage has reached the threshold. Run every few minutes by the
+  whose usage has reached the threshold. Run hourly by the
   \AgentMail\AgentMail-RateLimitWatcher task (see install.ps1).
 
   Sources:

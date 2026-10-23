@@ -46,7 +46,7 @@ Gmail の場合は 2 段階認証を有効にして [アプリパスワード](h
 
 `install.ps1` は、次の2つも設定する（`-SkipRateLimitWatcher` で省略）。
 
-- タスク `\AgentMail\AgentMail-RateLimitWatcher`: 10分ごとに `watch-rate-limits.ps1` を実行する。5時間枠・週の枠の使用率がしきい値（既定 80%）以上になったら、その枠の更新時刻に届くメールを1回だけ予約する。
+- タスク `\AgentMail\AgentMail-RateLimitWatcher`: 1時間ごとに `watch-rate-limits.ps1` を実行する。5時間枠・週の枠の使用率がしきい値（既定 80%）以上になったら、その枠の更新時刻に届くメールを1回だけ予約する。
   - Codex: `~/.codex/sessions/**/*.jsonl` の `rate_limits` を読む
   - Claude Code: ステータスライン（`claude-statusline.ps1`）が書く `~/.agent-mail/claude-rate-limits.json` を読む。`~/.claude/settings.json` に別のステータスラインがすでにある場合は上書きしない。
 - しきい値の変更: `pwsh -File tools/agent-mail/install.ps1 -RateLimitThreshold 90`
