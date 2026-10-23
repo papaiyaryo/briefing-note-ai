@@ -9,6 +9,24 @@ Claude Code と Codex の両方から、全プロジェクト共通で使う通�
 
 ## セットアップ（Windows / PowerShell 7）
 
+### A. .env を使う（推奨）
+
+`.env` に次を書き、そのパスを `-EnvFile` で渡す。記録されるのはパスだけで、値は送信のたびに `.env` から読む。
+
+```dotenv
+GMAIL_ADDRESS=you@gmail.com
+GMAIL_APP_PASSWORD=xxxxxxxxxxxxxxxx
+RECEIVER_ADDRESS=you@example.com   # 省略時は GMAIL_ADDRESS。カンマ区切りで複数可
+```
+
+```powershell
+pwsh -File tools/agent-mail/install.ps1 -EnvFile D:\path\to\.env
+```
+
+`.env` は git 管理外にしておく。エージェントには `.env` を読ませない（スキルはスクリプト経由でしか使わない）。
+
+### B. 対話で設定する
+
 ```powershell
 pwsh -File tools/agent-mail/install.ps1
 pwsh -File "$HOME\.agent-mail\bin\configure-agent-mail.ps1"   # 自分で実行。送信元・宛先・パスワードを聞かれ、テストメールを送る

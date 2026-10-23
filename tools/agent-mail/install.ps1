@@ -10,7 +10,11 @@
   Re-run after editing the sources; it overwrites the installed copies.
 #>
 [CmdletBinding()]
-param([switch]$SkipGlobalInstructions)
+param(
+    [switch]$SkipGlobalInstructions,
+    # .env holding GMAIL_ADDRESS / GMAIL_APP_PASSWORD / RECEIVER_ADDRESS; recorded in ~/.agent-mail/config.json.
+    [string]$EnvFile
+)
 
 $ErrorActionPreference = 'Stop'
 $userHome = [Environment]::GetFolderPath('UserProfile')
@@ -57,7 +61,14 @@ $end
     }
 }
 
-if (-not (Test-Path (Join-Path $userHome '.agent-mail\config.json'))) {
+$configPath = Join-Path $userHome '.agent-mail\config.json'
+if ($EnvFile) {
+    $resolved = (Resolve-Path $EnvFile).Path
+    # Only the path is stored; the .env itself is read at send time.
+    [pscustomobject]@{ envFile = $resolved } | ConvertTo-Json | Set-Content -Encoding utf8 -Path $configPath
+    Write-Output "config -> $configPath (envFile: $resolved)"
+}
+elseif (-not (Test-Path $configPath)) {
     Write-Output ''
     Write-Output "Next: run this yourself to set the mail account (asks for the SMTP password):"
     Write-Output "  pwsh -File `"$binDir\configure-agent-mail.ps1`""

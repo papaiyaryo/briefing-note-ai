@@ -57,17 +57,42 @@ try {
         Write-Output "DRY RUN`nSubject: $Subject`n`n$Body"
     }
     else {
-        if (-not (Test-Path $configPath)) {
-            throw "Not configured. Run: pwsh -File `"$baseDir\bin\configure-agent-mail.ps1`""
-        }
-        $config = Get-Content -Raw -Encoding utf8 -Path $configPath | ConvertFrom-Json
-
+        $config = if (Test-Path $configPath) { Get-Content -Raw -Encoding utf8 -Path $configPath | ConvertFrom-Json } else { [pscustomobject]@{} }
         $password = $env:AGENT_MAIL_SMTP_PASSWORD
+
+        # Gmail settings from a .env file: GMAIL_ADDRESS, GMAIL_APP_PASSWORD, RECEIVER_ADDRESS.
+        $envFile = if ($env:AGENT_MAIL_ENV_FILE) { $env:AGENT_MAIL_ENV_FILE } else { $config.envFile }
+        if ($envFile) {
+            if (-not (Test-Path $envFile)) { throw "envFile not found: $envFile" }
+            $vars = @{}
+            foreach ($line in Get-Content -Encoding utf8 -Path $envFile) {
+                if ($line -match '^\s*(?:export\s+)?(GMAIL_ADDRESS|GMAIL_APP_PASSWORD|RECEIVER_ADDRESS)\s*=\s*(.*?)\s*$') {
+                    $vars[$Matches[1]] = $Matches[2] -replace '^"(.*)"$', '$1' -replace "^'(.*)'$", '$1'
+                }
+            }
+            foreach ($key in 'GMAIL_ADDRESS', 'GMAIL_APP_PASSWORD') {
+                if (-not $vars[$key]) { throw "$key is missing in $envFile" }
+            }
+            $to = if ($vars['RECEIVER_ADDRESS']) { $vars['RECEIVER_ADDRESS'] -split ',' | ForEach-Object { $_.Trim() } } else { $vars['GMAIL_ADDRESS'] }
+            $config = [pscustomobject]@{
+                from     = $vars['GMAIL_ADDRESS']
+                to       = @($to)
+                smtpHost = 'smtp.gmail.com'
+                smtpPort = 587
+                smtpUser = $vars['GMAIL_ADDRESS']
+            }
+            # Gmail shows app passwords in groups of four; spaces are not part of it.
+            if (-not $password) { $password = $vars['GMAIL_APP_PASSWORD'] -replace '\s', '' }
+        }
+        if (-not $config.from) {
+            throw "Not configured. Set envFile in $configPath, or run: pwsh -File `"$baseDir\bin\configure-agent-mail.ps1`""
+        }
+
         if (-not $password -and (Test-Path $passwordPath)) {
             $secure = Get-Content -Path $passwordPath | ConvertTo-SecureString
             $password = [System.Net.NetworkCredential]::new('', $secure).Password
         }
-        if (-not $password) { throw 'SMTP password not found (AGENT_MAIL_SMTP_PASSWORD or smtp-password.dat).' }
+        if (-not $password) { throw 'SMTP password not found (envFile, AGENT_MAIL_SMTP_PASSWORD or smtp-password.dat).' }
 
         $mail = [System.Net.Mail.MailMessage]::new()
         $mail.From = [System.Net.Mail.MailAddress]::new($config.from)
