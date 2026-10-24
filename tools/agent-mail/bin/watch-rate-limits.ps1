@@ -14,8 +14,9 @@
 param([switch]$DryRun)
 
 $ErrorActionPreference = 'Stop'
-$userHome = [Environment]::GetFolderPath('UserProfile')
-$baseDir = Join-Path $userHome '.agent-mail'
+# Installed as ~/.agent-mail/bin; derived from the script location (see send-agent-mail.ps1).
+$baseDir = Split-Path -Parent $PSScriptRoot
+$userHome = Split-Path -Parent $baseDir
 $configPath = Join-Path $baseDir 'config.json'
 $statePath = Join-Path $baseDir 'rate-limit-state.json'
 $scheduler = Join-Path $baseDir 'bin\schedule-agent-mail.ps1'

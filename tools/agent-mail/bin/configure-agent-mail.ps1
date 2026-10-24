@@ -13,7 +13,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$baseDir = Join-Path ([Environment]::GetFolderPath('UserProfile')) '.agent-mail'
+$baseDir = Split-Path -Parent $PSScriptRoot  # ~/.agent-mail, from the installed location
 New-Item -ItemType Directory -Force -Path $baseDir | Out-Null
 
 $from = Read-Host 'Sender address (SMTP login, e.g. you@gmail.com)'

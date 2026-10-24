@@ -31,7 +31,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$baseDir = Join-Path ([Environment]::GetFolderPath('UserProfile')) '.agent-mail'
+$baseDir = Split-Path -Parent $PSScriptRoot  # ~/.agent-mail, from the installed location
 $queueDir = Join-Path $baseDir 'queue'
 $sender = Join-Path $baseDir 'bin\send-agent-mail.ps1'
 $taskPath = '\AgentMail\'

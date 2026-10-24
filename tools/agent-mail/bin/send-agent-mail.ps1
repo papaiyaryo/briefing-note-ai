@@ -26,8 +26,9 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$home_ = [Environment]::GetFolderPath('UserProfile')
-$baseDir = Join-Path $home_ '.agent-mail'
+# Installed as ~/.agent-mail/bin/*.ps1; derive paths from the script location because
+# sandboxed agents (e.g. Codex on Windows) may run as a user without a profile folder.
+$baseDir = Split-Path -Parent $PSScriptRoot
 $configPath = Join-Path $baseDir 'config.json'
 $passwordPath = Join-Path $baseDir 'smtp-password.dat'
 $logPath = Join-Path $baseDir 'mail.log'

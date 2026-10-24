@@ -6,7 +6,7 @@ $data = $raw | ConvertFrom-Json
 $limits = $data.rate_limits
 if (-not $limits) { return }
 
-$baseDir = Join-Path ([Environment]::GetFolderPath('UserProfile')) '.agent-mail'
+$baseDir = Split-Path -Parent $PSScriptRoot  # ~/.agent-mail, from the installed location
 New-Item -ItemType Directory -Force -Path $baseDir | Out-Null
 [pscustomobject]@{ observed_at = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds(); rate_limits = $limits } |
     ConvertTo-Json -Depth 5 | Set-Content -Encoding utf8 -Path (Join-Path $baseDir 'claude-rate-limits.json')
