@@ -1,0 +1,94 @@
+{
+  "stage": "code-generation",
+  "unit": "u3-company-comparison",
+  "version": 1,
+  "writes": [
+    {
+      "path": "app/layout.tsx"
+    },
+    {
+      "path": "app/compare/page.tsx"
+    },
+    {
+      "path": "src/components/workspace/WorkspaceShell.tsx"
+    },
+    {
+      "path": "src/components/compare/CompanyComparePage.tsx"
+    },
+    {
+      "path": "src/lib/companyComparison/model.ts"
+    },
+    {
+      "path": "src/lib/companyComparison/session.ts"
+    },
+    {
+      "path": "src/lib/companyComparison/client.ts"
+    },
+    {
+      "path": "src/lib/companyComparison/edits.ts"
+    },
+    {
+      "path": "src/lib/companyComparison/export.ts"
+    },
+    {
+      "path": "src/lib/companyComparison/legacy.ts"
+    },
+    {
+      "path": "src/components/compare/ComparisonHome.tsx"
+    },
+    {
+      "path": "src/components/compare/ServerCompanyComparison.tsx"
+    },
+    {
+      "path": "src/components/compare/ComparisonTable.tsx"
+    },
+    {
+      "path": "src/components/compare/ComparisonFieldEditor.tsx"
+    },
+    {
+      "path": "src/components/compare/ComparisonSessionProvider.tsx"
+    },
+    {
+      "path": "src/components/compare/LegacyComparisonBoundary.tsx"
+    },
+    {
+      "path": "tests/u3-company-comparison/readiness.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/model.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/session.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/client.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/edits.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/export.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/legacy.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/ui.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/comparison.integration.test.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/fixtures.ts"
+    },
+    {
+      "path": "tests/u3-company-comparison/uiHarness.tsx"
+    },
+    {
+      "path": "docs/company-comparison-local.md"
+    },
+    {
+      "path": "scripts/check-u3-comparison.mjs"
+    }
+  ]
+}

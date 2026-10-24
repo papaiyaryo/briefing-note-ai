@@ -1,0 +1,517 @@
+{
+  "capturedAt": "2026-10-18T20:37:58.456Z",
+  "unit": "u1-company-notes",
+  "revision": 2,
+  "target": "tests/u1-company-notes/routes.test.ts",
+  "targetSha256": "93a94a79166eea5e8bb594b812cb00d8c721aa575cf78f4d9f9ad933c9dc6989",
+  "files": {
+    ".env.example": "cb0435e7a95f3cedbb1b4b1ebbb3a182a60c0252f87fa016270cdb4020e18787",
+    ".github/workflows/ci.yml": "95d58904b91e6f50e4e73f939edc54ab8d30c13e297e876754e94983028420c6",
+    ".gitignore": "d0994bf449c609f64530d2582447c77fca65fb476702eb9d5c887287d3d09cc0",
+    "app/api/health/route.ts": "6392ded28bde9a894d37ec54b86fde4384ea04b288179f9fb28a529098ef8914",
+    "app/api/interview-review/route.ts": "cdf9f72ba8665bfcf9384ee302bc42938e52abb9fbc669c7a32df656396d8093",
+    "app/api/ocr/route.ts": "ce9b959c7b363c82f60bb62f2c1a3bb1e9159bf228e9598b1b97759467551bae",
+    "app/api/structure/route.ts": "4dfe86c00f27b20e6f551ad7612b163b0708f09f9f24b58da4c92fb7d2ee5405",
+    "app/api/v1/auth/login/route.ts": "fdd8135b58d61293233b7b3afcc51d6f395becec09f9440b8d63d08841584b6e",
+    "app/api/v1/auth/logout/route.ts": "fdd8135b58d61293233b7b3afcc51d6f395becec09f9440b8d63d08841584b6e",
+    "app/api/v1/auth/session/route.ts": "517b612bda044669a68e7d31cd3583c8b55e94d5db8b23a8e5bfc05cb33c0258",
+    "app/api/v1/board/route.ts": "7b61eb7984a534ee0cc8e3296389cfea19e09d99c10a9ed6c82b2dd3da6cc23a",
+    "app/api/v1/companies/[companyId]/memos/[memoId]/route.ts": "2518b85b759236e6ae403351b93fd2873a248025b25ca60f2a74ca7c8914876f",
+    "app/api/v1/companies/[companyId]/memos/route.ts": "64b4d8711767329c3290c95767a1891b7d71da8daf8df9eb27ef84b244b7c6d7",
+    "app/api/v1/companies/[companyId]/route.ts": "68330baeef402f4a87afc86ea92e70923ae88db71611a3b5eb7b45cde27bba7e",
+    "app/api/v1/companies/route.ts": "3617fef33fe7935493a0b530568a097f648d9fd5bb15d3f210e47920e959dcf7",
+    "app/api/v1/comparison-sources/route.ts": "3617fef33fe7935493a0b530568a097f648d9fd5bb15d3f210e47920e959dcf7",
+    "app/api/v1/deletion-confirmations/route.ts": "3617fef33fe7935493a0b530568a097f648d9fd5bb15d3f210e47920e959dcf7",
+    "app/api/v1/deletions/route.ts": "3617fef33fe7935493a0b530568a097f648d9fd5bb15d3f210e47920e959dcf7",
+    "app/api/v1/operations/[operationId]/route.ts": "517b612bda044669a68e7d31cd3583c8b55e94d5db8b23a8e5bfc05cb33c0258",
+    "app/api/web-supplement/route.ts": "56de2813cd996b3cc060a1fc6c48023226b88ffc973671c9adde8d445fd5e0fa",
+    "app/companies/[companyId]/page.tsx": "52218c4e13ca4ea264e4072c299ee9397af152a682b27a18665c0a166c2fb659",
+    "app/compare/page.tsx": "6f300f9de2ade0625abbca453b2bc697b04b1690755bbd343cdbc0c9113e19c4",
+    "app/globals.css": "31dac6b78d91c1905a9f0509f33c4d291dab7976d8258aeb2a1703f7126bb610",
+    "app/layout.tsx": "34e5f420a60ec2f36dcd28538450a0a6b992e85058d22c7acfe58e5922c876ae",
+    "app/page.tsx": "2653fb0a6add96543d01acb6d4e5512d01b96b15ba10c0b7c834d52a21a11b49",
+    "compose.test.yml": "f83fc056b70272be5db29bf37c2e7c20c5b356ca427ca5fd6eb7729b9a2cbbad",
+    "db/migrations/001-company-workspace.sql": "afce7a4e71c373a9572e76c27230b2a8fe151df0ebb553dbc82c811e91ac08f0",
+    "docs/company-comparison-local.md": "fbd951ac23442b985ba14474ecf0760a5e73a0b30b2b45a2f636f762bde8a2d3",
+    "docs/company-data-setup.md": "43ef63cf57c169bf0c9ab7a5c31b37a16555a7f8f9bcb536edfa559fd6e38628",
+    "docs/generated-notes-checks.md": "c39099e35c81dd8acd30100945d9d0fbea50f654bf736409e218cff518ff3633",
+    "docs/session-handoff.md": "86bc74bb7e2c1473d3c28c97c16ce64e804b243864023ec15d670920595424a0",
+    "eslint.config.mjs": "4ac35d97d0d7c76ba27f75d9b2fef1e803c78bd1bd00e278041522f7bc60f59e",
+    "next-env.d.ts": "f4e8976c19fc926644d72610bf1058bd6bf52add97e46a02bc0b912a751625c0",
+    "next.config.ts": "0c57334fef21d93fc7c60a29ee17a9a4b9bf50aaa39c092d67a52d8cf3908cf2",
+    "package-lock.json": "14e7362cfe4b7e1a1ad9d8ad1554bb114a92b7f36bd8aea2ce021a802a9eecd9",
+    "package.json": "cc18466a952544dfdd0eaa0376866bb93c6abf18b744e6d088e5b59d7992db11",
+    "scripts/check-u3-comparison.mjs": "d013f05a163f6966cc2b51f36566fe142fe844184c3f3aa181829891aac21783",
+    "scripts/generated-notes-browser-check.mjs": "ed56ccb30bab1622aeb30d45b7ed9012dd2eb045dab1fa3bcb0da18fd73b03b0",
+    "scripts/local-workspace-preview.mjs": "7142ed4ce29c9188ecd3f3a73af6810b63b0815a3508a8d5463d0ef6de5b4d7c",
+    "scripts/workspace-browser-check.mjs": "9d7832a31a3566e06f405192021559f16c013602e4875be4d8bdbba04fe31e40",
+    "scripts/workspace-restore-check.mjs": "e205bb7697a1914915b9677d34e2369492871baab0e5219da17021e76e496d22",
+    "src/components/BriefingNoteFlow.tsx": "5545a648c6b15904cc2d276311616a7d2ec18d8a3d787b16c35c2e3a404f1fc2",
+    "src/components/Button.tsx": "50fac6ae0059f2c1402bf213572f7114dd99a0666e33c6d1f12c9208aee558ed",
+    "src/components/ErrorNotice.tsx": "af540c9dddc868ab063cc2611c43efee62b290f3e80c4f9eb2f89381b449b978",
+    "src/components/InterviewReviewView.tsx": "ae942643ebe90cab01eb253b5560207acf8ee941863fd22fcdfdc0772eb3eeb1",
+    "src/components/MarkdownPreview.tsx": "6fb06357afb09077e176680b0d580beb6016e58772fbbd99d4cb9085306128f0",
+    "src/components/StepIndicator.tsx": "26fe6a155343c12170527a9caba561fab4d8f290399355f55a6bc5dd17d738d2",
+    "src/components/compare/CompanyComparePage.tsx": "bfec053d8c19836b397350796476a0a39f1d348e72f5bf15dfb3bf152fd81fda",
+    "src/components/compare/ComparisonFieldEditor.tsx": "e88059c4f1fab69e63565d461371291db53a257d9888b3f32f99a8d001f70e5c",
+    "src/components/compare/ComparisonHome.tsx": "e08e1e966e8cf5f6f2c5f78532e0c14c679be96465dc765127a629c4b90a0385",
+    "src/components/compare/ComparisonSessionProvider.tsx": "5360eb52867c7c47e84aac09de7157b14e92bd509091c002d6c36cb68e438a34",
+    "src/components/compare/ComparisonTable.tsx": "6693a910ba0c26638bcf241af3a9ec0147eb0c37045bf49a0b4ce19da0651aab",
+    "src/components/compare/LegacyComparisonBoundary.tsx": "238e2c00f2651fd9ab2b334417496917fc9dfef16759a3973ba49efe73d216d4",
+    "src/components/compare/ServerCompanyComparison.tsx": "a6113a114734a187d03728a4601cc599771581fd950769b3034d8591f298ecac",
+    "src/components/generation/GenerationCandidateFields.tsx": "dbe181d44f3fde524feab031703378ca1d6d82b8c48d5295cc2ab7fd4621d88b",
+    "src/components/generation/GenerationSavePanel.tsx": "0f5e27322267bcdcada45d7c86d07b5c9256350a205f855f1435806c5929ca1a",
+    "src/components/steps/MarkdownEditStep.tsx": "37c51c0a35ce3bc22cdf92004c28bf16e663647f2f9e375889fe26b15305f2f8",
+    "src/components/steps/OcrReviewStep.tsx": "70fbb5ac5106f2435ed08e08fe2c3aa2faf61e1fe7825b43c9a5430683145bf0",
+    "src/components/steps/UploadStep.tsx": "9a7dd77071ccea54668e223c218cf19bb7e668c91a178a9ff669182fef3de28b",
+    "src/components/steps/WebSupplementStep.tsx": "98924502b46ea34215e11022387f123df90e5578147b6cc2883108fa48364ba8",
+    "src/components/workspace/CompanyBoard.tsx": "29c5d6bc50209302a6ebe0ed7685f12650092ce1c0c0879dfb7cdb3074abbb06",
+    "src/components/workspace/CompanyDetail.tsx": "0bc08dadf696f434caf1a48c5d61ca6052bf83dbbd48387af477029dd0b7a67e",
+    "src/components/workspace/CompanyForm.tsx": "e34bc4c3bd6e1283dc6282ad0fa0bce2f9d1e86d5fb5dac509bb0e7cbe4600a2",
+    "src/components/workspace/ConfirmDialog.tsx": "d28bfeb326f3b8e00d271fc69cf064e05c4bc51398978cf8302fd759ae9dadd6",
+    "src/components/workspace/LoginForm.tsx": "2fcc87056623c4bc460db003f58cd4d11376b73d7b288e28ac968b831670f911",
+    "src/components/workspace/MemoEditor.tsx": "78ddf34aaa4e64e5ac2db6ddd4b0875df1d7628ecd122d303193007e670f3ba5",
+    "src/components/workspace/WorkspaceHome.tsx": "ae8f02efdb3f30012c2dbe0939b0d50b4e2506c59c629ebf9a0b39231a0cfd9f",
+    "src/components/workspace/WorkspaceShell.tsx": "82d2edca3d97b1d13e2729233e00d51ae07af5d3561a80762db08803f08f078b",
+    "src/components/workspace/useMutation.tsx": "31d8c45465a0f93ca3350a600252d34cbc9855d7b5662f42507261df3888b91b",
+    "src/lib/authClient.ts": "b7be42a25d9c426393e4597e1030fc0f7669c51da6565ef82420f34bb78fc72f",
+    "src/lib/companyComparison/client.ts": "5c6e01a6799f77718bc96ec258c8cc8d5cfa4b5ef09ae5e3d61431d1d2e7c563",
+    "src/lib/companyComparison/edits.ts": "7c3114a7fe8a5700ad2e76677bb82bde855794071f231843754dcd0b1fa7ba53",
+    "src/lib/companyComparison/export.ts": "e294f9270d4225424345c440082bc3353201e8616153f056879a0a7ddedcf43d",
+    "src/lib/companyComparison/legacy.ts": "e3c69f42b48b2a62620b3826f1dcb994c9cbf538d5b00e1318d41cee1145c462",
+    "src/lib/companyComparison/model.ts": "b7773ce7d69b16998a59683f3ccf9c26d8eba1f41f0397edac2e702e277ef881",
+    "src/lib/companyComparison/session.ts": "e3ef77ec2208dba296fb3e568a3363efdf891c9cad2d3a1e9fa425d3d84b9226",
+    "src/lib/comparison.test.ts": "0e5f71665fe08278aae6f215029e1363231e077f5065f6c69f4654897621091a",
+    "src/lib/comparison.ts": "e7fab1250081861da61f7320f6f9fdc4bc34f45dfd2fd94eb9c37cb326c38084",
+    "src/lib/download.ts": "4641f458ad91b7c31a889219a652b84cc09a364d8d7f483baf2a93224912c4d2",
+    "src/lib/dummyOcr.ts": "89d62611638b1e8ce3924a4b0f05102d3c306e3fd919ac5d094c44283d962f60",
+    "src/lib/errorMessages.ts": "99163d5453cda2ee527dc5154f036363dab61b81fd06f14ef7367173f499626d",
+    "src/lib/flow.ts": "7a32942b6d34140315fc58c26ef58a46fb2987a8183ce9210eb6b1162a335949",
+    "src/lib/generation/candidate.ts": "ea8d336a6747b413fedb80940ec99eea9e3eeb69523bafbae3ae7f2b51dda080",
+    "src/lib/generation/draft.ts": "7295bd27694d2dd2afb758427260c6c5492a0a334fbea9ee7fb2398c8ec5d739",
+    "src/lib/generation/save.ts": "6bb8089dbf994062eed6bcb3ed1c9007e798e4a2f3ec9b8eb4ffdc7ec75bde0f",
+    "src/lib/interviewReview/dummy.test.ts": "c40e6285f6095adb2ccffcdd9983aeb2558a306be36a898521fc102eb475b0e8",
+    "src/lib/interviewReview/dummy.ts": "e3ecfdcec2619d9c61f203e40400e9cc336b4f541cade0e53b48e78eda35b8eb",
+    "src/lib/interviewReview/schema.ts": "9577663278b088ed0e23af4eb0342c7fc7f709c4e9682475a6d9f1bc364e6e29",
+    "src/lib/interviewReview/toMarkdown.test.ts": "b7ad82b087d1288797efd1db3e197fbd6a0750ec24ab20b5559dd653eae90794",
+    "src/lib/interviewReview/toMarkdown.ts": "7447b7719ac9034e738b9589b71b23af0aab208e4d850b8fc9201462a0c133ef",
+    "src/lib/interviewReview/validate.ts": "c9076214e29e94931d37b5e8437af8b5db9be10b46f35e80892080c24253ae46",
+    "src/lib/interviewReviewClient.ts": "b9554a64f6880193bbaf971a2b3a53052f301c95b22ad5b5bdc3225d77e705ba",
+    "src/lib/markdown.ts": "e2da8ae8a12628bedf999b2781d7787d8c12091978cdb3205e0c5c51caad486b",
+    "src/lib/ocrClient.ts": "87d42379ccda4ec8685f826985c7124bd03277e26d094c2a3eda6520afdafd08",
+    "src/lib/openai/contracts.ts": "d92539c1256138ebe849df2e9162f0ac1a424b49052e8d7695e451dd434452f5",
+    "src/lib/openai/provider.test.ts": "eb7924e24ad05a004c22c9d5ac50b89deb702479459b24143c28f27e507b6618",
+    "src/lib/openai/provider.ts": "726dac79dba1c8e8cd36ea855b87902f6395a8e51a3cf189905ca8780e03051e",
+    "src/lib/sample.ts": "350efca43181181fa6d86bfbdb689a2453984305305c42cd1fac74904cf16374",
+    "src/lib/sampleData.ts": "bf5b0e5aab116474a875a55271931d182a3082097d3f14ec911eab7dd81831c1",
+    "src/lib/server/auth/accessControl.ts": "c6fe533615620353157c3e47fd7bb62109a9b1d55518734cab909198de9c39b7",
+    "src/lib/server/auth/crypto.ts": "7ebf34b78b471e309f7bffe0a44e24e0f8022b3b404eeb2cb6293b35ae0293e8",
+    "src/lib/server/auth/provider.ts": "f050c74172d8585c74d6e8ad0e88d1b2abc232dcb7af6c1ff6175e3f5959054d",
+    "src/lib/server/auth/session.ts": "c62c1171921fe7b448eb7bb4318301ec2c57a8d28646e69d0accb2519e4215da",
+    "src/lib/server/errors.ts": "f6462b8a0f2705c8c56d3ea7ed219ef5015edc606bf714dc724601fc6dc195c8",
+    "src/lib/server/generation/request.ts": "f4c577aad49988af6d71d177e77944eeaa7e25644082d7cac93cf3f86b122aee",
+    "src/lib/server/interviewReview.ts": "56ff62f57e61a20f6fd5e65bc33c9dc659531cc7a484d67985b1e9d87acc9567",
+    "src/lib/server/log.ts": "165a745ac061110d9d9190c6e5e70ce0c759029a5da8657a310b8bfe91f857d7",
+    "src/lib/server/logger.ts": "d40460b6dccff392e806c115938d48f224ac971f20ba91e3be8cd8809e22534d",
+    "src/lib/server/ocr.ts": "ec73b2e408397a4b339b13fce1bddd426595c7eef12a158bed07d4abfcfefa8b",
+    "src/lib/server/openaiClient.ts": "82d765b9b7aaf21f9ac879c815de5d620084fef03dcb6f3cf566902c0aa58a71",
+    "src/lib/server/structure.ts": "ebbe9e48f2e5c71a4f71cb0da8a181915dbb0b7de4da2dfd248081824d1654ab",
+    "src/lib/server/webSupplement.ts": "06d8d4420b8854fceedf0f7ca20c397ee1640c65907cda44870fd37d1f0868f0",
+    "src/lib/server/workspace/database.ts": "a3c140875ff1151dc674e0871fa2f09ed806c7be56ec4b52fc84bb2710c1133b",
+    "src/lib/server/workspace/errors.ts": "2e0ec20b6260099ef37d2783a13690f2896470fd0bdd21c52b1c70463a18fa7e",
+    "src/lib/server/workspace/generationReceipt.ts": "ad98bdd0e2fecc34f03319b824269ae18530d9c918b7ee2d6fb6b1cd7a7fc910",
+    "src/lib/server/workspace/http.ts": "325f252c638dd073730784a33c34517fed951f504918def7a629f342212045f9",
+    "src/lib/server/workspace/repository.ts": "c671c28b60c9ec2b276c5814e63028151ee8f5a2a8559126aec5f51ff2302ad7",
+    "src/lib/server/workspace/requestScope.ts": "9429836803fd9806438cbec695b8dda32a5b24e05467d2f59ab499e49df6dfda",
+    "src/lib/server/workspace/runtime.ts": "4c2c4fb728794348800c6824118d5d11c472d3f46c146814811acaa948a829ba",
+    "src/lib/server/workspace/service.ts": "a1d9197984132989975b4857fc49881c7e63b766e4712958a00ff311b628e672",
+    "src/lib/structure/dummyStructure.test.ts": "5af6a2fc604222491af2225f675354a200069bacef1341cd7d0fb69b85500813",
+    "src/lib/structure/dummyStructure.ts": "bb3c335cd3e7599ec3e8f114bb4590f0f4adcfe292fab5fa7bf61facabad3baf",
+    "src/lib/structure/schema.ts": "b865b88269684c9e6bfe2f9438d3093247b9072c10f059c0f8aaee091d788600",
+    "src/lib/structure/toMarkdown.test.ts": "ad5563506f0994d9c5cef3ef58cf03a6e97f1e7600e3defb8783132fa5955a27",
+    "src/lib/structure/toMarkdown.ts": "a3ae16b1189a7f20f2414a324f3a19b403b6d1980206ebba294775e20cbd668b",
+    "src/lib/structure/validate.test.ts": "b0edd2929b7e16620083cc7fee03dd84cfd15481f3df38522f690d28cff55217",
+    "src/lib/structure/validate.ts": "1ee19cf0209d152c83d9ada4158443f7a11b37d64eb488434d46d57f84814984",
+    "src/lib/structureClient.ts": "c4f1e3ffff6143a54bee15d3c3914325cfbcdf8b8e1c9bfb569ef2528dd72570",
+    "src/lib/types.ts": "1c4483f9e50b57077ccabee7a0001df31fee3b54f9e1204a32b6acf968bd47b6",
+    "src/lib/upload.ts": "ba86de5caaebf3a8c5fcf9486680961b5b91dd75892e332c6eeb1cca7d519473",
+    "src/lib/webSupplement/dummy.ts": "3ceb42e8cb8cc4645cb8ae864854b25bba692c07d0bd322aa9000bdc0a03da13",
+    "src/lib/webSupplement/schema.ts": "38ab1e4994d21da3cb3d176cd24c13cf9e48aa5a2f97bb3a6ceff51a656b73dc",
+    "src/lib/webSupplement/validate.ts": "aab1094cae0b017b386f3f4bce82ad932c71a55d9846d0732569d963c9774d63",
+    "src/lib/webSupplementClient.ts": "efd86827e52865b2cdfb97923f3b15583dbe6cc950f2f2d06c71cb5ffc49052b",
+    "src/lib/workspace/board.ts": "94936eaa66b43035c15d7caa11438e2519c3831beebbac207e69f9d66ae343ba",
+    "src/lib/workspace/client.ts": "d5cbbcbc23ecaecea97a488e937c6cb38f117ae8c6b6213db0fa3bd46f3daf60",
+    "src/lib/workspace/contracts.ts": "cee9b11bdf194de56a5d2ba8cc9e7694ee01722ab12cbc4e8a374bf64b992f34",
+    "src/lib/workspace/draft.ts": "a18c9f4cbe5b7ddc00dbc34131cf40641a7113fca380e75ea1ccba2ca4389cfa",
+    "src/lib/workspace/schema.ts": "52ba1dc9b372b159eecd937c778cb3fa79ea7437a8be9e6e83376e43a83dc7aa",
+    "src/lib/workspace/validation.ts": "766b8756538152a375e9a2e42ae2366364d6d3451e30fef3205b483ee7fa5cde",
+    "tests/apiErrors.test.ts": "1c2d5b983464fda133c1ce16c95fae7b385e34d213a6dfbc20212e313c152a7c",
+    "tests/download.test.ts": "d9cef1c308b725b357ae3c5b06f8841ff5b8c3e36b0685c5b9dbd82595d9a3a7",
+    "tests/dummyOcr.test.ts": "a0d590bb60292db3305b8138d7b55fa59532fa82ed4f0f07d2545a738dd86b51",
+    "tests/flow.test.ts": "e32f65c5c500b55cc82b1df6650d23b8bc515533b7de9d3bb0661fa5e4bfc3f6",
+    "tests/markdown.test.ts": "e48c1abd8ae014029166845866fcc0c532a11334d78bb3cad271053e1bd7ad08",
+    "tests/ocrRoute.test.ts": "2c1b5d909e4a08f3c76dbd493813903640bb8944028e9182764820691592922f",
+    "tests/sample.test.ts": "ac13b4fd503c25fdf5eb9a08794f9bc85d0c6afd05372c93503cbb265729447b",
+    "tests/sampleData.test.ts": "7ccb6cbb8576d12598c7723dedfbd70fc68c0cd8d9cb21db9555c43203d4bc77",
+    "tests/serverOcr.test.ts": "716c4980a4c07c48f932349631b387222b9a96dbddd5a4deb93f7667e860af10",
+    "tests/u1-company-notes/auth.test.ts": "411f5926095a179ecbe10c5bf3a8c6b666efd0e8de1b10577fb5ace08f17c697",
+    "tests/u1-company-notes/authRoutes.test.ts": "475174064edf0fb75b7025eb450dc06eef5950041528c469c3e1bd9ae891bdab",
+    "tests/u1-company-notes/board.test.ts": "9353c80b280cf642820af9632c2e9051cc2830a09482e879073a07c33332f288",
+    "tests/u1-company-notes/client.test.ts": "7add55cbcc555804982dde8b1e557a0e1909aed4b66736be46476f08c0f102a9",
+    "tests/u1-company-notes/crypto.test.ts": "550f38121751ceb5ab70a0a1018c59325693a548a6b5041d707dcbce6894a234",
+    "tests/u1-company-notes/database.integration.test.ts": "288c6c8f848d6bbe140307b9b02ddea0b360859756cb6ad83aec390007398894",
+    "tests/u1-company-notes/db/bootstrap.sql": "87ac4b6a1a763a83729d0de4c3b42959342fc79c553090d98ffc12814ea3de42",
+    "tests/u1-company-notes/draft.test.ts": "95cc38efb2e30169256bd9f3f5848b08683704c46dbb39e94d91eeaf73e32645",
+    "tests/u1-company-notes/existingRoutes.test.ts": "2422fac6849d2808ee342d5df09c6b4096448fc634c4885ade56968ffc694220",
+    "tests/u1-company-notes/fixtures.ts": "b03eab8a96f82531385ec5ee6eda1b62b3293ac4701f1bd8f3c45a40b5222538",
+    "tests/u1-company-notes/generationReceipt.test.ts": "a09022fc20b570bc148e74085ca7f9fde03340a23f5ae4bc1a4919d556f7250d",
+    "tests/u1-company-notes/helpers.ts": "04c8171b3bc02bf12e80e85af74cc9ca4de4f6ce187323f52fb729d5ebb37fbb",
+    "tests/u1-company-notes/hookHarness.ts": "923c021e362a0bb5313c9322c5e098e0f695204936dabde0a963febc87809fb6",
+    "tests/u1-company-notes/legacyUiCases.tsx": "304def2723af40ec60c7d49dc7428ac9d56233a65c5403332f5d65c95027a954",
+    "tests/u1-company-notes/operationalCases.ts": "b84f52c8fc622601bdd5e4e27398f74fa138da3186d7616590cb46d4f9b694a9",
+    "tests/u1-company-notes/providerRegressionCases.ts": "67f739ff07a150d1f4dd18ae5f1868e4ca46c58c5bf7bb34457bd5149b6b977d",
+    "tests/u1-company-notes/repository.integration.test.ts": "a05b92bc6e757ba61b4860f88fba9369efe3a666976971868938baf65e7fba9b",
+    "tests/u1-company-notes/routes.test.ts": "93a94a79166eea5e8bb594b812cb00d8c721aa575cf78f4d9f9ad933c9dc6989",
+    "tests/u1-company-notes/runtimeCases.ts": "d366801f62023ecfb12c6ff3f01b1eabfad9c6ef354a5ef8e42019e7284ab2fc",
+    "tests/u1-company-notes/runtimeFixture.ts": "25cffdfea81cc72eda30634c4783da845ee24d9e4f55e5e53c5f1e65a0e7f936",
+    "tests/u1-company-notes/schema.test.ts": "73a83ccf4c1b99f847744f4fbc55c569b6e1c488dbd77c25eb1369bcc0ac5729",
+    "tests/u1-company-notes/session.integration.test.ts": "216628323f5ff73fd64531b9da63c38aa8c7132ce52358dfe90690400576406b",
+    "tests/u1-company-notes/ui.test.ts": "f618d3d7d5c326b81317a355856ef5f06aaa19ea836712cb2b15449ba183f29e",
+    "tests/u1-company-notes/uiCallbacks.tsx": "8f1a966e2df089d7a906a8b064d502fd2b271bc908ba8cda7b0d5b0ae87ca424",
+    "tests/u1-company-notes/uiCases.tsx": "168562ec9f61f87464915cbfb0bf2e90e54661d325d2dd337322adca6a047848",
+    "tests/u1-company-notes/workspace.test.ts": "f92d21778fceff55015209e96e0c86673611293a3a8811866235953d83638182",
+    "tests/u2-generated-notes/candidate.test.ts": "088117caaa6cd38259822a7ea4b5c8145c6244d5c539471ddbdc9bfd41597942",
+    "tests/u2-generated-notes/clients.test.ts": "5dffc26a0393194c6ef73723bf516c3474ec202f00a1d9c240fdbb9c8a69bd8b",
+    "tests/u2-generated-notes/draft.test.ts": "b60ea56131166b78a603ca341126885aee3bbf532b17d18ea86e9f88ca416475",
+    "tests/u2-generated-notes/fixtures.ts": "2ce73cad6876a5884987e624c47eb0e551c958d8f61ba4c7ff954ed6d615e28a",
+    "tests/u2-generated-notes/generation.integration.test.ts": "8fb0231dde70561ad522580dd06ad0df7b6e696f22aee971c8540c80ef5ed3e2",
+    "tests/u2-generated-notes/generationReceipt.test.ts": "823337f9a0e3accecfe609d8ac55869d9b8869f87cdb6c3324dec3e4faec6420",
+    "tests/u2-generated-notes/providerRequests.test.ts": "45d161d7c4451f53b4bd2d5136d6dc49c4ab3c153410d28fc5a3f169b9f0b857",
+    "tests/u2-generated-notes/routes.test.ts": "3bfcb0f27e91fd2bd77790b72187af7d15f93bc3852bbcb25d9b51ee9054e234",
+    "tests/u2-generated-notes/save.test.ts": "39ab3cc21804676aec8920e11fd717d79178ad4f52857a4f77e64d3860b7c3cb",
+    "tests/u2-generated-notes/ui.test.ts": "87468e87415fb02b21d4ab05bdbe3f358a99e2754ded7fdf51f70db60acbde1f",
+    "tests/u2-generated-notes/uiHarness.tsx": "100faf5383760c1f168e1babc075e0e10db033584dc7ce3a5596d2ae1077f37c",
+    "tests/u3-company-comparison/client.test.ts": "c3f39eb743d82745d00029888505478e529cf22e9f086ddce8639b573ec916ef",
+    "tests/u3-company-comparison/comparison.integration.test.ts": "840bbb371c4fb968c98867b246e029fcaf7708340c66728741923250c423de17",
+    "tests/u3-company-comparison/edits.test.ts": "668c8d3891296c9d51d00303602b6a205e2e49bbc317dbf478f19c02a89c9c43",
+    "tests/u3-company-comparison/export.test.ts": "30e752b71d0a4d5097c4aec0700dbfbaaf6c17350e1f1a5f883356d4f4dfe2a6",
+    "tests/u3-company-comparison/fixtures.ts": "41e2936298877392c9a92cacf972c4e8e423e7f09d73cd2e44b65517be019240",
+    "tests/u3-company-comparison/legacy.test.ts": "8b4b13ee892003a8c1bf570b5353a6ac91b26fe2d6eb57284a80c316360db804",
+    "tests/u3-company-comparison/model.test.ts": "6a30460d893ab5bdc48b70a064e7bcfbe98b206573425b633455f939e6112661",
+    "tests/u3-company-comparison/readiness.test.ts": "269fd03fde25c6b2fc3191d048cba848cad3ed96026e5304e8b3ffe44e7e773a",
+    "tests/u3-company-comparison/session.test.ts": "0ee9f73e5d991d647b13ca0d52238d8425e1486157ed756d80114d3069a71770",
+    "tests/u3-company-comparison/ui.test.ts": "b3d731a4ac7fbfa54664aecf26f0ea6d18b94f51a7801a42d4123b9863aab7f1",
+    "tests/u3-company-comparison/uiHarness.tsx": "b027a67e7fdc24cb7e1e8f73ad24e1ce27435ec398b756c1c1d27d7fa0601e4e",
+    "tests/ui-components.test.ts": "b8926c9654beb107bfc7a9e8c22cf172deca41ac6bda2a4344afd7681d118703",
+    "tests/upload.test.ts": "eba082abf02832ab70b73f560a9a9b2aaa6cb65bbc2af9b0265e008716de5a9e",
+    "tests/webSupplement.test.ts": "741a7770154f0ae55a7645c8966b617aedc5401d93f8b63cd5157de2502a67b4",
+    "tests/webSupplementRoute.test.ts": "1bd6b25d8e0d05f9cb0a3c5ba734ca52d770c7683ee5ee283f95352bf5cb5b0b",
+    "tests/webSupplementServer.test.ts": "fba330bf65093d8c3b272b03dea7bb72dc904a6bbe1a99b1d29d559778c4fd3c",
+    "tsconfig.json": "059267034af01f6f700dc7877a1361f6f901810be64542c02391fb772f4a480b",
+    "vitest.config.ts": "75d093e75cf1c8ee6217ca848ae7653ff26f4e22d846ef4c760b3ca0bfe52fea"
+  },
+  "oldU1Manifest": {
+    "stage": "code-generation",
+    "unit": "u1-company-notes",
+    "version": 1,
+    "writes": [
+      {
+        "path": ".env.example"
+      },
+      {
+        "path": ".github/workflows/ci.yml"
+      },
+      {
+        "path": "app/api/interview-review/route.ts"
+      },
+      {
+        "path": "app/api/ocr/route.ts"
+      },
+      {
+        "path": "app/api/structure/route.ts"
+      },
+      {
+        "path": "app/api/v1/auth/login/route.ts"
+      },
+      {
+        "path": "app/api/v1/auth/logout/route.ts"
+      },
+      {
+        "path": "app/api/v1/auth/session/route.ts"
+      },
+      {
+        "path": "app/api/v1/board/route.ts"
+      },
+      {
+        "path": "app/api/v1/companies/"
+      },
+      {
+        "path": "app/api/v1/comparison-sources/route.ts"
+      },
+      {
+        "path": "app/api/v1/deletion-confirmations/route.ts"
+      },
+      {
+        "path": "app/api/v1/deletions/route.ts"
+      },
+      {
+        "path": "app/api/v1/operations/"
+      },
+      {
+        "path": "app/api/web-supplement/route.ts"
+      },
+      {
+        "path": "app/companies/"
+      },
+      {
+        "path": "app/compare/page.tsx"
+      },
+      {
+        "path": "app/globals.css"
+      },
+      {
+        "path": "app/page.tsx"
+      },
+      {
+        "path": "compose.test.yml"
+      },
+      {
+        "path": "db/migrations/001-company-workspace.sql"
+      },
+      {
+        "path": "docs/company-data-setup.md"
+      },
+      {
+        "path": "eslint.config.mjs"
+      },
+      {
+        "path": "next.config.ts"
+      },
+      {
+        "path": "package-lock.json"
+      },
+      {
+        "path": "package.json"
+      },
+      {
+        "path": "scripts/local-workspace-preview.mjs"
+      },
+      {
+        "path": "scripts/workspace-browser-check.mjs"
+      },
+      {
+        "path": "scripts/workspace-restore-check.mjs"
+      },
+      {
+        "path": "src/components/workspace/CompanyBoard.tsx"
+      },
+      {
+        "path": "src/components/workspace/CompanyDetail.tsx"
+      },
+      {
+        "path": "src/components/workspace/CompanyForm.tsx"
+      },
+      {
+        "path": "src/components/workspace/ConfirmDialog.tsx"
+      },
+      {
+        "path": "src/components/workspace/LoginForm.tsx"
+      },
+      {
+        "path": "src/components/workspace/MemoEditor.tsx"
+      },
+      {
+        "path": "src/components/workspace/WorkspaceHome.tsx"
+      },
+      {
+        "path": "src/components/workspace/WorkspaceShell.tsx"
+      },
+      {
+        "path": "src/components/workspace/useMutation.tsx"
+      },
+      {
+        "path": "src/lib/authClient.ts"
+      },
+      {
+        "path": "src/lib/interviewReviewClient.ts"
+      },
+      {
+        "path": "src/lib/ocrClient.ts"
+      },
+      {
+        "path": "src/lib/server/auth/accessControl.ts"
+      },
+      {
+        "path": "src/lib/server/auth/crypto.ts"
+      },
+      {
+        "path": "src/lib/server/auth/provider.ts"
+      },
+      {
+        "path": "src/lib/server/auth/session.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/database.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/errors.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/generationReceipt.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/http.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/repository.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/requestScope.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/runtime.ts"
+      },
+      {
+        "path": "src/lib/server/workspace/service.ts"
+      },
+      {
+        "path": "src/lib/structureClient.ts"
+      },
+      {
+        "path": "src/lib/webSupplementClient.ts"
+      },
+      {
+        "path": "src/lib/workspace/board.ts"
+      },
+      {
+        "path": "src/lib/workspace/client.ts"
+      },
+      {
+        "path": "src/lib/workspace/contracts.ts"
+      },
+      {
+        "path": "src/lib/workspace/draft.ts"
+      },
+      {
+        "path": "src/lib/workspace/schema.ts"
+      },
+      {
+        "path": "src/lib/workspace/validation.ts"
+      },
+      {
+        "path": "tests/ocrRoute.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/auth.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/authRoutes.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/board.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/client.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/crypto.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/database.integration.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/db/bootstrap.sql"
+      },
+      {
+        "path": "tests/u1-company-notes/draft.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/existingRoutes.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/fixtures.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/generationReceipt.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/helpers.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/hookHarness.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/legacyUiCases.tsx"
+      },
+      {
+        "path": "tests/u1-company-notes/operationalCases.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/providerRegressionCases.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/repository.integration.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/routes.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/runtimeCases.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/runtimeFixture.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/schema.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/session.integration.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/ui.test.ts"
+      },
+      {
+        "path": "tests/u1-company-notes/uiCallbacks.tsx"
+      },
+      {
+        "path": "tests/u1-company-notes/uiCases.tsx"
+      },
+      {
+        "path": "tests/u1-company-notes/workspace.test.ts"
+      },
+      {
+        "path": "tests/webSupplementRoute.test.ts"
+      },
+      {
+        "path": "tsconfig.json"
+      },
+      {
+        "path": "vitest.config.ts"
+      }
+    ]
+  },
+  "oldReviewTsvSha256": "6ffe1769c725b690d44a5bb70ce8987ac49c68b97f97d065313ed3ecc9ecabd3",
+  "u2Expected": "53004538088d1e50f75837cf48ee045f2cd38f5e93eb854a4111258725e06fd8",
+  "u2Actual": "53004538088d1e50f75837cf48ee045f2cd38f5e93eb854a4111258725e06fd8",
+  "u2Files": 41,
+  "u3Expected": "c567f1d4ff8637a9e10d97f133d679aa46eb97801cbe0752c048a3a3c777d5ae",
+  "u3Actual": "c567f1d4ff8637a9e10d97f133d679aa46eb97801cbe0752c048a3a3c777d5ae",
+  "branch": "release/bolt-002-company-data-management-local",
+  "head": "df63c09be502bf5c9e50b58a69e2bacea5c39bc5",
+  "runtime": "v22.23.3\r\n11.6.1",
+  "scope": {
+    "changedApplicationFiles": [
+      "tests/u1-company-notes/routes.test.ts"
+    ],
+    "preserve": [
+      "production",
+      "DB/Auth",
+      "other tests/helpers",
+      "U2/U3",
+      "dependencies/CI/coverage"
+    ],
+    "rootOwned": [
+      "docs/session-handoff.md"
+    ]
+  }
+}

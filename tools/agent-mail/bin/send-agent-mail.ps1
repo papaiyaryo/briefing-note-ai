@@ -34,9 +34,18 @@ $passwordPath = Join-Path $baseDir 'smtp-password.dat'
 $logPath = Join-Path $baseDir 'mail.log'
 
 function Write-AgentMailLog([string]$message) {
-    New-Item -ItemType Directory -Force -Path $baseDir | Out-Null
     # Log only metadata, never the body.
-    Add-Content -Path $logPath -Value ("{0:yyyy-MM-dd HH:mm:ss} {1}" -f (Get-Date), $message) -Encoding utf8
+    $line = "{0:yyyy-MM-dd HH:mm:ss} {1}" -f (Get-Date), $message
+    # Logging is best-effort: sandboxed agents (e.g. CodexSandboxUsers) may only have
+    # read access to $baseDir, and a log failure must not turn a sent mail into an error.
+    foreach ($path in $logPath, (Join-Path ([IO.Path]::GetTempPath()) 'agent-mail.log')) {
+        try {
+            Add-Content -Path $path -Value $line -Encoding utf8 -ErrorAction Stop
+            return
+        }
+        catch { }
+    }
+    Write-Warning "agent-mail: could not write log ($line)"
 }
 
 try {

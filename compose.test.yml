@@ -1,0 +1,18 @@
+name: briefing-note-u1-test
+services:
+  postgres:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_USER: workspace_test_admin
+      POSTGRES_PASSWORD: local-test-only
+      POSTGRES_DB: workspace_test
+    ports:
+      - "127.0.0.1:55432:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U workspace_test_admin -d workspace_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30

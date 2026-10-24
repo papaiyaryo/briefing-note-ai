@@ -114,6 +114,9 @@ export function UploadStep({
         <p className="text-sm text-slate-500">
           紙の企業説明会メモを撮影した画像を複数枚選択できます。
         </p>
+        <p className="text-sm text-slate-600">
+          画像はアプリへ保存しません。外部AIを使う場合は画像が送信され、提供元の保持条件が適用されます。外部でのゼロ保持は保証しません。機微情報を含む画像は送信前に確認してください。
+        </p>
       </div>
       {error && <ErrorNotice>{getUploadErrorMessage(error)}</ErrorNotice>}
       <label htmlFor="memo-image-input" className="sr-only">

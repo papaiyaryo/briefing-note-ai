@@ -2,6 +2,7 @@ import { runDummyOcr } from "../dummyOcr";
 import { getOcrProvider } from "../openai/provider";
 import type { LlmProvider } from "../openai/contracts";
 import type { OcrResult } from "../types";
+import { requestProvider } from "./generation/request";
 import {
   createOpenAiClient,
   getOpenAiTimeoutMs,
@@ -23,6 +24,7 @@ interface OcrEnv {
 interface RunOcrOptions {
   env?: OcrEnv;
   client?: OpenAiResponsesClient;
+  signal?: AbortSignal;
 }
 
 const DEFAULT_OPENAI_OCR_MODEL = "gpt-4.1-mini";
@@ -77,40 +79,35 @@ async function runOpenAiOcr(
   input: OcrInput,
   env: OcrEnv,
   client = createOpenAiClient(env),
+  signal?: AbortSignal,
 ): Promise<OcrResult> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), getOpenAiTimeoutMs(env));
+  const response = await requestProvider(
+    client,
+    {
+      model: env.OPENAI_OCR_MODEL || DEFAULT_OPENAI_OCR_MODEL,
+      input: [
+        {
+          role: "user",
+          content: [
+            { type: "input_text", text: OCR_PROMPT },
+            {
+              type: "input_image",
+              image_url: toDataUrl(input),
+              detail: "high",
+            },
+          ],
+        },
+      ],
+    },
+    { signal, timeoutMs: getOpenAiTimeoutMs(env) },
+  );
 
-  try {
-    const response = await client.createResponse(
-      {
-        model: env.OPENAI_OCR_MODEL || DEFAULT_OPENAI_OCR_MODEL,
-        input: [
-          {
-            role: "user",
-            content: [
-              { type: "input_text", text: OCR_PROMPT },
-              {
-                type: "input_image",
-                image_url: toDataUrl(input),
-                detail: "high",
-              },
-            ],
-          },
-        ],
-      },
-      controller.signal,
-    );
-
-    const text = extractOutputText(response);
-    if (!text) {
-      throw new Error("OpenAI OCR response did not include output text");
-    }
-
-    return { text };
-  } finally {
-    clearTimeout(timer);
+  const text = extractOutputText(response);
+  if (!text) {
+    throw new Error("OpenAI OCR response did not include output text");
   }
+
+  return { text };
 }
 
 export function resolveOcrProvider(env: OcrEnv = process.env): LlmProvider {
@@ -122,6 +119,7 @@ export async function runOcr(
   options: RunOcrOptions = {},
 ): Promise<OcrResult> {
   const env = options.env ?? process.env;
+  options.signal?.throwIfAborted();
   const provider = resolveOcrProvider(env);
 
   if (provider === "dummy") {
@@ -129,5 +127,5 @@ export async function runOcr(
     return { text: result.status === "success" ? result.text : "" };
   }
 
-  return runOpenAiOcr(input, env, options.client);
+  return runOpenAiOcr(input, env, options.client, options.signal);
 }

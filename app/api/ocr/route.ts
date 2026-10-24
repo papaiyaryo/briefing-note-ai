@@ -12,6 +12,10 @@ import { runOcr } from "../../../src/lib/server/ocr";
 import { validateImageFile } from "../../../src/lib/upload";
 
 export const runtime = "nodejs";
+import {
+  guardExisting,
+  type GenerationContext,
+} from "../../../src/lib/server/workspace/http";
 
 function getRequestFile(formData: FormData): File | null {
   const file = formData.get("file");
@@ -23,6 +27,9 @@ function durationSince(startedAt: number): number {
 }
 
 export async function POST(request: Request) {
+  return guardExisting(request, (context) => handle(request, context));
+}
+async function handle(request: Request, context: GenerationContext) {
   const startedAt = performance.now();
   const provider = getOcrProvider();
 
@@ -57,7 +64,11 @@ export async function POST(request: Request) {
     }
 
     const bytes = new Uint8Array(await file.arrayBuffer());
-    const result = await runOcr({ bytes, mimeType: file.type });
+    const result = await runOcr(
+      { bytes, mimeType: file.type },
+      { signal: context.signal },
+    );
+    context.signal.throwIfAborted();
     const body: OcrApiResponse = { text: result.text, provider };
 
     logApiEvent({

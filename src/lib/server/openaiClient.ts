@@ -27,7 +27,7 @@ export const DEFAULT_OPENAI_TIMEOUT_MS = 30_000;
 export function getOpenAiTimeoutMs(env: OpenAiClientEnv = process.env): number {
   const value = Number(env.OPENAI_TIMEOUT_MS);
   return Number.isFinite(value) && value > 0
-    ? value
+    ? Math.min(value, DEFAULT_OPENAI_TIMEOUT_MS)
     : DEFAULT_OPENAI_TIMEOUT_MS;
 }
 

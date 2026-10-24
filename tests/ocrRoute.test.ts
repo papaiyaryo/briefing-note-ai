@@ -1,4 +1,17 @@
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { runtimeFixture } from "./u1-company-notes/runtimeFixture";
+const state = vi.hoisted(() => ({ runtime: null as unknown }));
+vi.mock("../src/lib/server/workspace/runtime", () => ({
+  getWorkspaceRuntime: () => state.runtime,
+}));
+let fixture: Awaited<ReturnType<typeof runtimeFixture>>;
+beforeAll(async () => {
+  fixture = await runtimeFixture();
+  state.runtime = fixture;
+});
+afterAll(async () => {
+  await fixture?.close();
+});
 
 import { POST } from "../app/api/ocr/route";
 import { MAX_IMAGE_SIZE_BYTES } from "../src/lib/upload";
@@ -8,6 +21,7 @@ function createRequest(file: File): Request {
   formData.append("file", file);
   return new Request("http://localhost/api/ocr", {
     method: "POST",
+    headers: { Cookie: fixture.cookie, Origin: "http://localhost" },
     body: formData,
   });
 }

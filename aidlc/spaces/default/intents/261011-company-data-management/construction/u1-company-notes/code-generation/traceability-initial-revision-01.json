@@ -1,0 +1,885 @@
+{
+  "stage": "code-generation",
+  "unit": "u1-company-notes",
+  "upstream_ids": [
+    "AC1.1.1",
+    "AC1.1.2",
+    "AC1.1.3",
+    "AC1.1.4",
+    "AC1.2.1",
+    "AC1.2.2",
+    "AC1.2.3",
+    "AC1.2.4",
+    "AC2.1.1",
+    "AC2.1.2",
+    "AC2.1.3",
+    "AC2.1.4",
+    "AC2.2.1",
+    "AC2.2.2",
+    "AC2.2.3",
+    "AC2.2.4",
+    "AC2.2.5",
+    "AC3.1.1",
+    "AC3.1.2",
+    "AC3.1.3",
+    "AC3.1.4",
+    "AC3.1.5",
+    "AC3.1.6",
+    "AC3.1.7",
+    "AC3.1.8",
+    "AC3.2.1",
+    "AC3.2.2",
+    "AC3.2.3",
+    "AC3.2.4",
+    "AC3.2.5",
+    "AC3.2.6",
+    "AC4.1.1",
+    "AC4.1.2",
+    "AC4.1.3",
+    "AC4.1.4",
+    "AC4.1.5",
+    "AC4.1.6",
+    "AC4.1.7",
+    "AC5.1.1",
+    "AC5.1.2",
+    "AC5.1.3",
+    "AC5.1.4",
+    "AC5.1.5",
+    "AC5.2.1",
+    "AC5.2.2",
+    "AC5.2.3",
+    "AC5.2.4",
+    "AC5.2.5",
+    "AC6.1.1",
+    "AC6.1.2",
+    "AC6.1.3",
+    "AC6.1.4",
+    "AC6.2.1",
+    "AC6.2.2",
+    "AC6.2.3",
+    "AC6.2.4",
+    "AC6.2.5",
+    "AC6.3.1",
+    "AC6.3.2",
+    "AC6.3.3",
+    "AC6.3.4",
+    "AC6.4.1",
+    "AC6.4.2",
+    "AC6.4.3",
+    "AC6.4.4",
+    "AC6.4.5",
+    "AC6.5.1",
+    "AC6.5.2",
+    "AC6.5.3",
+    "AC6.5.4",
+    "AC6.5.5",
+    "AC6.5.6",
+    "AC7.1.1",
+    "AC7.1.2",
+    "AC7.1.3",
+    "AC7.1.4",
+    "AC8.1.1",
+    "AC8.1.2",
+    "AC8.1.3",
+    "AC8.1.4",
+    "AC8.1.5",
+    "AC9.1.1",
+    "AC9.1.2",
+    "AC9.1.3",
+    "AC9.1.4",
+    "AC9.1.5",
+    "AC9.2.1",
+    "AC9.2.2",
+    "AC9.2.3",
+    "AC9.2.4",
+    "BR1.1",
+    "BR1.2",
+    "BR1.3",
+    "BR2.1",
+    "BR2.2",
+    "BR2.3",
+    "BR3.1",
+    "BR3.2",
+    "BR3.3",
+    "BR4.1",
+    "BR4.2",
+    "BR5.1",
+    "BR5.2",
+    "BR6.1",
+    "BR6.2",
+    "BR6.3",
+    "BR6.4",
+    "BR6.5",
+    "BR6.6",
+    "BR6.7",
+    "BR8.1",
+    "BR9.1",
+    "BR10.1",
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR1.6",
+    "NFR1.7",
+    "NFR1.8",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR2.8",
+    "NFR2.9",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4",
+    "NFR7.5",
+    "NFR7.6"
+  ],
+  "coverage": [
+    {
+      "id": "AC1.1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "AC1.1.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "AC1.1.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/draft.test.ts"
+    },
+    {
+      "id": "AC1.1.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "AC1.2.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "AC1.2.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "AC1.2.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC1.2.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC2.1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC2.1.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC2.1.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC2.1.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC2.2.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/schema.test.ts"
+    },
+    {
+      "id": "AC2.2.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC2.2.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/schema.test.ts"
+    },
+    {
+      "id": "AC2.2.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC2.2.5",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC3.1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC3.1.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC3.1.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC3.1.4",
+      "status": "OK",
+      "target": "scripts/workspace-browser-check.mjs"
+    },
+    {
+      "id": "AC3.1.5",
+      "status": "OK",
+      "target": "scripts/workspace-browser-check.mjs"
+    },
+    {
+      "id": "AC3.1.6",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC3.1.7",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC3.1.8",
+      "status": "OK",
+      "target": "scripts/workspace-browser-check.mjs"
+    },
+    {
+      "id": "AC3.2.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC3.2.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/draft.test.ts"
+    },
+    {
+      "id": "AC3.2.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC3.2.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC3.2.5",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC3.2.6",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC4.1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC4.1.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC4.1.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC4.1.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC4.1.5",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC4.1.6",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC4.1.7",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "AC5.1.1",
+      "status": "Deferred",
+      "target": "U2: 画像・OCR訂正・生成確認UIと保存連携。U1の保存責任はBR5.1, BR6.1"
+    },
+    {
+      "id": "AC5.1.2",
+      "status": "Deferred",
+      "target": "U2: 生成UIで選択企業を保持。U1の保存先不変検査はBR5.1"
+    },
+    {
+      "id": "AC5.1.3",
+      "status": "Deferred",
+      "target": "U2: 生成失敗・訂正UI。U1の不正候補拒否はBR5.1"
+    },
+    {
+      "id": "AC5.1.4",
+      "status": "Deferred",
+      "target": "U2: 一時参照解放・画像画面。U1の画像保持欄拒否はBR5.2"
+    },
+    {
+      "id": "AC5.1.5",
+      "status": "Deferred",
+      "target": "U2: 生成保存画面から同じ要求の確認。U1の再送契約はBR6.5"
+    },
+    {
+      "id": "AC5.2.1",
+      "status": "Deferred",
+      "target": "U2: 生成結果の区分、U3: 比較区分。U1の保存・再取得はBR5.1"
+    },
+    {
+      "id": "AC5.2.2",
+      "status": "Deferred",
+      "target": "U2: 原文忠実性の検証。U1は要確認を保持(BR5.1)"
+    },
+    {
+      "id": "AC5.2.3",
+      "status": "Deferred",
+      "target": "U2: 採用出典の受渡し、U3: 出典表示。U1の保存検証はBR5.1"
+    },
+    {
+      "id": "AC5.2.4",
+      "status": "Deferred",
+      "target": "U2: 真の生成出自発行、U3: dummy比較表示。U1は出自検証／保存／再表示(BR5.1)"
+    },
+    {
+      "id": "AC5.2.5",
+      "status": "Deferred",
+      "target": "U2: 外部出力の構造検証。U1は保存前にも検証(BR5.1)"
+    },
+    {
+      "id": "AC6.1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC6.1.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC6.1.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "AC6.1.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC6.2.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC6.2.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/draft.test.ts"
+    },
+    {
+      "id": "AC6.2.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC6.2.4",
+      "status": "OK",
+      "target": "src/components/workspace/CompanyDetail.tsx"
+    },
+    {
+      "id": "AC6.2.5",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC6.3.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.3.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC6.3.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.3.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.4.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.4.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.4.3",
+      "status": "Deferred",
+      "target": "U3: 比較参照無効化の画面。U1は削除と再読取拒否(BR6.7)"
+    },
+    {
+      "id": "AC6.4.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.4.5",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.5.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.5.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.5.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.5.4",
+      "status": "Deferred",
+      "target": "U3: 比較参照無効化・出力停止。U1は対象削除／再読取拒否(BR6.7)"
+    },
+    {
+      "id": "AC6.5.5",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC6.5.6",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "AC7.1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "AC7.1.2",
+      "status": "OK",
+      "target": "src/components/workspace/MemoEditor.tsx"
+    },
+    {
+      "id": "AC7.1.3",
+      "status": "OK",
+      "target": "src/lib/workspace/schema.ts"
+    },
+    {
+      "id": "AC7.1.4",
+      "status": "OK",
+      "target": "src/components/workspace/MemoEditor.tsx"
+    },
+    {
+      "id": "AC8.1.1",
+      "status": "Deferred",
+      "target": "U3: 7観点比較UI。U1の本人・所属・版の参照スナップショットはBR8.1"
+    },
+    {
+      "id": "AC8.1.2",
+      "status": "Deferred",
+      "target": "U3: 選択切替UI。U1の各社1参照と正本分離はBR8.1, BR2.3"
+    },
+    {
+      "id": "AC8.1.3",
+      "status": "Deferred",
+      "target": "U3: 未記載／要確認の比較UI。U1のnull／有効構造の区別はBR8.1, BR6.2"
+    },
+    {
+      "id": "AC8.1.4",
+      "status": "Deferred",
+      "target": "U3: 比較状態と出力停止。U1の不正／他所有者／構造不正拒否はBR1.1, BR8.1"
+    },
+    {
+      "id": "AC8.1.5",
+      "status": "Deferred",
+      "target": "U3: 新旧比較の入口区別。U1は旧保存を変更しない(BR6.7)"
+    },
+    {
+      "id": "AC9.1.1",
+      "status": "OK",
+      "target": "src/components/workspace/MemoEditor.tsx"
+    },
+    {
+      "id": "AC9.1.2",
+      "status": "Deferred",
+      "target": "U3: 同一参照での比較出力と出力前版照合。U1の参照提供はBR8.1"
+    },
+    {
+      "id": "AC9.1.3",
+      "status": "Deferred",
+      "target": "U2: 既存生成・復習の対応出力。U1の認証・入口維持はBR9.1"
+    },
+    {
+      "id": "AC9.1.4",
+      "status": "Deferred",
+      "target": "U3: 無効参照時のファイル生成停止。U1の読取拒否はBR8.1"
+    },
+    {
+      "id": "AC9.1.5",
+      "status": "OK",
+      "target": "src/components/workspace/MemoEditor.tsx"
+    },
+    {
+      "id": "AC9.2.1",
+      "status": "Deferred",
+      "target": "U2: 既存生成から復習の回帰。U1の認証入口はBR9.1"
+    },
+    {
+      "id": "AC9.2.2",
+      "status": "Deferred",
+      "target": "U2: 復習Markdownの対応出力。U1の入口維持はBR9.1"
+    },
+    {
+      "id": "AC9.2.3",
+      "status": "Deferred",
+      "target": "U2: DB復習連携／復習保存を追加しない。U1の共通境界はBR9.1"
+    },
+    {
+      "id": "AC9.2.4",
+      "status": "Deferred",
+      "target": "U2: 復習回帰と範囲外の区別。U1の既存HTTP維持はBR9.1"
+    },
+    {
+      "id": "BR1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "BR1.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/draft.test.ts"
+    },
+    {
+      "id": "BR1.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/authRoutes.test.ts"
+    },
+    {
+      "id": "BR2.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "BR2.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/schema.test.ts"
+    },
+    {
+      "id": "BR2.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "BR3.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "BR3.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "BR3.3",
+      "status": "OK",
+      "target": "scripts/workspace-browser-check.mjs"
+    },
+    {
+      "id": "BR4.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "BR4.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "id": "BR5.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/generationReceipt.test.ts"
+    },
+    {
+      "id": "BR5.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/schema.test.ts"
+    },
+    {
+      "id": "BR6.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "BR6.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "BR6.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/draft.test.ts"
+    },
+    {
+      "id": "BR6.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "BR6.5",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "BR6.6",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "BR6.7",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "BR8.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "BR9.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/existingRoutes.test.ts"
+    },
+    {
+      "id": "BR10.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/routes.test.ts"
+    },
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/authRoutes.test.ts"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/session.integration.test.ts"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "OK",
+      "target": "src/lib/server/workspace/runtime.ts"
+    },
+    {
+      "id": "NFR1.6",
+      "status": "OK",
+      "target": "tests/u1-company-notes/client.test.ts"
+    },
+    {
+      "id": "NFR1.7",
+      "status": "OK",
+      "target": "src/lib/server/workspace/errors.ts"
+    },
+    {
+      "id": "NFR1.8",
+      "status": "OK",
+      "target": "src/lib/server/auth/provider.ts"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/routes.test.ts"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "OK",
+      "target": "tests/u1-company-notes/client.test.ts"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "OK",
+      "target": "docs/company-data-setup.md"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "OK",
+      "target": "scripts/workspace-restore-check.mjs"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "OK",
+      "target": "docs/company-data-setup.md"
+    },
+    {
+      "id": "NFR2.8",
+      "status": "OK",
+      "target": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "id": "NFR2.9",
+      "status": "OK",
+      "target": "tests/u1-company-notes/database.integration.test.ts"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/session.integration.test.ts"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/schema.test.ts"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "tests/u1-company-notes/schema.test.ts"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "src/components/workspace/MemoEditor.tsx"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": ".github/workflows/ci.yml"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "Deferred",
+      "target": "本人担当の実merge SHA・Vercel公開受入は後日。docs/company-data-setup.mdへ引継ぎ。"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "docs/company-data-setup.md"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "OK",
+      "target": "vitest.config.ts"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "Deferred",
+      "target": "外部Auth・pooler・ネットワークを含むp95は本人環境で後日。local参考はtests/u1-company-notes/operationalCases.tsで実測。"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "tests/u1-company-notes/operationalCases.ts"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "Deferred",
+      "target": "実Supabase Free枠・容量/接続budget確認は本人が後日実施。docs/company-data-setup.mdへ引継ぎ。"
+    },
+    {
+      "id": "NFR7.5",
+      "status": "OK",
+      "target": "src/lib/server/workspace/database.ts"
+    },
+    {
+      "id": "NFR7.6",
+      "status": "OK",
+      "target": "tests/u1-company-notes/operationalCases.ts"
+    }
+  ]
+}
+

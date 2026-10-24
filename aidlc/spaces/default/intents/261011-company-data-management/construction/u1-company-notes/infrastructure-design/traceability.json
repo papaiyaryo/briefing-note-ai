@@ -1,0 +1,207 @@
+{
+  "stage": "infrastructure-design",
+  "unit": "u1-company-notes",
+  "upstream_ids": [
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR1.6",
+    "NFR1.7",
+    "NFR1.8",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR2.8",
+    "NFR2.9",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4",
+    "NFR7.5",
+    "NFR7.6"
+  ],
+  "coverage": [
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — owner/RLS/ロール"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — HTTP Origin"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Human Setup Checklist — 本人Auth/Cookie"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — Session"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — DB権限/TLS/Keys"
+    },
+    {
+      "id": "NFR1.6",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — Session/HTTP"
+    },
+    {
+      "id": "NFR1.7",
+      "status": "OK",
+      "target": "monitoring-design.md#Logs & Tracing"
+    },
+    {
+      "id": "NFR1.8",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Infrastructure Services — Supabase Auth"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — DB期限"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Infrastructure Services — PostgreSQL原子性"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Infrastructure Services — write_operations"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "OK",
+      "target": "cicd-pipeline.md#CI Configuration Design — 取消し/応答途絶試験"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Infrastructure Services — 手動backup"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "OK",
+      "target": "cicd-pipeline.md#Rollout & Rollback — 整合復元"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "OK",
+      "target": "cicd-pipeline.md#Rollout & Rollback"
+    },
+    {
+      "id": "NFR2.8",
+      "status": "OK",
+      "target": "monitoring-design.md#Metrics & KPIs — エラー/unknown"
+    },
+    {
+      "id": "NFR2.9",
+      "status": "OK",
+      "target": "cicd-pipeline.md#CI Configuration Design — PostgreSQL17実DB"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — Session共有直列化"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Infrastructure Services — 版/所有者FK"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Deployment — 本文と構造の別正本"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — Keys/出自"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Configuration Boundaries — HTTP安全表示"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Deployment — 本文と構造化正本"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "cicd-pipeline.md#CI Configuration Design — TDD/4検査"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "cicd-pipeline.md#Rollout & Rollback — 実SHA公開受入"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Shared Infrastructure — 単一アプリ"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "OK",
+      "target": "cicd-pipeline.md#CI Configuration Design — coverage>=80/手動"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "OK",
+      "target": "monitoring-design.md#SLIs / SLOs — p95"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Infrastructure Services — 所有者索引"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "monitoring-design.md#Metrics & KPIs — 200MiB"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Human Setup Checklist — Free枠"
+    },
+    {
+      "id": "NFR7.5",
+      "status": "OK",
+      "target": "infrastructure-specification.md#Deployment — pool3/deadline"
+    },
+    {
+      "id": "NFR7.6",
+      "status": "OK",
+      "target": "monitoring-design.md#Metrics & KPIs — 同SHA実測"
+    }
+  ]
+}
+

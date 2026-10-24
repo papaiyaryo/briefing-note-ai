@@ -1,0 +1,218 @@
+{
+  "stage": "nfr-design",
+  "unit": "u3-company-comparison",
+  "upstream_ids": [
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR3.3",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR4.3",
+    "NFR4.4",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR5.3",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4"
+  ],
+  "coverage": [
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "security-design.md — LC2は全候補/比較/欄別更新/照会/出力前読取をC4へ送り、U1が毎回認証・owner・所属を照合",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "security-design.md — LC1はcurrentOwnerとlogin/selection/request/input世代を持つ。失効で表示/要求を無効化し、draft/intentはowner別メモリへ退避。新ownerへ旧応答/入力を渡さない",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "OK",
+      "target": "security-design.md — LC1 storeをブラウザのアプリinstance内だけで生成。server processのsingleton/SSR共有stateを使わず、秘密や保護内容をURL/log/新localStorageへ複写しない",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "OK",
+      "target": "security-design.md — LC2でレスポンスをruntime検証し、全selected順/対象/所属/非空版/構造/出典を照合。更新DTOは欄限定、U1側strict検証も継承",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "OK",
+      "target": "security-design.md — LC2は既存同一Origin/Cookie/private,no-storeを使用。LC6は認証後の明示旧入口のみ。旧記録はアカウント関連付けせずサーバー送信0",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "performance-design.md — LC2: browser15秒、U1 server10秒、DB全体8秒を継承。GETネットワーク/503に500ms後最大1回、比較POST/PATCH自動再送0。UIは有限終了と再取得/操作照会を分ける",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "reliability-design.md — LC2がC3の一貫snapshotを全件検証し、LC1が現選択に対応する場合だけreadyへ。LC3はその1結果から派生",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "OK",
+      "target": "reliability-design.md — LC4はCompany志望度とMemo理由に別draft/baseVersion/保存ボタン/outcomeを持ち、changesを当該欄だけに限定",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "OK",
+      "target": "reliability-design.md — LC4が要求body/operationIdを送信前に固定し、送信中抑止。unknownは手動照会、committedは既結果を保持し読取、unknownは本人が同body/IDを再送",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "OK",
+      "target": "reliability-design.md — LC1がowner/target/field別のdraftとintent/outcomeを保持。LC4表示mountはその投影であり状態生成の起点にしない",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "OK",
+      "target": "reliability-design.md — LC5がowner/selection/input世代と全表示版を固定しC3再読取。全参照company/memo版一致・dirty/pendingなし・現世代時だけLC3の表示snapshotから出力",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "OK",
+      "target": "reliability-design.md — LC1の結果状態、LC4の欄別状態、LC6の旧読取状態を別に持ち、文字と復旧操作を示す",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "OK",
+      "target": "reliability-design.md — LC4はconflict時にbase/draftを保持。latestを別領域に取得し、明示rebaseまでbaseVersionを変えない。新意図には新ID",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "reliability-design.md — LC1の本人/選択/要求世代で遅い応答を棄却。明示再取得と出力前確認で他端末変更を知る",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR3.3",
+      "status": "OK",
+      "target": "reliability-design.md — 選択変更/既知の変更・削除/当画面commitで比較をstale化。削除済み参照を黙って選択から除いて出力しない",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "reliability-design.md — LC3は固定7観点の保存配列だけを使い、未記載/要確認を維持。本文から導出しない",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "reliability-design.md — LC3は紙7区分と採用Webを別projectionに持ち、Web全metadataを表示/出力へ引き継ぐ",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR4.3",
+      "status": "OK",
+      "target": "reliability-design.md — LC3は保存Company名とMemo出自を使い、manual/generated・dummy/openai/nullを区別",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR4.4",
+      "status": "OK",
+      "target": "reliability-design.md — LC3は派生のみ、画像契約/保存なし。LC6は旧形式の正常操作を別入口で維持",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "security-design.md — LC3/画面は値をtextとして表示。Markdown導出は表/改行/HTML風値を安全化。URLは資格情報なし絶対http/httpsだけリンク化",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "logical-components.md — LC1のUI投影をPC table caption/row-column見出しとアクセス可能scroll領域、mobile観点別縦表示へ分け、同じLC3順序/参照/区分を使う",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR5.3",
+      "status": "OK",
+      "target": "logical-components.md — app入口h1だけへfocus、再取得/保存/入力中は維持。欄ごとlabel/status、未保存取消しは起動元と保持入力に戻す",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "observability-design.md — LC2はC4 error requestId/codeと固定operation分類/経過時間、LC1/4は内容なし状態遷移だけを診断に使う。本文/理由/完全body/秘密をconsoleやauditへ出さない",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "observability-design.md — モデル→client/coordinator→UIの適用層ごとにrunner確認後の受入Red→Green→Refactorをコード計画へ記す",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "observability-design.md — 既存lint/typecheck/test/buildと全app/src lines80%以上のCI条件を維持。source manifest/fingerprint/自己差分review/正式reviewで変更を固定",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "OK",
+      "target": "observability-design.md — 純粋モデル/API fake/実PG・HTTP/実DOM・browser/native zoom/性能を別の欄で記録",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "OK",
+      "target": "performance-design.md — LC2のC4 HTTPを代表fixtureで計測。warmup5→2client×各50回、20社比較p95≤2秒、最大/失敗数/fixture bytes/対象SHA/環境を保存",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "scalability-design.md — LC1のselectionを順序付き1企業1メモに制限し、0なら要求なし。LC2/U1で1〜20、文字/code point/bytes/構造/Webの既承認制約を検証",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "scalability-design.md — U1の本人企業全カードと所属概要の既定20/最大100ページを使う。LC1はページの取得状態とnextCursorを企業/owner世代に結ぶ",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "OK",
+      "target": "scalability-design.md — U3は既存Next/DB/poolを共有し、新規永続表/cache/queue/自動課金/登録制限を作らない。操作起点の通信のみ",
+      "note": "U3の具体的設計への対応。実装・受入合格ではない。"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "unit": "u2-generated-notes",
+  "algorithm": "sha256",
+  "method": "sorted path + NUL + sha256 + LF",
+  "hashes": [
+    {
+      "path": "app/api/interview-review/route.ts",
+      "sha256": "cdf9f72ba8665bfcf9384ee302bc42938e52abb9fbc669c7a32df656396d8093",
+      "kind": "modified"
+    },
+    {
+      "path": "app/api/ocr/route.ts",
+      "sha256": "ce9b959c7b363c82f60bb62f2c1a3bb1e9159bf228e9598b1b97759467551bae",
+      "kind": "modified"
+    },
+    {
+      "path": "app/api/structure/route.ts",
+      "sha256": "4dfe86c00f27b20e6f551ad7612b163b0708f09f9f24b58da4c92fb7d2ee5405",
+      "kind": "modified"
+    },
+    {
+      "path": "app/api/web-supplement/route.ts",
+      "sha256": "56de2813cd996b3cc060a1fc6c48023226b88ffc973671c9adde8d445fd5e0fa",
+      "kind": "modified"
+    },
+    {
+      "path": "docs/company-data-setup.md",
+      "sha256": "1cba35a3c15569ea58cd6b97948c10de4b51500dfe96e5f7723370d0a961ef05",
+      "kind": "modified"
+    },
+    {
+      "path": "docs/generated-notes-checks.md",
+      "sha256": "4c11018175bf79ba6547aab37a325ca0ae8f4d39e6dabf6e0b028a5e3dd1a2f7",
+      "kind": "new"
+    },
+    {
+      "path": "scripts/generated-notes-browser-check.mjs",
+      "sha256": "ed56ccb30bab1622aeb30d45b7ed9012dd2eb045dab1fa3bcb0da18fd73b03b0",
+      "kind": "new"
+    },
+    {
+      "path": "src/components/BriefingNoteFlow.tsx",
+      "sha256": "9a6c50250c21cad700d89d4d6e47634f724443dbb57f4839803c18ef8d5ea3f1",
+      "kind": "modified"
+    },
+    {
+      "path": "src/components/generation/GenerationCandidateFields.tsx",
+      "sha256": "dbe181d44f3fde524feab031703378ca1d6d82b8c48d5295cc2ab7fd4621d88b",
+      "kind": "new"
+    },
+    {
+      "path": "src/components/generation/GenerationSavePanel.tsx",
+      "sha256": "679fb63d98f1f6d6ede644adfdc5f67ed2fad184f47dc001e9e0f70576262c98",
+      "kind": "new"
+    },
+    {
+      "path": "src/components/steps/UploadStep.tsx",
+      "sha256": "9a7dd77071ccea54668e223c218cf19bb7e668c91a178a9ff669182fef3de28b",
+      "kind": "modified"
+    },
+    {
+      "path": "src/components/workspace/CompanyDetail.tsx",
+      "sha256": "3732524506f3da8f4c8c5140af3221fb5d1b9e696f171475c86ba29603f296f2",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/generation/candidate.ts",
+      "sha256": "ea8d336a6747b413fedb80940ec99eea9e3eeb69523bafbae3ae7f2b51dda080",
+      "kind": "new"
+    },
+    {
+      "path": "src/lib/generation/draft.ts",
+      "sha256": "7295bd27694d2dd2afb758427260c6c5492a0a334fbea9ee7fb2398c8ec5d739",
+      "kind": "new"
+    },
+    {
+      "path": "src/lib/generation/save.ts",
+      "sha256": "6bb8089dbf994062eed6bcb3ed1c9007e798e4a2f3ec9b8eb4ffdc7ec75bde0f",
+      "kind": "new"
+    },
+    {
+      "path": "src/lib/interviewReviewClient.ts",
+      "sha256": "b9554a64f6880193bbaf971a2b3a53052f301c95b22ad5b5bdc3225d77e705ba",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/ocrClient.ts",
+      "sha256": "87d42379ccda4ec8685f826985c7124bd03277e26d094c2a3eda6520afdafd08",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/openai/contracts.ts",
+      "sha256": "d92539c1256138ebe849df2e9162f0ac1a424b49052e8d7695e451dd434452f5",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/generation/request.ts",
+      "sha256": "f4c577aad49988af6d71d177e77944eeaa7e25644082d7cac93cf3f86b122aee",
+      "kind": "new"
+    },
+    {
+      "path": "src/lib/server/interviewReview.ts",
+      "sha256": "56ff62f57e61a20f6fd5e65bc33c9dc659531cc7a484d67985b1e9d87acc9567",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/ocr.ts",
+      "sha256": "ec73b2e408397a4b339b13fce1bddd426595c7eef12a158bed07d4abfcfefa8b",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/openaiClient.ts",
+      "sha256": "82d765b9b7aaf21f9ac879c815de5d620084fef03dcb6f3cf566902c0aa58a71",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/structure.ts",
+      "sha256": "ebbe9e48f2e5c71a4f71cb0da8a181915dbb0b7de4da2dfd248081824d1654ab",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/webSupplement.ts",
+      "sha256": "06d8d4420b8854fceedf0f7ca20c397ee1640c65907cda44870fd37d1f0868f0",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/workspace/generationReceipt.ts",
+      "sha256": "ad98bdd0e2fecc34f03319b824269ae18530d9c918b7ee2d6fb6b1cd7a7fc910",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/workspace/http.ts",
+      "sha256": "325f252c638dd073730784a33c34517fed951f504918def7a629f342212045f9",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/server/workspace/runtime.ts",
+      "sha256": "4c2c4fb728794348800c6824118d5d11c472d3f46c146814811acaa948a829ba",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/structureClient.ts",
+      "sha256": "c4f1e3ffff6143a54bee15d3c3914325cfbcdf8b8e1c9bfb569ef2528dd72570",
+      "kind": "modified"
+    },
+    {
+      "path": "src/lib/webSupplementClient.ts",
+      "sha256": "efd86827e52865b2cdfb97923f3b15583dbe6cc950f2f2d06c71cb5ffc49052b",
+      "kind": "modified"
+    },
+    {
+      "path": "tests/u1-company-notes/runtimeFixture.ts",
+      "sha256": "25cffdfea81cc72eda30634c4783da845ee24d9e4f55e5e53c5f1e65a0e7f936",
+      "kind": "modified"
+    },
+    {
+      "path": "tests/u2-generated-notes/candidate.test.ts",
+      "sha256": "088117caaa6cd38259822a7ea4b5c8145c6244d5c539471ddbdc9bfd41597942",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/clients.test.ts",
+      "sha256": "5dffc26a0393194c6ef73723bf516c3474ec202f00a1d9c240fdbb9c8a69bd8b",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/draft.test.ts",
+      "sha256": "b60ea56131166b78a603ca341126885aee3bbf532b17d18ea86e9f88ca416475",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/fixtures.ts",
+      "sha256": "2ce73cad6876a5884987e624c47eb0e551c958d8f61ba4c7ff954ed6d615e28a",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/generation.integration.test.ts",
+      "sha256": "8fb0231dde70561ad522580dd06ad0df7b6e696f22aee971c8540c80ef5ed3e2",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "sha256": "823337f9a0e3accecfe609d8ac55869d9b8869f87cdb6c3324dec3e4faec6420",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/providerRequests.test.ts",
+      "sha256": "45d161d7c4451f53b4bd2d5136d6dc49c4ab3c153410d28fc5a3f169b9f0b857",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/routes.test.ts",
+      "sha256": "3bfcb0f27e91fd2bd77790b72187af7d15f93bc3852bbcb25d9b51ee9054e234",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/save.test.ts",
+      "sha256": "39ab3cc21804676aec8920e11fd717d79178ad4f52857a4f77e64d3860b7c3cb",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/ui.test.ts",
+      "sha256": "da4bab7f09601c5f83d27059402eeca8d1557d5f71e5721e1a53b1874a287634",
+      "kind": "new"
+    },
+    {
+      "path": "tests/u2-generated-notes/uiHarness.tsx",
+      "sha256": "cd775b13a6412bdcd41a4d7a6198abf8ab22896559b35091562e726c05b972cc",
+      "kind": "new"
+    }
+  ],
+  "fingerprint": "9ab545c407d7a3405022628ac2f191215cea474f8ee0d44b5ccb92ca209e3478",
+  "unexpectedBaselineChanges": []
+}

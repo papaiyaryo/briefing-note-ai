@@ -1,0 +1,226 @@
+{
+  "stage": "nfr-design",
+  "unit": "u2-generated-notes",
+  "upstream_ids": [
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR4.3",
+    "NFR4.4",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4",
+    "NFR7.5",
+    "NFR7.6",
+    "NFR7.7"
+  ],
+  "coverage": [
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "security-design.md#SD1 — U1本人／Origin検査と世代別応答無効化",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "security-design.md#SD1 — U1本人／Origin検査と世代別応答無効化",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "OK",
+      "target": "security-design.md#SD2 — 検証後の出自証明・既存出典型・安全表示と外部保持境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "OK",
+      "target": "security-design.md#SD1 — U1本人／Origin検査と世代別応答無効化",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "OK",
+      "target": "observability-design.md#OD1 — 最小診断・安全な結果分類・測定境界を明示した記録",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "performance-design.md#PD1 — 有限deadline・取消し・GET限定再試行",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "performance-design.md#PD1 — 有限deadline・取消し・GET限定再試行",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "OK",
+      "target": "reliability-design.md#RD1 — 凍結要求と操作照会・確定状態分離・別正本と版",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "OK",
+      "target": "reliability-design.md#RD1 — 凍結要求と操作照会・確定状態分離・別正本と版",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "OK",
+      "target": "reliability-design.md#RD2 — 入力保持による縮退・U1復旧境界・既存復習回帰",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "OK",
+      "target": "reliability-design.md#RD2 — 入力保持による縮退・U1復旧境界・既存復習回帰",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "OK",
+      "target": "observability-design.md#OD1 — 最小診断・安全な結果分類・測定境界を明示した記録",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "OK",
+      "target": "reliability-design.md#RD1 — 凍結要求と操作照会・確定状態分離・別正本と版",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "reliability-design.md#RD1 — 凍結要求と操作照会・確定状態分離・別正本と版",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "performance-design.md#PD2 — 入力境界検査・画像一時参照と明示解放",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "security-design.md#SD2 — 検証後の出自証明・既存出典型・安全表示と外部保持境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR4.3",
+      "status": "OK",
+      "target": "security-design.md#SD2 — 検証後の出自証明・既存出典型・安全表示と外部保持境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR4.4",
+      "status": "OK",
+      "target": "security-design.md#SD2 — 検証後の出自証明・既存出典型・安全表示と外部保持境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "security-design.md#SD2 — 検証後の出自証明・既存出典型・安全表示と外部保持境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "logical-components.md#LC1 — 既存アプリ部品・TDDと全体coverage・実画面／本人運用境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "reliability-design.md#RD2 — 入力保持による縮退・U1復旧境界・既存復習回帰",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "logical-components.md#LC1 — 既存アプリ部品・TDDと全体coverage・実画面／本人運用境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "logical-components.md#LC1 — 既存アプリ部品・TDDと全体coverage・実画面／本人運用境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "OK",
+      "target": "logical-components.md#LC1 — 既存アプリ部品・TDDと全体coverage・実画面／本人運用境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "OK",
+      "target": "performance-design.md#PD1 — 有限deadline・取消し・GET限定再試行",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "performance-design.md#PD2 — 入力境界検査・画像一時参照と明示解放",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "scalability-design.md#SC1 — 共有保存先・2クライアント整合・容量記録と費用停止条件",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "OK",
+      "target": "scalability-design.md#SC1 — 共有保存先・2クライアント整合・容量記録と費用停止条件",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR7.5",
+      "status": "OK",
+      "target": "scalability-design.md#SC1 — 共有保存先・2クライアント整合・容量記録と費用停止条件",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR7.6",
+      "status": "OK",
+      "target": "observability-design.md#OD1 — 最小診断・安全な結果分類・測定境界を明示した記録",
+      "note": "設計対応。実装／受入合格を示さない"
+    },
+    {
+      "id": "NFR7.7",
+      "status": "OK",
+      "target": "logical-components.md#LC1 — 既存アプリ部品・TDDと全体coverage・実画面／本人運用境界",
+      "note": "設計対応。実装／受入合格を示さない"
+    }
+  ]
+}
+

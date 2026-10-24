@@ -1,9 +1,19 @@
-import { BriefingNoteFlow } from "../src/components/BriefingNoteFlow";
+import { WorkspaceShell } from "../src/components/workspace/WorkspaceShell";
+import { WorkspaceHome } from "../src/components/workspace/WorkspaceHome";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ view?: string }>;
+}) {
+  const query = await searchParams;
   return (
     <main className="min-h-screen px-6 py-10">
-      <BriefingNoteFlow />
+      <WorkspaceShell>
+        <WorkspaceHome
+          view={query.view === "generation" ? "generation" : "board"}
+        />
+      </WorkspaceShell>
     </main>
   );
 }

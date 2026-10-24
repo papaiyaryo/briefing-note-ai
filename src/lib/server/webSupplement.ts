@@ -1,4 +1,5 @@
 import type { ApiErrorCode } from "../openai/contracts";
+import { requestProvider } from "./generation/request";
 import { getWebSupplementProvider } from "../openai/provider";
 import { buildDummyWebSupplement } from "../webSupplement/dummy";
 import {
@@ -31,6 +32,7 @@ interface WebSupplementEnv {
 interface RunWebSupplementOptions {
   env?: WebSupplementEnv;
   client?: OpenAiResponsesClient;
+  signal?: AbortSignal;
 }
 
 export function isWebSupplementEnabled(env: WebSupplementEnv = process.env) {
@@ -74,54 +76,50 @@ async function runOpenAiWebSupplement(
   companyName: string,
   env: WebSupplementEnv,
   client = createOpenAiClient(env),
+  signal?: AbortSignal,
 ): Promise<WebSupplementResult> {
   if (!env.OPENAI_WEB_SUPPLEMENT_MODEL) {
     throw new WebSupplementError("not_configured");
   }
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), getOpenAiTimeoutMs(env));
   const retrievedAt = new Date().toISOString().slice(0, 10);
 
-  try {
-    const response = await client.createResponse(
-      {
-        model: env.OPENAI_WEB_SUPPLEMENT_MODEL,
-        tools: [{ type: "web_search" }],
-        input: [
-          {
-            role: "system",
-            content:
-              "企業の公式サイトや採用サイトを優先して、出典 URL 付きの補足候補だけを JSON で返す。紙メモ由来情報や個人の印象とは混ぜない。不確実情報、非公式情報、信頼度 medium/low は必ず needsVerification を true にする。企業が特定できない場合は items を空配列にする。retrievedAt は YYYY-MM-DD 形式で返す。",
-          },
-          {
-            role: "user",
-            content: JSON.stringify({ companyName, retrievedAt }),
-          },
-        ],
-        text: {
-          format: {
-            type: "json_schema",
-            name: "web_supplement_result",
-            strict: true,
-            schema: webSupplementJsonSchema,
-          },
+  const response = await requestProvider(
+    client,
+    {
+      model: env.OPENAI_WEB_SUPPLEMENT_MODEL,
+      tools: [{ type: "web_search" }],
+      input: [
+        {
+          role: "system",
+          content:
+            "企業の公式サイトや採用サイトを優先して、出典 URL 付きの補足候補だけを JSON で返す。紙メモ由来情報や個人の印象とは混ぜない。不確実情報、非公式情報、信頼度 medium/low は必ず needsVerification を true にする。企業が特定できない場合は items を空配列にする。retrievedAt は YYYY-MM-DD 形式で返す。",
+        },
+        {
+          role: "user",
+          content: JSON.stringify({ companyName, retrievedAt }),
+        },
+      ],
+      text: {
+        format: {
+          type: "json_schema",
+          name: "web_supplement_result",
+          strict: true,
+          schema: webSupplementJsonSchema,
         },
       },
-      controller.signal,
-    );
+    },
+    { signal, timeoutMs: getOpenAiTimeoutMs(env) },
+  );
 
-    const text = extractWebSupplementResponseText(response);
-    if (!text) throw new WebSupplementError("validation_failed");
-    const parsed = validateWebSupplementResult(parseWebSupplementJson(text));
-    if (!parsed.ok) throw new WebSupplementError(parsed.code);
-    if (parsed.result.items.length === 0) {
-      throw new WebSupplementError("company_not_found");
-    }
-    return parsed.result;
-  } finally {
-    clearTimeout(timer);
+  const text = extractWebSupplementResponseText(response);
+  if (!text) throw new WebSupplementError("validation_failed");
+  const parsed = validateWebSupplementResult(parseWebSupplementJson(text));
+  if (!parsed.ok) throw new WebSupplementError(parsed.code);
+  if (parsed.result.items.length === 0) {
+    throw new WebSupplementError("company_not_found");
   }
+  return parsed.result;
 }
 
 export async function runWebSupplement(
@@ -129,6 +127,7 @@ export async function runWebSupplement(
   options: RunWebSupplementOptions = {},
 ): Promise<WebSupplementResult> {
   const env = options.env ?? process.env;
+  options.signal?.throwIfAborted();
 
   if (!isWebSupplementEnabled(env)) {
     throw new WebSupplementError("not_configured");
@@ -137,5 +136,10 @@ export async function runWebSupplement(
   if (getWebSupplementProvider(env as WebSupplementEnv) === "dummy") {
     return buildDummyWebSupplement(companyName);
   }
-  return runOpenAiWebSupplement(companyName, env, options.client);
+  return runOpenAiWebSupplement(
+    companyName,
+    env,
+    options.client,
+    options.signal,
+  );
 }

@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "unit": "u3-company-comparison",
+  "head": "df63c09be502bf5c9e50b58a69e2bacea5c39bc5",
+  "branch": "release/bolt-002-company-data-management-local",
+  "baseline": "source-baseline.json",
+  "algorithm": "sha256; aggregate = sorted path:sha256 joined with LF, no final LF",
+  "fingerprint": "59ededfa48d25cf900ad3bb58ab75db4a827b58f9d8e88c8c03ce3f77b72006f",
+  "files": [
+    {
+      "path": "app/layout.tsx",
+      "sha256": "34e5f420a60ec2f36dcd28538450a0a6b992e85058d22c7acfe58e5922c876ae"
+    },
+    {
+      "path": "app/compare/page.tsx",
+      "sha256": "6f300f9de2ade0625abbca453b2bc697b04b1690755bbd343cdbc0c9113e19c4"
+    },
+    {
+      "path": "src/components/workspace/WorkspaceShell.tsx",
+      "sha256": "82d2edca3d97b1d13e2729233e00d51ae07af5d3561a80762db08803f08f078b"
+    },
+    {
+      "path": "src/components/compare/CompanyComparePage.tsx",
+      "sha256": "bfec053d8c19836b397350796476a0a39f1d348e72f5bf15dfb3bf152fd81fda"
+    },
+    {
+      "path": "src/lib/companyComparison/model.ts",
+      "sha256": "b7773ce7d69b16998a59683f3ccf9c26d8eba1f41f0397edac2e702e277ef881"
+    },
+    {
+      "path": "src/lib/companyComparison/session.ts",
+      "sha256": "dab88db20d4480b344d7984cd8ad070b53db58d621f830750aae03a003d448cc"
+    },
+    {
+      "path": "src/lib/companyComparison/client.ts",
+      "sha256": "5c6e01a6799f77718bc96ec258c8cc8d5cfa4b5ef09ae5e3d61431d1d2e7c563"
+    },
+    {
+      "path": "src/lib/companyComparison/edits.ts",
+      "sha256": "d8f5f7b5ceeefa1b6407b568e9351c19c561992f24fda86ca7e9feb58c2e82ce"
+    },
+    {
+      "path": "src/lib/companyComparison/export.ts",
+      "sha256": "e294f9270d4225424345c440082bc3353201e8616153f056879a0a7ddedcf43d"
+    },
+    {
+      "path": "src/lib/companyComparison/legacy.ts",
+      "sha256": "e3c69f42b48b2a62620b3826f1dcb994c9cbf538d5b00e1318d41cee1145c462"
+    },
+    {
+      "path": "src/components/compare/ComparisonHome.tsx",
+      "sha256": "e08e1e966e8cf5f6f2c5f78532e0c14c679be96465dc765127a629c4b90a0385"
+    },
+    {
+      "path": "src/components/compare/ServerCompanyComparison.tsx",
+      "sha256": "69b4674495e7a59dc01e03a9c89fa3bb2f81bcce35ce23056fdf77ec2aabab1e"
+    },
+    {
+      "path": "src/components/compare/ComparisonTable.tsx",
+      "sha256": "6693a910ba0c26638bcf241af3a9ec0147eb0c37045bf49a0b4ce19da0651aab"
+    },
+    {
+      "path": "src/components/compare/ComparisonFieldEditor.tsx",
+      "sha256": "93f795679822a43cb435f243c8fec036329c3b9b4666c0c35d739a2200e6cf8a"
+    },
+    {
+      "path": "src/components/compare/ComparisonSessionProvider.tsx",
+      "sha256": "5360eb52867c7c47e84aac09de7157b14e92bd509091c002d6c36cb68e438a34"
+    },
+    {
+      "path": "src/components/compare/LegacyComparisonBoundary.tsx",
+      "sha256": "238e2c00f2651fd9ab2b334417496917fc9dfef16759a3973ba49efe73d216d4"
+    },
+    {
+      "path": "tests/u3-company-comparison/readiness.test.ts",
+      "sha256": "269fd03fde25c6b2fc3191d048cba848cad3ed96026e5304e8b3ffe44e7e773a"
+    },
+    {
+      "path": "tests/u3-company-comparison/model.test.ts",
+      "sha256": "6a30460d893ab5bdc48b70a064e7bcfbe98b206573425b633455f939e6112661"
+    },
+    {
+      "path": "tests/u3-company-comparison/session.test.ts",
+      "sha256": "9474d40d17775225e7aab2e4a9ebfa3961725a38ac4ab875bb07ef7e4e0d262a"
+    },
+    {
+      "path": "tests/u3-company-comparison/client.test.ts",
+      "sha256": "c3f39eb743d82745d00029888505478e529cf22e9f086ddce8639b573ec916ef"
+    },
+    {
+      "path": "tests/u3-company-comparison/edits.test.ts",
+      "sha256": "0cbb3f80286371aad29914602f45d132c70f55b862fbf85b560d3b76eee2de2e"
+    },
+    {
+      "path": "tests/u3-company-comparison/export.test.ts",
+      "sha256": "30e752b71d0a4d5097c4aec0700dbfbaaf6c17350e1f1a5f883356d4f4dfe2a6"
+    },
+    {
+      "path": "tests/u3-company-comparison/legacy.test.ts",
+      "sha256": "8b4b13ee892003a8c1bf570b5353a6ac91b26fe2d6eb57284a80c316360db804"
+    },
+    {
+      "path": "tests/u3-company-comparison/ui.test.ts",
+      "sha256": "449a5df24bac4fa360d5b283072667aebb8623fd101499d02a204d432f5f8344"
+    },
+    {
+      "path": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "sha256": "654707f0442790d543fc6529f03f509dc5e9e9716e4d7822284b62fee3de9666"
+    },
+    {
+      "path": "tests/u3-company-comparison/fixtures.ts",
+      "sha256": "41e2936298877392c9a92cacf972c4e8e423e7f09d73cd2e44b65517be019240"
+    },
+    {
+      "path": "tests/u3-company-comparison/uiHarness.tsx",
+      "sha256": "b027a67e7fdc24cb7e1e8f73ad24e1ce27435ec398b756c1c1d27d7fa0601e4e"
+    },
+    {
+      "path": "docs/company-comparison-local.md",
+      "sha256": "8eece9326fd1a14fb83168cba04f4c0ef16101110876dbe507b88fb500ec614b"
+    },
+    {
+      "path": "scripts/check-u3-comparison.mjs",
+      "sha256": "2c257429783e0614201dc54170f217699f30bcfaedff8f9c35ba7e752fd415e3"
+    }
+  ],
+  "resumeBaselineFingerprint": "c567f1d4ff8637a9e10d97f133d679aa46eb97801cbe0752c048a3a3c777d5ae",
+  "resumeChanges": [
+    "docs/company-comparison-local.md",
+    "scripts/check-u3-comparison.mjs"
+  ],
+  "externalBaselineChanges": [
+    "tests/u1-company-notes/routes.test.ts (approved U1 revision2)",
+    "docs/session-handoff.md (root)"
+  ],
+  "cdpRetryBaselineFingerprint": "a56c3783dd915054858aa2f62501da73b82786d01bba63baf6806808a2a69740",
+  "cdpRetryChanges": [
+    "docs/company-comparison-local.md",
+    "scripts/check-u3-comparison.mjs"
+  ],
+  "frozenUnitChecks": {
+    "u1Aggregate": "e1d869dcb42cab9f57ac4bb5475ba5c1f4bf63e7f7bfd69cbb6a8bbf4b40d435",
+    "u1SourceFiles": 96,
+    "u1HashMismatches": 0,
+    "u1Target": "33733741017a5208c0b8e5f0b1cd5d9b98ec00a1f94338905adeacf1474374c5",
+    "u2Aggregate": "9ab545c407d7a3405022628ac2f191215cea474f8ee0d44b5ccb92ca209e3478",
+    "u2SourceFiles": 41,
+    "u2HashMismatches": 0
+  },
+  "revision02BaselineFingerprint": "36a9f6f6cfaf75eeefdb116382f7a0d49ccfebe7436ca55d63421bac39d49d93",
+  "revision02Changes": [
+    "src/lib/companyComparison/session.ts",
+    "src/lib/companyComparison/edits.ts",
+    "src/components/compare/ServerCompanyComparison.tsx",
+    "src/components/compare/ComparisonFieldEditor.tsx",
+    "tests/u3-company-comparison/session.test.ts",
+    "tests/u3-company-comparison/edits.test.ts",
+    "tests/u3-company-comparison/ui.test.ts",
+    "tests/u3-company-comparison/comparison.integration.test.ts"
+  ],
+  "revision02Evidence": {
+    "tdd": "bugfix-evidence-revision-02.md",
+    "verification": "verification-revision-02.md",
+    "manual": "manual-revision-02-root.md",
+    "sourceChangedAfterFinalChecks": false
+  }
+}

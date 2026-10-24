@@ -1,6 +1,10 @@
+import { withGenerationResponse } from "./ocrClient";
+import { isGenerationEnvelope } from "./openai/contracts";
+import { validateInterviewReview } from "./interviewReview/validate";
 import type {
   ApiErrorBody,
   ApiErrorCode,
+  GenerationErrorCode,
   InterviewReviewApiResponse,
 } from "./openai/contracts";
 import type { CompanyMemoStructured } from "./structure/schema";
@@ -25,7 +29,7 @@ const CLIENT_ERROR_MESSAGES: Record<ApiErrorCode, string> = {
 export class InterviewReviewRequestError extends Error {
   constructor(
     message: string,
-    readonly code?: ApiErrorCode,
+    readonly code?: GenerationErrorCode,
   ) {
     super(message);
     this.name = "InterviewReviewRequestError";
@@ -40,9 +44,11 @@ async function toInterviewReviewError(
     const code = body.error?.code;
     if (code) {
       return new InterviewReviewRequestError(
-        CLIENT_ERROR_MESSAGES[code] ??
-          body.error?.message ??
-          FALLBACK_ERROR_MESSAGE,
+        code === "unauthenticated"
+          ? "本人のログインが必要です。"
+          : code === "origin_forbidden"
+            ? "この画面から操作してください。"
+            : (CLIENT_ERROR_MESSAGES[code] ?? FALLBACK_ERROR_MESSAGE),
         code,
       );
     }
@@ -57,12 +63,36 @@ export async function requestInterviewReview(
   webSupplements?: WebSupplementItem[],
   signal?: AbortSignal,
 ): Promise<InterviewReviewApiResponse> {
-  const response = await fetch("/api/interview-review", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ memo, webSupplements }),
-    signal,
-  });
-  if (!response.ok) throw await toInterviewReviewError(response);
-  return response.json() as Promise<InterviewReviewApiResponse>;
+  return withGenerationResponse(
+    "/api/interview-review",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ memo, webSupplements }),
+      signal,
+    },
+    async (response) => {
+      if (!response.ok) throw await toInterviewReviewError(response);
+      const data: unknown = await response.json().catch(() => {
+        throw new InterviewReviewRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      });
+      if (!isGenerationEnvelope(data))
+        throw new InterviewReviewRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      const parsed = validateInterviewReview(
+        (data as Partial<InterviewReviewApiResponse>).review,
+      );
+      if (!parsed.ok)
+        throw new InterviewReviewRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      return { ...data, review: parsed.result };
+    },
+  );
 }

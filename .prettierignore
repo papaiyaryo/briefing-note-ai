@@ -9,6 +9,7 @@ tsconfig.tsbuildinfo
 .github
 .vscode
 .codex
+.claude
 .agents
 aidlc
 AGENTS.md

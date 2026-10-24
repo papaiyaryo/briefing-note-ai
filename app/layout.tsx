@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { ComparisonSessionProvider } from "../src/components/compare/ComparisonSessionProvider";
 
 export const metadata: Metadata = {
   title: "briefing-note-ai",
@@ -16,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        {children}
+        <ComparisonSessionProvider>{children}</ComparisonSessionProvider>
         <Analytics />
       </body>
     </html>

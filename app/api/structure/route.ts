@@ -1,4 +1,9 @@
 import { NextResponse } from "next/server";
+import {
+  guardExisting,
+  type GenerationContext,
+} from "../../../src/lib/server/workspace/http";
+import { validateCompanyMemo } from "../../../src/lib/structure/validate";
 
 import type {
   ApiErrorBody,
@@ -52,6 +57,9 @@ function isStructureRequest(value: unknown): value is StructureApiRequest {
 }
 
 export async function POST(request: Request) {
+  return guardExisting(request, (context) => handle(request, context));
+}
+async function handle(request: Request, context: GenerationContext) {
   let body: unknown;
   try {
     body = await request.json();
@@ -70,8 +78,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const memo = await runStructure(body.ocrText, body.companyEventInfo);
-    return NextResponse.json({ memo, provider });
+    const memo = await runStructure(body.ocrText, body.companyEventInfo, {
+      signal: context.signal,
+    });
+    context.signal.throwIfAborted();
+    if (!validateCompanyMemo(memo).ok)
+      throw new StructureError("validation_failed");
+    const generationReceipt = context.issueGenerationReceipt(provider);
+    return NextResponse.json({ memo, provider, generationReceipt });
   } catch (error) {
     if (error instanceof StructureError) {
       return errorResponse(error.code, 422);

@@ -15,6 +15,10 @@ import {
 } from "../../../src/lib/server/webSupplement";
 
 export const runtime = "nodejs";
+import {
+  guardExisting,
+  type GenerationContext,
+} from "../../../src/lib/server/workspace/http";
 
 function isWebSupplementRequest(
   value: unknown,
@@ -27,6 +31,9 @@ function isWebSupplementRequest(
 }
 
 export async function POST(request: Request) {
+  return guardExisting(request, (context) => handle(request, context));
+}
+async function handle(request: Request, context: GenerationContext) {
   let body: unknown;
   try {
     body = await request.json();
@@ -50,7 +57,10 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await runWebSupplement(body.companyName.trim());
+    const result = await runWebSupplement(body.companyName.trim(), {
+      signal: context.signal,
+    });
+    context.signal.throwIfAborted();
     return NextResponse.json({ result, provider });
   } catch (error) {
     if (error instanceof WebSupplementError) {

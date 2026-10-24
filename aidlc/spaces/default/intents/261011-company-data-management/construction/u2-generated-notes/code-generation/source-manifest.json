@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "stage": "code-generation",
+  "unit": "u2-generated-notes",
+  "writes": [
+    {
+      "path": "app/api/interview-review/route.ts"
+    },
+    {
+      "path": "app/api/ocr/route.ts"
+    },
+    {
+      "path": "app/api/structure/route.ts"
+    },
+    {
+      "path": "app/api/web-supplement/route.ts"
+    },
+    {
+      "path": "docs/company-data-setup.md"
+    },
+    {
+      "path": "docs/generated-notes-checks.md"
+    },
+    {
+      "path": "scripts/generated-notes-browser-check.mjs"
+    },
+    {
+      "path": "src/components/BriefingNoteFlow.tsx"
+    },
+    {
+      "path": "src/components/generation/GenerationCandidateFields.tsx"
+    },
+    {
+      "path": "src/components/generation/GenerationSavePanel.tsx"
+    },
+    {
+      "path": "src/components/steps/UploadStep.tsx"
+    },
+    {
+      "path": "src/components/workspace/CompanyDetail.tsx"
+    },
+    {
+      "path": "src/lib/generation/candidate.ts"
+    },
+    {
+      "path": "src/lib/generation/draft.ts"
+    },
+    {
+      "path": "src/lib/generation/save.ts"
+    },
+    {
+      "path": "src/lib/interviewReviewClient.ts"
+    },
+    {
+      "path": "src/lib/ocrClient.ts"
+    },
+    {
+      "path": "src/lib/openai/contracts.ts"
+    },
+    {
+      "path": "src/lib/server/generation/request.ts"
+    },
+    {
+      "path": "src/lib/server/interviewReview.ts"
+    },
+    {
+      "path": "src/lib/server/ocr.ts"
+    },
+    {
+      "path": "src/lib/server/openaiClient.ts"
+    },
+    {
+      "path": "src/lib/server/structure.ts"
+    },
+    {
+      "path": "src/lib/server/webSupplement.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/generationReceipt.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/http.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/runtime.ts"
+    },
+    {
+      "path": "src/lib/structureClient.ts"
+    },
+    {
+      "path": "src/lib/webSupplementClient.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/runtimeFixture.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/candidate.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/clients.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/draft.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/fixtures.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/generation.integration.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/generationReceipt.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/providerRequests.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/routes.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/save.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/ui.test.ts"
+    },
+    {
+      "path": "tests/u2-generated-notes/uiHarness.tsx"
+    }
+  ]
+}

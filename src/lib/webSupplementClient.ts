@@ -1,6 +1,12 @@
+import { withGenerationResponse } from "./ocrClient";
+import { isGenerationEnvelope } from "./openai/contracts";
+import { validateWebSupplementResult } from "./webSupplement/validate";
+import { isDateOnly, isSafeUrl } from "./workspace/validation";
+import { z } from "zod";
 import type {
   ApiErrorBody,
   ApiErrorCode,
+  GenerationErrorCode,
   WebSupplementApiResponse,
 } from "./openai/contracts";
 import type { CompanyEventInfo, WebSupplementItem } from "./types";
@@ -28,7 +34,7 @@ const CLIENT_ERROR_MESSAGES: Record<ApiErrorCode, string> = {
 export class WebSupplementRequestError extends Error {
   constructor(
     message: string,
-    readonly code?: ApiErrorCode,
+    readonly code?: GenerationErrorCode,
   ) {
     super(message);
     this.name = "WebSupplementRequestError";
@@ -43,9 +49,11 @@ async function toWebSupplementError(
     const code = body.error?.code;
     if (code) {
       return new WebSupplementRequestError(
-        CLIENT_ERROR_MESSAGES[code] ??
-          body.error?.message ??
-          FALLBACK_ERROR_MESSAGE,
+        code === "unauthenticated"
+          ? "本人のログインが必要です。"
+          : code === "origin_forbidden"
+            ? "この画面から操作してください。"
+            : (CLIENT_ERROR_MESSAGES[code] ?? FALLBACK_ERROR_MESSAGE),
         code,
       );
     }
@@ -57,7 +65,7 @@ async function toWebSupplementError(
 
 export async function requestWebSupplement(
   companyName: string,
-  options: { enabled?: boolean } = {},
+  options: { enabled?: boolean; signal?: AbortSignal } = {},
 ): Promise<WebSupplementApiResponse> {
   if (!options.enabled) {
     throw new WebSupplementRequestError(
@@ -66,13 +74,58 @@ export async function requestWebSupplement(
     );
   }
 
-  const response = await fetch("/api/web-supplement", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ companyName }),
-  });
-  if (!response.ok) throw await toWebSupplementError(response);
-  return response.json() as Promise<WebSupplementApiResponse>;
+  return withGenerationResponse(
+    "/api/web-supplement",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ companyName }),
+      signal: options.signal,
+    },
+    async (response) => {
+      if (!response.ok) throw await toWebSupplementError(response);
+      const data: unknown = await response.json().catch(() => {
+        throw new WebSupplementRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      });
+      if (!isGenerationEnvelope(data))
+        throw new WebSupplementRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      const parsed = validateWebSupplementResult(
+        (data as Partial<WebSupplementApiResponse>).result,
+      );
+      if (
+        !parsed.ok ||
+        parsed.result.items.some((item) => !isSafeUrl(item.sourceUrl))
+      )
+        throw new WebSupplementRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      parsed.result.items.forEach((item) =>
+        normalizeRetrievalDate(item.retrievedAt),
+      );
+      return { ...data, result: parsed.result };
+    },
+  );
+}
+
+function normalizeRetrievalDate(value: string) {
+  // A date-only provider value has day precision, not a measured retrieval instant.
+  if (isDateOnly(value)) return `${value}T00:00:00Z`;
+  if (
+    !isDateOnly(value.slice(0, 10)) ||
+    !z.iso.datetime({ offset: true }).safeParse(value).success
+  )
+    throw new WebSupplementRequestError(
+      CLIENT_ERROR_MESSAGES.validation_failed,
+      "validation_failed",
+    );
+  return value;
 }
 
 function confidenceForItem(
@@ -92,7 +145,7 @@ function toClientWebSupplementItems(
     category: item.title,
     content: item.summary,
     sourceUrl: item.sourceUrl,
-    fetchedAt: item.retrievedAt,
+    fetchedAt: normalizeRetrievalDate(item.retrievedAt),
     confidence: confidenceForItem(item),
     status: "pending",
   }));
@@ -101,6 +154,7 @@ function toClientWebSupplementItems(
 export async function requestWebSupplements(
   _ocrText: string,
   companyEventInfo: CompanyEventInfo,
+  signal?: AbortSignal,
 ): Promise<WebSupplementItem[]> {
   const companyName = companyEventInfo.companyName.trim();
   if (!companyName) {
@@ -108,7 +162,10 @@ export async function requestWebSupplements(
   }
 
   try {
-    const response = await requestWebSupplement(companyName, { enabled: true });
+    const response = await requestWebSupplement(companyName, {
+      enabled: true,
+      signal,
+    });
     return toClientWebSupplementItems(response.result);
   } catch (error) {
     if (

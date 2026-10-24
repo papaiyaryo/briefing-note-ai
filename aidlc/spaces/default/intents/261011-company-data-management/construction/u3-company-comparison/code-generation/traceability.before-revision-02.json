@@ -1,0 +1,967 @@
+{
+  "stage": "code-generation",
+  "unit": "u3-company-comparison",
+  "upstream_ids": [
+    "AC1.1.1",
+    "AC1.1.2",
+    "AC1.1.3",
+    "AC1.1.4",
+    "AC1.2.1",
+    "AC1.2.2",
+    "AC1.2.3",
+    "AC1.2.4",
+    "AC2.1.1",
+    "AC2.1.2",
+    "AC2.1.3",
+    "AC2.1.4",
+    "AC2.2.1",
+    "AC2.2.2",
+    "AC2.2.3",
+    "AC2.2.4",
+    "AC2.2.5",
+    "AC3.1.1",
+    "AC3.1.2",
+    "AC3.1.3",
+    "AC3.1.4",
+    "AC3.1.5",
+    "AC3.1.6",
+    "AC3.1.7",
+    "AC3.1.8",
+    "AC3.2.1",
+    "AC3.2.2",
+    "AC3.2.3",
+    "AC3.2.4",
+    "AC3.2.5",
+    "AC3.2.6",
+    "AC4.1.1",
+    "AC4.1.2",
+    "AC4.1.3",
+    "AC4.1.4",
+    "AC4.1.5",
+    "AC4.1.6",
+    "AC4.1.7",
+    "AC5.1.1",
+    "AC5.1.2",
+    "AC5.1.3",
+    "AC5.1.4",
+    "AC5.1.5",
+    "AC5.2.1",
+    "AC5.2.2",
+    "AC5.2.3",
+    "AC5.2.4",
+    "AC5.2.5",
+    "AC6.1.1",
+    "AC6.1.2",
+    "AC6.1.3",
+    "AC6.1.4",
+    "AC6.2.1",
+    "AC6.2.2",
+    "AC6.2.3",
+    "AC6.2.4",
+    "AC6.2.5",
+    "AC6.3.1",
+    "AC6.3.2",
+    "AC6.3.3",
+    "AC6.3.4",
+    "AC6.4.1",
+    "AC6.4.2",
+    "AC6.4.3",
+    "AC6.4.4",
+    "AC6.4.5",
+    "AC6.5.1",
+    "AC6.5.2",
+    "AC6.5.3",
+    "AC6.5.4",
+    "AC6.5.5",
+    "AC6.5.6",
+    "AC7.1.1",
+    "AC7.1.2",
+    "AC7.1.3",
+    "AC7.1.4",
+    "AC8.1.1",
+    "AC8.1.2",
+    "AC8.1.3",
+    "AC8.1.4",
+    "AC8.1.5",
+    "AC9.1.1",
+    "AC9.1.2",
+    "AC9.1.3",
+    "AC9.1.4",
+    "AC9.1.5",
+    "AC9.2.1",
+    "AC9.2.2",
+    "AC9.2.3",
+    "AC9.2.4",
+    "BR1.1",
+    "BR1.2",
+    "BR2.1",
+    "BR2.2",
+    "BR2.3",
+    "BR3.1",
+    "BR3.2",
+    "BR3.3",
+    "BR4.1",
+    "BR4.2",
+    "BR4.3",
+    "BR4.4",
+    "BR5.1",
+    "BR5.2",
+    "BR5.3",
+    "BR6.1",
+    "BR7.1",
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR3.3",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR4.3",
+    "NFR4.4",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR5.3",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4"
+  ],
+  "coverage": [
+    {
+      "id": "AC1.1.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC1.1.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC1.1.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC1.1.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC1.2.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC1.2.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC1.2.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC1.2.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC2.1.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC2.1.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC2.1.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC2.1.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC2.2.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC2.2.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC2.2.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC2.2.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC2.2.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC3.1.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.1.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.1.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.1.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/ui.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC3.1.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/ui.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC3.1.6",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.1.7",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.1.8",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.2.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.2.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.2.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.2.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.2.5",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC3.2.6",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC4.1.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC4.1.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC4.1.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC4.1.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC4.1.5",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC4.1.6",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC4.1.7",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC5.1.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC5.1.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC5.1.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC5.1.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC5.1.5",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC5.2.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC5.2.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC5.2.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC5.2.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC5.2.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.1.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.1.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.1.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.1.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.2.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.2.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.2.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.2.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.2.5",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.3.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.3.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.3.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.3.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.4.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.4.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.4.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.4.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.4.5",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.5.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.5.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.5.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC6.5.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.5.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC6.5.6",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC7.1.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC7.1.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC7.1.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC7.1.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC8.1.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC8.1.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC8.1.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC8.1.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC8.1.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/legacy.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC9.1.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC9.1.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/export.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC9.1.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC9.1.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/export.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC9.1.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/export.test.ts",
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。最新ローカル品質結果はverification-results.md参照。共同AC全体/実Auth/外部の合格ではない。"
+    },
+    {
+      "id": "AC9.2.1",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC9.2.2",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC9.2.3",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "AC9.2.4",
+      "status": "Deferred",
+      "target": "docs/company-comparison-local.md",
+      "note": "U1/U2の主担当または比較以外。凍結済み既知問題と他Unit受入をU3成功へ含めない。"
+    },
+    {
+      "id": "BR1.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/client.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR1.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/session.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR2.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR2.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR2.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/client.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR3.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR3.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR3.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR4.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR4.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR4.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR4.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR5.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/export.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR5.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/export.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR5.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/export.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR6.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/legacy.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "BR7.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/ui.test.ts",
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。"
+    },
+    {
+      "id": "NFR1.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "設計対応: security-design.md — LC2は全候補/比較/欄別更新/照会/出力前読取をC4へ送り、U1が毎回認証・owner・所属を照合。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "設計対応: security-design.md — LC1はcurrentOwnerとlogin/selection/request/input世代を持つ。失効で表示/要求を無効化し、draft/intentはowner別メモリへ退避。新ownerへ旧応答/入力を渡さない。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 実B session/A→B→A browserはsingle-owner構成では未成立。同Aの制御401/明示復旧とは区別して保留。"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "設計対応: security-design.md — LC1 storeをブラウザのアプリinstance内だけで生成。server processのsingleton/SSR共有stateを使わず、秘密や保護内容をURL/log/新localStorageへ複写しない。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "設計対応: security-design.md — LC2でレスポンスをruntime検証し、全selected順/対象/所属/非空版/構造/出典を照合。更新DTOは欄限定、U1側strict検証も継承。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "設計対応: security-design.md — LC2は既存同一Origin/Cookie/private,no-storeを使用。LC6は認証後の明示旧入口のみ。旧記録はアカウント関連付けせずサーバー送信0。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "設計対応: performance-design.md — LC2: browser15秒、U1 server10秒、DB全体8秒を継承。GETネットワーク/503に500ms後最大1回、比較POST/PATCH自動再送0。UIは有限終了と再取得/操作照会を分ける。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "設計対応: reliability-design.md — LC2がC3の一貫snapshotを全件検証し、LC1が現選択に対応する場合だけreadyへ。LC3はその1結果から派生。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "設計対応: reliability-design.md — LC4はCompany志望度とMemo理由に別draft/baseVersion/保存ボタン/outcomeを持ち、changesを当該欄だけに限定。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "設計対応: reliability-design.md — LC4が要求body/operationIdを送信前に固定し、送信中抑止。unknownは手動照会、committedは既結果を保持し読取、unknownは本人が同body/IDを再送。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "設計対応: reliability-design.md — LC1がowner/target/field別のdraftとintent/outcomeを保持。LC4表示mountはその投影であり状態生成の起点にしない。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "設計対応: reliability-design.md — LC5がowner/selection/input世代と全表示版を固定しC3再読取。全参照company/memo版一致・dirty/pendingなし・現世代時だけLC3の表示snapshotから出力。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/edits.test.ts",
+      "note": "設計対応: reliability-design.md — LC1の結果状態、LC4の欄別状態、LC6の旧読取状態を別に持ち、文字と復旧操作を示す。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/session.test.ts",
+      "note": "設計対応: reliability-design.md — LC4はconflict時にbase/draftを保持。latestを別領域に取得し、明示rebaseまでbaseVersionを変えない。新意図には新ID。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/session.test.ts",
+      "note": "設計対応: reliability-design.md — LC1の本人/選択/要求世代で遅い応答を棄却。明示再取得と出力前確認で他端末変更を知る。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR3.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/session.test.ts",
+      "note": "設計対応: reliability-design.md — 選択変更/既知の変更・削除/当画面commitで比較をstale化。削除済み参照を黙って選択から除いて出力しない。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "設計対応: reliability-design.md — LC3は固定7観点の保存配列だけを使い、未記載/要確認を維持。本文から導出しない。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "設計対応: reliability-design.md — LC3は紙7区分と採用Webを別projectionに持ち、Web全metadataを表示/出力へ引き継ぐ。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR4.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "設計対応: reliability-design.md — LC3は保存Company名とMemo出自を使い、manual/generated・dummy/openai/nullを区別。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR4.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/model.test.ts",
+      "note": "設計対応: reliability-design.md — LC3は派生のみ、画像契約/保存なし。LC6は旧形式の正常操作を別入口で維持。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-evidence.md",
+      "note": "設計対応: security-design.md — LC3/画面は値をtextとして表示。Markdown導出は表/改行/HTML風値を安全化。URLは資格情報なし絶対http/httpsだけリンク化。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 今回のlocal実DOM補完はmanual-acceptance-status.md/cdp-retry-evidence.md参照。全幅/native主要操作・安全表示/契約不正URL拒否・実Tab到達/activationを確認。Deferredは全体受入判定の保留でありlocal実証なしを意味しない。"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-evidence.md",
+      "note": "設計対応: logical-components.md — LC1のUI投影をPC table caption/row-column見出しとアクセス可能scroll領域、mobile観点別縦表示へ分け、同じLC3順序/参照/区分を使う。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 今回のlocal実DOM補完はmanual-acceptance-status.md/cdp-retry-evidence.md参照。全幅/native主要操作・安全表示/契約不正URL拒否・実Tab到達/activationを確認。Deferredは全体受入判定の保留でありlocal実証なしを意味しない。"
+    },
+    {
+      "id": "NFR5.3",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-evidence.md",
+      "note": "設計対応: logical-components.md — app入口h1だけへfocus、再取得/保存/入力中は維持。欄ごとlabel/status、未保存取消しは起動元と保持入力に戻す。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 今回のlocal実DOM補完はmanual-acceptance-status.md/cdp-retry-evidence.md参照。全幅/native主要操作・安全表示/契約不正URL拒否・実Tab到達/activationを確認。Deferredは全体受入判定の保留でありlocal実証なしを意味しない。"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+      "note": "設計対応: observability-design.md — LC2はC4 error requestId/codeと固定operation分類/経過時間、LC1/4は内容なし状態遷移だけを診断に使う。本文/理由/完全body/秘密をconsoleやauditへ出さない。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/tdd-evidence.md",
+      "note": "設計対応: observability-design.md — モデル→client/coordinator→UIの適用層ごとにrunner確認後の受入Red→Green→Refactorをコード計画へ記す。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/verification-results.md",
+      "note": "設計対応: observability-design.md — 既存lint/typecheck/test/buildと全app/src lines80%以上のCI条件を維持。source manifest/fingerprint/自己差分review/正式reviewで変更を固定。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-evidence.md",
+      "note": "設計対応: observability-design.md — 純粋モデル/API fake/実PG・HTTP/実DOM・browser/native zoom/性能を別の欄で記録。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-evidence.md",
+      "note": "設計対応: performance-design.md — LC2のC4 HTTPを代表fixtureで計測。warmup5→2client×各50回、20社比較p95≤2秒、最大/失敗数/fixture bytes/対象SHA/環境を保存。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/client.test.ts",
+      "note": "設計対応: scalability-design.md — LC1のselectionを順序付き1企業1メモに制限し、0なら要求なし。LC2/U1で1〜20、文字/code point/bytes/構造/Webの既承認制約を検証。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/client.test.ts",
+      "note": "設計対応: scalability-design.md — U1の本人企業全カードと所属概要の既定20/最大100ページを使う。LC1はページの取得状態とnextCursorを企業/owner世代に結ぶ。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "Deferred",
+      "target": "tests/u3-company-comparison/client.test.ts",
+      "note": "設計対応: scalability-design.md — U3は既存Next/DB/poolを共有し、新規永続表/cache/queue/自動課金/登録制限を作らない。操作起点の通信のみ。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+    }
+  ]
+}

@@ -7,21 +7,32 @@ import {
   COMPARISON_POINTS,
   INTEREST_LEVEL_LABELS,
   type InterestLevel,
-  loadSavedCompanyMemos,
   type SavedCompanyMemo,
   toComparisonMarkdown,
-  updateInterestNote,
 } from "../../lib/comparison";
+import {
+  readLegacy,
+  updateLegacy,
+  type LegacyRead,
+} from "../../lib/companyComparison/legacy";
 import { downloadMarkdownFile } from "../../lib/download";
 
 export function CompanyComparePage() {
   const [memos, setMemos] = useState<SavedCompanyMemo[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [legacy, setLegacy] = useState<LegacyRead | null>(null);
+  const [storageError, setStorageError] = useState("");
 
   useEffect(() => {
-    const loaded = loadSavedCompanyMemos();
-    setMemos(loaded);
-    setSelectedIds(loaded.slice(0, 3).map((item) => item.id));
+    let result: LegacyRead;
+    try {
+      result = readLegacy(window.localStorage);
+    } catch {
+      result = { state: "unavailable", records: [], writable: false };
+    }
+    setLegacy(result);
+    setMemos(result.records);
+    setSelectedIds(result.records.slice(0, 3).map((item) => item.id));
   }, []);
 
   const selectedMemos = useMemo(
@@ -45,11 +56,19 @@ export function CompanyComparePage() {
     memo: SavedCompanyMemo,
     next: Partial<SavedCompanyMemo["interestNote"]>,
   ) => {
-    const updated = updateInterestNote(memo.id, {
-      ...memo.interestNote,
-      ...next,
-    });
-    setMemos(updated);
+    if (!legacy?.writable) return;
+    try {
+      const updated = updateLegacy(window.localStorage, memo.id, {
+        ...memo.interestNote,
+        ...next,
+      });
+      setMemos(updated);
+      setStorageError("");
+    } catch {
+      setStorageError(
+        "旧データの更新に失敗しました。元データを消去・修復していません。",
+      );
+    }
   };
 
   return (
@@ -64,8 +83,20 @@ export function CompanyComparePage() {
       </header>
 
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        {!legacy && <p role="status">旧データを読み込んでいます…</p>}
+        {legacy?.state === "corrupt" && (
+          <p role="alert">
+            旧データに安全に読めない記録があります。表示できる記録を保持し、元データを欠落させる編集・書込を停止しています。自動修復・削除はしません。
+          </p>
+        )}
+        {legacy?.state === "unavailable" && (
+          <p role="alert">
+            旧データを読み取れません。0件とは判断していません。
+          </p>
+        )}
+        {storageError && <p role="alert">{storageError}</p>}
         <h2 className="text-lg font-bold text-slate-900">比較するメモを選択</h2>
-        {memos.length === 0 ? (
+        {legacy?.state === "empty" ? (
           <p className="mt-3 text-sm text-slate-500">
             保存済みメモがありません。Markdown
             編集画面で「比較用に保存」を押してください。
@@ -78,6 +109,7 @@ export function CompanyComparePage() {
                 className="flex gap-3 rounded-lg border border-slate-200 p-3 text-sm"
               >
                 <input
+                  data-testid="legacy-comparison-select"
                   type="checkbox"
                   checked={selectedIds.includes(memo.id)}
                   onChange={() => toggleSelected(memo.id)}
@@ -150,6 +182,8 @@ export function CompanyComparePage() {
                 <label className="mt-3 block text-sm font-medium text-slate-900">
                   志望度
                   <select
+                    data-testid="legacy-comparison-interest"
+                    disabled={!legacy?.writable}
                     value={memo.interestNote.level}
                     onChange={(event) =>
                       changeInterest(memo, {
@@ -170,6 +204,8 @@ export function CompanyComparePage() {
                 <label className="mt-3 block text-sm font-medium text-slate-900">
                   志望度メモ
                   <textarea
+                    data-testid="legacy-comparison-reason"
+                    disabled={!legacy?.writable}
                     value={memo.interestNote.memo}
                     onChange={(event) =>
                       changeInterest(memo, { memo: event.target.value })
@@ -188,6 +224,7 @@ export function CompanyComparePage() {
                 Markdown 出力
               </h2>
               <Button
+                data-testid="legacy-comparison-export"
                 onClick={() =>
                   downloadMarkdownFile(
                     comparisonMarkdown,
@@ -199,6 +236,7 @@ export function CompanyComparePage() {
               </Button>
             </div>
             <textarea
+              data-testid="legacy-comparison-markdown"
               readOnly
               value={comparisonMarkdown}
               className="mt-4 h-72 w-full rounded-lg border border-slate-200 bg-slate-50 p-3 font-mono text-sm"

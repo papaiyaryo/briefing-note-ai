@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+/* アプリのclassだけを走査する。一時browser/cache/記録は監視対象に含めない。 */
+@source "./";
+@source "../src";
 
 * {
   box-sizing: border-box;

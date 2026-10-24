@@ -1,0 +1,19 @@
+{
+  "validator": "local read-only artifact checks",
+  "passed": true,
+  "sourcePaths": 41,
+  "traceIds": 135,
+  "acIds": 90,
+  "brIds": 14,
+  "nfrIds": 31,
+  "checkedLocalLinks": 17,
+  "fingerprint": "53004538088d1e50f75837cf48ee045f2cd38f5e93eb854a4111258725e06fd8",
+  "failures": [],
+  "approvedPlanOnlyCheckboxChanges": true,
+  "unfinishedBeforeFinalBookkeeping": [
+    14,
+    18,
+    20
+  ],
+  "note": "Validated before the final Step20 checkbox; Step14 new Red and Step18 acceptance remain incomplete."
+}

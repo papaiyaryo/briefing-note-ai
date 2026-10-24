@@ -1,0 +1,295 @@
+{
+  "stage": "code-generation",
+  "unit": "u1-company-notes",
+  "version": 1,
+  "writes": [
+    {
+      "path": ".env.example"
+    },
+    {
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "path": "app/api/interview-review/route.ts"
+    },
+    {
+      "path": "app/api/ocr/route.ts"
+    },
+    {
+      "path": "app/api/structure/route.ts"
+    },
+    {
+      "path": "app/api/v1/auth/login/route.ts"
+    },
+    {
+      "path": "app/api/v1/auth/logout/route.ts"
+    },
+    {
+      "path": "app/api/v1/auth/session/route.ts"
+    },
+    {
+      "path": "app/api/v1/board/route.ts"
+    },
+    {
+      "path": "app/api/v1/companies/"
+    },
+    {
+      "path": "app/api/v1/comparison-sources/route.ts"
+    },
+    {
+      "path": "app/api/v1/deletion-confirmations/route.ts"
+    },
+    {
+      "path": "app/api/v1/deletions/route.ts"
+    },
+    {
+      "path": "app/api/v1/operations/"
+    },
+    {
+      "path": "app/api/web-supplement/route.ts"
+    },
+    {
+      "path": "app/companies/"
+    },
+    {
+      "path": "app/compare/page.tsx"
+    },
+    {
+      "path": "app/globals.css"
+    },
+    {
+      "path": "app/page.tsx"
+    },
+    {
+      "path": "compose.test.yml"
+    },
+    {
+      "path": "db/maintenance/reset-restored-sessions.sql"
+    },
+    {
+      "path": "db/migrations/001-company-workspace.sql"
+    },
+    {
+      "path": "docs/company-data-setup.md"
+    },
+    {
+      "path": "eslint.config.mjs"
+    },
+    {
+      "path": "next.config.ts"
+    },
+    {
+      "path": "package-lock.json"
+    },
+    {
+      "path": "package.json"
+    },
+    {
+      "path": "scripts/local-workspace-preview.mjs"
+    },
+    {
+      "path": "scripts/workspace-browser-check.mjs"
+    },
+    {
+      "path": "scripts/workspace-restore-check.mjs"
+    },
+    {
+      "path": "src/components/workspace/CompanyBoard.tsx"
+    },
+    {
+      "path": "src/components/workspace/CompanyDetail.tsx"
+    },
+    {
+      "path": "src/components/workspace/CompanyForm.tsx"
+    },
+    {
+      "path": "src/components/workspace/ConfirmDialog.tsx"
+    },
+    {
+      "path": "src/components/workspace/LoginForm.tsx"
+    },
+    {
+      "path": "src/components/workspace/MemoEditor.tsx"
+    },
+    {
+      "path": "src/components/workspace/WorkspaceHome.tsx"
+    },
+    {
+      "path": "src/components/workspace/WorkspaceShell.tsx"
+    },
+    {
+      "path": "src/components/workspace/useMutation.tsx"
+    },
+    {
+      "path": "src/lib/authClient.ts"
+    },
+    {
+      "path": "src/lib/interviewReviewClient.ts"
+    },
+    {
+      "path": "src/lib/ocrClient.ts"
+    },
+    {
+      "path": "src/lib/server/auth/accessControl.ts"
+    },
+    {
+      "path": "src/lib/server/auth/crypto.ts"
+    },
+    {
+      "path": "src/lib/server/auth/provider.ts"
+    },
+    {
+      "path": "src/lib/server/auth/session.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/database.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/errors.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/generationReceipt.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/http.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/repository.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/requestScope.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/runtime.ts"
+    },
+    {
+      "path": "src/lib/server/workspace/service.ts"
+    },
+    {
+      "path": "src/lib/structureClient.ts"
+    },
+    {
+      "path": "src/lib/webSupplementClient.ts"
+    },
+    {
+      "path": "src/lib/workspace/board.ts"
+    },
+    {
+      "path": "src/lib/workspace/client.ts"
+    },
+    {
+      "path": "src/lib/workspace/contracts.ts"
+    },
+    {
+      "path": "src/lib/workspace/draft.ts"
+    },
+    {
+      "path": "src/lib/workspace/schema.ts"
+    },
+    {
+      "path": "src/lib/workspace/validation.ts"
+    },
+    {
+      "path": "tests/ocrRoute.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/auth.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/authRoutes.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/board.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/client.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/crypto.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/database.integration.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/db/bootstrap.sql"
+    },
+    {
+      "path": "tests/u1-company-notes/draft.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/existingRoutes.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/fixtures.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/generationReceipt.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/helpers.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/fixtureDiagnostics.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/fixtureLifecycle.test.ts"
+    },
+    {
+      "path": "scripts/u1-fixture-diagnostics.mjs"
+    },
+    {
+      "path": "tests/u1-company-notes/hookHarness.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/legacyUiCases.tsx"
+    },
+    {
+      "path": "tests/u1-company-notes/operationalCases.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/providerRegressionCases.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/repository.integration.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/restore.integration.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/routes.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/runtimeCases.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/runtimeFixture.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/schema.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/session.integration.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/ui.test.ts"
+    },
+    {
+      "path": "tests/u1-company-notes/uiCallbacks.tsx"
+    },
+    {
+      "path": "tests/u1-company-notes/uiCases.tsx"
+    },
+    {
+      "path": "tests/u1-company-notes/workspace.test.ts"
+    },
+    {
+      "path": "tests/webSupplementRoute.test.ts"
+    },
+    {
+      "path": "tsconfig.json"
+    },
+    {
+      "path": "vitest.config.ts"
+    }
+  ]
+}

@@ -89,6 +89,18 @@ DECIDED: Official AI-DLC 2.11.0 Codex native runtime; Classic / strict; 1 Intent
 <!-- Format: NEVER [behavior] (affirmed [date]) -->
 <!-- Example: NEVER throw exceptions across service layer boundaries (affirmed 2026-05-17) -->
 
+- NEVER 人間承認・hook信頼・state/audit receiptを偽造/代行したり、承認ガードを無効化して迂回したりする。 (affirmed 2026-10-12)
+
+- NEVER mainに直接pushしたり、AIが最終マージしたり、失敗CIをマージしたりする。 (affirmed 2026-10-12)
+
+- NEVER 成功させるためだけに受入基準やアサーションを弱める。 (affirmed 2026-10-12)
+
+- NEVER .env・秘密情報・hook trust receipts・machine-local paths・実メモ/OCR内容を不必要に記録/コミットする。 (affirmed 2026-10-12)
+
+- NEVER 承認計画に含まれない機能・不具合修正・Express・実外部APIテストを追加する。 (affirmed 2026-10-12)
+
+- NEVER 旧Phase/Issue設計を現在の承認済みIntentの代替にする。 (affirmed 2026-10-12)
+
 ## Mandated
 
 - ALWAYS keep briefing facts, impressions, HR/employee emphasis, questions, ES/interview material, and Web supplements separate. Mark uncertainty as 要確認; do not invent company facts.
@@ -98,7 +110,26 @@ DECIDED: Official AI-DLC 2.11.0 Codex native runtime; Classic / strict; 1 Intent
 <!-- Format: ALWAYS [behavior] (affirmed [date]) -->
 <!-- Example: ALWAYS use Result<T,E> for fallible operations in service layer (affirmed 2026-05-17) -->
 
+- ALWAYS Classic/strictと公式ゲートを使い、実際のInception計画承認とCode Generation Plan Approval後にアプリ実装する。 (affirmed 2026-10-12)
+
+- ALWAYS 1 Intentを1リリースBoltとし、依存Unitsを直列・公式チェックポイント付きで実行する。 (affirmed 2026-10-12)
+
+- ALWAYS 新規・変更する振る舞いと不具合修正を受入基準に対応するRed → Green → Refactorで実装し、runner確認と実行証拠を公式Unit記録に残す。 (affirmed 2026-10-12)
+
+- ALWAYS PR前にlint/typecheck/test/buildと受入基準を検証し、Docker変更時はDockerも確認する。 (affirmed 2026-10-12)
+
+- ALWAYS release/bolt-{number}-{short-description}を使い、日本語PRをBoltごとに1つ作り、CI成功後に人間が最終マージする。 (affirmed 2026-10-12)
+
+- ALWAYS 承認済み要件・設計・範囲・受入基準・検証コマンドの変更は再承認を得る。 (affirmed 2026-10-12)
+
+- ALWAYS 実merge SHAのVercel成功・ページ・health・承認済み利用導線を確認してから次Boltを実装する。 (affirmed 2026-10-12)
+
+- ALWAYS テスト/CIはdummy providersを使い、外部API秘密情報をサーバーに保つ。 (affirmed 2026-10-12)
+
+- ALWAYS 事実・印象・HR/社員強調・質問・ES/面接材料・Web補足を分け、不明情報を要確認とし、Web出典URL/取得日を保持する。 (affirmed 2026-10-12)
+
 ## Corrections
 
 <!-- Project-specific corrections from human feedback. -->
 <!-- Format: NEVER/ALWAYS [behavior] (learned [date]) -->
+- 質問ファイルの回答から、現状調査の重点を企業ごとのメモ保存と選考状況・進行中企業数の可視化に向けたデータ構造へ置いた。既知の細かな不具合は調査結果に記録するが、今回のリリースへの修正採用は推定しない。DB・認証・画面の要件は後のInceptionで確認する。 (learned 2026-10-11) <!-- cid:261011-company-data-management:reverse-engineering:e22bb459455dd178d987a238a9f325bec866c325479ed029a77ebd51b62dc06a -->

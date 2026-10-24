@@ -1,11 +1,28 @@
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { runtimeFixture } from "./u1-company-notes/runtimeFixture";
+const state = vi.hoisted(() => ({ runtime: null as unknown }));
+vi.mock("../src/lib/server/workspace/runtime", () => ({
+  getWorkspaceRuntime: () => state.runtime,
+}));
+let fixture: Awaited<ReturnType<typeof runtimeFixture>>;
+beforeAll(async () => {
+  fixture = await runtimeFixture();
+  state.runtime = fixture;
+});
+afterAll(async () => {
+  await fixture?.close();
+});
 
 import { POST } from "../app/api/web-supplement/route";
 
 function createRequest(body: unknown): Request {
   return new Request("http://localhost/api/web-supplement", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: fixture.cookie,
+      Origin: "http://localhost",
+    },
     body: JSON.stringify(body),
   });
 }

@@ -14,6 +14,10 @@ import {
 } from "../../../src/lib/server/interviewReview";
 
 export const runtime = "nodejs";
+import {
+  guardExisting,
+  type GenerationContext,
+} from "../../../src/lib/server/workspace/http";
 
 const clientWebSupplementSchema = z.object({
   id: z.string().min(1),
@@ -32,6 +36,9 @@ const interviewReviewRequestSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  return guardExisting(request, (context) => handle(request, context));
+}
+async function handle(request: Request, context: GenerationContext) {
   let body: unknown;
   try {
     body = await request.json();
@@ -60,7 +67,9 @@ export async function POST(request: Request) {
       memo,
       adoptedWebSupplements,
       motivationMemo,
+      { signal: context.signal },
     );
+    context.signal.throwIfAborted();
     return NextResponse.json({ review, provider });
   } catch (error) {
     if (error instanceof InterviewReviewError) {

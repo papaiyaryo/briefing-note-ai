@@ -1,6 +1,10 @@
+import { withGenerationResponse } from "./ocrClient";
+import { isGenerationEnvelope } from "./openai/contracts";
+import { validateCompanyMemo } from "./structure/validate";
 import type {
   ApiErrorBody,
   ApiErrorCode,
+  GenerationErrorCode,
   StructureApiRequest,
   StructureApiResponse,
 } from "./openai/contracts";
@@ -24,7 +28,7 @@ const CLIENT_ERROR_MESSAGES: Record<ApiErrorCode, string> = {
 export class StructureRequestError extends Error {
   constructor(
     message: string,
-    readonly code?: ApiErrorCode,
+    readonly code?: GenerationErrorCode,
   ) {
     super(message);
     this.name = "StructureRequestError";
@@ -39,9 +43,11 @@ async function toStructureError(
     const code = body.error?.code;
     if (code) {
       return new StructureRequestError(
-        CLIENT_ERROR_MESSAGES[code] ??
-          body.error?.message ??
-          FALLBACK_ERROR_MESSAGE,
+        code === "unauthenticated"
+          ? "本人のログインが必要です。"
+          : code === "origin_forbidden"
+            ? "この画面から操作してください。"
+            : (CLIENT_ERROR_MESSAGES[code] ?? FALLBACK_ERROR_MESSAGE),
         code,
       );
     }
@@ -54,12 +60,38 @@ async function toStructureError(
 export async function requestStructure(
   ocrText: string,
   companyEventInfo: StructureApiRequest["companyEventInfo"],
+  signal?: AbortSignal,
 ): Promise<StructureApiResponse> {
-  const response = await fetch("/api/structure", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ocrText, companyEventInfo }),
-  });
-  if (!response.ok) throw await toStructureError(response);
-  return response.json() as Promise<StructureApiResponse>;
+  return withGenerationResponse(
+    "/api/structure",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ocrText, companyEventInfo }),
+      signal,
+    },
+    async (response) => {
+      if (!response.ok) throw await toStructureError(response);
+      const data: unknown = await response.json().catch(() => {
+        throw new StructureRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      });
+      if (!isGenerationEnvelope(data))
+        throw new StructureRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      const parsed = validateCompanyMemo(
+        (data as Partial<StructureApiResponse>).memo,
+      );
+      if (!parsed.ok)
+        throw new StructureRequestError(
+          CLIENT_ERROR_MESSAGES.validation_failed,
+          "validation_failed",
+        );
+      return { ...data, memo: parsed.memo };
+    },
+  );
 }

@@ -1,0 +1,206 @@
+{
+  "stage": "nfr-design",
+  "unit": "u1-company-notes",
+  "upstream_ids": [
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR1.6",
+    "NFR1.7",
+    "NFR1.8",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR2.8",
+    "NFR2.9",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4",
+    "NFR7.5",
+    "NFR7.6"
+  ],
+  "coverage": [
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "security-design.md#SD1、SD2 — 本人・対象所有権と保存context"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "security-design.md#SD2 — 同一Origin境界"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "OK",
+      "target": "security-design.md#SD1 — 管理側本人と安全Cookie／token非公開"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "OK",
+      "target": "security-design.md#SD1 — 期限・refresh・logout共有直列化"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "OK",
+      "target": "security-design.md#SD2、SD3 — 最小権限・TLS・秘密暗号化"
+    },
+    {
+      "id": "NFR1.6",
+      "status": "OK",
+      "target": "security-design.md#SD1、performance-design.md#PD3 — 失効cache・要求世代"
+    },
+    {
+      "id": "NFR1.7",
+      "status": "OK",
+      "target": "observability-design.md#OD1 — 最小診断と内容非記録"
+    },
+    {
+      "id": "NFR1.8",
+      "status": "OK",
+      "target": "logical-components.md#Infrastructure Handoff、security-design.md#SD1、SD2 — 選定Auth・保存境界"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "performance-design.md#PD2、reliability-design.md#RD2 — deadline・取消し・接続破棄"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "reliability-design.md#RD1 — 原子的変更／操作結果"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "OK",
+      "target": "reliability-design.md#RD1、RD2 — 同要求再送と結果照合"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "OK",
+      "target": "reliability-design.md#RD2 — unknown・有限再試行"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "OK",
+      "target": "reliability-design.md#RD3 — 本人選択の手動backup"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "OK",
+      "target": "reliability-design.md#RD3 — 一貫復元と架空restore試験"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "OK",
+      "target": "reliability-design.md#RD3 — 明示障害と人間rollback／復旧"
+    },
+    {
+      "id": "NFR2.8",
+      "status": "OK",
+      "target": "reliability-design.md#RD2、observability-design.md#OD1 — 失敗分類と入力保持"
+    },
+    {
+      "id": "NFR2.9",
+      "status": "OK",
+      "target": "logical-components.md#Infrastructure Handoff、reliability-design.md#RD1 — 実transactionと同major試験DB"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "OK",
+      "target": "scalability-design.md#SC1 — 複数実行／クライアントの共有直列化"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "reliability-design.md#RD1 — expectedVersionと削除集合"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "security-design.md#SD4 — 別正本・明示手入力"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "security-design.md#SD3、SD4 — 出自・出典・画像保存欄なし"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "security-design.md#SD4 — 検証上限と安全表示"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "security-design.md#SD4 — 現行構造／本文と対応出力"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "observability-design.md#OD2、security-design.md#SD5 — 受入TDDと全コード検査"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "observability-design.md#OD2 — 実merge SHAの公開受入"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "logical-components.md#Infrastructure Handoff — 既存単一アプリ配置"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "OK",
+      "target": "observability-design.md#OD2 — Vitest／手動／coverage"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "OK",
+      "target": "performance-design.md#PD1、PD3 — 軽量読取と承認計測"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "performance-design.md#PD1、scalability-design.md#SC1 — ページ／限定比較"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "scalability-design.md#SC2 — 全DB容量実測"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "OK",
+      "target": "scalability-design.md#SC2 — 無料枠と本人確認"
+    },
+    {
+      "id": "NFR7.5",
+      "status": "OK",
+      "target": "performance-design.md#PD2、scalability-design.md#SC1 — 接続最大3と期限"
+    },
+    {
+      "id": "NFR7.6",
+      "status": "OK",
+      "target": "observability-design.md#OD2、performance-design.md#PD3 — SHAと性能／容量の記録"
+    }
+  ]
+}

@@ -1,0 +1,953 @@
+{
+  "stage": "code-generation",
+  "unit": "u2-generated-notes",
+  "upstream_ids": [
+    "AC1.1.1",
+    "AC1.1.2",
+    "AC1.1.3",
+    "AC1.1.4",
+    "AC1.2.1",
+    "AC1.2.2",
+    "AC1.2.3",
+    "AC1.2.4",
+    "AC2.1.1",
+    "AC2.1.2",
+    "AC2.1.3",
+    "AC2.1.4",
+    "AC2.2.1",
+    "AC2.2.2",
+    "AC2.2.3",
+    "AC2.2.4",
+    "AC2.2.5",
+    "AC3.1.1",
+    "AC3.1.2",
+    "AC3.1.3",
+    "AC3.1.4",
+    "AC3.1.5",
+    "AC3.1.6",
+    "AC3.1.7",
+    "AC3.1.8",
+    "AC3.2.1",
+    "AC3.2.2",
+    "AC3.2.3",
+    "AC3.2.4",
+    "AC3.2.5",
+    "AC3.2.6",
+    "AC4.1.1",
+    "AC4.1.2",
+    "AC4.1.3",
+    "AC4.1.4",
+    "AC4.1.5",
+    "AC4.1.6",
+    "AC4.1.7",
+    "AC5.1.1",
+    "AC5.1.2",
+    "AC5.1.3",
+    "AC5.1.4",
+    "AC5.1.5",
+    "AC5.2.1",
+    "AC5.2.2",
+    "AC5.2.3",
+    "AC5.2.4",
+    "AC5.2.5",
+    "AC6.1.1",
+    "AC6.1.2",
+    "AC6.1.3",
+    "AC6.1.4",
+    "AC6.2.1",
+    "AC6.2.2",
+    "AC6.2.3",
+    "AC6.2.4",
+    "AC6.2.5",
+    "AC6.3.1",
+    "AC6.3.2",
+    "AC6.3.3",
+    "AC6.3.4",
+    "AC6.4.1",
+    "AC6.4.2",
+    "AC6.4.3",
+    "AC6.4.4",
+    "AC6.4.5",
+    "AC6.5.1",
+    "AC6.5.2",
+    "AC6.5.3",
+    "AC6.5.4",
+    "AC6.5.5",
+    "AC6.5.6",
+    "AC7.1.1",
+    "AC7.1.2",
+    "AC7.1.3",
+    "AC7.1.4",
+    "AC8.1.1",
+    "AC8.1.2",
+    "AC8.1.3",
+    "AC8.1.4",
+    "AC8.1.5",
+    "AC9.1.1",
+    "AC9.1.2",
+    "AC9.1.3",
+    "AC9.1.4",
+    "AC9.1.5",
+    "AC9.2.1",
+    "AC9.2.2",
+    "AC9.2.3",
+    "AC9.2.4",
+    "BR1.1",
+    "BR1.2",
+    "BR2.1",
+    "BR2.2",
+    "BR2.3",
+    "BR3.1",
+    "BR3.2",
+    "BR3.3",
+    "BR3.4",
+    "BR4.1",
+    "BR4.2",
+    "BR4.3",
+    "BR5.1",
+    "BR5.2",
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR4.3",
+    "NFR4.4",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4",
+    "NFR7.5",
+    "NFR7.6",
+    "NFR7.7"
+  ],
+  "coverage": [
+    {
+      "id": "AC1.1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "本attemptのStep1–2でU2全140/140・生成回帰82/82成功。2026-10-24の全体635/635とcoverage635/635も成功。GUIの追加結果はgui-recheck-after-approval-20261023.md、実Auth・実DOM・全体受入は別。"
+    },
+    {
+      "id": "AC1.1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC1.1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC1.1.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC1.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC1.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC1.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC1.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC2.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.7",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.8",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.7",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC5.1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.1.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.1.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC5.2.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.2.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.3.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.3.2",
+      "status": "Deferred",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U1の入力保持修正は実装済み。追加診断では入力保持の元assertion成立後のcleanup timeoutが観測されたが原因とcleanup完了は未確認で、本人指示により追加調査を保留しU1はset-aside。U2の保存後OCR/復習往復は未確認で共同受入Deferredを維持。"
+    },
+    {
+      "id": "AC6.3.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.3.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC6.4.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.1",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.2",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.3",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.4",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.1",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.2",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.3",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.4",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.5",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC9.1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC9.1.2",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC9.1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC9.1.4",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC9.1.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC9.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC9.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC9.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "AC9.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+    },
+    {
+      "id": "BR1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR4.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR4.2",
+      "status": "Deferred",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "既存U2 callback回帰が保存後編集と元memoへのdraft引渡しを確認する。今回の実DOMで保存後往復・同memoId/件数1は未確認。U1追加診断の保留を共同受入合格にしない。"
+    },
+    {
+      "id": "BR4.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR5.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR5.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/providerRequests.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/save.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "復元session除去のU1実装は維持する。U1追加調査は本人指示で保留、直近のU2全suite/coverageは成功したが原因・cleanup完了は未確認。U2の実Auth/Supabase復元受入を達成したとはせずDeferred。"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "保存意図を候補寿命へ結合する既存8回帰を本attemptで再検証。今回新規8件ではない。U2実DOMの保存後往復は未確認で共同受入を保留。"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/clients.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/providerRequests.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u2-generated-notes/code-generation/gui-recheck-after-approval-20261023.md",
+      "note": "gui-recheck-after-approval-20261023.mdに全追加確認を記録。初回2区間で画像選択/OCR/生成まで観察したが寿命終了で保存後往復は未確認。2026-10-24の再開ではブラウザ接続切断とWindows操作起動失敗で未確認。native200%/400%、各幅/keyboard等の合格にしない。"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/providerRequests.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "2026-10-24のlint/typecheck、全体635/635、coverage635/635・lines85.95%、build18/18、diffはexit0。gui-recheck-after-approval-20261023.md参照。過去の失敗と区別し、実CI job未確認のDeferredを維持。"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "ローカルadapter参考値を記録。実HTTP/実Supabase/実ネットワークp95目標は未確認。"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "docs/generated-notes-checks.md",
+      "note": "代表量・warmup/2clientの既存試験を今回の全suiteが含む。以前の容量/p95参考測定は履歴としてverification-results.mdに保持し、実HTTP/外部環境の性能達成とはしない。"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR7.5",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "新有料機能なし。実Supabase Free枠・実設定成立は本人確認待ち。"
+    },
+    {
+      "id": "NFR7.6",
+      "status": "OK",
+      "target": "docs/generated-notes-checks.md",
+      "note": "代表量・warmup/2clientの既存試験を今回の全suiteが含む。以前の容量/p95参考測定は履歴としてverification-results.mdに保持し、実HTTP/外部環境の性能達成とはしない。"
+    },
+    {
+      "id": "NFR7.7",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    }
+  ]
+}

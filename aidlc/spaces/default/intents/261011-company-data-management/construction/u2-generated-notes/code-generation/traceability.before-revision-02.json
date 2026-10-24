@@ -1,0 +1,953 @@
+{
+  "stage": "code-generation",
+  "unit": "u2-generated-notes",
+  "upstream_ids": [
+    "AC1.1.1",
+    "AC1.1.2",
+    "AC1.1.3",
+    "AC1.1.4",
+    "AC1.2.1",
+    "AC1.2.2",
+    "AC1.2.3",
+    "AC1.2.4",
+    "AC2.1.1",
+    "AC2.1.2",
+    "AC2.1.3",
+    "AC2.1.4",
+    "AC2.2.1",
+    "AC2.2.2",
+    "AC2.2.3",
+    "AC2.2.4",
+    "AC2.2.5",
+    "AC3.1.1",
+    "AC3.1.2",
+    "AC3.1.3",
+    "AC3.1.4",
+    "AC3.1.5",
+    "AC3.1.6",
+    "AC3.1.7",
+    "AC3.1.8",
+    "AC3.2.1",
+    "AC3.2.2",
+    "AC3.2.3",
+    "AC3.2.4",
+    "AC3.2.5",
+    "AC3.2.6",
+    "AC4.1.1",
+    "AC4.1.2",
+    "AC4.1.3",
+    "AC4.1.4",
+    "AC4.1.5",
+    "AC4.1.6",
+    "AC4.1.7",
+    "AC5.1.1",
+    "AC5.1.2",
+    "AC5.1.3",
+    "AC5.1.4",
+    "AC5.1.5",
+    "AC5.2.1",
+    "AC5.2.2",
+    "AC5.2.3",
+    "AC5.2.4",
+    "AC5.2.5",
+    "AC6.1.1",
+    "AC6.1.2",
+    "AC6.1.3",
+    "AC6.1.4",
+    "AC6.2.1",
+    "AC6.2.2",
+    "AC6.2.3",
+    "AC6.2.4",
+    "AC6.2.5",
+    "AC6.3.1",
+    "AC6.3.2",
+    "AC6.3.3",
+    "AC6.3.4",
+    "AC6.4.1",
+    "AC6.4.2",
+    "AC6.4.3",
+    "AC6.4.4",
+    "AC6.4.5",
+    "AC6.5.1",
+    "AC6.5.2",
+    "AC6.5.3",
+    "AC6.5.4",
+    "AC6.5.5",
+    "AC6.5.6",
+    "AC7.1.1",
+    "AC7.1.2",
+    "AC7.1.3",
+    "AC7.1.4",
+    "AC8.1.1",
+    "AC8.1.2",
+    "AC8.1.3",
+    "AC8.1.4",
+    "AC8.1.5",
+    "AC9.1.1",
+    "AC9.1.2",
+    "AC9.1.3",
+    "AC9.1.4",
+    "AC9.1.5",
+    "AC9.2.1",
+    "AC9.2.2",
+    "AC9.2.3",
+    "AC9.2.4",
+    "BR1.1",
+    "BR1.2",
+    "BR2.1",
+    "BR2.2",
+    "BR2.3",
+    "BR3.1",
+    "BR3.2",
+    "BR3.3",
+    "BR3.4",
+    "BR4.1",
+    "BR4.2",
+    "BR4.3",
+    "BR5.1",
+    "BR5.2",
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR2.4",
+    "NFR2.5",
+    "NFR2.6",
+    "NFR2.7",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR4.3",
+    "NFR4.4",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR6.4",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4",
+    "NFR7.5",
+    "NFR7.6",
+    "NFR7.7"
+  ],
+  "coverage": [
+    {
+      "id": "AC1.1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC1.1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC1.1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC1.1.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC1.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC1.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC1.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC1.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC2.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC2.2.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.7",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.1.8",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC3.2.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC4.1.7",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC5.1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.1.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.1.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC5.2.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.1.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.1.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.1.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.1.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.2.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.3.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.3.2",
+      "status": "Deferred",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2生成draftは保持するが、U1既知の競合後draft破棄は未修正。共同受入は保留。"
+    },
+    {
+      "id": "AC6.3.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.3.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC6.4.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.4.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.1",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.2",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.3",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.4",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.5",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC6.5.6",
+      "status": "Deferred",
+      "target": "U1の企業管理担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.1",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.2",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.3",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC7.1.4",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.1",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.2",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.3",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.4",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC8.1.5",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC9.1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC9.1.2",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC9.1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC9.1.4",
+      "status": "Deferred",
+      "target": "U1/U3の保存編集・比較担当",
+      "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+    },
+    {
+      "id": "AC9.1.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC9.2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC9.2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC9.2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "AC9.2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2の実装/ローカルdummy・Node試験の対応。実DOMはmanual-evidence.mdを別参照。実Auth・実外部・全体受入の達成宣言ではない。"
+    },
+    {
+      "id": "BR1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR3.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR4.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR4.2",
+      "status": "Deferred",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "同じ保存メモへ接続する。U1競合後draft保持の未修正部分を全体合格とは扱わない。"
+    },
+    {
+      "id": "BR4.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR5.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "BR5.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "対象実装はcode-summary.mdの部品対応を参照。実Red/Green/Refactorはtdd-evidence.md。"
+    },
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR1.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/routes.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/providerRequests.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/save.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.5",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR2.6",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "U1のsnapshot復元による失効session復活問題が未修正。復元成功を再認証安全性としない。"
+    },
+    {
+      "id": "NFR2.7",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "U1の競合後draft破棄が未修正。保存後共同編集受入を保留。"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/clients.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR4.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/providerRequests.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "Deferred",
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u2-generated-notes/code-generation/manual-evidence.md",
+      "note": "実画面34確認中33成功/exit1。native200%は倍率実測のみで生成入口label未到達。拡大条件全体は未達。"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/ui.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/providerRequests.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR6.4",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "ローカル全体検査結果はverification-results.mdへ。実CI job成功は未確認。"
+    },
+    {
+      "id": "NFR7.1",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "ローカルadapter参考値を記録。実HTTP/実Supabase/実ネットワークp95目標は未確認。"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/candidate.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "docs/generated-notes-checks.md",
+      "note": "既存U1実PG代表量/warmup5/2client各50回を全suiteで再実行。容量・p95/最大/失敗数はverification-results.md。adapter参考で外部HTTP達成とは区別。"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generation.integration.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    },
+    {
+      "id": "NFR7.5",
+      "status": "Deferred",
+      "target": "docs/generated-notes-checks.md",
+      "note": "新有料機能なし。実Supabase Free枠・実設定成立は本人確認待ち。"
+    },
+    {
+      "id": "NFR7.6",
+      "status": "OK",
+      "target": "docs/generated-notes-checks.md",
+      "note": "既存U1実PG代表量/warmup5/2client各50回を全suiteで再実行。容量・p95/最大/失敗数はverification-results.md。adapter参考で外部HTTP達成とは区別。"
+    },
+    {
+      "id": "NFR7.7",
+      "status": "OK",
+      "target": "tests/u2-generated-notes/generationReceipt.test.ts",
+      "note": "U2実装/ローカル検証の対応。code-summary.mdとverification-results.mdの測定範囲・制限を維持。"
+    }
+  ]
+}
