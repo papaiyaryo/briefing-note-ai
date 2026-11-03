@@ -10,6 +10,7 @@ import { WorkspaceRepository } from "./repository";
 import { CompanyWorkspace } from "./service";
 import { WorkspaceError } from "./errors";
 import { issueGenerationReceipt } from "./generationReceipt";
+import { logServerEvent } from "../log";
 
 export interface WorkspaceRuntime {
   auth: AccessControl;
@@ -22,14 +23,26 @@ export interface WorkspaceRuntime {
 }
 const loopback = (host: string) =>
   ["localhost", "127.0.0.1", "[::1]"].includes(host);
+// 失敗理由は「変数名:種類」だけにし、設定値そのものはログへ出さない。
+const invalid = (name: string, kind = "invalid") =>
+  new WorkspaceError("unavailable", undefined, `${name}:${kind}`);
 function required(name: string) {
   const value = process.env[name];
-  if (!value) throw new WorkspaceError("unavailable");
+  if (!value) throw invalid(name, "missing");
   return value;
 }
-function keyRing(name: string): KeyRing {
+function parsedUrl(name: string) {
+  const value = required(name);
   try {
-    const raw = JSON.parse(required(name)) as {
+    return { value, url: new URL(value) };
+  } catch {
+    throw invalid(name);
+  }
+}
+function keyRing(name: string): KeyRing {
+  const value = required(name);
+  try {
+    const raw = JSON.parse(value) as {
       active: string;
       keys: Record<string, string>;
     };
@@ -46,7 +59,7 @@ function keyRing(name: string): KeyRing {
     assertKeyRing(ring);
     return ring;
   } catch {
-    throw new WorkspaceError("unavailable");
+    throw invalid(name);
   }
 }
 class LocalIdentity implements IdentityProvider {
@@ -85,8 +98,7 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
   if (runtime) return runtime;
   try {
     const production = process.env.NODE_ENV === "production";
-    const origin = required("WORKSPACE_ORIGIN"),
-      url = new URL(origin);
+    const { value: origin, url } = parsedUrl("WORKSPACE_ORIGIN");
     if (
       url.origin !== origin ||
       url.username ||
@@ -94,19 +106,23 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
       (!production && !["http:", "https:"].includes(url.protocol)) ||
       (production && url.protocol !== "https:")
     )
-      throw new Error();
-    const allowedUserId = idSchema.parse(required("WORKSPACE_ALLOWED_USER_ID"));
-    const databaseUrl = new URL(required("WORKSPACE_DATABASE_URL"));
+      throw invalid("WORKSPACE_ORIGIN");
+    const allowedUserId = idSchema.safeParse(
+      required("WORKSPACE_ALLOWED_USER_ID"),
+    );
+    if (!allowedUserId.success) throw invalid("WORKSPACE_ALLOWED_USER_ID");
+    const { url: databaseUrl } = parsedUrl("WORKSPACE_DATABASE_URL");
+    if (!["postgres:", "postgresql:"].includes(databaseUrl.protocol))
+      throw invalid("WORKSPACE_DATABASE_URL");
     if (
-      !["postgres:", "postgresql:"].includes(databaseUrl.protocol) ||
       [...databaseUrl.searchParams.keys()].some((key) =>
         key.toLowerCase().startsWith("ssl"),
       )
     )
-      throw new Error();
+      throw invalid("WORKSPACE_DATABASE_URL", "ssl_param");
     const local = process.env.WORKSPACE_DB_ALLOW_LOCAL === "true";
     if (local && (production || !loopback(databaseUrl.hostname)))
-      throw new Error();
+      throw invalid("WORKSPACE_DB_ALLOW_LOCAL");
     const ssl = local
       ? undefined
       : {
@@ -121,7 +137,7 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
         Object.values(receiptKeys.keys).some((b) => a.equals(b)),
       )
     )
-      throw new Error();
+      throw invalid("WORKSPACE_RECEIPT_KEYS", "shared_key");
     let provider: IdentityProvider;
     if (process.env.WORKSPACE_AUTH_MODE === "dummy") {
       if (
@@ -130,9 +146,9 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
         !loopback(url.hostname) ||
         !local
       )
-        throw new Error();
+        throw invalid("WORKSPACE_AUTH_MODE");
       provider = new LocalIdentity(
-        allowedUserId,
+        allowedUserId.data,
         required("WORKSPACE_DUMMY_PASSWORD"),
       );
     } else if (
@@ -143,7 +159,10 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
         required("SUPABASE_URL"),
         required("SUPABASE_PUBLISHABLE_KEY"),
       );
-    else throw new Error();
+    else throw invalid("WORKSPACE_AUTH_MODE");
+    const schema = required("WORKSPACE_DB_SCHEMA");
+    if (!/^[a-z][a-z0-9_]{0,62}$/.test(schema))
+      throw invalid("WORKSPACE_DB_SCHEMA");
     const database = new WorkspaceDatabase({
       pool: new Pool({
         connectionString: databaseUrl.toString(),
@@ -152,7 +171,7 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
         connectionTimeoutMillis: 8000,
         idleTimeoutMillis: 10000,
       }),
-      schema: required("WORKSPACE_DB_SCHEMA"),
+      schema,
     });
     const cursorKey = createHmac("sha256", receiptKeys.keys[receiptKeys.active])
       .update("workspace-cursor:v1")
@@ -160,7 +179,7 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
     const repo = new WorkspaceRepository(database, cursorKey);
     runtime = {
       auth: new AccessControl(new SessionStore(database), provider, keys, {
-        allowedUserId,
+        allowedUserId: allowedUserId.data,
         origin,
         production,
       }),
@@ -170,7 +189,13 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
         issueGenerationReceipt(userId, providerOrigin, receiptKeys),
     };
     return runtime;
-  } catch {
-    throw new WorkspaceError("unavailable");
+  } catch (error) {
+    const reason =
+      (error instanceof WorkspaceError && error.reason) || "unknown";
+    logServerEvent("error", "workspace.runtime_unavailable", {
+      code: "unavailable",
+      reason,
+    });
+    throw new WorkspaceError("unavailable", undefined, reason);
   }
 }

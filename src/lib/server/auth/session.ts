@@ -41,13 +41,17 @@ export class SessionStore {
         [hash],
       );
       const row = result.rows[0];
-      if (
-        !row ||
-        row.revoked_at ||
-        new Date(row.absolute_expires_at).getTime() <= Date.now() ||
-        new Date(row.last_used_at).getTime() + 86400000 <= Date.now()
-      )
-        throw new WorkspaceError("unauthenticated");
+      const reason = !row
+        ? "session_not_found"
+        : row.revoked_at
+          ? "session_revoked"
+          : new Date(row.absolute_expires_at).getTime() <= Date.now()
+            ? "session_expired"
+            : new Date(row.last_used_at).getTime() + 86400000 <= Date.now()
+              ? "session_idle"
+              : null;
+      if (reason)
+        throw new WorkspaceError("unauthenticated", undefined, reason);
       return body(
         {
           sessionHash: row.session_hash,
