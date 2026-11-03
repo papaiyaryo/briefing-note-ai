@@ -27,6 +27,8 @@ description: 人間の承認・判断が必要な作業の直前に、ユーザ�
    pwsh -NoProfile -File "$HOME\.agent-mail\bin\send-agent-mail.ps1" -Subject "承認待ち: <プロジェクト名> - <要点>" -Body "<本文>"
    ```
 
+   Windows の Codex では、AI-DLC の承認ゲートを含め、この送信コマンドだけを `exec_command` の `sandbox_permissions: "require_escalated"` で実行する。サンドボックス内では Windows TLS が `Authentication failed` / `セキュリティ パッケージで利用できる資格情報がありません` で失敗することがあるため、最初からこの指定を使う。`justification` は通知メール送信の目的を書く。SMTP パスワードを変更したり、他の作業の権限を広げたりしない。権限昇格を申請するためのメールを再帰的に送らない。昇格が拒否された場合は送信失敗として下記の手順に従い、承認依頼を続ける。
+
    本文には次を入れる:
    - プロジェクト（作業ディレクトリ名）とブランチ
    - 使用中のエージェント（Claude Code / Codex）
