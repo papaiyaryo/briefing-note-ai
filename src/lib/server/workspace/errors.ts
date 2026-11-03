@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { ContractError, ErrorCode } from "../../workspace/contracts";
+import { logServerEvent } from "../log";
 
 const messages: Record<ErrorCode, string> = {
   invalid_input: "入力内容を確認してください。",
@@ -21,6 +22,8 @@ export class WorkspaceError extends Error {
   constructor(
     readonly code: ErrorCode,
     readonly fields?: Record<string, string>,
+    // ログ専用の失敗理由。値や本文を含めず、応答にも載せない。
+    readonly reason?: string,
   ) {
     super(messages[code]);
     this.name = "WorkspaceError";
@@ -43,6 +46,14 @@ export function contractProblem(
     },
   };
 }
+// SQLSTATEやNode/TLSのerror codeなど、値を含まない識別子だけを取り出す。
+export function diagnosticCode(error: unknown) {
+  const code =
+    error && typeof error === "object" && "code" in error ? error.code : null;
+  if (typeof code === "string" && /^[A-Za-z0-9_]{1,64}$/.test(code))
+    return code;
+  return error instanceof Error ? error.name : "unknown";
+}
 export function sqlProblem(error: unknown) {
   if (error instanceof WorkspaceError) return error;
   const code =
@@ -50,5 +61,10 @@ export function sqlProblem(error: unknown) {
   if (code === "23505") return new WorkspaceError("operation_reused");
   if (["23503", "23514", "22P02"].includes(String(code)))
     return new WorkspaceError("invalid_input");
-  return new WorkspaceError("unavailable");
+  const reason = `db:${diagnosticCode(error)}`;
+  logServerEvent("error", "workspace.db_failed", {
+    code: "unavailable",
+    reason,
+  });
+  return new WorkspaceError("unavailable", undefined, reason);
 }

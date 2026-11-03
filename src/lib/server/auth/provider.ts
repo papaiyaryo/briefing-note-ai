@@ -1,6 +1,6 @@
 import { createClient, type Session } from "@supabase/supabase-js";
 import type { AuthTokens } from "./crypto";
-import { WorkspaceError } from "../workspace/errors";
+import { diagnosticCode, WorkspaceError } from "../workspace/errors";
 
 export interface AuthSession {
   userId: string;
@@ -17,13 +17,15 @@ export interface IdentityProvider {
   refresh(refreshToken: string, signal?: AbortSignal): Promise<AuthSession>;
   signOut(accessToken: string, signal?: AbortSignal): Promise<void>;
 }
-function authProblem(error: unknown) {
+export function authProblem(error: unknown) {
   const status =
     error && typeof error === "object" && "status" in error
-      ? Number(error.status)
+      ? Number(error.status) || 0
       : 0;
   return new WorkspaceError(
     [400, 401, 403].includes(status) ? "unauthenticated" : "unavailable",
+    undefined,
+    `supabase_auth:${status}:${diagnosticCode(error)}`,
   );
 }
 function normalizedSession(session: Session | null): AuthSession {
@@ -56,6 +58,8 @@ export class SupabaseIdentity implements IdentityProvider {
     private readonly url: string,
     private readonly publicKey: string,
   ) {
+    const invalid = (name: string) =>
+      new WorkspaceError("unavailable", undefined, `${name}:invalid`);
     try {
       const project = new URL(url);
       if (
@@ -67,6 +71,10 @@ export class SupabaseIdentity implements IdentityProvider {
         project.hash
       )
         throw new Error();
+    } catch {
+      throw invalid("SUPABASE_URL");
+    }
+    try {
       if (!/^sb_publishable_[A-Za-z0-9_-]+$/.test(publicKey)) {
         const parts = publicKey.split(".");
         if (
@@ -78,7 +86,7 @@ export class SupabaseIdentity implements IdentityProvider {
           throw new Error();
       }
     } catch {
-      throw new WorkspaceError("unavailable");
+      throw invalid("SUPABASE_PUBLISHABLE_KEY");
     }
   }
   private client(signal?: AbortSignal) {

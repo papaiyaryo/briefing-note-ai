@@ -4,7 +4,11 @@ import type {
   Principal,
   Result,
 } from "../../workspace/contracts";
-import { contractProblem, WorkspaceError } from "../workspace/errors";
+import {
+  contractProblem,
+  diagnosticCode,
+  WorkspaceError,
+} from "../workspace/errors";
 import { logServerEvent } from "../log";
 import { assertKeyRing, openTokens, sealTokens, type KeyRing } from "./crypto";
 import type { IdentityProvider } from "./provider";
@@ -20,11 +24,38 @@ function cookieToken(request: Request) {
     .split(";")
     .map((x) => x.trim())
     .filter((x) => x.startsWith(`${SESSION_COOKIE}=`));
-  if (matches.length !== 1) throw new WorkspaceError("unauthenticated");
+  if (matches.length !== 1)
+    throw new WorkspaceError(
+      "unauthenticated",
+      undefined,
+      matches.length ? "cookie_duplicated" : "cookie_missing",
+    );
   const token = matches[0].slice(SESSION_COOKIE.length + 1);
   if (!/^[a-zA-Z0-9_-]{43}$/.test(token))
-    throw new WorkspaceError("unauthenticated");
+    throw new WorkspaceError("unauthenticated", undefined, "cookie_malformed");
   return token;
+}
+// 認証失敗の理由だけを残す。email・password・token・Cookie値は記録しない。
+function rejected(
+  event: string,
+  error: unknown,
+  fallback: "unauthenticated" | "unavailable",
+) {
+  const problem =
+    error instanceof WorkspaceError
+      ? error
+      : new WorkspaceError(fallback, undefined, diagnosticCode(error));
+  const reason = problem.reason ?? "unspecified";
+  logServerEvent(
+    problem.code === "unauthenticated"
+      ? reason === "cookie_missing"
+        ? "info"
+        : "warn"
+      : "error",
+    event,
+    { code: problem.code, reason },
+  );
+  return { ok: false as const, problem: contractProblem(problem) };
 }
 const digest = (token: string) =>
   createHash("sha256").update(token).digest("hex");
@@ -57,11 +88,14 @@ export class AccessControl implements AccessControlV1 {
         session.tokens.accessToken,
         signal,
       );
-      if (
-        verified !== session.userId ||
-        verified !== this.options.allowedUserId
-      )
-        throw new WorkspaceError("unauthenticated");
+      if (verified !== session.userId)
+        throw new WorkspaceError("unauthenticated", undefined, "user_mismatch");
+      if (verified !== this.options.allowedUserId)
+        throw new WorkspaceError(
+          "unauthenticated",
+          undefined,
+          "user_not_allowed",
+        );
       const token = randomBytes(32).toString("base64url"),
         sessionHash = digest(token);
       await this.store.create({
@@ -79,14 +113,7 @@ export class AccessControl implements AccessControlV1 {
         value: { cookie: this.cookie(token), userId: verified },
       };
     } catch (error) {
-      return {
-        ok: false,
-        problem: contractProblem(
-          error instanceof WorkspaceError
-            ? error
-            : new WorkspaceError("unauthenticated"),
-        ),
-      };
+      return rejected("auth.login_failed", error, "unauthenticated");
     }
   }
   async authenticate(request: Request): Promise<Result<Principal>> {
@@ -106,7 +133,11 @@ export class AccessControl implements AccessControlV1 {
                 signal,
               );
               if (refreshed.userId !== row.userId)
-                throw new WorkspaceError("unauthenticated");
+                throw new WorkspaceError(
+                  "unauthenticated",
+                  undefined,
+                  "user_mismatch",
+                );
               tokens = refreshed.tokens;
               replace = true;
             }
@@ -114,8 +145,18 @@ export class AccessControl implements AccessControlV1 {
               tokens.accessToken,
               signal,
             );
-            if (userId !== row.userId || userId !== this.options.allowedUserId)
-              throw new WorkspaceError("unauthenticated");
+            if (userId !== row.userId)
+              throw new WorkspaceError(
+                "unauthenticated",
+                undefined,
+                "user_mismatch",
+              );
+            if (userId !== this.options.allowedUserId)
+              throw new WorkspaceError(
+                "unauthenticated",
+                undefined,
+                "user_not_allowed",
+              );
             const keyId = (row.encryptedTokens as { keyId: string }).keyId;
             if (replace || keyId !== this.keys.active)
               await this.store.replaceTokens(
@@ -132,7 +173,7 @@ export class AccessControl implements AccessControlV1 {
               error.code === "unauthenticated"
             ) {
               await this.store.revokeLocked(q, sessionHash);
-              return { ok: false, problem: contractProblem(error) };
+              return rejected("auth.authenticate_failed", error, "unavailable");
             }
             throw error;
           }
@@ -140,14 +181,7 @@ export class AccessControl implements AccessControlV1 {
       );
       return result;
     } catch (error) {
-      return {
-        ok: false,
-        problem: contractProblem(
-          error instanceof WorkspaceError
-            ? error
-            : new WorkspaceError("unavailable"),
-        ),
-      };
+      return rejected("auth.authenticate_failed", error, "unavailable");
     }
   }
   async logout(request: Request): Promise<Result<{ cookie: string }>> {
