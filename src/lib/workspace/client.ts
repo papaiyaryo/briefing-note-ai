@@ -141,12 +141,23 @@ export class WorkspaceClient {
               : response.status === 404
                 ? "not_found"
                 : "unavailable";
+          let requestId = response.headers.get("X-Request-Id");
           try {
             const data = await response.json();
             if (codes.has(data?.error?.code)) code = data.error.code;
+            if (typeof data?.error?.requestId === "string")
+              requestId = data.error.requestId;
           } catch {
             /* 外部本文は表示しない。 */
           }
+          // サーバーログを requestId で検索できるよう、ブラウザにも残す
+          console.warn("[briefing-note-ai] API request failed", {
+            method,
+            path,
+            status: response.status,
+            code,
+            requestId,
+          });
           if (
             response.status === 401 &&
             authVersion === authGeneration &&

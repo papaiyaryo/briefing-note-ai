@@ -30,14 +30,22 @@ const tokensSchema = z.strictObject({
 export type SealedTokens = z.infer<typeof envelopeSchema>;
 export function assertKeyRing(ring: KeyRing) {
   if (!ring || !ring.keys[ring.active] || !Object.keys(ring.keys).length)
-    throw new WorkspaceError("unavailable");
+    throw new WorkspaceError(
+      "unavailable",
+      undefined,
+      "key_ring_active_key_missing",
+    );
   for (const [id, key] of Object.entries(ring.keys))
     if (
       !/^[a-zA-Z0-9_-]{1,32}$/.test(id) ||
       !Buffer.isBuffer(key) ||
       key.length !== 32
     )
-      throw new WorkspaceError("unavailable");
+      throw new WorkspaceError(
+        "unavailable",
+        undefined,
+        "key_ring_key_invalid_length_or_id",
+      );
 }
 const aad = (context: TokenContext, keyId: string) =>
   Buffer.from(

@@ -118,7 +118,12 @@ export class WorkspaceRepository {
     readonly database: WorkspaceDatabase,
     private readonly cursorKey: Buffer,
   ) {
-    if (cursorKey.length !== 32) throw new WorkspaceError("unavailable");
+    if (cursorKey.length !== 32)
+      throw new WorkspaceError(
+        "unavailable",
+        undefined,
+        "cursor_key_invalid_length",
+      );
   }
   private get schema() {
     return this.database.schema;

@@ -3,6 +3,7 @@ import { getOcrProvider } from "../openai/provider";
 import type { LlmProvider } from "../openai/contracts";
 import type { OcrResult } from "../types";
 import { requestProvider } from "./generation/request";
+import type { LoggableError, SafeLogFields } from "./log";
 import {
   createOpenAiClient,
   getOpenAiTimeoutMs,
@@ -35,6 +36,59 @@ const OCR_PROMPT = [
   "読めない箇所は [判読不可] と書いてください。",
   "出力は文字起こし本文のみとし、Markdown の見出しや説明文は追加しないでください。",
 ].join("\n");
+
+/**
+ * OpenAI は成功応答を返したが文字起こし本文が空だったことを表す。
+ * 原因（途中終了・拒否など）の分類だけを保持し、応答本文は保持しない。
+ */
+export class OcrEmptyOutputError extends Error implements LoggableError {
+  readonly responseStatus?: string;
+  readonly incompleteReason?: string;
+  readonly refused: boolean;
+  readonly outputItems: number;
+
+  constructor(response: unknown) {
+    super("OpenAI OCR response did not include output text");
+    this.name = "OcrEmptyOutputError";
+    const record =
+      response && typeof response === "object"
+        ? (response as Record<string, unknown>)
+        : {};
+    this.responseStatus =
+      typeof record.status === "string" ? record.status : undefined;
+    const incomplete = record.incomplete_details as
+      | Record<string, unknown>
+      | null
+      | undefined;
+    this.incompleteReason =
+      incomplete && typeof incomplete.reason === "string"
+        ? incomplete.reason
+        : undefined;
+    const output = Array.isArray(record.output) ? record.output : [];
+    this.outputItems = output.length;
+    this.refused = output.some(
+      (item) =>
+        item &&
+        typeof item === "object" &&
+        Array.isArray((item as Record<string, unknown>).content) &&
+        ((item as Record<string, unknown>).content as unknown[]).some(
+          (block) =>
+            block &&
+            typeof block === "object" &&
+            (block as Record<string, unknown>).type === "refusal",
+        ),
+    );
+  }
+
+  toLogFields(): SafeLogFields {
+    return {
+      responseStatus: this.responseStatus,
+      incompleteReason: this.incompleteReason,
+      refused: this.refused,
+      outputItems: this.outputItems,
+    };
+  }
+}
 
 function toDataUrl(input: OcrInput): string {
   const base64 = Buffer.from(input.bytes).toString("base64");
@@ -104,7 +158,7 @@ async function runOpenAiOcr(
 
   const text = extractOutputText(response);
   if (!text) {
-    throw new Error("OpenAI OCR response did not include output text");
+    throw new OcrEmptyOutputError(response);
   }
 
   return { text };

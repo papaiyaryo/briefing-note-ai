@@ -7,7 +7,7 @@ import {
   errorResponse,
   toApiError,
 } from "../../../src/lib/server/errors";
-import { logServerEvent } from "../../../src/lib/server/log";
+import { describeError, logServerEvent } from "../../../src/lib/server/log";
 import {
   InterviewReviewError,
   runInterviewReview,
@@ -43,11 +43,24 @@ async function handle(request: Request, context: GenerationContext) {
   try {
     body = await request.json();
   } catch {
+    logServerEvent("warn", "interview_review.rejected", {
+      code: "invalid_input",
+      reason: "body_not_json",
+    });
     return errorResponse(new ApiError("invalid_input"));
   }
 
   const parsed = interviewReviewRequestSchema.safeParse(body);
   if (!parsed.success) {
+    logServerEvent("warn", "interview_review.rejected", {
+      code: "invalid_input",
+      reason: "body_shape_invalid",
+      // 値は記録せず、どの項目が何の理由で落ちたかだけ残す
+      issues: parsed.error.issues
+        .slice(0, 10)
+        .map((issue) => `${issue.path.join(".")}:${issue.code}`)
+        .join(","),
+    });
     return errorResponse(new ApiError("invalid_input"));
   }
 
@@ -73,6 +86,11 @@ async function handle(request: Request, context: GenerationContext) {
     return NextResponse.json({ review, provider });
   } catch (error) {
     if (error instanceof InterviewReviewError) {
+      logServerEvent("warn", "interview_review.failed", {
+        provider,
+        code: error.code,
+        ...describeError(error),
+      });
       return errorResponse(new ApiError(error.code));
     }
 
@@ -80,7 +98,7 @@ async function handle(request: Request, context: GenerationContext) {
     logServerEvent("error", "interview_review.provider_failure", {
       provider,
       code: apiError.code,
-      reason: error instanceof Error ? error.name : "unknown",
+      ...describeError(error),
     });
     return errorResponse(apiError);
   }

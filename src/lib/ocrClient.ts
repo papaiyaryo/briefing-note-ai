@@ -102,6 +102,14 @@ export async function withGenerationResponse<T>(
       protectedProviderFetch(input, { ...init, signal: controller.signal })
         .then((response) => {
           controller.signal.throwIfAborted();
+          if (!response.ok) {
+            // サーバーログを X-Request-Id で検索できるよう、ブラウザにも残す
+            console.warn("[briefing-note-ai] API request failed", {
+              path: String(input),
+              status: response.status,
+              requestId: response.headers.get("X-Request-Id"),
+            });
+          }
           return read(response);
         })
         .then(

@@ -8,6 +8,7 @@ import {
   toApiError,
 } from "../../../src/lib/server/errors";
 import { logApiEvent } from "../../../src/lib/server/logger";
+import { describeError, logServerEvent } from "../../../src/lib/server/log";
 import { runOcr } from "../../../src/lib/server/ocr";
 import { validateImageFile } from "../../../src/lib/upload";
 
@@ -32,19 +33,25 @@ export async function POST(request: Request) {
 async function handle(request: Request, context: GenerationContext) {
   const startedAt = performance.now();
   const provider = getOcrProvider();
+  // 画像そのものは記録しない。形式とサイズだけを原因調査用に残す。
+  let fileMeta: { mimeType?: string; fileSize?: number } = {};
 
   try {
     let formData: FormData;
     try {
       formData = await request.formData();
-    } catch {
-      throw new ApiError("invalid_input");
+    } catch (error) {
+      throw new ApiError("invalid_input", undefined, undefined, {
+        reason: "form_parse_failed",
+        cause: error,
+      });
     }
 
     const file = getRequestFile(formData);
     if (!file) {
-      throw new ApiError("invalid_input");
+      throw ApiError.rejected("invalid_input", "missing_file");
     }
+    fileMeta = { mimeType: file.type || "(empty)", fileSize: file.size };
 
     const validationError = validateImageFile({
       name: file.name,
@@ -53,14 +60,14 @@ async function handle(request: Request, context: GenerationContext) {
     });
 
     if (validationError === "unsupported-format") {
-      throw new ApiError("invalid_input");
+      throw ApiError.rejected("invalid_input", "unsupported_format");
     }
     if (validationError === "file-too-large") {
-      throw new ApiError("payload_too_large");
+      throw ApiError.rejected("payload_too_large", "file_too_large");
     }
 
     if (provider === "openai" && !process.env.OPENAI_API_KEY) {
-      throw new ApiError("not_configured");
+      throw ApiError.rejected("not_configured", "missing_env:OPENAI_API_KEY");
     }
 
     const bytes = new Uint8Array(await file.arrayBuffer());
@@ -81,6 +88,22 @@ async function handle(request: Request, context: GenerationContext) {
     return NextResponse.json(body);
   } catch (error) {
     const apiError = toApiError(error);
+
+    logServerEvent(
+      apiError.httpStatus >= 500 || apiError.code === "rate_limited"
+        ? "error"
+        : "warn",
+      "ocr.failed",
+      {
+        provider,
+        code: apiError.code,
+        httpStatus: apiError.httpStatus,
+        durationMs: Math.round(durationSince(startedAt)),
+        reason: apiError.reason,
+        ...fileMeta,
+        ...describeError(error),
+      },
+    );
 
     logApiEvent({
       stage: "ocr",

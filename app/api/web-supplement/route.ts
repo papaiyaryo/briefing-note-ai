@@ -7,7 +7,7 @@ import {
   errorResponse,
   toApiError,
 } from "../../../src/lib/server/errors";
-import { logServerEvent } from "../../../src/lib/server/log";
+import { describeError, logServerEvent } from "../../../src/lib/server/log";
 import {
   isWebSupplementEnabled,
   runWebSupplement,
@@ -38,10 +38,18 @@ async function handle(request: Request, context: GenerationContext) {
   try {
     body = await request.json();
   } catch {
+    logServerEvent("warn", "web_supplement.rejected", {
+      code: "invalid_input",
+      reason: "body_not_json",
+    });
     return errorResponse(new ApiError("invalid_input"));
   }
 
   if (!isWebSupplementRequest(body)) {
+    logServerEvent("warn", "web_supplement.rejected", {
+      code: "invalid_input",
+      reason: "body_shape_invalid",
+    });
     return errorResponse(new ApiError("invalid_input"));
   }
 
@@ -64,6 +72,11 @@ async function handle(request: Request, context: GenerationContext) {
     return NextResponse.json({ result, provider });
   } catch (error) {
     if (error instanceof WebSupplementError) {
+      logServerEvent("warn", "web_supplement.failed", {
+        provider,
+        code: error.code,
+        ...describeError(error),
+      });
       return errorResponse(new ApiError(error.code));
     }
 
@@ -71,7 +84,7 @@ async function handle(request: Request, context: GenerationContext) {
     logServerEvent("error", "web_supplement.provider_failure", {
       provider,
       code: apiError.code,
-      reason: error instanceof Error ? error.name : "unknown",
+      ...describeError(error),
     });
     return errorResponse(apiError);
   }

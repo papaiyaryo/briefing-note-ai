@@ -20,6 +20,13 @@ import { MemoEditor } from "./MemoEditor";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { useMutation } from "./useMutation";
 import { BriefingNoteFlow } from "../BriefingNoteFlow";
+import { ClientFailure } from "../../lib/workspace/client";
+
+/** 画面に表示済みの API 失敗以外（想定外の例外）をコンソールに残す。 */
+const reportUnexpectedLoadError = (error: unknown) => {
+  if (!(error instanceof ClientFailure))
+    console.error("[briefing-note-ai] company detail load failed", error);
+};
 function DeleteControl({
   companyId,
   memoId,
@@ -246,7 +253,7 @@ export function CompanyDetail({ companyId }: { companyId: string }) {
     }
   }, [client, companyId]);
   useEffect(() => {
-    void load().catch(() => {});
+    void load().catch(reportUnexpectedLoadError);
     const requests = generation.current;
     return () => requests.invalidate();
   }, [load]);
@@ -301,7 +308,9 @@ export function CompanyDetail({ companyId }: { companyId: string }) {
         ) : (
           <p role="status">企業を取得しています…</p>
         )}
-        <button onClick={() => void load().catch(() => {})}>再取得</button>
+        <button onClick={() => void load().catch(reportUnexpectedLoadError)}>
+          再取得
+        </button>
       </>
     );
   return (
@@ -328,7 +337,7 @@ export function CompanyDetail({ companyId }: { companyId: string }) {
       {error && <p role="alert">{error}</p>}
       <button
         data-testid="workspace-refresh-latest"
-        onClick={() => void load().catch(() => {})}
+        onClick={() => void load().catch(reportUnexpectedLoadError)}
       >
         保存済みの最新を再取得
       </button>
@@ -345,7 +354,7 @@ export function CompanyDetail({ companyId }: { companyId: string }) {
           onClose={() => {
             setGenerating(false);
             heading.current?.focus();
-            void load().catch(() => {});
+            void load().catch(reportUnexpectedLoadError);
           }}
           onOpenSaved={async (memo) => {
             selectedRef.current = memo;

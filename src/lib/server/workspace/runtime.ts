@@ -10,7 +10,7 @@ import { WorkspaceRepository } from "./repository";
 import { CompanyWorkspace } from "./service";
 import { WorkspaceError } from "./errors";
 import { issueGenerationReceipt } from "./generationReceipt";
-import { logServerEvent } from "../log";
+import { describeError, logServerEvent } from "../log";
 
 export interface WorkspaceRuntime {
   auth: AccessControl;
@@ -194,6 +194,8 @@ export function getWorkspaceRuntime(): WorkspaceRuntime {
       (error instanceof WorkspaceError && error.reason) || "unknown";
     logServerEvent("error", "workspace.runtime_unavailable", {
       code: "unavailable",
+      // 想定外の例外だけ詳細を残す（設定値は reason に含めない設計を維持）
+      ...(error instanceof WorkspaceError ? {} : describeError(error)),
       reason,
     });
     throw new WorkspaceError("unavailable", undefined, reason);
