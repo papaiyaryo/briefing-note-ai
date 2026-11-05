@@ -11,7 +11,7 @@ import type {
   StructureApiRequest,
 } from "../../../src/lib/openai/contracts";
 import { getStructureProvider } from "../../../src/lib/openai/provider";
-import { logServerEvent } from "../../../src/lib/server/log";
+import { describeError, logServerEvent } from "../../../src/lib/server/log";
 import { OpenAiRequestError } from "../../../src/lib/server/openaiClient";
 import {
   runStructure,
@@ -64,10 +64,18 @@ async function handle(request: Request, context: GenerationContext) {
   try {
     body = await request.json();
   } catch {
+    logServerEvent("warn", "structure.rejected", {
+      code: "invalid_input",
+      reason: "body_not_json",
+    });
     return errorResponse("invalid_input", 400);
   }
 
   if (!isStructureRequest(body)) {
+    logServerEvent("warn", "structure.rejected", {
+      code: "invalid_input",
+      reason: "body_shape_invalid",
+    });
     return errorResponse("invalid_input", 400);
   }
 
@@ -88,6 +96,11 @@ async function handle(request: Request, context: GenerationContext) {
     return NextResponse.json({ memo, provider, generationReceipt });
   } catch (error) {
     if (error instanceof StructureError) {
+      logServerEvent("warn", "structure.failed", {
+        provider,
+        code: error.code,
+        ...describeError(error),
+      });
       return errorResponse(error.code, 422);
     }
 
@@ -99,7 +112,7 @@ async function handle(request: Request, context: GenerationContext) {
       provider,
       upstreamStatus,
       code,
-      reason: error instanceof Error ? error.name : "unknown",
+      ...describeError(error),
     });
     return errorResponse(code, code === "rate_limited" ? 429 : 502);
   }

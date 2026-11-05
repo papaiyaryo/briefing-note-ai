@@ -1,7 +1,23 @@
 import { Pool, type PoolClient } from "pg";
 import type { Principal } from "../../workspace/contracts";
-import { sqlProblem, WorkspaceError } from "./errors";
+import { diagnosticCode, sqlProblem, WorkspaceError } from "./errors";
 import { remainingRequestTime, markTransactionCommit } from "./requestScope";
+import { logServerEvent } from "../log";
+
+/** reason だけを持つDB層の失敗（期限切れなど）は、ここで記録してから投げる。 */
+function reportDbFailure(error: unknown): unknown {
+  if (
+    error instanceof WorkspaceError &&
+    error.reason &&
+    (error as { cause?: unknown }).cause === undefined &&
+    error.code !== "unauthenticated"
+  )
+    logServerEvent("error", "workspace.db_failed", {
+      code: error.code,
+      reason: error.reason,
+    });
+  return error;
+}
 
 export type Transaction = PoolClient;
 export class WorkspaceDatabase {
@@ -13,8 +29,13 @@ export class WorkspaceDatabase {
   } = {};
   constructor(options: { pool: Pool; schema: string }) {
     if (!/^[a-z][a-z0-9_]{0,62}$/.test(options.schema))
-      throw new WorkspaceError("unavailable");
-    if (options.pool.options.max !== 3) throw new WorkspaceError("unavailable");
+      throw new WorkspaceError(
+        "unavailable",
+        undefined,
+        "invalid_env:WORKSPACE_DB_SCHEMA",
+      );
+    if (options.pool.options.max !== 3)
+      throw new WorkspaceError("unavailable", undefined, "db_pool_max_not_3");
     this.pool = options.pool;
     this.schema = options.schema;
   }
@@ -28,9 +49,16 @@ export class WorkspaceDatabase {
       8000,
       remainingRequestTime(),
     );
-    if (timeoutMs <= 0) throw new WorkspaceError("unavailable");
+    if (timeoutMs <= 0)
+      throw new WorkspaceError(
+        "unavailable",
+        undefined,
+        "request_deadline_exhausted_before_db",
+      );
     const started = performance.now();
-    const client = await this.acquire(timeoutMs);
+    const client = await this.acquire(timeoutMs).catch((error: unknown) => {
+      throw reportDbFailure(error);
+    });
     let released = false,
       commitStarted = false,
       committed = false;
@@ -44,13 +72,20 @@ export class WorkspaceDatabase {
     };
     try {
       const remaining = Math.floor(timeoutMs - (performance.now() - started));
-      if (remaining <= 0) throw new WorkspaceError("unavailable");
+      if (remaining <= 0)
+        throw new WorkspaceError(
+          "unavailable",
+          undefined,
+          "db_connect_used_whole_deadline",
+        );
       const deadline = new Promise<never>((_, reject) => {
         timer = setTimeout(() => {
           destroy();
           reject(
             new WorkspaceError(
               commitStarted ? "operation_unknown" : "unavailable",
+              undefined,
+              `db_transaction_deadline_${remaining}ms`,
             ),
           );
         }, remaining);
@@ -67,12 +102,20 @@ export class WorkspaceDatabase {
           "select rolsuper,rolbypassrls from pg_roles where rolname=current_user",
         );
         if (role.rows[0].rolsuper || role.rows[0].rolbypassrls)
-          throw new WorkspaceError("unavailable");
+          throw new WorkspaceError(
+            "unavailable",
+            undefined,
+            "db_role_is_superuser_or_bypassrls",
+          );
         if (principal) await this.bindPrincipal(client, principal);
         const result = await body(client);
         await this.faults.beforeCommit?.();
         if (released || remainingRequestTime() <= 0)
-          throw new WorkspaceError("unavailable");
+          throw new WorkspaceError(
+            "unavailable",
+            undefined,
+            "request_deadline_exhausted_before_commit",
+          );
         commitStarted = true;
         finishCommit = markTransactionCommit();
         await client.query("COMMIT");
@@ -84,7 +127,12 @@ export class WorkspaceDatabase {
     } catch (error) {
       if (commitStarted) {
         destroy();
-        throw new WorkspaceError("operation_unknown");
+        throw new WorkspaceError(
+          "operation_unknown",
+          undefined,
+          "commit_outcome_unknown",
+          { cause: error },
+        );
       }
       if (!released && !committed) {
         try {
@@ -94,7 +142,7 @@ export class WorkspaceDatabase {
           destroy();
         }
       }
-      throw sqlProblem(error);
+      throw reportDbFailure(sqlProblem(error));
     } finally {
       finishCommit?.();
       clearTimeout(timer);
@@ -125,7 +173,11 @@ export class WorkspaceDatabase {
     const pending = this.pool.connect().then((client) => {
       if (expired) {
         client.release();
-        throw new WorkspaceError("unavailable");
+        throw new WorkspaceError(
+          "unavailable",
+          undefined,
+          "db_connect_arrived_after_timeout",
+        );
       }
       return client;
     });
@@ -135,12 +187,24 @@ export class WorkspaceDatabase {
         new Promise<never>((_, reject) => {
           timer = setTimeout(() => {
             expired = true;
-            reject(new WorkspaceError("unavailable"));
+            reject(
+              new WorkspaceError(
+                "unavailable",
+                undefined,
+                "db_connect_timeout",
+              ),
+            );
           }, timeoutMs);
         }),
       ]);
-    } catch {
-      throw new WorkspaceError("unavailable");
+    } catch (error) {
+      if (error instanceof WorkspaceError) throw error;
+      // DB接続エラーの本文は資格情報を含みうるため、コードだけ残す。
+      throw new WorkspaceError(
+        "unavailable",
+        undefined,
+        `db_connect_failed:${diagnosticCode(error)}`,
+      );
     } finally {
       clearTimeout(timer);
     }

@@ -31,3 +31,14 @@
 - 既存node_modules、dummy provider、loopback試験DBで `npm run lint` / `npm run typecheck` / `npm test` / `npm run build` は全てexit0。56 files、645 tests passed。外部API・実Supabase/Auth・本番DBを使用していない。
 - アプリ動作の変更がないlockfile修復のため新規TDDテストは追加しない。既存CIのinstall失敗を修復前証拠、隔離clean install成功を修復後証拠とする。
 - 今回のPRにはlockfileとこのリリース記録を含める。次Bolt整理の引継ぎは既存のローカル記録に保持する。他の未コミットUnit/監査記録・ユーザー文書は作業treeに保持し、一括stageしない。既存の通知メール手順commitも同branchの差分に含まれる。
+
+## リリース途中の追加作業: 失敗原因のサーバーログ（2026-11-05）
+
+本番確認の途中に、ユーザーから「OCR失敗の理由がわからない」と報告があった。公開確認を進めるのに必要な作業として、ユーザーの直接指示（2026-11-05「すぐに直したい。サーバーログに残してほしい」「途中での必要な作業として記録してマージして」）で実施した。次Boltの実装ではない。2026-11-04 の #104（認証・起動設定・DBの失敗理由ログ）の続きにあたる。
+
+- 原因: OpenAIのエラー本文（`code`/`type`/`param`/`message`/`x-request-id`）を捨ててHTTPステータスだけを残し、OCRルートはそれもログに出していなかった。`/api/v1/*` の想定外の例外、生成APIガードの失敗、DB期限切れも、原因が記録されていなかった。
+- 対応: OpenAIのエラー分類と、OCRの本文が空だった理由（`responseStatus`/`incompleteReason`/`refused`）を `ocr.failed` に記録する。入力拒否の理由と画像の形式・サイズも記録する。1件のリクエストで出るログすべてに同じ `requestId`/`route`/`method` を付け、応答の `X-Request-Id`・エラー本文の `requestId` と一致させる。アクセスログ `workspace.request`/`generation.request` を追加する。想定外の例外は名前・メッセージ・stack・causeを `workspace.error` に記録する。ブラウザのコンソールにも `requestId` を出す。
+- 安全性: APIキー・Bearer・JWT・接続文字列の資格情報は伏字にし、メッセージは300文字で切る。JSON解析エラーとDBエラーは本文を記録しない（#104の方針を維持）。画像・OCR本文・メモ・email・password・Cookieは記録しない。
+- TDD: `tests/serverLogging.test.ts` を先に書き、未実装による失敗を確認した（Red）。その後、実装して通した（Green）。
+- 検証（Node 24、dummy provider、loopbackの試験DB）: `npm run lint`/`npm run typecheck`/`npm test`（58 files、677 tests passed）/`npm run build` は全てexit 0。実API・実Supabase・本番DBは使っていない。
+- 完了条件は上記「完了条件」のまま変えない。このPRのCI成功と人間によるmergeの後、merge SHAのProduction配置と、本番で `ocr.failed` などのログが出ることを確認する。未確認の項目を成功として扱わない。

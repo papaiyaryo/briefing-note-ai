@@ -16,6 +16,7 @@ import type {
 import { comparisonSelectionSchema, idSchema } from "../../workspace/schema";
 import { contractProblem, WorkspaceError } from "./errors";
 import { withRequestDeadline } from "./requestScope";
+import { describeError, logServerEvent, withLogContext } from "../log";
 import { getWorkspaceRuntime, type WorkspaceRuntime } from "./runtime";
 const statuses: Record<ErrorCode, number> = {
   invalid_input: 400,
@@ -119,7 +120,29 @@ const loginSchema = z
 export function createWorkspaceHandler(
   resolve: () => WorkspaceRuntime = getWorkspaceRuntime,
 ) {
-  return async (request: Request): Promise<Response> => {
+  return (request: Request): Promise<Response> => {
+    const requestId = randomUUID(),
+      startedAt = performance.now(),
+      route = new URL(request.url).pathname;
+    return withLogContext(
+      { requestId, route, method: request.method },
+      async () => {
+        const response = await handle(request);
+        response.headers.set("X-Request-Id", requestId);
+        const status = response.status;
+        logServerEvent(
+          status >= 500 ? "error" : status >= 400 ? "warn" : "info",
+          "workspace.request",
+          {
+            status,
+            durationMs: Math.round(performance.now() - startedAt),
+          },
+        );
+        return response;
+      },
+    );
+  };
+  async function handle(request: Request): Promise<Response> {
     try {
       return await withRequestDeadline(async () => {
         const url = new URL(request.url),
@@ -267,7 +290,7 @@ export function createWorkspaceHandler(
     } catch (error) {
       return problemResponse(contractProblem(error));
     }
-  };
+  }
 }
 export const handleWorkspaceRequest = createWorkspaceHandler();
 export interface GenerationContext {
@@ -280,8 +303,19 @@ export async function guardExisting(
   body: (context: GenerationContext) => Promise<Response>,
 ): Promise<Response> {
   const requestId = randomUUID(),
-    startedAt = performance.now();
+    route = new URL(request.url).pathname;
+  return withLogContext({ requestId, route, method: request.method }, () =>
+    runGuarded(request, requestId, body),
+  );
+}
+async function runGuarded(
+  request: Request,
+  requestId: string,
+  body: (context: GenerationContext) => Promise<Response>,
+): Promise<Response> {
+  const startedAt = performance.now();
   let status = 500;
+  let code: string | undefined;
   const finish = (response: Response) => {
     status = response.status;
     response.headers.set("Cache-Control", "private, no-store");
@@ -305,21 +339,31 @@ export async function guardExisting(
     );
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
-      return finish(
-        generationErrorResponse(
-          new URL(request.url).pathname === "/api/structure"
-            ? new ApiError("provider_error", 502)
-            : toApiError(error),
-        ),
-      );
+      const apiError =
+        new URL(request.url).pathname === "/api/structure"
+          ? new ApiError("provider_error", 502, undefined, { cause: error })
+          : toApiError(error);
+      code = apiError.code;
+      logServerEvent("error", "generation.aborted", {
+        code,
+        reason: request.signal.aborted ? "client_aborted" : "deadline_40s",
+        ...describeError(error),
+      });
+      return finish(generationErrorResponse(apiError));
     }
-    return finish(problemResponse(contractProblem(error)));
+    const problem = problemResponse(contractProblem(error));
+    code = error instanceof WorkspaceError ? error.code : "internal_error";
+    return finish(problem);
   } finally {
-    console.info({
-      requestId,
-      operation: "generation",
-      code: status < 400 ? "ok" : `http_${status}`,
-      durationMs: Math.round(performance.now() - startedAt),
-    });
+    logServerEvent(
+      status >= 500 ? "error" : status >= 400 ? "warn" : "info",
+      "generation.request",
+      {
+        operation: "generation",
+        status,
+        code: code ?? (status < 400 ? "ok" : `http_${status}`),
+        durationMs: Math.round(performance.now() - startedAt),
+      },
+    );
   }
 }

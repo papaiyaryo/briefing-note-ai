@@ -1,6 +1,12 @@
 import { randomUUID } from "node:crypto";
 import type { ContractError, ErrorCode } from "../../workspace/contracts";
-import { logServerEvent } from "../log";
+import {
+  describeError,
+  getLogContext,
+  logServerEvent,
+  type LoggableError,
+  type SafeLogFields,
+} from "../log";
 
 const messages: Record<ErrorCode, string> = {
   invalid_input: "入力内容を確認してください。",
@@ -18,25 +24,68 @@ const messages: Record<ErrorCode, string> = {
     "保存・認証サービスに接続できません。設定と操作結果を確認してください。",
   internal_error: "処理を完了できませんでした。操作結果を確認してください。",
 };
-export class WorkspaceError extends Error {
+export class WorkspaceError extends Error implements LoggableError {
   constructor(
     readonly code: ErrorCode,
     readonly fields?: Record<string, string>,
     // ログ専用の失敗理由。値や本文を含めず、応答にも載せない。
     readonly reason?: string,
+    // 元の例外。ログで原因をたどるために保持する（応答には載せない）。
+    options: { cause?: unknown } = {},
   ) {
-    super(messages[code]);
+    super(
+      messages[code],
+      options.cause === undefined ? undefined : { cause: options.cause },
+    );
     this.name = "WorkspaceError";
   }
+  toLogFields(): SafeLogFields {
+    return { reason: this.reason };
+  }
+}
+/** サーバー側の障害として扱うコード。ログを error レベルにする。 */
+const SERVER_SIDE: ReadonlySet<ErrorCode> = new Set([
+  "unavailable",
+  "internal_error",
+  "operation_unknown",
+]);
+function currentRequestId(): string {
+  const id = getLogContext()?.requestId;
+  return typeof id === "string" && id ? id : randomUUID();
+}
+/**
+ * 想定外の例外、または元の例外（cause）を持つ WorkspaceError を記録する。
+ * reason だけの WorkspaceError は、理由を付けた箇所が記録する前提で二重に出さない。
+ * 個々のリクエストの成否はアクセスログ（workspace.request / generation.request）に残る。
+ */
+function logProblem(error: unknown, problem: WorkspaceError) {
+  if (
+    error instanceof WorkspaceError &&
+    (error as { cause?: unknown }).cause === undefined
+  )
+    return;
+  logServerEvent(
+    SERVER_SIDE.has(problem.code) ? "error" : "warn",
+    "workspace.error",
+    { code: problem.code, ...describeError(error) },
+  );
 }
 export function contractProblem(
   error: unknown,
-  requestId = randomUUID(),
+  requestId = currentRequestId(),
 ): ContractError {
   const problem =
     error instanceof WorkspaceError
       ? error
-      : new WorkspaceError("internal_error");
+      : new WorkspaceError(
+          "internal_error",
+          undefined,
+          "unexpected_exception",
+          {
+            cause: error,
+          },
+        );
+  logProblem(error, problem);
   return {
     error: {
       code: problem.code,
