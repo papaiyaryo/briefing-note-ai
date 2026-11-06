@@ -1,0 +1,23 @@
+# AI エージェントの検索に、普段は読む必要のない大きな記録ファイルが混ざるのを防ぎます。
+# Git の追跡には影響しません。必要なときは rg --no-ignore-dot で除外を外せます。
+
+# AI-DLC の監査ログ
+aidlc/spaces/*/intents/*/audit/
+
+# AI-DLC の旧版の保管場所
+aidlc/spaces/*/intents/*/archive/
+
+# 変更前の旧版の複製ファイル
+*.before-*
+
+# 初版の旧版の複製ファイル
+*-initial-revision-*
+
+# AI-DLC の記録内のソース照合表
+aidlc/spaces/*/intents/**/reviewed-source-*.tsv
+
+# AI-DLC の記録内の JPEG モックアップ画像
+aidlc/spaces/*/intents/**/*.jpg
+
+# AI-DLC の記録内の PNG モックアップ画像
+aidlc/spaces/*/intents/**/*.png
