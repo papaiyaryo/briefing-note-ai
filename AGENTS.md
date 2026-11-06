@@ -8,7 +8,7 @@ Always separate briefing facts, personal impressions, HR/employee emphasis, foll
 
 ## AI-DLC Development Cycle
 
-Use the official AI-DLC Codex harness, pinned to `.aidlc-version`. Standard profile: **Classic**, **strict Guard Policy**, and official approval gates.
+Use the official AI-DLC harnesses (Codex and Claude Code), pinned to `.aidlc-version`; see "AI Collaboration and Token Use" for who drives. Standard profile: **Classic**, **strict Guard Policy**, and official approval gates.
 
 ```text
 Inception: current application → requirements → design → Bolt plan
@@ -56,7 +56,7 @@ The approved current Intent is the execution source of truth. `docs/codex/` and 
 - Related Issues are optional. Use `Closes #N` only when that Issue is fully satisfied.
 - Human performs the final merge. Never merge failing CI.
 
-Claude is not a mandatory designer/reviewer. Explicit `@claude` mentions are optional aid; PR events do not trigger Claude review. Official AI-DLC reviewers and approval gates follow the runtime protocol.
+Explicit `@claude` mentions on GitHub are optional aid; PR events do not trigger Claude review. Official AI-DLC reviewers and approval gates follow the runtime protocol.
 
 ## Deployment and Release Completion
 
@@ -90,11 +90,33 @@ Use Next.js, React, TypeScript, Tailwind CSS, Vitest, Docker/Compose, and Next.j
 
 ## Tools and Records
 
-Use `$aidlc classic <description>` in a trusted session; inspect/resume with `$aidlc --status`, `$aidlc --resume`, and `$aidlc --doctor`.
+Use `$aidlc classic <description>` in a trusted session; inspect/resume with `$aidlc --status` and `$aidlc --resume`. Type `$aidlc` once per thread (see R9 below). Run diagnostics with `aidlc doctor` in a terminal.
 
 `aidlc/spaces/default/` owns Intent requirements, designs, delivery plans, approval state, and audit records. Use official commands for lifecycle state; never hand-edit state/audit receipts to simulate approval or progress. Repository rules are in `aidlc/spaces/default/memory/project.md`; setup is in `docs/ai-dev-pipeline.md`.
 
 A request to progress an Issue or idea starts Inception. After actual Inception approval, implement only that Bolt. An explicit workflow-adoption request can bootstrap tooling from its approved plan before the first native Intent exists.
+
+## AI Collaboration and Token Use
+
+Codex and Claude Code share one `aidlc/` workspace. Design and measurements: `docs/ai-collaboration-design.md`. The same section is in the root `CLAUDE.md`; change both together.
+
+**One driver per Intent.** Only the driver runs `aidlc engine orchestrate next` / `continue` / `report` / `park` and records approvals. The current driver is in `docs/ai-handoff.md`. Default driver: Claude for Inception, Codex for Construction. The human switches the driver, only at a stage or Unit boundary, e.g. when one tool's usage limit runs out. The non-driver touches no shared state, approvals, or approved artifacts. It works only on what the human asks it to do: read-only diff review, test/verification research, next-Bolt research documents under `aidlc/spaces/default/knowledge/documents/`, or tooling PRs in a separate worktree outside the repository directory.
+
+**Reading and waiting** (each model call resends the whole context, so every extra read or call is paid for again on every later call):
+
+- R1 Do not reread the same version of a file within one session.
+- R2 Do not read `audit/*.md` unless asked to investigate the audit trail; then read only the needed range.
+- R3 From a previous Intent, read only `next-bolt-planning-handoff.md` and the production-feedback note.
+- R4 Read files under `knowledge/` only when the directive or stage names them.
+- R5 Save long test/build/engine output to a file; bring only the failures and the last 40 lines into context.
+- R6 Wait with a completion notification or a single long timeout. Never poll in 1–10 second loops.
+- R7 Search first, then read the matching range rather than whole files. `.ignore` keeps audit logs, old-version copies, and record images out of `rg` results.
+- R8 (Claude) Delegate reads of 3+ files or 50KB+ to a subagent and take back only the conclusion.
+- R9 Type `$aidlc` / `/aidlc` once per thread. Afterwards, continue in plain words ("続けて"). At each stage or Unit boundary, exit and start a fresh session, then run `$aidlc --resume` once. Resuming the old thread (`codex resume`) carries its full context.
+
+**Records.** Do not create old-version copies (`*.before-*`, `archive/`, `*-initial-revision-*`). Commit the record before revising it and refer to the old version by commit SHA. Keep each Unit's `code-summary.md` within 80 lines, and keep `next-bolt-planning-handoff.md` as an index of 60 lines or fewer. Official protocol artifacts stay as the protocol requires.
+
+**Codex as a worker (trial).** Claude may call `codex exec` only in a sparse worktree outside the repository directory that excludes `.codex/`, `.agents/`, `.claude/`, `aidlc/`, `AGENTS.md`, `.aidlc-version`, and `aidlc.settings.json`. Add `-c features.hooks=false` and never use `--dangerously-bypass-hook-trust`. This prevents AI-DLC hooks from recording a tool's prompt as human input. Compare record hashes before and after each run. Claude reviews the extracted patch, checks that it touches only allowed paths, and reruns the tests itself before applying it. Never run `codex exec` in the main checkout.
 
 <!-- BEGIN AI-DLC:agents -->
 This project uses AI-DLC (AI-Driven Development Life Cycle) for structured development. Harness-specific setup, commands, and prerequisites live in each harness's own onboarding file (see Harness onboarding below).
