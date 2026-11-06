@@ -1,6 +1,31 @@
 # U1：既知3不具合の再実施結果
 
-## 最新の継続結果 — lint再確認を省略、残り検証は成功
+## 最新結果（2026-10-29）— 改訂7の差分検査成功、正式review待ち
+
+改訂7の承認に基づき、前回の同じ試行で成功したStep 1〜3とStep 4のU1・全体検証を引き継ぎ、新しい[差分検査](timeout-30s-verification-20261029.md)を1回実行してexit 0を確認した。前回のschema 24件、対象52件、U1 261件、全体・coverage各645件は全成功・skip 0。lint、typecheck、buildも成功し、全app/src lines85.96%で80%下限を満たした。前回の元 `git diff --check` exit 1は履歴として維持する。今回の承認済み検査は公式auditディレクトリだけを除外し、アプリ・テスト・他の記録を検査した。
+
+対象3件のtimeout 30000は現ソースに既存で、今回のアプリ・テスト変更はない。source-manifestは該当2テストファイルを含む累積pathを維持し、traceabilityは146 IDsとDeferred判定を変えず今回の証拠を追記した。Step 1〜4の検証は完了。Step 5の正式reviewと公式checkpointはorchestrator担当で未実施。30秒内成功から性能原因の解消・製品p95達成・U1全受入を推定しない。
+
+## 最新結果（2026-10-28）— 検証途中で停止
+
+改訂6の再開後、対象3件の30秒設定を現ソースで確認し、アプリ・テストのソースは変更していない。Node v22.20.0でrunner 24件、対象2 files 52件、U1 17 files 261件、全体とcoverage各56 files 645件が成功し、skip 0。lint、typecheck、buildもexit 0、全app/src linesは85.96%（2964/3448）で80%下限を満たした。今回の実コマンドと結果は[2026-10-28検証記録](timeout-30s-verification-20261028.md)を参照。
+
+最後の `git diff --check` は公式audit shardの行末空白でexit 1。計画に従い再試行・所有外auditの手編集をせず停止した。Step 1〜3は完了、Step 4〜5は未完了。正式reviewと公式checkpointは今回未実施。過去の全成功記録を今回の品質完了として流用しない。source-manifestは新しいソース差分がないため変更せず、既存146 IDsとDeferredの判定を維持する。30秒内の機能成功は、性能原因解消や製品性能受入を示さない。
+
+## 最新結果（2026-10-25）— 改訂6の再承認後、Step 1〜4を全て成功
+
+再承認された改訂6のStep 1〜4を、既存のNode v22.20.0（process-local PATH）、dummy providers、localhost/workspace_testの環境で、各コマンド1回ずつ直列に実行した。結果は全てexit 0。詳細は[今回の証跡](timeout-30s-verification-20261025.md)にある。
+
+- 変更したファイル：アプリとテストのファイルは今回変更していない。対象3件のit第三引数30000（uiCallbacks.tsx:686、restore.integration.test.ts:99・106）は、既にwip commit 46d6b2eに入っていることを確認した。二重編集はしていない。U1の記録として、計画のチェック、今回の証跡、本summary、traceabilityの注記を更新した。
+- 判断：待機予算の設定だけの変更なので、計画どおりTDD Redは非適用。DBのcompose serviceは既に健全に稼働していたため、compose upは実行していない。
+- テスト：schemaは24件。対象2 filesは52件、U1の17 filesは261件、全体とcoverageはそれぞれ56 files / 645件。全て成功、skip 0。
+- 品質：lint・typecheck・build・git diff --checkは全てexit 0。全app/srcのlinesは85.96%（2964/3448）で、80%の下限を満たした。statementsは84.34%、branchesは76.2%、functionsは82.42%。
+- 前回との差：lintは前回の65 problemsから指摘0になった。eslint.config.mjsのignoresにある `.claude/**` は既存の設定で、今回は変更していない。全体の件数は643件から645件に増えたが、増えたのはU1の対象外のテストで、今回は追加していない。
+- 未実施：公式checkpointコマンド、正式review、checkpointはorchestratorの担当。性能原因の調査、B1の残り、GUIの未確認事項、U2、実環境やCI、公開の受入は後続事項として残る。今回の成功は、性能改善やU1全体・releaseの完了を意味しない。
+
+source-manifestには対象2 test filesを含む累積96件が既に入っている。今回新たに触れたアプリのパスはないため、追加はしていない。traceabilityは146 IDs（OK 119 / Deferred 27）を保ったまま、AC6.3.2とNFR2.6に今回の証跡の注記を追加した。
+
+## 前回の継続結果 — lint再確認を省略、残り検証は成功
 
 本人の「そこの処理を飛ばして先に移って」を受け、rootの公式resume後にlint再確認を省略して、残りの承認済みコマンドだけを各1回実行した。typecheck、全体test、coverage、build、git diff --checkは全てexit0。全体testとcoverageは各56files/643tests成功・skip0（35.04秒／33.99秒）、全app/src lines85.95%（2962/3446）で80%下限を満たした。詳細とログは[最新証跡](timeout-30s-verification-20261024.md)の末尾に保持する。
 

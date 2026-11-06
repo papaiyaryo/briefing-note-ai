@@ -1,130 +1,76 @@
-# U3 — 既知2不具合の修正計画（revision 02）
+# U3 — 既存修正の再検証計画（revision 03）
 
 ## Summary
 
-- Builds: 未確定保存の誤成功表示と、削除参照の再取得後に新規保存できる不具合を修復する。
-- Touches: 比較状態・保存制御2ファイル、比較UI2ファイル、U3既存試験4ファイルと本Unit記録。
-- Tests: 新規回帰20件を予定し、既存U3全9試験、実PG結合、CUA画面確認、全体品質・80% line coverageを確認する。
+- Builds: 既存のR-01誤成功表示・R-02削除参照保存停止の修正が現HEADで有効かを再検証する。新しい不具合が再現した場合だけTDDで修復する。
+- Touches: 原則としてU3記録のみ。修復が必要な場合だけ既定8ファイル（比較状態・保存制御2、比較UI2、U3試験4）に限定する。
+- Tests: 既存U3全9ファイル141件（回帰20件を含む）、session/edits・実PG結合・UIの各exact command、全体645件・coverage lines80%以上、実画面確認の範囲内記録。
 
 ## Scope and Approval Boundary
 
-同じIntent・release Bolt002のU3再修正。現在の計画承認状態はreviseであり、本書と[Unit試験手順](unit-test-instructions.md)に対する新しい正式な人間のCode Generation Plan Approval前に、アプリ・試験・helperの変更や試験実行を始めない。本書は計画のみで、新しいRed/Greenや画面成功の証拠ではない。
+2026-10-29の再開では、U3のCode Generationを開き直した今回の実行に対して本計画を再提示する。実装・追加検証の開始前に、この実行の正式なPlan Approvalを受ける。再検証と必要時だけの修復という既存の範囲は維持する。
 
-修正対象は[既存正式レビュー](reviews/review-01.md)のMajor R-01/R-02。機能設計WF4.4/4.6、WF5.2〜6、WF6.2〜4を実現する範囲に限定し、要件・受入条件・C1/C3/C4・HTTP/schema・時間/再試行規則を変更しない。実B認証、Auth/Supabase準備、実外部API、Vercel/公開確認は後回しという本人の方針を保持する。Minor R-03の実A→B→Aと出力確認中の実本人切替は未確認のまま。
+2026-10-27の本人判断「再検証用に直して承認」に基づき、revision 02（2件の不具合をこれから修復するRed→Green→Refactor計画）をこの再検証計画へ置き換える。revision 02の本文は[旧計画](code-generation-plan.before-reverify-20261027.md)と[旧試験手順](unit-test-instructions.before-reverify-20261027.md)へ保管した。
 
-旧文書は[旧計画](code-generation-plan.before-revision-02.md)と[旧試験手順](unit-test-instructions.before-revision-02.md)へ本文を保管した。過去のチェック済み18段階や103件の初回構築計画を今回の完了証拠へ流用しない。旧資料のCDP/Playwright操作は今回の画面確認に再採用しない。
+置き換えの理由：今回のrevision 02実行（2026-10-26）のStep 3で、R-01/R-02の修正（session.tsの利用不可状態、edits.tsのsave/rebaseガードと404/通信失敗の区別、UI 2部品の確定outcome表示）と予定回帰20件（S-R1〜5、C-R1〜7、U-R1〜6、I-R1〜2）がすでに作業ツリーに存在し、全件成功していた。これらは2026-10-22の旧revision 02実行で実装・検証済みであり（[旧Red/Green記録](bugfix-evidence-revision-02.md)）、review-02/03でResolvedと判定されている。不具合を意図的に戻して人工的なRedを作ることはプロジェクト方針（偽装の禁止、Red証拠の正当性）に反するため行わない。
 
-## Current Behavior and Repair Decisions
+本計画の新しい正式な人間のCode Generation Plan Approval前に、アプリ・試験の変更や追加の試験実行を始めない。要件・受入条件・C1/C3/C4・HTTP/schema・時間/再試行規則・登録済み検証コマンドは変更しない。実B認証、Auth/Supabase準備、実外部API、Vercel/公開確認は後回しという本人の方針を保持する。
 
-### R-01 — 確定結果に結び付く成功通知
+## Evidence Already Recorded in This Run (2026-10-26)
 
-現行ServerCompanyComparisonの保持操作欄はreadbackStateだけで「保存成功」を補足する。409 conflict後のrefreshLatest失敗も同じerror値になるため、未確定なのに成功と表示する。ComparisonFieldEditor、保持操作欄の両方で、当該intentと一致する確定outcomeを持つcommitted状態だけが成功文の根拠になるようそろえる。古いoutcomeや他欄の成功は根拠にしない。
+revision 02実行のStep 1/2は今回の実行証拠として扱う（旧日付の結果ではない）。
 
-競合後のlatest取得失敗は「競合・入力保持・最新取得失敗」であり、baseVersion/baseValue/draftを変更しない。実commit後に取得が失敗した場合は確定ID/版を保持し、「保存成功、最新取得失敗」を維持する。新しい保存・再送を自動発行しない。
+| 確認 | コマンド | 結果 |
+|---|---|---|
+| runner | npm test -- tests/u3-company-comparison/readiness.test.ts --passWithNoTests=false | exit 0、1/1成功、skip 0 |
+| U3全体 | U3全9ファイルのexact command（試験手順を参照） | exit 0、9ファイル／141件成功、skip 0、7.29秒 |
+| 全体 | npm test | exit 0、56ファイル／645件成功、skip 0 |
+| coverage | npm test -- --passWithNoTests=false --coverage | exit 0、lines 85.96%（2964/3448）、statements 84.34%、branches 76.2%、functions 82.42% |
+| 状態/保存制御 | session/edits exact command | exit 0、48/48成功（Redなし） |
+| 実PG結合 | comparison.integration exact command | exit 0、12/12成功（Redなし） |
 
-### R-02 — 参照利用不可と操作結果を分離
+環境はNode v22.20.0（process-local PATH）、npm 10.9.3、Vitest 4.1.8（node環境）、v8、対象src/app、lines 80。既存U3 manifest 29件に対象8ファイルが含まれ、U1（96件）・U2（41件）との重複はない。
 
-現行refreshのcatchは404を通信失敗と同じerrorへまとめ、古いsnapshotの編集欄とComparisonEdits.saveが新operationId/PATCHを許す。既存ClientFailureのnot_found/404を権威ある「対象なし／利用不可」と判定し、通信途絶・503・取消し・不正応答と区別する。404を他所有者と不存在に分けて説明しない。
+## Change Boundary
 
-ComparisonSessionに参照の利用可能性を操作statusとは別に保持し、UIとComparisonEditsの双方が同じ条件で新規intent作成/新ID保存を止める。送信中・unknown・committed・conflictの履歴、draft/base、凍結body/ID/outcomeは消さず、利用不可を保存失敗や未送信確定へ変換しない。旧snapshotは古い参照・出力不可と明示し、入力と保存/rebase操作の利用不可を文字でも示す。
+新しいアプリ変更は予定しない。新しい不具合が再現し修復が必要な場合だけ、次の既定8ファイルに限定する。8ファイル外や契約・要件変更が必要ならrootへ返し、計画の再承認を先に行う。
 
-C3の全選択404は原因IDを返さない。要求時に固定した選択に利用不可のガードを置き、一列を推測して削除扱いにしない。有効性の解除は現本人・現対象ID・版を検証した既存readCompany/readMemo、または全C3成功に基づく。対象別取得の明示操作には既存「最新を別領域に取得」を再利用し、成功した対象の最小範囲だけ解除する。メモ確認だけで企業の全所属メモを有効化しない。企業404なら同企業の志望度/所属理由を止め、メモ404で企業存在が別途確認できれば企業志望度まで恒久停止しない。無関係な列や選択外の保持操作を巻き込まず、部分GETを完全比較へ昇格しない。比較全体/出力は全選択C3成功まで停止する。
-
-対象別latest/readbackの404も同じ利用不可へ反映する。過去世代の404/成功が現状態を停止/解除しない。通信失敗だけでは消失と断定せずdraftを保持し、conflict中はlatest確認成功と本人の明示rebaseまで保存不可という既存規則を維持する。
-
-新規saveの停止と、既に送信したunknown要求の解決を分ける。同IDのlookupは選択外/削除済みでも残す。lookup committedなら元の確定結果を通知し、対象取得404でも確定を取り消さない。lookup unknown後の本人retryは既存C4どおり同ID・同bodyだけであり、新意図や自動再送に変換しない。新規PATCH0の回帰と、明示同ID再試行の回数/同一性は別に検証する。
-
-## Minimal File List and Ownership
-
-承認後のアプリ変更は次の8ファイルに固定する。別ファイルが必要になった場合はrootへ理由と影響を返し、無断で範囲を広げない。
-
-| ファイル | 変更内容・影響先 |
+| ファイル | 必要時だけの最小変更 |
 |---|---|
-| src/lib/companyComparison/session.ts | LC1の本人/対象/世代に結び付く利用不可状態・安全な解除。入力・操作履歴の寿命を維持 |
-| src/lib/companyComparison/edits.ts | LC4の新規save/rebaseガード、対象別取得の404/通信失敗分類、既存lookup/retry保持 |
-| src/components/compare/ServerCompanyComparison.tsx | refresh404の分類をLC1へ伝達、保持操作の確定成功表示、古い比較/対象利用不可の案内 |
-| src/components/compare/ComparisonFieldEditor.tsx | 同じガードで入力/新規保存/rebaseを停止、対象別最新確認と確定結果の表示 |
-| tests/u3-company-comparison/session.test.ts | 状態・世代・保持・解除の回帰5件 |
-| tests/u3-company-comparison/edits.test.ts | Controllerの新規保存停止と凍結操作維持の回帰7件 |
-| tests/u3-company-comparison/ui.test.ts | 両表示部品と実refresh callback配線の回帰6件 |
-| tests/u3-company-comparison/comparison.integration.test.ts | 既存U1 handler/実PGでメモ削除・企業削除を経た回帰2件 |
+| src/lib/companyComparison/session.ts | 参照利用不可の状態・世代・解除 |
+| src/lib/companyComparison/edits.ts | 新規save/rebaseガード、404/通信失敗の区別、lookup/retry保持 |
+| src/components/compare/ServerCompanyComparison.tsx | refresh404の伝達、確定outcomeに基づく成功表示 |
+| src/components/compare/ComparisonFieldEditor.tsx | 利用不可時の入力/保存/rebase停止、確定結果表示 |
+| tests/u3-company-comparison/session.test.ts | 再現した不具合に対応する最小回帰のみ |
+| tests/u3-company-comparison/edits.test.ts | 同上 |
+| tests/u3-company-comparison/ui.test.ts | 同上 |
+| tests/u3-company-comparison/comparison.integration.test.ts | 同上 |
 
-既存fixture/uiHarnessは読取再利用のみ。既存model/client/export/legacyと各試験、比較表/Provider/入口、docs/company-comparison-local.md、scripts/check-u3-comparison.mjs、scripts/local-workspace-preview.mjsは変更しない。新しい依存・runner・provider・coverage設定/include/exclude/threshold・timeoutを追加/弱化しない。文書専用の変更先は本Unit記録に限り、docs/配下の変更は不要。
-
-U1/U2/U3の現source-manifestを照合した。従来U3 manifestとU1の共有重複はapp/compare/page.tsxとsrc/components/workspace/WorkspaceShell.tsxであり、今回はどちらも変更しない。U2 manifestとの今回8ファイルの重複はない。app/layout.tsx、共有型/schema/client、API/DB/repository/Auth、既存U1/U2試験・helper・handoffは凍結したまま。既存dirty編集と.worktrees/cloud-handoffを保全し、戻さない。新しい8ファイルを旧29件の累積manifestへ無条件に置換せず、承認後のStep5で実変更と従来U3成果物の関係を正確に記録する。
-
-## Predecessor State and Layer Applicability
-
-U1の既知3件はFixed、checkpoint承認済み、aggregate e1d869dcb42cab9f57ac4bb5475ba5c1f4bf63e7f7bfd69cbb6a8bbf4b40d435、検証607件。U2の重複保存はFixed、checkpoint verified/approved、aggregate 9ab545c407d7a3405022628ac2f191215cea474f8ee0d44b5ccb92ca209e3478、55files/615件、lines85.12%という先行記録がある。これらは今回のU3変更前baselineではない。U2のNFR5.2画像見比べ/実route往復/native200はMajor未確認として残す。
-
-DB/data modelの永続挙動、repository、server APIは変更しないため新しい実装TDD対象ではない。LC1/LC4のbusiness logicとfrontend behaviorが適用層。実PGは既存C4の404/操作記録とU3制御との結合境界を検証する。既存APIが初回Greenでも新しいAPI Redと偽らない。文書/証拠更新には人工Redを作らず、リンク/ID/差分/encodingを検査する。テスト設定はStep1で読取確認し、変更しない。
+既存fixture/uiHarness、model/client/export/legacy、比較表/Provider/入口、docs、scripts、U1/U2の成果物・試験・helperは変更しない。新しい依存・runner・provider・coverage設定/include/exclude/threshold・timeoutを追加/弱化しない。dirtyな既存編集と.worktrees/cloud-handoffを保全する。commit/push/PR/merge/deployは行わない。
 
 ## Ordered Steps
 
-- [ ] Step 1 — **所有境界・runner確認**。US8.1/US9.1、共同US1.1/US6.3、NFR6.2。working tree、branch、既存manifestと凍結U1/U2との差分を読み、Node/npm/既存Vitest4.1.8/node環境/v8/lines80を確認。試験手順のreadinessとU3全9ファイルのexact commandを変更前に実行し、件数・skip・exitを記録。0件/収集不能/DB準備不備はRedにしない。新しいreadinessファイルは作らない。
+- [ ] Step 1 — **所有境界・runner確認**。US8.1/US9.1、NFR6.2。上記「Evidence Already Recorded」のreadinessとU3全9ファイルの結果を今回のrunner確認として記録する。HEADや対象8ファイルが記録時から変わっていればexact commandを1回だけ再実行する。0件/収集不能/DB準備不備はRedにしない。
+- [ ] Step 2 — **変更前baseline**。NFR6.3。記録済みの全体645件・coverage lines 85.96%を今回のbaselineとする。HEADが変わっていれば全体testとcoverageを1回ずつ再実行する。
+- [ ] Step 3 — **既存修正の再検証**。US8.1/US9.1、共同US6.3〜6.5、AC6.3.1〜4/AC6.4.3/AC6.5.4/AC8.1.4/AC9.1.4、BR4.1〜4.4/BR5.1/BR5.2、NFR2.3〜2.7/3.1〜3.3。session/edits、実PG結合、UIの各exact commandを実行し、回帰20件（S-R1〜5、C-R1〜7、U-R1〜6、I-R1〜2）の各観測がR-01/R-02の受入に対応していることを試験名・assertionで照合する。既存試験を新しいRedとして数えず、旧Red/Greenは履歴として参照する。
+- [ ] Step 4 — **条件付きRed**。Step 3またはStep 6で対象内の製品不具合が新たに再現した場合に限り、受入に対応する最小の失敗試験を先に書き、exact commandで不具合原因による失敗出力を記録する。環境・fixture・接続の失敗はRedにしない。再現しなければ非適用とその理由を記録する。
+- [ ] Step 5 — **条件付きGreen/Refactor**。Step 4のRedに対して既定8ファイル内の最小変更でGreenにし、greenを保って整理する。assertion・閾値・timeoutを弱めない。Step 4が非適用なら非適用を記録する。
+- [ ] Step 6 — **限定的な実画面確認**。M-R1〜M-R5を架空データ・既存preview（最大300000ms、延長しない）で、実行できる範囲だけ行う。CDP/Playwright/browser fetch/状態注入は使わない。実施できなかった項目（明示rebase後の再保存、残る別企業の確認・保存、他欄dirty時の片欄保存と確定ID表示、画面往復で追加保存なし、比較.md出力前の再取得、mobile幅とnative 200%/400%、Tab/Shift+Tab/Enter）とR-03（実Bセッション、実A→B→A、出力中の本人切替）は未確認のまま残し、本人へ具体的な操作として引き継ぐ。未確認を合格にしない。
+- [ ] Step 7 — **全体品質・差分確認**。全担当AC、NFR6.3。npm run lint、npm run typecheck、npm test、npm test -- --passWithNoTests=false --coverage、npm run build、`git diff --check -- . ':(exclude)aidlc/spaces/default/intents/261011-company-data-management/audit/**'`を直列に1回ずつ実行。全app/src lines80%以上、既存設定を維持。差分検査から除くのは公式ツール所有の監査記録だけとし、その既知の末尾空白2件は[検証結果](verification-results.md)に失敗として残す。失敗時は停止して報告し、自動再試行しない。
+- [ ] Step 8 — **記録更新**。全担当US/AC/17BR/30NFR。code-summary.md、traceability.json（U3担当35AC／他Unit55ACを維持、OK対象は実在ファイル）、source-manifest.json（累積claimsを保持し、今回触れたapplication pathを追加）、既存のtdd-evidence.md／verification-results.md／manual-evidence.md／manual-acceptance-status.mdを今回の実結果で更新する。旧証拠は消さず、今回と履歴を分ける。R-01/R-02は今回の再検証結果に基づき記録し、R-03／実環境／U2未確認は残す。
+- [ ] Step 9 — **正式レビューと検証checkpoint**。rootが完成物の正式レビューを依頼し、登録済み公式検証コマンド npm test -- --passWithNoTests=false の結果を記録して本人のU3判断へ渡す。
 
-- [ ] Step 2 — **変更前baseline**。US8.1/US9.1、NFR6.3。新しい回帰を書き始める前に全既存npm testと既存coverageを実行し、現在の成功/失敗/skip/lines/環境を記録する。U1/U2の607/615や旧U3の587を今回の結果へ流用しない。失敗なら同一原因を切り分け、環境不備・既存不備・対象不具合を区別してrootへ報告し、成功扱いで続けない。
-
-- [ ] Step 3 — **状態/保存制御と結合境界のRed**。US8.1、共同US6.3/US6.4/US6.5、AC6.3.1〜4/AC6.4.3/AC6.5.4/AC8.1.4/AC9.1.4、BR4.1〜4.4/BR5.1、NFR2.3〜2.7/3.1〜3.3。session5件・edits7件・実PG2件の予定14件を受入に結び付け先に追加し、試験手順の該当exact commandsで不具合原因によるRedを確認する。正常/保持の対照例は初回Greenのまま記録し、全14件が失敗したとは主張しない。実削除→C3 404→保存操作→新operation/PATCH0の結合回帰を必須にする。
-
-- [ ] Step 4 — **状態/保存制御のGreen**。Step3と同じUS/AC/BR/NFR。session.ts/edits.tsだけに必要最小の参照ガード・分類・解除を実装。各対象に適切な本人/世代判定を行い、全選択404から原因を推測しない。新規保存を止めても、unknown凍結要求・同IDlookup/retry・commit後読取失敗を保持する。14件と既存状態/保存/結合試験をGreenにする。
-
-- [ ] Step 5 — **状態/保存制御のRefactor**。Step3と同じ追跡先。重複条件を必要最小に整理し、該当groupを再実行してgreenを維持する。client/契約/DBや他Unitへ抽象化を広げず、assertionを緩めない。
-
-- [ ] Step 6 — **画面振る舞いのRed**。US8.1/US9.1、共同US6.3/US6.4/US6.5、AC8.1.4/AC6.4.3/AC6.5.4/AC9.1.4、BR4/5/7、NFR2.7/3.1/3.3/5.3。ui.test.tsへ6件を先に追加し、既存HookHarness/SSR/実callbackでR-01の誤成功文とR-02のrefresh配線不足を再現する。実controllerと送信spyを使い、disabled属性だけを合格根拠にしない。実DOM/実ブラウザ試験と称さない。
-
-- [ ] Step 7 — **画面のGreen**。Step6と同じ追跡先。ServerCompanyComparison.tsx/ComparisonFieldEditor.tsxだけを最小修正し、確定した当該outcomeから成功文を出し、利用不可の文字通知・新規入力/保存/rebaseガード・既存latest確認を接続する。未知の操作結果照会を失わず、全体出力の停止と有効な他欄の継続を両立する。
-
-- [ ] Step 8 — **画面のRefactor・U3既存回帰**。Step6と同じ追跡先。画面6件と全U3 exact commandをgreenに保って整理。既存7観点/区分/出典/旧比較/owner隔離/出力前全版確認/タイムアウト・GET再試行のassertionを保持する。今回20件の追加数と実実行数を記録し、最低件数へ届かせるための重複例を足さない。
-
-- [ ] Step 9 — **限定CUA手動確認**。US8.1/US9.1、共同US6.3〜6.5、AC8.1.4/AC6.4.3/AC6.5.4/AC9.1.4、NFR2.7/3.1/3.3/5.2/5.3。下記M-R1〜M-R5を架空データで実施。画面はCUAのみ。故障分岐のVitest/実PGと実GUI証拠を明確に分ける。未達は未達と記し、既存広範UI sweepを無条件に再実行しない。
-
-- [ ] Step 10 — **全体品質・差分確認**。全担当AC、NFR6.3。npm run lint、npm run typecheck、npm test、npm test -- --passWithNoTests=false --coverage、npm run build、git diff --checkを実行。全app/src lines80%以上、既存設定を維持。新失敗を修正する場合も該当Red→Green→Refactorから行い、必要な検査を再実行。Docker/CI/依存変更はなく、不要なDocker再構築・依存導入はしない。
-
-- [ ] Step 11 — **証拠・自己review・Step5引継ぎ**。全担当US/AC/17BR/30NFR。実変更8ファイルと所有差分、Red/Green/Refactor、M-R結果/限界/cleanup、最終品質と最終source hashを対応付ける。承認後のcode-summary.md/traceability.json/source-manifest.json、既存tdd-evidence.md/verification-results.md/manual-evidence.md/manual-acceptance-status.mdを実結果に沿って更新し、旧証拠を消さない。機能traceのU3担当35AC/他Unit55ACを維持。R-01/R-02は実証してから修復済みとし、R-03/実環境/U2未確認は残す。codeとStep5成果物が揃ってからrootへ正式review用に渡す。今はこれらを書かず、reviewerを先行実行しない。
-
-## Test Strategy and Verification
-
-Standardを維持する。既存のsession12件、editsの正常/二重送信/unknown/競合/commit後取得失敗、UIの正常/復旧/旧比較等を保持し、今回の変更責任に対してsession5・edits7・UI6・実PG2＝予定20件を追加する。UIは2部品の同じ利用不可/成功投影を扱い、既存ケースと合わせて各部品の正常・少なくとも2異常、5〜8基礎例以上を確保する。5〜8へ合わせるためだけの新規ケース水増しはしない。
-
-Unit対象exact commandsは[Unit試験手順](unit-test-instructions.md)だけに集約する。Step1/2前の計画読取は静的確認でありrunner成功とは呼ばない。変更前baselineと最終品質の全体コマンドは次のとおり。
+## Verification Commands
 
 | 検証 | コマンド／条件 |
 |---|---|
-| 変更前全体baseline | npm test / npm test -- --passWithNoTests=false --coverage |
-| 全体品質 | npm run lint / npm run typecheck / npm test / npm test -- --passWithNoTests=false --coverage / npm run build / git diff --check |
-| 登録済み公式checkpoint | npm test -- --passWithNoTests=false をrootが既承認のまま使用。変更しない |
 | DB前提 | 必要時だけ既存 docker compose -f compose.test.yml up -d --wait。localhostの使い捨てworkspace_test/PG17以外に接続しない |
-| 画面用準備 | 既存 node scripts/local-workspace-preview.mjs を変更せず使用。最大300000ms、延長しない。専用schema/Next子プロセスだけ所有 |
-| 終了 | helper stdinへstop、専用preview停止・専用schema削除の結果を確認。既存server/volume/他者worktreeを停止/削除しない |
+| 全体品質 | npm run lint / npm run typecheck / npm test / npm test -- --passWithNoTests=false --coverage / npm run build / `git diff --check -- . ':(exclude)aidlc/spaces/default/intents/261011-company-data-management/audit/**'`（公式監査記録のみ除外。全体 `git diff --check` の既知の失敗は別途記録） |
+| 登録済み公式checkpoint | npm test -- --passWithNoTests=false をrootが既承認のまま使用。変更しない |
+| 画面用準備 | 既存 node scripts/local-workspace-preview.mjs を変更せず使用。最大300000ms、延長しない |
+| 終了 | 専用preview停止・専用schema削除の結果を確認。既存server/volume/他者worktreeを停止/削除しない |
 
-## Bounded Manual Acceptance
-
-実画面は既存computer-useのCUA操作のみ。ブラウザfetch/evaluateによるAPI要求、状態注入、CDP、Playwright CLI、旧scripts/check-u3-comparison.mjsの画面操作を使わない。既存previewはserver/隔離/cleanup準備だけに使う。企業/構造化メモは画面から手入力してよく、画像アップロードを前提にしない。同じ架空本人の2つのCUAタブを別クライアントとして使い、実B認証成功とは区別する。
-
-各runは5分TTL内の限定ケースとし、終わらなければ一度終了・cleanupしてから新しい隔離環境で次のケースを行う。無期限待機・TTL延長・ブラウザセキュリティ設定の変更は行わない。
-
-| ID | 実施手順 | 期待と証拠の種類 |
-|---|---|---|
-| M-R1 | タブA/Bで同じ架空企業・構造化メモを開く。Bで理由を変更保存、Aで旧版理由を保存し競合→最新確認→明示rebase | 実GUIで旧base/draft/latestの区別、勝手な成功/mergeなし、明示操作後だけ保存。latest失敗の制御はU-R1で別証拠 |
-| M-R2 | Aでdirty比較理由を保持、Bの企業詳細で同メモを確認削除、Aで比較再取得。該当欄と保存操作を確認 | 対象なし/利用不可、古い比較/出力不可、dirty保持、新規保存停止。実GUIの画面証拠＋U-R3/I-R1の新PATCH0で配線/制御の保証を補う |
-| M-R3 | 同様にBで所属メモを含む企業を確認削除、Aで再取得。残る別企業を対象別確認して保存 | 消失企業の欄は新規保存不可、原因ID非開示・選択を黙って縮小しない。有効な別対象は契約上可能な操作を維持。比較全体出力は全C3成功まで0 |
-| M-R4 | 有効欄を通常保存、他欄dirtyの保持と確定ID表示、画面往復、比較.md前の再取得を確認 | 片欄の確定だけ成功、往復で追加保存なし。commit後GET失敗/unknownの故障分岐は制御試験で確認し、未実施の実GUI成功を約束しない |
-| M-R5 | 修正通知/利用不可欄/最新確認をTab・ShiftTab/Enterで操作し、既存PC/mobile幅とnative倍率の条件を確認可能な範囲で記録 | 幅/zoomを測定できた値だけ記録。通知・label・focusを確認。CUAでCSS幅/DPR/native倍率が測れない場合やキー操作で変わらない場合は未確認。旧CDPの幅/200/400証拠を今回の測定へ流用しない |
-
-故障注入を要する「409→latest取得503/切断」「commit→GET失敗」「unknown照会/retry」「遅延旧世代」はU3 Vitestの実controller/callback、実削除404は実PG/既存handlerで実証する。対応するライブDOM故障注入の手段は今回用意しない。実HTTP計測の旧ローカル参考値は性能の履歴として保持し、今回の新実測・実Supabase成功とは呼ばない。性能目標/容量/有限期限は既存回帰で維持し、新しい広範性能sweepは追加しない。
-
-## Acceptance Traceability and Completion Limits
-
-| 修復対象 | 既存US/AC | 規則・詳細NFR | 計画／証拠 |
-|---|---|---|---|
-| R-01誤成功表示 | US8.1、共同US6.3、AC6.3.1〜4/AC8.1.4 | BR4.1〜4.4、WF4.4/4.6/5、NFR2.3〜2.5/2.7/3.1 | Steps3〜8、U-R1/U-R2、C-R3/C-R4、M-R1/M-R4 |
-| R-02消失参照保存停止 | US8.1/US9.1、共同US6.4/US6.5、AC6.4.3/AC6.5.4/AC8.1.4/AC9.1.4 | BR4.3/4.4/5.1/5.2、WF5.6/6.2〜4、NFR2.4〜2.7/3.1〜3.3 | Steps3〜9、S-R1〜5/C-R1〜7/U-R3〜6/I-R1〜2、M-R2/M-R3 |
-| 所有者・表示・品質維持 | US1.1/US8.1/US9.1のU3部分 | BR1.2/7.1、NFR1.2/5.2/5.3/6.2〜6.4 | Steps1〜11、全U3回帰、M-R5。実BはDeferred |
-
-今回の計画で要求・設計・verification commandを改める必要はない。実装中に必要と判明した場合はrootへ返す。U1/U2 frozen成果物/state/audit/承認記録の書換えは行わない。計画作成担当は上記2文書と旧版保管のみを所有する。後続の実装・証拠更新は新Plan Approval後の別実行である。
-
-実Auth/実B/Supabase/実CI job/本番merge SHA/公開フローは未確認。ローカル品質やreview、Classic段階完了だけでは本番リリース完了にならない。既存NFR5.2全条件を新たな局所成功で一括合格にしない。
+Unit対象のexact commandsは[Unit試験手順](unit-test-instructions.md)に集約する。全体成功と画面確認の範囲を分けて記録し、ローカル品質・review・Classic段階の完了だけで本番リリース完了としない。
 
 ## Testing Contract
 
@@ -204,7 +150,6 @@ Unit対象exact commandsは[Unit試験手順](unit-test-instructions.md)だけ�
 
 ## Sources
 
-- [機能設計](../functional-design/functional-spec.md)、[ルール](../functional-design/rules.md)、[論理モデル](../functional-design/entities.md)、[画面責任](../functional-design/frontend-components.md)。
-- [整合性設計](../nfr-design/reliability-design.md)、[論理部品](../nfr-design/logical-components.md)、[性能](../nfr-design/performance-design.md)、[安全性](../nfr-design/security-design.md)、[画面品質](../nfr-requirements/tech-stack-decisions.md)。
-- [要件](../../../inception/requirements-analysis/requirements.md)、[ストーリー/AC](../../../inception/user-stories/stories.md)、[共有部品](../../../inception/domain-design/components.md)、[契約](../../../inception/contract-design/contract-summary.md)、[Unit対応](../../../inception/units-generation/unit-of-work-story-map.md)、[Bolt計画](../../../inception/delivery-planning/bolt-plan.md)。
-- [既存正式レビュー](reviews/review-01.md)、[既存手動範囲](manual-acceptance-status.md)、[旧計画](code-generation-plan.before-revision-02.md)、[旧試験手順](unit-test-instructions.before-revision-02.md)。
+- 本人の2026-10-27判断「再検証用に直して承認」、[旧計画revision 02](code-generation-plan.before-reverify-20261027.md)、[旧Red/Green記録](bugfix-evidence-revision-02.md)、[正式レビュー](reviews/review-01.md)。
+- [機能設計](../functional-design/functional-spec.md)、[ルール](../functional-design/rules.md)、[整合性設計](../nfr-design/reliability-design.md)、[安全性](../nfr-design/security-design.md)、[論理部品](../nfr-design/logical-components.md)。
+- [要件](../../../inception/requirements-analysis/requirements.md)、[契約](../../../inception/contract-design/contract-summary.md)、[Unit対応](../../../inception/units-generation/unit-of-work.md)。

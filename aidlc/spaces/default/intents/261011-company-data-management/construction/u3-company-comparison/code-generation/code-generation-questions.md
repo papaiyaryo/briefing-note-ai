@@ -7,15 +7,15 @@ instead of in chat, write your answer after `[Answer]:` and say done.
 
 Approve the code plan for u3-company-comparison?
 
-- Builds: 未確定保存の誤成功表示と、削除参照の再取得後に新規保存できる不具合を修復する。
-- Touches: 比較状態・保存制御2ファイル、比較UI2ファイル、U3既存試験4ファイルと本Unit記録。
-- Tests: 新規回帰20件を予定し、既存U3全9試験、実PG結合、CUA画面確認、全体品質・80% line coverageを確認する。
+- Builds: 既存のR-01誤成功表示・R-02削除参照保存停止の修正が現HEADで有効かを再検証する。新しい不具合が再現した場合だけTDDで修復する。
+- Touches: 原則としてU3記録のみ。修復が必要な場合だけ既定8ファイル（比較状態・保存制御2、比較UI2、U3試験4）に限定する。
+- Tests: 既存U3全9ファイル141件（回帰20件を含む）、session/edits・実PG結合・UIの各exact command、全体645件・coverage lines80%以上、実画面確認の範囲内記録。
 
 Full plan: aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/code-generation-plan.md
 Test instructions: aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/unit-test-instructions.md
 
-[Approval Fingerprint]: sha256:v3:882892a9da5dde227cef751a869e742614e32d8d8cd06b7c5aa62268696f39b6
-[Planned Source]: ee5f0afad6831dae6a02595df462de36a0139780a5dd6acc2193810a708e1cf7
+[Approval Fingerprint]: sha256:v3:dcc9f5d63354b6a580625534516f960ac57dbb5fb780edf549933513bbb9c5c7
+[Planned Source]: 40a6adb49a0d68d7e9aa25efe96e534626b31c3e88a5511acb3f4340fc3b4059
 
 - A. Approve Plan
 - B. Request Changes

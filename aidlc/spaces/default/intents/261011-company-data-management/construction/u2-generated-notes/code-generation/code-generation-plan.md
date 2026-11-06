@@ -6,6 +6,8 @@
 
 ## Scope and Current Evidence
 
+U1の公式チェックポイントは承認済み。U2の再開では、過去の試験・レビュー結果を今回の実行結果として流用せず、未完了の標準表示と実倍率200%の画面確認を優先する。Step 1・2・5〜9の完了印は前回までの進捗を示し、新しいPlan Approvalや今回の受入確認を示さない。
+
 本人のU2 checkpointのRequest Changesを受け、未確認だった標準表示の画像入力以降・保存後OCR／復習往復・メモ1件保持、およびブラウザ実倍率200%の主要操作を確認する。FR5／FR6.2〜3／FR9、US5.1／US5.2／US6.2／US9.1／US9.2、BR4.1〜3／BR5.1〜2、NFR1.4／NFR2.3〜4／NFR3.1〜2／NFR5.2／NFR6.3〜4の既存範囲を維持する。
 
 保存意図をFlowの本人・企業・候補の寿命へ結合する既存修正と8回帰は既に存在する。過去のRed／Greenと今回の再検証を区別し、同じ8件を新規追加・新しいRedとして数え直さない。前回のU2全140件・生成回帰82件・全体635件、lint／typecheck／coverage／build成功は履歴であり、今回の実行証拠へ代用しない。前回の全体1件timeoutと同条件Retry成功も履歴として保持する。
@@ -34,13 +36,13 @@ U1のsource／produces、U3、共有handoff、保存model／client、API、DB／
 
 - [x] **Step 1 — runner・構成と現在差分の確認。** Node22、既存Vitest／v8、全app/src coverageと80%閾値を読み取り確認。unit-test-instructions.mdのreadiness exact commandを実行し、exit・収集数・対象版を記録する。テスト設定は変更不要を明示し、runner／fixture不成立や0件をRedにしない。US5.1／US6.2、NFR6.3〜4。
 - [x] **Step 2 — 既存修正と8回帰の保全確認。** 実Flow／Panelの親子寿命と既存R1〜R8、model、U2全体、既存生成回帰を同じ条件で確認。保存済み往復・保存中往復・確定後GET失敗・unknown照会・本人／企業切替・新生成成功／失敗・保存後編集を確認する。正常unknownの明示再試行と照会失敗の区別も既存テストと共有C4で照合する。歴史的Redの再演や通る試験の複製はしない。US5.1／US5.2／US6.2／US9.2、BR4.1〜3。
-- [ ] **Step 3 — 標準表示の追加実画面確認。** 下記の実UI操作を画像入力から実行し、保存後OCR往復・既存復習往復を経ても同じmemoId・件数1を保つことを取得画面で確認。保存成功通知だけでは判定しない。US5.1／US6.2／US9.2、AC5.1.5／AC6.2.2〜4／AC9.2.1〜3。
+- [x] **Step 3 — 標準表示の追加実画面確認。** 下記の実UI操作を画像入力から実行し、保存後OCR往復・既存復習往復を経ても同じmemoId・件数1を保つことを取得画面で確認。保存成功通知だけでは判定しない。US5.1／US6.2／US9.2、AC5.1.5／AC6.2.2〜4／AC9.2.1〜3。
 - [ ] **Step 4 — 実倍率200%と承認済み表示条件の確認。** 標準表示と実倍率200%を区別し、画像選択・OCR訂正・生成確認・保存・再取得の主要操作を実UIで実行。PC1366×768、390×844、幅320／767／768、400%、キーボード・label・通知等の既存条件も維持。自動操作で実倍率や画像選択を制御できない場合は本人の実操作へ引き継ぎ、未確認を合格にしない。NFR5.2、US5.1／US9.2。
 - [ ] **Step 5 — 必要時Frontend Red。** Step2〜4で対象内の製品不備が再現した場合に限り、受入対応の最小回帰試験を先に書き、exact UI commandで期待不成立による失敗出力を記録する。runner・補助・接続・倍率未反映の失敗はRedではない。不具合がなければ本工程は非適用として記録し、旧8回帰を新規Redに数えない。US5.1／US6.2／US9.2、NFR6.3。
 - [ ] **Step 6 — 必要時Frontend Green。** Step5の失敗に対してFlow／Panel内の最小変更だけを行い、同じexact UI commandでgreenを記録。照会成功unknownは同じ凍結要求・IDの本人再試行、照会失敗は再照会とする既存C4を維持し、新しいAPI応答は作らない。不具合がなければ非適用。BR4.1〜3、NFR1.4／NFR2.3〜4。
 - [ ] **Step 7 — 必要時Frontend Refactorと画面再確認。** greenを保って責務を整理し、UI・model・該当実画面を再実行。assertion・timeout・閾値を弱めない。変更なしなら非適用を記録。US5.1／US6.2／US9.2、NFR6.3〜4。
 - [ ] **Step 8 — 文書と全体品質検証。** docs/generated-notes-checks.mdを実結果で更新。lint・typecheck・全test・coverage・build・diff checkを実行。全app/src line80%以上、実PG結合を維持。失敗時は通常のverify/fix／公式Retry経路を使い、試験時間制限を延長しない。US5.1／US9.2、NFR6.3〜4。
-- [x] **Step 9 — 成果物・自己点検。** rootがcode-summary・traceability・累積source-manifestを実結果で整え、135件（90 AC／14 BR／31 NFR）の既存対応とDeferredを維持する。今回変更と履歴を分け、U1／U3の凍結依存・秘密非保存・preview cleanupを確認。機能未確認は未確認のまま残す。
+- [ ] **Step 9 — 成果物・自己点検。** rootがcode-summary・traceability・累積source-manifestを実結果で整え、135件（90 AC／14 BR／31 NFR）の既存対応とDeferredを維持する。今回変更と履歴を分け、U1／U3の凍結依存・秘密非保存・preview cleanupを確認。機能未確認は未確認のまま残す。
 - [ ] **Step 10 — 正式レビューと検証checkpoint。** rootが完成物の正式レビューを依頼し、指定検証コマンドの実結果を記録して本人のU2判断へ渡す。新しいコード計画への承認とUnit受入判断は別のチェックポイントとする。
 
 データモデル／DB、Repository、保存business logic、APIは今回変更しないので人工的なRedを設けない。Frontendの変更が必要な場合のみStep5→6→7の順を守る。文書や既存設定の確認には実行可能な新挙動がないためTDD非適用とし、参照・構文・差分を確認する。Standardの既存部品別試験、正常＋境界、実PG結合を維持する。

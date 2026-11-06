@@ -1,5 +1,35 @@
 # U3 実画面・HTTP証拠
 
+## 2026-10-30 revision03 再検証の現在値
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。開始時の対象8 source/testにgit差分なし。旧baselineとの同一HEADを証明できないため、新規に実行した。アプリ・テスト変更なし。Testing Contract `sha256:a01bc0361713cbf9f8fa516a1c4355a4c4a522a798bc83dbe03bcc8145e77440` を適用し、既存証拠は以下に保存する。
+
+Steps 1〜5: readiness 1件、U3全9ファイル141件、全体baseline 56ファイル645件、baseline coverage、session/edits 48件、integration 12件、UI 24件はすべてexit0・skip0。回帰20項目のassertionを確認した。新規の振る舞い変更・不具合修正はなく、条件付きRed/Green/Refactorは非適用。既存成功試験を新規Redと扱わない。
+
+Step 6: rootの専用previewは起動したが、native UIで現在URLを安全に判定できずポリシー停止。画面操作0、M-R1〜5は全未確認。R03・owner切替・export・実画面の操作/モバイル/200・400%/キーボード等の未確認範囲を従来どおり引き継ぐ。自動試験で手動受入を代替しない。
+
+Step 7: `npm run lint`、`npm run typecheck`、`npm test`、`npm test -- --passWithNoTests=false --coverage`、`npm run build`は各1回exit0。最終test/coverageは各56ファイル645件・skip0。v8 coverageはlines85.96%、statements84.34%、branches76.2%、functions82.42%（baselineと同値）。Node v22.20.0、既存dummy PostgreSQLを使用し、依存・assertion・timeout・coverage条件は変更していない。
+
+承認済みscoped `git diff --check` はexit1。実行時の `manual-evidence.md:118` と `tdd-evidence.md:117` に `new blank line at EOF` を検出して停止した。人間が「空行だけでしょ。飛ばして次に進んでいいよ」と明示し、rootが回答記録済み。この判断によりStep 8へ進むが、差分検査を成功へ変更しない。空行修正・再試行・追加試験は行っていない。行番号は当該実行時の値。
+
+preview終了のhelper結果はexit1、`dedicatedPreviewStopConfirmed:false`、`dedicatedSchemaDropped:true`。rootの既知helper/Next親PID照会では両方とも消失。schema削除は確認済みだが、プロセスツリー全体の停止は未証明であり、StopConfirmedを成功に上書きしない。
+
+Step 8の記録更新のみ。manifestの累積29パス、traceabilityの137 IDs（AC90: U3 35/他55、BR17、NFR30）とDeferred/手動限界を維持し、新しいsource claimを追加しない。Step 9の正式レビュー・checkpoint・lifecycle判断はroot担当で未完了。
+
+最新の2026-10-29再実行はDB準備失敗でpreview未起動、GUI成功0。末尾の当日追記が今回の状態であり、過去の実画面成功とcleanup結果を今回へ流用しない。
+
+## revision03 — 環境復旧後の再試行（2026-10-28）
+
+本人承認の再試行でNode v22.20.0のprocess-local PATHを使用し、既存の`node scripts/local-workspace-preview.mjs`が起動した。専用helper PID 43032、Next PID 60240、専用schema `u1_preview_74d86aa239fb4b46849db71789fc8df0`、最大300000ms。CUAのIABは利用不可で、Chrome native windowも最小化され画面操作に結び付けられなかった。CDP/Playwright/browser fetch/状態注入は行わず、今回のGUI成功は0。M-R1〜M-R5と下記残操作は未確認のまま。
+
+最大寿命後、既知helper PID 43032は消失。ローカル使い捨てPGのinformation_schemaへの読取照会で当専用schema数0を確認した。helperの終了コードと内部の`dedicatedPreviewStopConfirmed`出力はセッションstdinが閉じて取得できず、確認済みとしない。既存server/volume/他者worktreeは停止・削除していない。
+
+## revision03 — 今回の限定画面確認（2026-10-28）
+
+`node scripts/local-workspace-preview.mjs` は、専用preview起動前のローカルPG接続で `ECONNREFUSED 127.0.0.1:55432`、exit 1（Node v24.11.0）。計画にある `docker compose -f compose.test.yml up -d --wait` もDocker設定読取とdocker_engine pipeの権限拒否でexit 1。preview/専用schemaは作成されず、停止・削除対象もない。既存server、volume、他者worktreeは操作していない。
+
+今回のM-R1〜M-R5の実画面成功は0。明示rebase後の再保存、残る別企業の確認・保存、他欄dirty時の片欄保存と確定ID表示、画面往復で追加保存なし、比較.md出力前の再取得、mobile幅とnative 200%/400%、Tab/Shift+Tab/Enterはすべて未確認。R-03の実Bセッション、実A→B→A、出力中の本人切替も未確認。revision02のCUA観測は履歴であり、今回の成功に算入しない。
+
 ## revision02 — 現在のCUA限定証拠
 今回の正本は[manual-revision-02-root.md](manual-revision-02-root.md)。通常save/確定ID、409でbase/draft/latest分離、メモ/企業削除後404→入力保持/新規保存/出力停止、対象別企業確認だけの解除をCUAで確認。PC幅1905と限定Tab/ShiftTab/Enterだけを実観測。mobile/native倍率、明示rebase再保存・別企業保存・route/download等は未確認、Step9は未チェック。旧CDP/native幅の履歴を現在の確認へ流用しない。3専用previewは停止true/schema削除true/exit0、ownedtabs閉鎖。
 
@@ -96,3 +126,9 @@ cleanup診断では29check成功・exit1でowned-edge-stop/code128、ただし�
 一時診断分岐は解除し通常helperへ復帰、構文exit0。rootの停止指示に従い新しい実行/修正なし。M4のCOMMIT後途絶/実route remount、M6追加の不正/15秒期限/遅延入力、M8正常/混在/読取不能、M7制御401/A復帰、M10 scrollはhelperへ準備したが今回未到達。未実行コードを成功証拠にしない。M6の削除・各種版変更、M9各幅での全エラー操作、M12企業詳細の実操作も未確認。上のM表はこの追加成功範囲だけ補正し、全条件達成としない。
 
 実B authenticated sessionは現ローカルpreviewのWORKSPACE_ALLOWED_USER_IDがA固定のsingle-owner構成では成立しない。凍結Auth/設定を変更せず、別ownerの単体/実PG隔離証拠と実A/B/A DOM確認を区別して保留する。実Auth準備待ちへ戻す意味ではない。
+# 2026-10-29 再実行 — 画面確認未着手
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。PG準備のcomposeコマンドがDocker権限拒否でexit1のため、previewを起動せず停止した。今回作成した専用preview／schemaはなく、今回の停止・削除対象なし。既存server／volume／他者worktreeは操作していない。
+
+Computer Use skillとguidanceを読み、UI制御前に環境が停止したため画面操作は0。CDP／Playwright／browser fetch／状態注入なし。M-R1〜5、明示rebase後の再保存、残る別企業の確認保存、他欄dirty時の片欄保存と確定ID表示、画面往復で追加保存なし、比較.md出力前再取得、mobile幅／native200・400%／Tab・ShiftTab・Enterは今回未確認。R-03実B／A→B→A／出力中本人切替、U2手動受入、実Auth／Supabase／外部API／CI／本番も未確認を維持する。以下の実画面／cleanup結果は以前の実行履歴であり、今回の実証ではない。
+

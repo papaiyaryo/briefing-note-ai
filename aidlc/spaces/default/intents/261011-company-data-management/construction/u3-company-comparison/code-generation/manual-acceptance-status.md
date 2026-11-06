@@ -1,5 +1,31 @@
 # U3 手動受入の現在範囲
 
+## 2026-10-30 revision03 再検証の現在値
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。開始時の対象8 source/testにgit差分なし。旧baselineとの同一HEADを証明できないため、新規に実行した。アプリ・テスト変更なし。Testing Contract `sha256:a01bc0361713cbf9f8fa516a1c4355a4c4a522a798bc83dbe03bcc8145e77440` を適用し、既存証拠は以下に保存する。
+
+Steps 1〜5: readiness 1件、U3全9ファイル141件、全体baseline 56ファイル645件、baseline coverage、session/edits 48件、integration 12件、UI 24件はすべてexit0・skip0。回帰20項目のassertionを確認した。新規の振る舞い変更・不具合修正はなく、条件付きRed/Green/Refactorは非適用。既存成功試験を新規Redと扱わない。
+
+Step 6: rootの専用previewは起動したが、native UIで現在URLを安全に判定できずポリシー停止。画面操作0、M-R1〜5は全未確認。R03・owner切替・export・実画面の操作/モバイル/200・400%/キーボード等の未確認範囲を従来どおり引き継ぐ。自動試験で手動受入を代替しない。
+
+Step 7: `npm run lint`、`npm run typecheck`、`npm test`、`npm test -- --passWithNoTests=false --coverage`、`npm run build`は各1回exit0。最終test/coverageは各56ファイル645件・skip0。v8 coverageはlines85.96%、statements84.34%、branches76.2%、functions82.42%（baselineと同値）。Node v22.20.0、既存dummy PostgreSQLを使用し、依存・assertion・timeout・coverage条件は変更していない。
+
+承認済みscoped `git diff --check` はexit1。実行時の `manual-evidence.md:118` と `tdd-evidence.md:117` に `new blank line at EOF` を検出して停止した。人間が「空行だけでしょ。飛ばして次に進んでいいよ」と明示し、rootが回答記録済み。この判断によりStep 8へ進むが、差分検査を成功へ変更しない。空行修正・再試行・追加試験は行っていない。行番号は当該実行時の値。
+
+preview終了のhelper結果はexit1、`dedicatedPreviewStopConfirmed:false`、`dedicatedSchemaDropped:true`。rootの既知helper/Next親PID照会では両方とも消失。schema削除は確認済みだが、プロセスツリー全体の停止は未証明であり、StopConfirmedを成功に上書きしない。
+
+Step 8の記録更新のみ。manifestの累積29パス、traceabilityの137 IDs（AC90: U3 35/他55、BR17、NFR30）とDeferred/手動限界を維持し、新しいsource claimを追加しない。Step 9の正式レビュー・checkpoint・lifecycle判断はroot担当で未完了。
+
+最新の2026-10-29再実行はDB準備失敗で全画面操作未実施。末尾の当日追記を参照。M-R1〜M-R5／R-03／実環境／U2の未確認を継続する。
+
+## revision03 — 環境復旧後の再試行（2026-10-28）
+
+Node 22で専用previewは起動したが、利用可能な画面操作手段に接続できずM-R1〜M-R5の新しいGUI実証は0。専用helper PID消失・専用schema0を読取確認した。helper終了コード/停止報告は未取得。下記の初回PG接続拒否とrevision02の画面成功は履歴として維持し、今回の成功へ読み替えない。
+
+## revision03 — 今回の状態（2026-10-28）
+
+専用previewはPGの `ECONNREFUSED 127.0.0.1:55432` で起動前に停止。Docker準備もdocker_engineへの権限拒否で失敗した。今回のM-R1〜M-R5のGUI確認は0件で、全行未確認のまま。下記revision02の実観測を今回の再検証結果へ読み替えない。具体的な残操作は[今回の画面証拠](manual-evidence.md)に記録。R-03と実Auth/Supabase、本番、U2画面受入も未確認。
+
 2026-10-25追記: [追加CUA停止とcleanup](resume-evidence-2026-10-25.md)。ログイン画面後の接続失敗2回により新しいM-R成功0。既存の残条件を維持。schema削除true、helper停止確認false、既知PID消失を別記した。
 
 ## revision02 — 現在の範囲と残条件
@@ -76,4 +102,10 @@ R-01/R-02の20回帰と局所GUI証拠を保存した。実B/A→B→A/出力中
 ## 本人担当の実環境と持越し
 
 実Auth/Supabase秘密・本番DB・実CI job・Vercel設定/deploy・公開/merge SHAは未確認で本人担当。実B sessionを成立させるためにAuth構成を拡張しない。U1既知3不備、U2既知2件とaudit high5/critical1も未修正。これらをU3の局所成功へ含めない。
+
+# 2026-10-29 再実行の受入状況
+
+対象HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。DB準備がDocker権限拒否でexit1のためpreview／画面操作は未実施、今回のGUI成功0。M-R1〜M-R5とR-03は未確認のまま。旧画面証拠を今回の合格へ流用しない。
+
+再開後に必要な操作は、明示rebase→再保存、残存別企業の最新確認→保存、他欄dirtyのまま片欄保存→確定ID確認、画面往復→追加書込なし、比較.md→出力前再取得の確認、mobile各幅／native200・400%での主要操作、Tab／ShiftTab／Enterでの到達。実Bセッション／A→B→A／出力中本人切替と実Auth／Supabase／外部API／CI／Vercel本番、U2画面未確認も継続する。以下の過去の結果と現在の未確認を区別する。
 

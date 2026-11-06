@@ -1,5 +1,39 @@
 # U3 revision02 — 比較画面の誤成功表示と削除後保存を修正
 
+## 2026-10-30 revision03 再検証の現在値
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。開始時の対象8 source/testにgit差分なし。旧baselineとの同一HEADを証明できないため、新規に実行した。アプリ・テスト変更なし。Testing Contract `sha256:a01bc0361713cbf9f8fa516a1c4355a4c4a522a798bc83dbe03bcc8145e77440` を適用し、既存証拠は以下に保存する。
+
+Steps 1〜5: readiness 1件、U3全9ファイル141件、全体baseline 56ファイル645件、baseline coverage、session/edits 48件、integration 12件、UI 24件はすべてexit0・skip0。回帰20項目のassertionを確認した。新規の振る舞い変更・不具合修正はなく、条件付きRed/Green/Refactorは非適用。既存成功試験を新規Redと扱わない。
+
+Step 6: rootの専用previewは起動したが、native UIで現在URLを安全に判定できずポリシー停止。画面操作0、M-R1〜5は全未確認。R03・owner切替・export・実画面の操作/モバイル/200・400%/キーボード等の未確認範囲を従来どおり引き継ぐ。自動試験で手動受入を代替しない。
+
+Step 7: `npm run lint`、`npm run typecheck`、`npm test`、`npm test -- --passWithNoTests=false --coverage`、`npm run build`は各1回exit0。最終test/coverageは各56ファイル645件・skip0。v8 coverageはlines85.96%、statements84.34%、branches76.2%、functions82.42%（baselineと同値）。Node v22.20.0、既存dummy PostgreSQLを使用し、依存・assertion・timeout・coverage条件は変更していない。
+
+承認済みscoped `git diff --check` はexit1。実行時の `manual-evidence.md:118` と `tdd-evidence.md:117` に `new blank line at EOF` を検出して停止した。人間が「空行だけでしょ。飛ばして次に進んでいいよ」と明示し、rootが回答記録済み。この判断によりStep 8へ進むが、差分検査を成功へ変更しない。空行修正・再試行・追加試験は行っていない。行番号は当該実行時の値。
+
+preview終了のhelper結果はexit1、`dedicatedPreviewStopConfirmed:false`、`dedicatedSchemaDropped:true`。rootの既知helper/Next親PID照会では両方とも消失。schema削除は確認済みだが、プロセスツリー全体の停止は未証明であり、StopConfirmedを成功に上書きしない。
+
+Step 8の記録更新のみ。manifestの累積29パス、traceabilityの137 IDs（AC90: U3 35/他55、BR17、NFR30）とDeferred/手動限界を維持し、新しいsource claimを追加しない。Step 9の正式レビュー・checkpoint・lifecycle判断はroot担当で未完了。
+
+## 2026-10-29 再実行 — DB準備失敗で停止
+
+対象HEADは `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。今回の正式Testing Contractは `sha256:a01bc0361713cbf9f8fa516a1c4355a4c4a522a798bc83dbe03bcc8145e77440`。対象8ファイルに開始時git差分はなかったが、以前のbaselineのHEADとの一致は記録から証明できず、過去の成功を今回の成功として再利用しない。
+
+既存Node v22.20.0を確認した後、必要なローカルPGの準備 `docker compose -f compose.test.yml up -d --wait` がexit1。Docker設定読取とdocker_engine pipeの権限拒否で停止した。自動再試行、試験、preview、Step 7品質確認は実行していない。環境失敗を製品Redにせず、今回R-01/R-02が再検証済みとも不具合なしとも判定しない。新規Red/Green/Refactorは未適用判定ではなく未到達である。
+
+アプリ／試験変更0。累積manifestの29 claimsとtraceabilityの137 ID（U3担当35AC／他Unit55AC／17BR／30NFR）および既存状態は維持する。今回追加application pathは0のためmanifestへの追加claimはない。Step 1〜8は完了扱いにせず、Step 9はroot担当。画面・実B・実環境・U2の未確認は継続する。詳細は[今回の検証結果](verification-results.md)と[手動受入状況](manual-acceptance-status.md)に記録した。以下は過去の実行履歴である。
+
+## revision03 — 現在の再検証結果（2026-10-28）
+
+R-01の確定outcomeに基づく保存表示とR-02の削除参照での新規保存停止は、既存S-R1〜5/C-R1〜7/U-R1〜6/I-R1〜2の20回帰で再検証した。session/edits 48件、実PG結合12件、U3全9ファイル141件が成功。新しい対象内不具合は再現せず、アプリ・試験の変更および新規TDD Red/Green/Refactorはない。旧実装/修復証拠は下記revision02の履歴として保持する。
+
+全体品質はNode v22.20.0でlint/typecheck、56ファイル645件、coverage lines85.96%（2964/3448）、buildが成功。承認済みの監査記録のみを除外した差分検査はexit0。除外前の全体差分検査は公式audit shard末尾空白2件でexit1のまま[検証結果](verification-results.md)に保持し、auditを変更していない。
+
+画面M-R1〜M-R5は専用preview起動後にGUI操作手段へ接続できず、今回の実画面成功0。[手動受入状況](manual-acceptance-status.md)の残操作、R-03実B/A→B→A/出力中本人切替、U2の画面受入、実Auth/Supabase/CI/本番は未確認。専用helper PID消失と専用schema0を確認したが、helperの終了コード/内部停止報告は取得できていない。正式review/Step9とUnit判断はroot担当で未完了。
+
+累積[source-manifest.json](source-manifest.json)の29 application/test/docs/script pathは維持。今回触れたapplication pathは0で、追加claimなし。[traceability.json](traceability.json)の90AC（U3担当35/他Unit55）、17BR、30NFRを維持し、今回の局所試験成功を全受入合格へ拡張しない。
+
 ## 2026-10-25 追加確認 — 出力時404のR-02修正
 
 ユーザーがClaude Codeで適用済みのexport.ts/export.test.tsの確認と正式記録への反映を依頼した。[専用handoff証拠](export-r02-handoff-evidence-2026-10-25.md)に現在2fileのhash、実装/新2試験、ユーザー報告TDDと今回の独立確認を分けて記録した。今回の限定Vitestは1file/14件成功・exit0。過去planの8file承認をこの2fileへ遡及適用せず、アプリ/試験/承認済plan/test-instructionsは編集していない。

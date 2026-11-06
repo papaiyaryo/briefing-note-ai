@@ -1,0 +1,3744 @@
+{
+  "stage": "build-and-test",
+  "decision_date": "2026-10-31",
+  "approval_status": "Awaiting human reapproval of plan",
+  "plan": "build-and-test-plan.md",
+  "status_meaning": "Deferredは列挙した確認側面だけの範囲外指定。AC全体の実装・自動試験を免除しない。既存UnitのOKは今回の全受入合格ではない。",
+  "deferred_definitions": {
+    "D-01": "R-03：実B／A→B→A／出力中の実本人切替",
+    "D-02": "モバイル幅／native200%・400%の画面確認",
+    "D-03": "U2の画面受入部分",
+    "D-04": "実Supabase/Auth環境での受入部分"
+  },
+  "common_deferred_aspects": [
+    "全ストーリー共通のモバイル幅・native200%/400%画面条件もD-02として持越し。PC通常表示・キーボードは継続。"
+  ],
+  "handoff": "次Intentの計画入力。未実証・合格ではない。次Intent未作成。",
+  "coverage": [
+    {
+      "id": "AC1.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/auth.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "2026-10-26のStep1–2でU2全140/140・生成回帰82/82成功、Step8の全体645/645とcoverage（exit0・lines85.96%）も成功。2026-10-24の635/635は履歴。今回の実画面は未確認（docs/generated-notes-checks.md）、実Auth・実DOM・全体受入は別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.1",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC1.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/auth.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.2",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC1.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/draft.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.3",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC1.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/auth.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.4",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.1.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC1.2.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-02",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/auth.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.1",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC1.2.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/auth.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.2",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC1.2.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.3",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC1.2.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.4",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/routes.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC1.2.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/comparison.integration.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.1.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.2.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/schema.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.1",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/edits.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.2.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/edits.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.2.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-02",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/schema.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.2.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC2.2.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.5",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.5",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC2.2.5",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/edits.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-02",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.4",
+            "status": "OK",
+            "target": "scripts/workspace-browser-check.mjs"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/ui.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.5",
+            "status": "OK",
+            "target": "scripts/workspace-browser-check.mjs"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.5",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.5",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/ui.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.6",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-02",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.6",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.6",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.6",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.7",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.7",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.7",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.7",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.1.8",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-02",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.8",
+            "status": "OK",
+            "target": "scripts/workspace-browser-check.mjs"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.8",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.1.8",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.2.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.2.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/draft.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.2.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.2.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.2.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.5",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.5",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.5",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC3.2.6",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.6",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.6",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC3.2.6",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC4.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC4.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC4.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC4.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC4.1.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.5",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.5",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.5",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC4.1.6",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.6",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.6",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.6",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC4.1.7",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.7",
+            "status": "OK",
+            "target": "tests/u1-company-notes/board.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.7",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC4.1.7",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.1",
+            "status": "Deferred",
+            "target": "U2: 画像・OCR訂正・生成確認UIと保存連携。U1の保存責任はBR5.1, BR6.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.2",
+            "status": "Deferred",
+            "target": "U2: 生成UIで選択企業を保持。U1の保存先不変検査はBR5.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.2",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.3",
+            "status": "Deferred",
+            "target": "U2: 生成失敗・訂正UI。U1の不正候補拒否はBR5.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.4",
+            "status": "Deferred",
+            "target": "U2: 一時参照解放・画像画面。U1の画像保持欄拒否はBR5.2"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.4",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.1.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.5",
+            "status": "Deferred",
+            "target": "U2: 生成保存画面から同じ要求の確認。U1の再送契約はBR6.5"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.5",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.1.5",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.2.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.1",
+            "status": "Deferred",
+            "target": "U2: 生成結果の区分、U3: 比較区分。U1の保存・再取得はBR5.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/candidate.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.1",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.2.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.2",
+            "status": "Deferred",
+            "target": "U2: 原文忠実性の検証。U1は要確認を保持(BR5.1)"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.2",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/candidate.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.2.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.3",
+            "status": "Deferred",
+            "target": "U2: 採用出典の受渡し、U3: 出典表示。U1の保存検証はBR5.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/candidate.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.3",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.2.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.4",
+            "status": "Deferred",
+            "target": "U2: 真の生成出自発行、U3: dummy比較表示。U1は出自検証／保存／再表示(BR5.1)"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.4",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/candidate.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC5.2.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.5",
+            "status": "Deferred",
+            "target": "U2: 外部出力の構造検証。U1は保存前にも検証(BR5.1)"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.5",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/candidate.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC5.2.5",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/workspace.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.1.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.2.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.2.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/draft.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.2",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.2.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.2.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.4",
+            "status": "OK",
+            "target": "src/components/workspace/CompanyDetail.tsx"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.4",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.2.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.5",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.5",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.2.5",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.3.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/generation.integration.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.1",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/edits.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.3.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/uiCallbacks.tsx",
+            "note": "再実施：Frontend59件/U1 253件が成功。企業・メモの2画面競合後、最新との別表示・明示再編集・保存・別画面一致を確認。スマホ等の残GUI条件はmanual-restart-20261023-root.md参照。当時ソース変更なし。改訂6：実HTTP/PG latest取得itの第三引数のみ30000、対象2files52件/U1 261件/全体643件/coverage643件が成功、skip0。証跡timeout-30s-verification-20261024.md。追加GUIや性能原因解消は未証明。lint再確認は本人指示で省略、品質全体の合格ではない。2026-10-25再承認後の再実行：対象2files52件/U1 17files261件/全体56files645件/coverage645件が成功、skip0、lint・typecheck・build・diff checkもexit0。証跡timeout-30s-verification-20261025.md。追加GUIや性能原因解消は引き続き未証明。2026-10-28再実行：対象52件/U1 261件/全体645件/coverage645件が成功し、全app/src lines85.96%。lint・typecheck・buildはexit0、元diff checkはaudit行末空白でexit1（timeout-30s-verification-20261028.md）。改訂7の承認済みaudit除外diff checkは2026-10-29にexit0（timeout-30s-verification-20261029.md）。正式review/checkpointと残GUI・性能受入は未完了。"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.2",
+            "status": "Deferred",
+            "target": "tests/u2-generated-notes/generation.integration.test.ts",
+            "note": "U1の入力保持修正は実装済み。追加診断では入力保持の元assertion成立後のcleanup timeoutが観測されたが原因とcleanup完了は未確認で、本人指示により追加調査を保留しU1はset-aside。U2の保存後OCR/復習往復は未確認で共同受入Deferredを維持。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/edits.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.3.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/generation.integration.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.3",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/edits.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.3.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.4",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/generation.integration.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.3.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/edits.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.4.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.4.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.4.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.3",
+            "status": "Deferred",
+            "target": "U3: 比較参照無効化の画面。U1は削除と再読取拒否(BR6.7)"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.3",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.4.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.4",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.4.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.5",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.5",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.4.5",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.5.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.1",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.5.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.2",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.2",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.5.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.3",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.3",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.5.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.4",
+            "status": "Deferred",
+            "target": "U3: 比較参照無効化・出力停止。U1は対象削除／再読取拒否(BR6.7)"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.4",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.5.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.5",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.5",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.5",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC6.5.6",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.6",
+            "status": "OK",
+            "target": "tests/u1-company-notes/repository.integration.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.6",
+            "status": "Deferred",
+            "target": "U1の企業管理担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC6.5.6",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC7.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.1",
+            "status": "OK",
+            "target": "tests/u1-company-notes/ui.test.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.1",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.1",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC7.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.2",
+            "status": "OK",
+            "target": "src/components/workspace/MemoEditor.tsx"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.2",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC7.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.3",
+            "status": "OK",
+            "target": "src/lib/workspace/schema.ts"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.3",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC7.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.4",
+            "status": "OK",
+            "target": "src/components/workspace/MemoEditor.tsx"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.4",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC7.1.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC8.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.1",
+            "status": "Deferred",
+            "target": "U3: 7観点比較UI。U1の本人・所属・版の参照スナップショットはBR8.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.1",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.1",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC8.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.2",
+            "status": "Deferred",
+            "target": "U3: 選択切替UI。U1の各社1参照と正本分離はBR8.1, BR2.3"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.2",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC8.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.3",
+            "status": "Deferred",
+            "target": "U3: 未記載／要確認の比較UI。U1のnull／有効構造の区別はBR8.1, BR6.2"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.3",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.3",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC8.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.4",
+            "status": "Deferred",
+            "target": "U3: 比較状態と出力停止。U1の不正／他所有者／構造不正拒否はBR1.1, BR8.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.4",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/model.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC8.1.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.5",
+            "status": "Deferred",
+            "target": "U3: 新旧比較の入口区別。U1は旧保存を変更しない(BR6.7)"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.5",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC8.1.5",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/legacy.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.1.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.1",
+            "status": "OK",
+            "target": "src/components/workspace/MemoEditor.tsx"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.1.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.2",
+            "status": "Deferred",
+            "target": "U3: 同一参照での比較出力と出力前版照合。U1の参照提供はBR8.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.2",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.2",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/export.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.1.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.3",
+            "status": "Deferred",
+            "target": "U2: 既存生成・復習の対応出力。U1の認証・入口維持はBR9.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.1.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-01",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.4",
+            "status": "Deferred",
+            "target": "U3: 無効参照時のファイル生成停止。U1の読取拒否はBR8.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.4",
+            "status": "Deferred",
+            "target": "U1/U3の保存編集・比較担当",
+            "note": "U2担当外。既存U1/U3・release全体の確認へ引継ぐ。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.4",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/export.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.1.5",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03",
+        "D-04"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.5",
+            "status": "OK",
+            "target": "src/components/workspace/MemoEditor.tsx"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.5",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.1.5",
+            "status": "Deferred",
+            "target": "tests/u3-company-comparison/export.test.ts",
+            "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.2.1",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.1",
+            "status": "Deferred",
+            "target": "U2: 既存生成から復習の回帰。U1の認証入口はBR9.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.1",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.1",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.2.2",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.2",
+            "status": "Deferred",
+            "target": "U2: 復習Markdownの対応出力。U1の入口維持はBR9.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.2",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.2",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.2.3",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.3",
+            "status": "Deferred",
+            "target": "U2: DB復習連携／復習保存を追加しない。U1の共通境界はBR9.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.3",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.3",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AC9.2.4",
+      "status": "Deferred",
+      "disposition": "Deferred（人間判断で範囲外）",
+      "deferred_aspects": [
+        "D-03"
+      ],
+      "remaining_acceptance": "除外した確認側面以外はBolt 2で検証。自動試験と該当するU1/U3のPC通常表示・キーボードを継続。",
+      "remaining_status": "Pending",
+      "prior_unit_evidence": [
+        {
+          "unit": "u1-company-notes",
+          "source": "../u1-company-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.4",
+            "status": "Deferred",
+            "target": "U2: 復習回帰と範囲外の区別。U1の既存HTTP維持はBR9.1"
+          }
+        },
+        {
+          "unit": "u2-generated-notes",
+          "source": "../u2-generated-notes/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.4",
+            "status": "OK",
+            "target": "tests/u2-generated-notes/ui.test.ts",
+            "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+          }
+        },
+        {
+          "unit": "u3-company-comparison",
+          "source": "../u3-company-comparison/code-generation/traceability.json",
+          "historical_entry": {
+            "id": "AC9.2.4",
+            "status": "Deferred",
+            "target": "docs/company-comparison-local.md",
+            "note": "U1/U2の主担当または比較以外。U1既知3件とU2重複保存は先行修復・checkpoint承認済みだが、共同AC全体やU2画面受入の未確認をU3成功へ含めない。"
+          }
+        }
+      ]
+    }
+  ]
+}

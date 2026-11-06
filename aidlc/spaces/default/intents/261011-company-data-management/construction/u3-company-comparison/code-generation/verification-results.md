@@ -1,5 +1,47 @@
 # U3 検証結果 — revision02の現在値と履歴
 
+## 2026-10-30 revision03 再検証の現在値
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。開始時の対象8 source/testにgit差分なし。旧baselineとの同一HEADを証明できないため、新規に実行した。アプリ・テスト変更なし。Testing Contract `sha256:a01bc0361713cbf9f8fa516a1c4355a4c4a522a798bc83dbe03bcc8145e77440` を適用し、既存証拠は以下に保存する。
+
+Steps 1〜5: readiness 1件、U3全9ファイル141件、全体baseline 56ファイル645件、baseline coverage、session/edits 48件、integration 12件、UI 24件はすべてexit0・skip0。回帰20項目のassertionを確認した。新規の振る舞い変更・不具合修正はなく、条件付きRed/Green/Refactorは非適用。既存成功試験を新規Redと扱わない。
+
+Step 6: rootの専用previewは起動したが、native UIで現在URLを安全に判定できずポリシー停止。画面操作0、M-R1〜5は全未確認。R03・owner切替・export・実画面の操作/モバイル/200・400%/キーボード等の未確認範囲を従来どおり引き継ぐ。自動試験で手動受入を代替しない。
+
+Step 7: `npm run lint`、`npm run typecheck`、`npm test`、`npm test -- --passWithNoTests=false --coverage`、`npm run build`は各1回exit0。最終test/coverageは各56ファイル645件・skip0。v8 coverageはlines85.96%、statements84.34%、branches76.2%、functions82.42%（baselineと同値）。Node v22.20.0、既存dummy PostgreSQLを使用し、依存・assertion・timeout・coverage条件は変更していない。
+
+承認済みscoped `git diff --check` はexit1。実行時の `manual-evidence.md:118` と `tdd-evidence.md:117` に `new blank line at EOF` を検出して停止した。人間が「空行だけでしょ。飛ばして次に進んでいいよ」と明示し、rootが回答記録済み。この判断によりStep 8へ進むが、差分検査を成功へ変更しない。空行修正・再試行・追加試験は行っていない。行番号は当該実行時の値。
+
+preview終了のhelper結果はexit1、`dedicatedPreviewStopConfirmed:false`、`dedicatedSchemaDropped:true`。rootの既知helper/Next親PID照会では両方とも消失。schema削除は確認済みだが、プロセスツリー全体の停止は未証明であり、StopConfirmedを成功に上書きしない。
+
+Step 8の記録更新のみ。manifestの累積29パス、traceabilityの137 IDs（AC90: U3 35/他55、BR17、NFR30）とDeferred/手動限界を維持し、新しいsource claimを追加しない。Step 9の正式レビュー・checkpoint・lifecycle判断はroot担当で未完了。
+
+## 2026-10-29 再実行 — 環境前提で停止
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`、対象8 source/testに開始時git差分なし。旧baseline HEADの一致を証明できず、以前の141件／645件／lines85.96%は今回の実行結果へ流用しない。既存Node実体の `--version` はv22.20.0。依存・Vitest/v8/include/exclude/lines80/timeout/assertionの変更なし。
+
+必要なDB前提コマンド `docker compose -f compose.test.yml up -d --wait` はexit1。Docker config読取のAccess deniedとdocker_engine pipeへのpermission deniedにより準備できなかった。環境失敗でありアプリRedではない。計画の停止規則に従い、自動再試行や無断インストールを行わなかった。
+
+今回のreadiness/U3 all、全体baseline test/coverage、session/edits・integration・UI exact、preview、lint/typecheck/test/coverage/build/承認済みscoped diffはすべて未実施。従って今回のcoverage80%以上、R-01/R-02再検証、回帰20件の動的確認、全体品質合格は未確認。Step 1〜8とroot担当Step 9は未完了。アプリ・試験変更0、他者dirty/worktreeと監査履歴を保全した。以下の成功／失敗は各日付の履歴で、今回の成功ではない。
+
+## revision03 — 承認済み差分検査の完了（2026-10-28）
+
+本人が公式ツール所有audit shardだけを除外するコマンドへ承認済みStep 7を変更。前回成功したNode22でのlint/typecheck/全645件/coverage lines85.96%/buildは再実行せず、その同じ試行の結果を使用した。変更後の `git diff --check -- . ':(exclude)aidlc/spaces/default/intents/261011-company-data-management/audit/**'` はexit0。表示は `docs/generated-notes-checks.md` のLF→CRLF警告のみ。Step 7の指定品質確認は完了した。
+
+除外前の全体 `git diff --check` exit1とaudit shard末尾空白2件は下記の失敗記録のまま保持する。この変更はauditの修復や全体差分合格を意味しない。画面M-R1〜M-R5、実B/R-03、実CI/本番は未検証。
+
+## revision03 — 本人承認後のStep 7再試行（2026-10-28）
+
+Node v22.20.0/npm 10.9.3をprocess-local PATHで用いた。承認済み順序で`npm run lint` exit0、`npm run typecheck` exit0、`npm test` exit0（56ファイル/645件成功）、`npm test -- --passWithNoTests=false --coverage` exit0（同645件、v8、全app/src lines85.96%=2964/3448、statements84.34%、branches76.2%、functions82.42%）、`npm run build` exit0（Next.js 15.5.19、静的18ページ生成）を確認した。
+
+最後の`git diff --check`はexit1。U3外のツール所有audit shard `aidlc/spaces/default/intents/261011-company-data-management/audit/neo-ba01a9a9622f.md` の25066行と25270行に末尾空白があり、後者は履歴メッセージの末尾。 `docs/generated-notes-checks.md`のLF→CRLF警告も表示された。auditは変更せず、Step 7は失敗のまま停止、Step 8と正式checkpointは未実施。自動再試行なし。下記初回PG停止の結果も履歴として保持する。
+
+## revision03 — 今回のStep 7停止（2026-10-28）
+
+承認済み順序で直列実行した。 `npm run lint` exit 0、`npm run typecheck` exit 0。続く `npm test` はexit 1。56ファイル中42成功・14失敗、645件中508成功・8失敗・129 skip。失敗はローカルPG `127.0.0.1:55432` の `ECONNREFUSED` に伴う実PG系の収集・実行失敗であり、新しいU3アプリRedとは認定しない。preview起動とDocker準備も同じ環境前提で停止（[画面証拠](manual-evidence.md)）。
+
+計画の失敗時停止規則に従い、coverage、build、`git diff --check` は未実行。lines80%以上の今回判定、全体品質の合格、U3の正式checkpointは未確認。下記revision02の成功は当時の結果として保持し、今回の全体成功に流用しない。
+
 ## revision02 — 現在の最終ローカル品質
 正本は[verification-revision-02.md](verification-revision-02.md)。最終typecheck/lint/build/diff exit0、通常635件成功、同条件coverage Retry635件成功/lines85.95%(2962/3446)、U3全139件。旧587件/83.50%は以下の履歴であり現在値ではない。初回shell/typecheck/coverage失敗は[停止履歴](verification-revision-02-root-stop.md)に保持。実CI/公開/実Auth/Supabaseは未確認。限定GUI/Step9未完は[現在の手動記録](manual-revision-02-root.md)を参照。
 
