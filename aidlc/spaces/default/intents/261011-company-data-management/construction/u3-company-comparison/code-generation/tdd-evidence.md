@@ -1,5 +1,29 @@
 # U3 TDD証拠
 
+## 2026-10-30 revision03 再検証の現在値
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。開始時の対象8 source/testにgit差分なし。旧baselineとの同一HEADを証明できないため、新規に実行した。アプリ・テスト変更なし。Testing Contract `sha256:a01bc0361713cbf9f8fa516a1c4355a4c4a522a798bc83dbe03bcc8145e77440` を適用し、既存証拠は以下に保存する。
+
+Steps 1〜5: readiness 1件、U3全9ファイル141件、全体baseline 56ファイル645件、baseline coverage、session/edits 48件、integration 12件、UI 24件はすべてexit0・skip0。回帰20項目のassertionを確認した。新規の振る舞い変更・不具合修正はなく、条件付きRed/Green/Refactorは非適用。既存成功試験を新規Redと扱わない。
+
+Step 6: rootの専用previewは起動したが、native UIで現在URLを安全に判定できずポリシー停止。画面操作0、M-R1〜5は全未確認。R03・owner切替・export・実画面の操作/モバイル/200・400%/キーボード等の未確認範囲を従来どおり引き継ぐ。自動試験で手動受入を代替しない。
+
+Step 7: `npm run lint`、`npm run typecheck`、`npm test`、`npm test -- --passWithNoTests=false --coverage`、`npm run build`は各1回exit0。最終test/coverageは各56ファイル645件・skip0。v8 coverageはlines85.96%、statements84.34%、branches76.2%、functions82.42%（baselineと同値）。Node v22.20.0、既存dummy PostgreSQLを使用し、依存・assertion・timeout・coverage条件は変更していない。
+
+承認済みscoped `git diff --check` はexit1。実行時の `manual-evidence.md:118` と `tdd-evidence.md:117` に `new blank line at EOF` を検出して停止した。人間が「空行だけでしょ。飛ばして次に進んでいいよ」と明示し、rootが回答記録済み。この判断によりStep 8へ進むが、差分検査を成功へ変更しない。空行修正・再試行・追加試験は行っていない。行番号は当該実行時の値。
+
+preview終了のhelper結果はexit1、`dedicatedPreviewStopConfirmed:false`、`dedicatedSchemaDropped:true`。rootの既知helper/Next親PID照会では両方とも消失。schema削除は確認済みだが、プロセスツリー全体の停止は未証明であり、StopConfirmedを成功に上書きしない。
+
+Step 8の記録更新のみ。manifestの累積29パス、traceabilityの137 IDs（AC90: U3 35/他55、BR17、NFR30）とDeferred/手動限界を維持し、新しいsource claimを追加しない。Step 9の正式レビュー・checkpoint・lifecycle判断はroot担当で未完了。
+
+最新の2026-10-29再実行はDocker権限拒否で試験前に停止。製品Red／条件付きGreen／Refactorは未到達。末尾の当日追記を参照し、過去の成功と区別する。
+
+## revision03 — 既存修正の再検証（2026-10-28）
+
+承認済みrevision03はR-01/R-02の既存修正を再検証する計画。runner確認後、session/edits 48件、実PG結合12件、UI、U3全9ファイル141件が現行の実装と回帰に対して成功した（詳細は[検証結果](verification-results.md)）。S-R1〜5、C-R1〜7、U-R1〜6、I-R1〜2は既存の20回帰であり、今回新たなRedとして数えない。旧Red→Green→Refactorは[revision02修復証拠](bugfix-evidence-revision-02.md)の履歴として保持する。
+
+今回の画面確認はpreview起動後に操作環境へ接続できず、M-R1〜M-R5の実DOM成功0。新しい対象内の製品不具合は再現していないため、Step 4/5の新規Red/Green/Refactorは非適用。初回PG接続失敗と全体差分検査のaudit末尾空白はアプリRedではない。アプリ・試験コード、assertion、coverage閾値、timeoutは変更していない。
+
 ## revision02 — 現在の修復証拠
 [bugfix-evidence-revision-02.md](bugfix-evidence-revision-02.md)に承認後のrunner確認、615件baseline、Business/実PG/UIの実Red→Green→Refactorと20回帰を記録した。U3既存119件を保持し最終139件。全体品質は[verification-revision-02.md](verification-revision-02.md)、GUIは[manual-revision-02-root.md](manual-revision-02-root.md)。shell起動失敗・追加mock型エラー・既存U1のcoverage timeoutを新アプリRedとしない。
 
@@ -101,3 +125,9 @@ build/diffはexit0。coverage付き全suiteは587中586passed/1failed・exit1、
 helper cleanupはowned-edge-stop/code128を実観測。所有childの終了を最大1.5秒待ち、未終了なら元エラーを維持する最小修正を行った。既存--self-testで「kill失敗後に実終了」「kill失敗し未終了は拒否」の両境界が成功、自己失敗flagはexit1を維持。実29check/exit0・専用全cleanup trueへ確認した。これはhelper修正でありapp Redとは別。
 
 追加M2/M3/M10は実操作成功。続く切替後ready待機は失敗し、最小診断で新server表示のreadErrorまで到達することを確認したが、原因は未確定。診断/補完失敗をapp RedやGreenへ加算しない。通常helperへ戻し構文exit0後に書止め、残るM/全体失敗は保留。source/試験条件/依存の拡張や凍結U1の無断修正はない。
+# 2026-10-29 再実行の追記
+
+HEAD `e22b4d07a6f9b52228f4e7015d378afb529edfb1`。正式Testing Contract `sha256:a01bc0361713cbf9f8fa516a1c4355a4c4a522a798bc83dbe03bcc8145e77440` をbriefで取得し、承認済みrevision03計画／試験手順を読んだ。既存20回帰や旧Red/Greenを新規Redとして数えない。対象8ファイルに今回の変更なし。
+
+DB準備 `docker compose -f compose.test.yml up -d --wait` がDocker権限拒否でexit1となり停止。runner、baseline、Step 3 exactはいずれも未実施。今回の製品不具合再現0という判定もできず、条件付きStep 4/5は未到達。新しい受入失敗試験・実装・Refactorなし。環境失敗をRedにせず、既存修正を戻す人工Redも作らなかった。旧baseline HEADとの一致を証明できないため旧成功を今回の動的証拠へ流用しない。以下の既存記録は履歴として保持する。
+

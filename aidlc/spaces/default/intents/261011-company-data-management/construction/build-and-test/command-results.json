@@ -1,0 +1,149 @@
+[
+  {
+    "command": "npm run lint",
+    "exit": 0,
+    "started": "2026-11-01T09:19:11.8531745+00:00",
+    "seconds": 43.0020652,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-01.log"
+  },
+  {
+    "command": "npm run typecheck",
+    "exit": 0,
+    "started": "2026-11-01T09:19:54.9235412+00:00",
+    "seconds": 8.1612247,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-02.log"
+  },
+  {
+    "command": "npm test",
+    "exit": 0,
+    "started": "2026-11-01T09:20:03.0930809+00:00",
+    "seconds": 27.8192427,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-03.log"
+  },
+  {
+    "command": "npm test -- --passWithNoTests=false --coverage",
+    "exit": 0,
+    "started": "2026-11-01T09:20:30.9210470+00:00",
+    "seconds": 37.8986602,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-04.log"
+  },
+  {
+    "command": "npm run build",
+    "exit": 0,
+    "started": "2026-11-01T09:21:08.8327862+00:00",
+    "seconds": 95.2519665,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-05.log"
+  },
+  {
+    "command": "npm test -- tests/u1-company-notes/schema.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:22:44.0959612+00:00",
+    "seconds": 4.046598,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-06.log"
+  },
+  {
+    "command": "npm test -- tests/u1-company-notes/ui.test.ts tests/u1-company-notes/restore.integration.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:22:48.1509066+00:00",
+    "seconds": 8.290421,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-07.log"
+  },
+  {
+    "command": "npm test -- tests/u1-company-notes/schema.test.ts tests/u1-company-notes/board.test.ts tests/u1-company-notes/workspace.test.ts tests/u1-company-notes/database.integration.test.ts tests/u1-company-notes/repository.integration.test.ts tests/u1-company-notes/session.integration.test.ts tests/u1-company-notes/restore.integration.test.ts tests/u1-company-notes/auth.test.ts tests/u1-company-notes/authRoutes.test.ts tests/u1-company-notes/crypto.test.ts tests/u1-company-notes/generationReceipt.test.ts tests/u1-company-notes/client.test.ts tests/u1-company-notes/draft.test.ts tests/u1-company-notes/routes.test.ts tests/u1-company-notes/existingRoutes.test.ts tests/u1-company-notes/ui.test.ts tests/u1-company-notes/fixtureLifecycle.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:22:56.4487077+00:00",
+    "seconds": 22.7824361,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-08.log"
+  },
+  {
+    "command": "npm test -- tests/flow.test.ts tests/serverOcr.test.ts tests/ocrRoute.test.ts tests/webSupplementRoute.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:19.2381404+00:00",
+    "seconds": 4.5782883,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-09.log"
+  },
+  {
+    "command": "npm test -- tests/u2-generated-notes/ui.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:23.8262846+00:00",
+    "seconds": 6.4874223,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-10.log"
+  },
+  {
+    "command": "npm test -- tests/u2-generated-notes/candidate.test.ts tests/u2-generated-notes/draft.test.ts tests/u2-generated-notes/save.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:30.3203233+00:00",
+    "seconds": 3.3738716,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-11.log"
+  },
+  {
+    "command": "npm test -- tests/u2-generated-notes/generationReceipt.test.ts tests/u2-generated-notes/providerRequests.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:33.7010039+00:00",
+    "seconds": 3.5053231,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-12.log"
+  },
+  {
+    "command": "npm test -- tests/u2-generated-notes/routes.test.ts tests/u2-generated-notes/clients.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:37.2131251+00:00",
+    "seconds": 3.8905723,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-13.log"
+  },
+  {
+    "command": "npm test -- tests/u2-generated-notes/generation.integration.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:41.1097734+00:00",
+    "seconds": 7.7143961,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-14.log"
+  },
+  {
+    "command": "npm test -- tests/u2-generated-notes/candidate.test.ts tests/u2-generated-notes/draft.test.ts tests/u2-generated-notes/save.test.ts tests/u2-generated-notes/generationReceipt.test.ts tests/u2-generated-notes/providerRequests.test.ts tests/u2-generated-notes/routes.test.ts tests/u2-generated-notes/clients.test.ts tests/u2-generated-notes/ui.test.ts tests/u2-generated-notes/generation.integration.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:48.8342244+00:00",
+    "seconds": 9.8843221,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-15.log"
+  },
+  {
+    "command": "npm test -- tests/flow.test.ts tests/serverOcr.test.ts tests/ocrRoute.test.ts tests/webSupplement.test.ts tests/webSupplementRoute.test.ts tests/webSupplementServer.test.ts tests/markdown.test.ts tests/download.test.ts tests/ui-components.test.ts src/lib/structure/dummyStructure.test.ts src/lib/structure/validate.test.ts src/lib/structure/toMarkdown.test.ts src/lib/interviewReview/dummy.test.ts src/lib/interviewReview/toMarkdown.test.ts tests/u1-company-notes/existingRoutes.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:23:58.7253465+00:00",
+    "seconds": 6.8379646,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-16.log"
+  },
+  {
+    "command": "npm test -- tests/u3-company-comparison/readiness.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:24:05.5707769+00:00",
+    "seconds": 2.739115,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-17.log"
+  },
+  {
+    "command": "npm test -- tests/u3-company-comparison/session.test.ts tests/u3-company-comparison/edits.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:24:08.3199802+00:00",
+    "seconds": 3.3761757,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-18.log"
+  },
+  {
+    "command": "npm test -- tests/u3-company-comparison/comparison.integration.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:24:11.7028260+00:00",
+    "seconds": 8.1856637,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-19.log"
+  },
+  {
+    "command": "npm test -- tests/u3-company-comparison/ui.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:24:19.8950737+00:00",
+    "seconds": 4.1490476,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-20.log"
+  },
+  {
+    "command": "npm test -- tests/u3-company-comparison/readiness.test.ts tests/u3-company-comparison/model.test.ts tests/u3-company-comparison/session.test.ts tests/u3-company-comparison/client.test.ts tests/u3-company-comparison/edits.test.ts tests/u3-company-comparison/export.test.ts tests/u3-company-comparison/legacy.test.ts tests/u3-company-comparison/ui.test.ts tests/u3-company-comparison/comparison.integration.test.ts --passWithNoTests=false",
+    "exit": 0,
+    "started": "2026-11-01T09:24:24.0513565+00:00",
+    "seconds": 10.3648663,
+    "log": "aidlc\\spaces\\default\\intents\\261011-company-data-management\\construction\\build-and-test\\check-21.log"
+  }
+]

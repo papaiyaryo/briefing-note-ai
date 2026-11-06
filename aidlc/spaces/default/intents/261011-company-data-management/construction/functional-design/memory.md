@@ -3,6 +3,7 @@
 
 ## Interpretations
 - 2026-10-16T02:40:20Z [unit u2-generated-notes] — 生成候補と保存要求のsnapshotを分け、結果不明の同一要求再試行を明示した。既存契約から具体化し、新しい本人回答や実装承認は記録していない。
+- 2026-10-24T23:35:09Z [unit u1-company-notes] — 本人の「変更を生かしてFunctional Designをやり直す」指示でModifyとした。u1の4成果物は2026-10-15以降未変更で、前回承認後に変わったのは10/23に改訂済みのu2だけだったため、u1は内容を変えず再レビューで整合性を確認する。
 - 2026-10-14T15:28:24Z [unit u1-company-notes] — Q1の本人回答aに従い、手入力メモへの比較項目追加を本人の明示操作として具体化する。既存ManualCandidateとUpdateMemoの任意構造化項目を使い、自動本文解析と正本の同期は追加しない。
 <!-- example: 2026-05-29T10:14:32Z — chose REST over GraphQL; the consuming team only needs CRUD, revisit if subscriptions land -->
 

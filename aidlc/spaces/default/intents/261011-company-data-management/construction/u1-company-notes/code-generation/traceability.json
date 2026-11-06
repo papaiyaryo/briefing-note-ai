@@ -444,7 +444,7 @@
       "id": "AC6.3.2",
       "status": "OK",
       "target": "tests/u1-company-notes/uiCallbacks.tsx",
-      "note": "再実施：Frontend59件/U1 253件が成功。企業・メモの2画面競合後、最新との別表示・明示再編集・保存・別画面一致を確認。スマホ等の残GUI条件はmanual-restart-20261023-root.md参照。当時ソース変更なし。改訂6：実HTTP/PG latest取得itの第三引数のみ30000、対象2files52件/U1 261件/全体643件/coverage643件が成功、skip0。証跡timeout-30s-verification-20261024.md。追加GUIや性能原因解消は未証明。lint再確認は本人指示で省略、品質全体の合格ではない。"
+      "note": "再実施：Frontend59件/U1 253件が成功。企業・メモの2画面競合後、最新との別表示・明示再編集・保存・別画面一致を確認。スマホ等の残GUI条件はmanual-restart-20261023-root.md参照。当時ソース変更なし。改訂6：実HTTP/PG latest取得itの第三引数のみ30000、対象2files52件/U1 261件/全体643件/coverage643件が成功、skip0。証跡timeout-30s-verification-20261024.md。追加GUIや性能原因解消は未証明。lint再確認は本人指示で省略、品質全体の合格ではない。2026-10-25再承認後の再実行：対象2files52件/U1 17files261件/全体56files645件/coverage645件が成功、skip0、lint・typecheck・build・diff checkもexit0。証跡timeout-30s-verification-20261025.md。追加GUIや性能原因解消は引き続き未証明。2026-10-28再実行：対象52件/U1 261件/全体645件/coverage645件が成功し、全app/src lines85.96%。lint・typecheck・buildはexit0、元diff checkはaudit行末空白でexit1（timeout-30s-verification-20261028.md）。改訂7の承認済みaudit除外diff checkは2026-10-29にexit0（timeout-30s-verification-20261029.md）。正式review/checkpointと残GUI・性能受入は未完了。"
     },
     {
       "id": "AC6.3.3",
@@ -786,7 +786,7 @@
       "id": "NFR2.6",
       "status": "OK",
       "target": "tests/u1-company-notes/restore.integration.test.ts",
-      "note": "再実施：Restore/Auth50件と実dump/restoreが成功。旧session除去と企業・メモ・操作/DDL一致、RLS、専用cleanupを確認。実外部backup/本人Authは未確認。改訂6：復元session拒否2件のit第三引数のみ30000、対象2files52件/U1 261件/全体643件/coverage643件が成功、skip0、cleanup失敗報告なし。timeout-30s-verification-20261024.md参照。実外部backup受入や性能原因解消へ引き上げない。"
+      "note": "再実施：Restore/Auth50件と実dump/restoreが成功。旧session除去と企業・メモ・操作/DDL一致、RLS、専用cleanupを確認。実外部backup/本人Authは未確認。改訂6：復元session拒否2件のit第三引数のみ30000、対象2files52件/U1 261件/全体643件/coverage643件が成功、skip0、cleanup失敗報告なし。timeout-30s-verification-20261024.md参照。実外部backup受入や性能原因解消へ引き上げない。2026-10-25再承認後の再実行：対象2files52件/U1 261件/全体645件/coverage645件が成功、skip0、cleanup失敗報告なし。timeout-30s-verification-20261025.md参照。2026-10-28再実行：対象52件/U1 261件/全体645件/coverage645件が成功、skip0、cleanup失敗報告なし。改訂7のaudit除外diff checkは2026-10-29にexit0。timeout-30s-verification-20261028.mdとtimeout-30s-verification-20261029.md参照。実外部backup受入や性能原因解消へ引き上げない。"
     },
     {
       "id": "NFR2.7",

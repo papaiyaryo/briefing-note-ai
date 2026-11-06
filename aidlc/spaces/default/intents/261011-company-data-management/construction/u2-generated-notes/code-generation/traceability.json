@@ -143,49 +143,49 @@
       "id": "AC1.1.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "本attemptのStep1–2でU2全140/140・生成回帰82/82成功。2026-10-24の全体635/635とcoverage635/635も成功。GUIの追加結果はgui-recheck-after-approval-20261023.md、実Auth・実DOM・全体受入は別。"
+      "note": "2026-10-26のStep1–2でU2全140/140・生成回帰82/82成功、Step8の全体645/645とcoverage（exit0・lines85.96%）も成功。2026-10-24の635/635は履歴。今回の実画面は未確認（docs/generated-notes-checks.md）、実Auth・実DOM・全体受入は別。"
     },
     {
       "id": "AC1.1.2",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC1.1.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC1.1.4",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC1.2.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC1.2.2",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC1.2.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC1.2.4",
       "status": "OK",
       "target": "tests/u2-generated-notes/routes.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC2.1.1",
@@ -371,61 +371,61 @@
       "id": "AC5.1.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.1.2",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.1.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.1.4",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.1.5",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
     },
     {
       "id": "AC5.2.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/candidate.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.2.2",
       "status": "OK",
       "target": "tests/u2-generated-notes/candidate.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.2.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/candidate.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.2.4",
       "status": "OK",
       "target": "tests/u2-generated-notes/candidate.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC5.2.5",
       "status": "OK",
       "target": "tests/u2-generated-notes/candidate.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.1.1",
@@ -455,37 +455,37 @@
       "id": "AC6.2.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.2.2",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
     },
     {
       "id": "AC6.2.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.2.4",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.2.5",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.3.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/generation.integration.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.3.2",
@@ -497,13 +497,13 @@
       "id": "AC6.3.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/generation.integration.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.3.4",
       "status": "OK",
       "target": "tests/u2-generated-notes/generation.integration.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC6.4.1",
@@ -629,7 +629,7 @@
       "id": "AC9.1.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC9.1.2",
@@ -641,7 +641,7 @@
       "id": "AC9.1.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC9.1.4",
@@ -653,31 +653,31 @@
       "id": "AC9.1.5",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "AC9.2.1",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
     },
     {
       "id": "AC9.2.2",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
     },
     {
       "id": "AC9.2.3",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "2026-10-29 Node22でUI42件・U2全140件・全体645件とcoverage成功。CUAは保存と同一メモ再取得・OCR/復習往復の確定維持を観測。その後、保存後往復・同じメモと一覧1件・実倍率200%の手順に本人が「全部確認できた」と回答。human-acceptance-20261029.mdに本人報告として記録。ID実値やCSS幅/DPRの追加測定、400%・指定幅・全キーボード等の受入へ拡張しない。"
     },
     {
       "id": "AC9.2.4",
       "status": "OK",
       "target": "tests/u2-generated-notes/ui.test.ts",
-      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。今回全体とcoverageは635/635。gui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
+      "note": "既存U2の実装/ローカルdummy・Node/実PG試験の対応。2026-10-26の全体は645/645、coverageはexit0（2026-10-24の635/635は履歴）。docs/generated-notes-checks.mdとgui-recheck-after-approval-20261023.mdに画面の未確認を明記し、実DOM/native倍率や実外部の受入とは区別。"
     },
     {
       "id": "BR1.1",
@@ -839,7 +839,7 @@
       "id": "NFR3.1",
       "status": "Deferred",
       "target": "docs/generated-notes-checks.md",
-      "note": "保存意図を候補寿命へ結合する既存8回帰を本attemptで再検証。今回新規8件ではない。U2実DOMの保存後往復は未確認で共同受入を保留。"
+      "note": "保存意図を候補寿命へ結合する既存8回帰を2026-10-26に再検証（UI42/42成功）。今回新規8件ではなく、新しい不備の再現もない。U2実DOMの保存後往復は未確認で共同受入を保留。"
     },
     {
       "id": "NFR3.2",
@@ -880,8 +880,8 @@
     {
       "id": "NFR5.2",
       "status": "Deferred",
-      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u2-generated-notes/code-generation/gui-recheck-after-approval-20261023.md",
-      "note": "gui-recheck-after-approval-20261023.mdに全追加確認を記録。初回2区間で画像選択/OCR/生成まで観察したが寿命終了で保存後往復は未確認。2026-10-24の再開ではブラウザ接続切断とWindows操作起動失敗で未確認。native200%/400%、各幅/keyboard等の合格にしない。"
+      "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u2-generated-notes/code-generation/human-acceptance-20261029.md",
+      "note": "2026-10-29、標準保存往復・一覧1件・実倍率200%の主要操作手順に本人が「全部確認できた」と回答。本人報告でありAI測定ではない。400%・PC1366x768/390x844・幅320/767/768・全keyboard/focus/label/通知の追加証拠、CSS幅/DPR等は未提供。承認条件全体の達成にせずDeferredを維持。過去CUAの未確認履歴も保持。"
     },
     {
       "id": "NFR6.1",
@@ -905,7 +905,7 @@
       "id": "NFR6.4",
       "status": "Deferred",
       "target": "docs/generated-notes-checks.md",
-      "note": "2026-10-24のlint/typecheck、全体635/635、coverage635/635・lines85.95%、build18/18、diffはexit0。gui-recheck-after-approval-20261023.md参照。過去の失敗と区別し、実CI job未確認のDeferredを維持。"
+      "note": "2026-10-26のlint/typecheck、全体645/645、coverage exit0・lines85.96%（2964/3448）、build18/18、diffはexit0（docs/generated-notes-checks.md）。2026-10-24の635/635・lines85.95%は履歴。過去の失敗と区別し、実CI job未確認のDeferredを維持。"
     },
     {
       "id": "NFR7.1",

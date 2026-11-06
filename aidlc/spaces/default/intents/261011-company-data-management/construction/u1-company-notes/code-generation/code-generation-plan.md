@@ -1,4 +1,4 @@
-# U1：実DBテストの30秒上限への変更（改訂6）
+# U1：実DBテストの30秒上限への変更（改訂7）
 
 ## Summary
 
@@ -7,6 +7,8 @@
 - Tests: 既存の最新取得1件・復元session拒否2件を含む対象2ファイル、U1回帰、全体test・coverage・lint・typecheck・build。新規件数は増やさず、assertion・skip0・全app/src line80%以上を維持する。
 
 ## Scope and Current Evidence
+
+再開した今回の試行では、本人の「修正点ありませんそのまま進んでください」に従い、機能・受入基準・テストの期待結果を変更しない。既存の30秒設定が現在のソースにあることを確認し、以下の検証と現行ソースに対するレビューを改めて実施する。過去の成功記録を今回の検証結果やレビューとして流用しない。
 
 2026-10-24の本人指示：「U１のテストが止まっているらしい。タイムアウトしているらしい。処理の遅いのは一旦許容する方針で行く」「一旦３０秒にして出来たら突破でいい気がする。処理が遅いのは後でやる内容とすればいいかな」。
 
@@ -33,10 +35,12 @@
 - [x] Step 1 — 差分・runner確認。AC6.3.2／RD3／NFR6.1・6.4。既存Node22の実行ファイルとVitest/v8、2対象fileと3件の名前、既存設定を読取り確認し、手順のschema readinessを1回実行。環境失敗をRedとしない。DBが必要なら既存compose serviceをvolumeリセットなしで起動する。
 - [x] Step 2 — 待機上限の設定変更。上記3件だけit第三引数30000を明示する。新しい振る舞い・不具合修復はなくテスト待機予算だけの変更のため新規TDD Redは非適用。既往timeoutは履歴として参照し、人工Redや同じ失敗の再現を追加しない。認証・データ保持等の期待を変更しない。
 - [x] Step 3 — 対象回帰。手順の2ファイルexact commandを1回実行し、実件数・exit・skip・経過と該当3件の結果を記録する。30秒以内に期待結果を満たせば、この待機予算下での機能回帰成功とする。30秒timeout、assertion、cleanup失敗は失敗のまま停止し、自動再試行・追加緩和・原因修復へ進まない。
-- [ ] Step 4 — U1回帰と全体品質。U1 exact command後、lint→typecheck→npm test→coverage→build→diff checkを順次1回ずつ実行。既定並列・skip0・全app/src lines80%以上を維持し、失敗時は追加Retryせず提示する。途中の観測制御試験の失敗を除外しない。
+- [x] Step 4 — U1回帰と全体品質。U1 exact command後、lint→typecheck→npm test→coverage→build→diff checkを順次1回ずつ実行。既定並列・skip0・全app/src lines80%以上を維持し、失敗時は追加Retryせず提示する。途中の観測制御試験の失敗を除外しない。
 - [ ] Step 5 — 記録・review・正式checkpoint。AC/BR/NFRの累積traceとDeferredを保全し、source-manifestとsummaryを実差分・結果で更新。正式reviewと登録済み公式検証コマンドを使い、必要な本人判断を待つ。今回の成功だけでU1全受入・U2 GUI・本番を完了扱いにしない。
 
 ## Verification Commands
+
+改訂7では、改訂6の差分検査が公式ツール所有の監査記録12行の行末空白で停止したため、差分検査の対象からこの監査記録ディレクトリだけを除く。アプリのソース・テスト・その他の計画記録は引き続き検査する。lint、typecheck、test、coverage、buildの判定基準は変更しない。この変更は新しいPlan Approval後にのみ実行する。
 
 全コマンドは既存Node22のprocess-local PATH、dummy providers、localhost/workspace_testを使用。手順の対象・U1 exact commandsを先に実行する。検証は直列。必要な環境準備のみ：
 ```text
@@ -50,7 +54,7 @@ npm run typecheck
 npm test
 npm test -- --passWithNoTests=false --coverage
 npm run build
-git diff --check
+git diff --check -- . ':(exclude)aidlc/spaces/default/intents/261011-company-data-management/audit/**'
 npm test -- --passWithNoTests=false
 ```
 

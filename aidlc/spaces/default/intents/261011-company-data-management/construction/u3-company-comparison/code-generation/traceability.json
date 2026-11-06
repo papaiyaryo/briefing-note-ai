@@ -487,7 +487,7 @@
       "id": "AC6.3.1",
       "status": "Deferred",
       "target": "tests/u3-company-comparison/edits.test.ts",
-      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
     },
     {
       "id": "AC6.3.2",
@@ -619,7 +619,7 @@
       "id": "AC8.1.4",
       "status": "Deferred",
       "target": "tests/u3-company-comparison/model.test.ts",
-      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
     },
     {
       "id": "AC8.1.5",
@@ -649,7 +649,7 @@
       "id": "AC9.1.4",
       "status": "Deferred",
       "target": "tests/u3-company-comparison/export.test.ts",
-      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+      "note": "U3比較部分を実装し対象単体/実PGを確認。manual全variantは未完了。revision02品質はverification-revision-02.md、限定GUIと未確認はmanual-revision-02-root.md参照。共同AC全体/実Auth/外部の合格ではない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
     },
     {
       "id": "AC9.1.5",
@@ -733,7 +733,7 @@
       "id": "BR4.1",
       "status": "Deferred",
       "target": "tests/u3-company-comparison/edits.test.ts",
-      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
     },
     {
       "id": "BR4.2",
@@ -758,7 +758,7 @@
       "id": "BR5.1",
       "status": "Deferred",
       "target": "tests/u3-company-comparison/export.test.ts",
-      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。"
+      "note": "実装と受入試験の対応。実B session/A→B→A等の未確認が残るため全体受入は保留。CDP/helper技術停止は解消済み。品質検査成功だけで受入を完了しない。 revision02のR-01誤成功表示とR-02参照利用不可ガードは新規20回帰で検証。TDDはbugfix-evidence-revision-02.md、GUIの実施範囲/未達はmanual-revision-02-root.md。Deferredは共同/全受入の未確定を維持する。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
     },
     {
       "id": "BR5.2",
@@ -909,13 +909,13 @@
       "id": "NFR5.2",
       "status": "Deferred",
       "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-revision-02-root.md",
-      "note": "設計対応: logical-components.md — LC1のUI投影をPC table caption/row-column見出しとアクセス可能scroll領域、mobile観点別縦表示へ分け、同じLC3順序/参照/区分を使う。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision01当時のlocal実DOM補完はmanual-acceptance-status.md/cdp-retry-evidence.md参照。当時の幅/native操作・安全表示/契約不正URL拒否・実Tab証拠を履歴として保持。revision02の幅/native操作の成功へ流用しない。Deferredは全体受入判定の保留でありlocal実証なしを意味しない。 revision02 CUAはPCの通知/停止/Tab/ShiftTab/Enterのみ実観測。390幅overrideとnative拡大は実幅変化を確認できず、mobile/native倍率は未確認。"
+      "note": "設計対応: logical-components.md — LC1のUI投影をPC table caption/row-column見出しとアクセス可能scroll領域、mobile観点別縦表示へ分け、同じLC3順序/参照/区分を使う。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision01当時のlocal実DOM補完はmanual-acceptance-status.md/cdp-retry-evidence.md参照。当時の幅/native操作・安全表示/契約不正URL拒否・実Tab証拠を履歴として保持。revision02の幅/native操作の成功へ流用しない。Deferredは全体受入判定の保留でありlocal実証なしを意味しない。 revision02 CUAはPCの通知/停止/Tab/ShiftTab/Enterのみ実観測。390幅overrideとnative拡大は実幅変化を確認できず、mobile/native倍率は未確認。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
     },
     {
       "id": "NFR5.3",
       "status": "Deferred",
       "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-revision-02-root.md",
-      "note": "設計対応: logical-components.md — app入口h1だけへfocus、再取得/保存/入力中は維持。欄ごとlabel/status、未保存取消しは起動元と保持入力に戻す。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision01当時のlocal実DOM補完はmanual-acceptance-status.md/cdp-retry-evidence.md参照。当時の幅/native操作・安全表示/契約不正URL拒否・実Tab証拠を履歴として保持。revision02の幅/native操作の成功へ流用しない。Deferredは全体受入判定の保留でありlocal実証なしを意味しない。 revision02 CUAはPCの通知/停止/Tab/ShiftTab/Enterのみ実観測。390幅overrideとnative拡大は実幅変化を確認できず、mobile/native倍率は未確認。"
+      "note": "設計対応: logical-components.md — app入口h1だけへfocus、再取得/保存/入力中は維持。欄ごとlabel/status、未保存取消しは起動元と保持入力に戻す。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision01当時のlocal実DOM補完はmanual-acceptance-status.md/cdp-retry-evidence.md参照。当時の幅/native操作・安全表示/契約不正URL拒否・実Tab証拠を履歴として保持。revision02の幅/native操作の成功へ流用しない。Deferredは全体受入判定の保留でありlocal実証なしを意味しない。 revision02 CUAはPCの通知/停止/Tab/ShiftTab/Enterのみ実観測。390幅overrideとnative拡大は実幅変化を確認できず、mobile/native倍率は未確認。 revision03: R-01/R-02既存20回帰を再検証しU3全141件成功。今回のGUI実証0、共同/全受入はDeferredのまま。verification-results.md/manual-evidence.md参照。"
     },
     {
       "id": "NFR6.1",
@@ -933,19 +933,19 @@
       "id": "NFR6.3",
       "status": "Deferred",
       "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/verification-revision-02.md",
-      "note": "設計対応: observability-design.md — 既存lint/typecheck/test/buildと全app/src lines80%以上のCI条件を維持。source manifest/fingerprint/自己差分review/正式reviewで変更を固定。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision02の同条件coverage Retryは635件/lines85.95%。先行の失敗と最終品質は同記録に分離。実CIは未確認。"
+      "note": "設計対応: observability-design.md — 既存lint/typecheck/test/buildと全app/src lines80%以上のCI条件を維持。source manifest/fingerprint/自己差分review/正式reviewで変更を固定。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision02の同条件coverage Retryは635件/lines85.95%。先行の失敗と最終品質は同記録に分離。実CIは未確認。 revision03: Node22の全645件/lines85.96%/lint/typecheck/build成功。監査記録だけ除外した差分検査exit0、全体差分はaudit末尾空白2件でexit1の履歴を保持。実CI未確認。 2026-10-29再実行: HEAD e22b4d07a6f9b52228f4e7015d378afb529edfb1、Docker権限拒否でDB準備exit1となり停止。今回のrunner/baseline/exact/全体品質/画面は未実施。旧baseline HEADとの一致を証明できず、過去成功は今回へ流用しない。アプリ・試験変更0、既存受入状態は維持。"
     },
     {
       "id": "NFR6.4",
       "status": "Deferred",
       "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/resume-evidence-2026-10-25.md",
-      "note": "設計対応: observability-design.md — 純粋モデル/API fake/実PG・HTTP/実DOM・browser/native zoom/性能を別の欄で記録。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision02 CUAはPCの通知/停止/Tab/ShiftTab/Enterのみ実観測。390幅overrideとnative拡大は実幅変化を確認できず、mobile/native倍率は未確認。"
+      "note": "設計対応: observability-design.md — 純粋モデル/API fake/実PG・HTTP/実DOM・browser/native zoom/性能を別の欄で記録。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。 revision02 CUAはPCの通知/停止/Tab/ShiftTab/Enterのみ実観測。390幅overrideとnative拡大は実幅変化を確認できず、mobile/native倍率は未確認。 revision03: GUI成功0、専用previewのhelper消失/schema0を確認。M-R1〜5とR-03は未確認。"
     },
     {
       "id": "NFR7.1",
       "status": "Deferred",
       "target": "aidlc/spaces/default/intents/261011-company-data-management/construction/u3-company-comparison/code-generation/manual-evidence.md",
-      "note": "設計対応: performance-design.md — LC2のC4 HTTPを代表fixtureで計測。warmup5→2client×各50回、20社比較p95≤2秒、最大/失敗数/fixture bytes/対象SHA/環境を保存。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。"
+      "note": "設計対応: performance-design.md — LC2のC4 HTTPを代表fixtureで計測。warmup5→2client×各50回、20社比較p95≤2秒、最大/失敗数/fixture bytes/対象SHA/環境を保存。実施範囲・残条件はverification-results.md/manual-evidence.mdへ。実CI/外部を含む最終達成宣言ではない。2026-10-30再検証: 自動試験の結果はverification-results.mdへ追記。画面操作0・M-R1〜5未確認、scoped diff exit1は人間の続行判断で保持し、Deferredを達成済みに変更しない。"
     },
     {
       "id": "NFR7.2",
